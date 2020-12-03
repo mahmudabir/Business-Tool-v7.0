@@ -4,7 +4,19 @@
 `Designed using front-end technologies like: Bootstrap, Jquery etc.`<br>
 `For Database Sql Server 19 was used.`<br>
 `Database Backup is in DBSchema directory.`<br>
-`Demo Data is already stored in "BusinessToolDB.bak" file.`
+`Demo Data is already stored in "BusinessToolDB.bak" file.`<br>
+
+
+# Login Information<br />
+
+USERNAME -------- PASSWORD -------- TYPE<br />
+
+1 --------------------- 1111 -------------- Admin<br />
+2 --------------------- 2222 -------------- Manager<br />
+3 --------------------- 3333 -------------- Salesman<br />
+4 --------------------- 4444 -------------- Deliveryman<br />
+5 --------------------- 5555 -------------- Customer<br />
+6 --------------------- 6666 -------------- Vendor<br />
 
 
 # Contact<br>
