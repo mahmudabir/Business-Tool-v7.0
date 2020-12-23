@@ -7,22 +7,19 @@ using System.Web;
 
 namespace BTv7.Models
 {
-    public class Vendor
+    public class Feedback
     {
         [Key]
         public int ID { get; set; }
         [Required]
-        public string Name { get; set; }
+        public string Email { get; set; }
         [Required]
-        public string Image { get; set; }
+        public string Subject { get; set; }
         [Required]
-        public DateTime JoinDate { get; set; }
-        public int? AddedBy { get; set; }
+        public string Description { get; set; }
 
-
-
-        [ForeignKey("Login")]
-        public int LoginID { get; set; }
-        public virtual Login Login { get; set; }
+        [ForeignKey("Customer")]
+        public int CustomerID { get; set; }
+        public virtual Customer Customer { get; set; }
     }
 }

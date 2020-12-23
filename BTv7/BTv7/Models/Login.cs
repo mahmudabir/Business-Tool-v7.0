@@ -24,17 +24,17 @@ namespace BTv7.Models
 
         [ForeignKey("AccessStatus")]
         public int AccessStatusID { get; set; }
-        public AccessStatus AccessStatus { get; set; }
+        public virtual AccessStatus AccessStatus { get; set; }
 
 
         [ForeignKey("UserDesignation")]
         public int UserDesignationID { get; set; }
-        public UserDesignation UserDesignation { get; set; }
+        public virtual UserDesignation UserDesignation { get; set; }
 
 
         [ForeignKey("RegistrationStatus")]
         public int RegistrationStatusID { get; set; }
-        public RegistrationStatus RegistrationStatus { get; set; }
+        public virtual RegistrationStatus RegistrationStatus { get; set; }
 
 
 

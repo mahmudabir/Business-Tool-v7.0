@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -23,6 +24,11 @@ namespace BTv7.Models
 
         [ForeignKey("Login")]
         public int LoginID { get; set; }
-        public Login Login { get; set; }
+        public virtual Login Login { get; set; }
+
+
+
+        [JsonIgnore]
+        public ICollection<Feedback> Feedbacks { get; set; }
     }
 }

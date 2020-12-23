@@ -24,6 +24,9 @@ namespace BTv7.Models
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Vendor> Vendors { get; set; }
+        public DbSet<Feedback> Feedbacks { get; set; }
+        public DbSet<Note> Notes { get; set; }
+        public DbSet<Notice> Notices { get; set; }
 
 
 

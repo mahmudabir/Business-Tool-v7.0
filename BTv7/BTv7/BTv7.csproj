@@ -111,14 +111,21 @@
     <Compile Include="Migrations\202012231026141_VendorModel.designer.cs">
       <DependentUpon>202012231026141_VendorModel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202012231042346_FeedbackNoteNoticeModel.cs" />
+    <Compile Include="Migrations\202012231042346_FeedbackNoteNoticeModel.designer.cs">
+      <DependentUpon>202012231042346_FeedbackNoteNoticeModel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccessStatus.cs" />
     <Compile Include="Models\BTv7DbContext.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\DeliveryStatus.cs" />
     <Compile Include="Models\Employee.cs" />
+    <Compile Include="Models\Feedback.cs" />
     <Compile Include="Models\Login.cs" />
     <Compile Include="Models\MessageStatus.cs" />
+    <Compile Include="Models\Note.cs" />
+    <Compile Include="Models\Notice.cs" />
     <Compile Include="Models\OrderStatus.cs" />
     <Compile Include="Models\ProductStatus.cs" />
     <Compile Include="Models\ProductType.cs" />
@@ -152,6 +159,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202012231026141_VendorModel.resx">
       <DependentUpon>202012231026141_VendorModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012231042346_FeedbackNoteNoticeModel.resx">
+      <DependentUpon>202012231042346_FeedbackNoteNoticeModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
