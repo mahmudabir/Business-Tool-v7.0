@@ -20,7 +20,10 @@ namespace BTv7.Models
         public DbSet<MessageStatus> MessageStatuses { get; set; }
         public DbSet<DeliveryStatus> DeliveryStatuses { get; set; }
         public DbSet<ProductType> ProductTypes { get; set; }
-
+        public DbSet<Login> Logins { get; set; }
+        public DbSet<Customer> Customers { get; set; }
+        public DbSet<Employee> Employees { get; set; }
+        public DbSet<Vendor> Vendors { get; set; }
 
 
 
