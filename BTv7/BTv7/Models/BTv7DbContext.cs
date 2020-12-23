@@ -27,6 +27,9 @@ namespace BTv7.Models
         public DbSet<Feedback> Feedbacks { get; set; }
         public DbSet<Note> Notes { get; set; }
         public DbSet<Notice> Notices { get; set; }
+        public DbSet<Chat> Chats { get; set; }
+        public DbSet<Message> Messages { get; set; }
+
 
 
 

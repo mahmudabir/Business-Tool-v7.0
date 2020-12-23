@@ -115,14 +115,20 @@
     <Compile Include="Migrations\202012231042346_FeedbackNoteNoticeModel.designer.cs">
       <DependentUpon>202012231042346_FeedbackNoteNoticeModel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202012231054383_ChatMessageModel.cs" />
+    <Compile Include="Migrations\202012231054383_ChatMessageModel.designer.cs">
+      <DependentUpon>202012231054383_ChatMessageModel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccessStatus.cs" />
     <Compile Include="Models\BTv7DbContext.cs" />
+    <Compile Include="Models\Chat.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\DeliveryStatus.cs" />
     <Compile Include="Models\Employee.cs" />
     <Compile Include="Models\Feedback.cs" />
     <Compile Include="Models\Login.cs" />
+    <Compile Include="Models\Message.cs" />
     <Compile Include="Models\MessageStatus.cs" />
     <Compile Include="Models\Note.cs" />
     <Compile Include="Models\Notice.cs" />
@@ -162,6 +168,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202012231042346_FeedbackNoteNoticeModel.resx">
       <DependentUpon>202012231042346_FeedbackNoteNoticeModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012231054383_ChatMessageModel.resx">
+      <DependentUpon>202012231054383_ChatMessageModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
