@@ -139,6 +139,14 @@
     <Compile Include="Migrations\202012231414145_VendorChange.designer.cs">
       <DependentUpon>202012231414145_VendorChange.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202012231438056_StatusDataInput.cs" />
+    <Compile Include="Migrations\202012231438056_StatusDataInput.designer.cs">
+      <DependentUpon>202012231438056_StatusDataInput.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012231440293_LoginDataInput.cs" />
+    <Compile Include="Migrations\202012231440293_LoginDataInput.designer.cs">
+      <DependentUpon>202012231440293_LoginDataInput.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccessStatus.cs" />
     <Compile Include="Models\BTv7DbContext.cs" />
@@ -211,6 +219,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202012231414145_VendorChange.resx">
       <DependentUpon>202012231414145_VendorChange.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012231438056_StatusDataInput.resx">
+      <DependentUpon>202012231438056_StatusDataInput.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012231440293_LoginDataInput.resx">
+      <DependentUpon>202012231440293_LoginDataInput.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
