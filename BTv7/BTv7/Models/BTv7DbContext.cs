@@ -30,6 +30,8 @@ namespace BTv7.Models
         public DbSet<Chat> Chats { get; set; }
         public DbSet<Message> Messages { get; set; }
         public DbSet<Product> Products { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<SaleType> SaleTypes { get; set; }
 
 
 
@@ -46,6 +48,7 @@ namespace BTv7.Models
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
         }
     }
 }

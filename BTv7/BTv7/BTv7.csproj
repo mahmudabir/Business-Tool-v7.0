@@ -123,6 +123,14 @@
     <Compile Include="Migrations\202012231102434_ProductModel.designer.cs">
       <DependentUpon>202012231102434_ProductModel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202012231302542_CustomerEmployeeChange.cs" />
+    <Compile Include="Migrations\202012231302542_CustomerEmployeeChange.designer.cs">
+      <DependentUpon>202012231302542_CustomerEmployeeChange.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012231325448_SaleTypeOrderModel.cs" />
+    <Compile Include="Migrations\202012231325448_SaleTypeOrderModel.designer.cs">
+      <DependentUpon>202012231325448_SaleTypeOrderModel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccessStatus.cs" />
     <Compile Include="Models\BTv7DbContext.cs" />
@@ -136,11 +144,13 @@
     <Compile Include="Models\MessageStatus.cs" />
     <Compile Include="Models\Note.cs" />
     <Compile Include="Models\Notice.cs" />
+    <Compile Include="Models\Order.cs" />
     <Compile Include="Models\OrderStatus.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\ProductStatus.cs" />
     <Compile Include="Models\ProductType.cs" />
     <Compile Include="Models\RegistrationStatus.cs" />
+    <Compile Include="Models\SaleType.cs" />
     <Compile Include="Models\UserDesignation.cs" />
     <Compile Include="Models\Vendor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -179,6 +189,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202012231102434_ProductModel.resx">
       <DependentUpon>202012231102434_ProductModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012231302542_CustomerEmployeeChange.resx">
+      <DependentUpon>202012231302542_CustomerEmployeeChange.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012231325448_SaleTypeOrderModel.resx">
+      <DependentUpon>202012231325448_SaleTypeOrderModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

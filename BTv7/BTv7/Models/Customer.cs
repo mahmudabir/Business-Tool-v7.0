@@ -18,7 +18,12 @@ namespace BTv7.Models
         public string Image { get; set; }
         [Required]
         public DateTime JoinDate { get; set; }
+
+
+        [ForeignKey("Employeee")]
         public int? ApprovedBy { get; set; }
+        public virtual Employee Employeee { get; set; }
+
         public string Address { get; set; }
 
 
@@ -30,5 +35,7 @@ namespace BTv7.Models
 
         [JsonIgnore]
         public ICollection<Feedback> Feedbacks { get; set; }
+        [JsonIgnore]
+        public ICollection<Order> Orders { get; set; }
     }
 }

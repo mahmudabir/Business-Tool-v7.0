@@ -20,7 +20,10 @@ namespace BTv7.Models
         public float Salary { get; set; }
         [Required]
         public DateTime JoinDate { get; set; }
+
+        [ForeignKey("Employeee")]
         public int? AddeddBy { get; set; }
+        public virtual Employee Employeee { get; set; }
 
 
         [ForeignKey("Login")]
@@ -32,5 +35,11 @@ namespace BTv7.Models
         public ICollection<Note> Notes { get; set; }
         [JsonIgnore]
         public ICollection<Notice> Notices { get; set; }
+        [JsonIgnore]
+        public ICollection<Customer> Customers { get; set; }
+        [JsonIgnore]
+        public ICollection<Employee> Employees { get; set; }
+        [JsonIgnore]
+        public ICollection<Order> Orders { get; set; }
     }
 }
