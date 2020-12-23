@@ -29,6 +29,7 @@ namespace BTv7.Models
         public DbSet<Notice> Notices { get; set; }
         public DbSet<Chat> Chats { get; set; }
         public DbSet<Message> Messages { get; set; }
+        public DbSet<Product> Products { get; set; }
 
 
 
