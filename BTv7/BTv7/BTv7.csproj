@@ -131,6 +131,14 @@
     <Compile Include="Migrations\202012231325448_SaleTypeOrderModel.designer.cs">
       <DependentUpon>202012231325448_SaleTypeOrderModel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202012231406239_CartnRecordModel.cs" />
+    <Compile Include="Migrations\202012231406239_CartnRecordModel.designer.cs">
+      <DependentUpon>202012231406239_CartnRecordModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012231414145_VendorChange.cs" />
+    <Compile Include="Migrations\202012231414145_VendorChange.designer.cs">
+      <DependentUpon>202012231414145_VendorChange.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccessStatus.cs" />
     <Compile Include="Models\BTv7DbContext.cs" />
@@ -145,11 +153,13 @@
     <Compile Include="Models\Note.cs" />
     <Compile Include="Models\Notice.cs" />
     <Compile Include="Models\Order.cs" />
+    <Compile Include="Models\OrderCart.cs" />
     <Compile Include="Models\OrderStatus.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\ProductStatus.cs" />
     <Compile Include="Models\ProductType.cs" />
     <Compile Include="Models\RegistrationStatus.cs" />
+    <Compile Include="Models\SaleRecord.cs" />
     <Compile Include="Models\SaleType.cs" />
     <Compile Include="Models\UserDesignation.cs" />
     <Compile Include="Models\Vendor.cs" />
@@ -195,6 +205,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202012231325448_SaleTypeOrderModel.resx">
       <DependentUpon>202012231325448_SaleTypeOrderModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012231406239_CartnRecordModel.resx">
+      <DependentUpon>202012231406239_CartnRecordModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012231414145_VendorChange.resx">
+      <DependentUpon>202012231414145_VendorChange.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

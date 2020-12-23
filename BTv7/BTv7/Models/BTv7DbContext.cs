@@ -32,6 +32,9 @@ namespace BTv7.Models
         public DbSet<Product> Products { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<SaleType> SaleTypes { get; set; }
+        public DbSet<OrderCart> OrderCarts { get; set; }
+        public DbSet<SaleRecord> SaleRecords { get; set; }
+
 
 
 

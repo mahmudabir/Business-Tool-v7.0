@@ -18,7 +18,11 @@ namespace BTv7.Models
         public string Image { get; set; }
         [Required]
         public DateTime JoinDate { get; set; }
+
+
+        [ForeignKey("Employee")]
         public int? AddedBy { get; set; }
+        public virtual Employee Employee { get; set; }
 
 
 

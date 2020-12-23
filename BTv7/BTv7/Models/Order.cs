@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -32,11 +33,18 @@ namespace BTv7.Models
         [Required]
         public bool IsSold { get; set; }
 
+        [ForeignKey("OrderStatus")]
         public int OrderStatusID { get; set; }
-        public OrderStatus OrderStatus { get; set; }
+        public virtual OrderStatus OrderStatus { get; set; }
 
         [ForeignKey("Employee")]
         public int SellBy { get; set; }
-        public Employee Employee { get; set; }
+        public virtual Employee Employee { get; set; }
+
+
+        [JsonIgnore]
+        public ICollection<OrderCart> OrderCarts { get; set; }
+        [JsonIgnore]
+        public ICollection<SaleRecord> SaleRecords { get; set; }
     }
 }

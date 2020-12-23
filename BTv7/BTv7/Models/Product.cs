@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -36,5 +37,9 @@ namespace BTv7.Models
 
 
         public int? ModifiedBy { get; set; }
+
+
+        [JsonIgnore]
+        public ICollection<OrderCart> OrderCarts { get; set; }
     }
 }

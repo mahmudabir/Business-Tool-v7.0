@@ -41,5 +41,7 @@ namespace BTv7.Models
         public ICollection<Employee> Employees { get; set; }
         [JsonIgnore]
         public ICollection<Order> Orders { get; set; }
+        [JsonIgnore]
+        public ICollection<Vendor> Vendors { get; set; }
     }
 }
