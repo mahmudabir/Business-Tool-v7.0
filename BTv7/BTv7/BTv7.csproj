@@ -156,6 +156,10 @@
     <Compile Include="Migrations\202012241758134_LoginDataInput.Designer.cs">
       <DependentUpon>202012241758134_LoginDataInput.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202012241808255_ProductFKLogin.cs" />
+    <Compile Include="Migrations\202012241808255_ProductFKLogin.Designer.cs">
+      <DependentUpon>202012241808255_ProductFKLogin.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccessStatus.cs" />
     <Compile Include="Models\BTv7DbContext.cs" />
@@ -242,6 +246,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202012241758134_LoginDataInput.resx">
       <DependentUpon>202012241758134_LoginDataInput.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012241808255_ProductFKLogin.resx">
+      <DependentUpon>202012241808255_ProductFKLogin.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

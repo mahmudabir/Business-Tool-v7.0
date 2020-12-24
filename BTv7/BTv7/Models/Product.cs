@@ -35,11 +35,12 @@ namespace BTv7.Models
         public int VendorID { get; set; }
         public virtual Vendor Vendor { get; set; }
 
-
+        [ForeignKey("Login")]
         public int? ModifiedBy { get; set; }
+        public Login Login { get; set; }
 
 
         [JsonIgnore]
-        public ICollection<OrderCart> OrderCarts { get; set; }
+        public virtual ICollection<OrderCart> OrderCarts { get; set; }
     }
 }

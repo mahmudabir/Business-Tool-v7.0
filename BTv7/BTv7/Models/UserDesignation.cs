@@ -16,6 +16,6 @@ namespace BTv7.Models
         public string Designation { get; set; }
 
         [JsonIgnore]
-        public ICollection<Login> Logins { get; set; }
+        public virtual ICollection<Login> Logins { get; set; }
     }
 }

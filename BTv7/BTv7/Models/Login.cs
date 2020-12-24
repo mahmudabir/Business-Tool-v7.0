@@ -40,10 +40,13 @@ namespace BTv7.Models
 
 
         [JsonIgnore]
-        public ICollection<Employee> Employees { get; set; }
+        public virtual ICollection<Employee> Employees { get; set; }
         [JsonIgnore]
-        public ICollection<Customer> Customers { get; set; }
+        public virtual ICollection<Customer> Customers { get; set; }
         [JsonIgnore]
-        public ICollection<Vendor> Vendors { get; set; }
+        public virtual ICollection<Vendor> Vendors { get; set; }
+        [JsonIgnore]
+        public virtual ICollection<Product> Products { get; set; }
+
     }
 }

@@ -43,8 +43,8 @@ namespace BTv7.Models
 
 
         [JsonIgnore]
-        public ICollection<OrderCart> OrderCarts { get; set; }
+        public virtual ICollection<OrderCart> OrderCarts { get; set; }
         [JsonIgnore]
-        public ICollection<SaleRecord> SaleRecords { get; set; }
+        public virtual ICollection<SaleRecord> SaleRecords { get; set; }
     }
 }

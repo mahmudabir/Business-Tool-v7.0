@@ -17,6 +17,6 @@ namespace BTv7.Models
 
 
         [JsonIgnore]
-        public ICollection<Message> Messages { get; set; }
+        public virtual ICollection<Message> Messages { get; set; }
     }
 }

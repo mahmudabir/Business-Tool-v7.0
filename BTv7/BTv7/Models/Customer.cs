@@ -34,8 +34,8 @@ namespace BTv7.Models
 
 
         [JsonIgnore]
-        public ICollection<Feedback> Feedbacks { get; set; }
+        public virtual ICollection<Feedback> Feedbacks { get; set; }
         [JsonIgnore]
-        public ICollection<Order> Orders { get; set; }
+        public virtual ICollection<Order> Orders { get; set; }
     }
 }

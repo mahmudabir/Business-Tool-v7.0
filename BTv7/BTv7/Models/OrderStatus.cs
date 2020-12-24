@@ -17,6 +17,6 @@ namespace BTv7.Models
 
 
         [JsonIgnore]
-        public ICollection<Order> Orders { get; set; }
+        public virtual ICollection<Order> Orders { get; set; }
     }
 }

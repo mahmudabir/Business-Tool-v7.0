@@ -17,6 +17,6 @@ namespace BTv7.Models
 
 
         [JsonIgnore]
-        public ICollection<Login> Logins { get; set; }
+        public virtual ICollection<Login> Logins { get; set; }
     }
 }

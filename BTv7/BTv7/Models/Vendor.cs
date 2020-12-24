@@ -33,6 +33,6 @@ namespace BTv7.Models
 
 
         [JsonIgnore]
-        public ICollection<Product> Products { get; set; }
+        public virtual ICollection<Product> Products { get; set; }
     }
 }
