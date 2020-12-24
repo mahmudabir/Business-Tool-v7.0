@@ -14,7 +14,6 @@ namespace BTv7.Models
         public int ID { get; set; }
         [Required]
         public string Name { get; set; }
-        [Required]
         public string Image { get; set; }
         [Required]
         public DateTime JoinDate { get; set; }
