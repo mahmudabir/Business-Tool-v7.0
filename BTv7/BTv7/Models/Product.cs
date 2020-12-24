@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using BTv7.Repositories;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -8,7 +9,7 @@ using System.Web;
 
 namespace BTv7.Models
 {
-    public class Product
+    public class Product : IValidatableObject
     {
         [Key]
         public int ID { get; set; }
@@ -19,7 +20,7 @@ namespace BTv7.Models
         public int Quantity { get; set; }
         [Required]
         public float BuyPrice { get; set; }
-
+        [Required]
         public float SellPrice { get; set; }
 
 
@@ -42,5 +43,36 @@ namespace BTv7.Models
 
         [JsonIgnore]
         public virtual ICollection<OrderCart> OrderCarts { get; set; }
+
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            List<ValidationResult> errors = new List<ValidationResult>();
+            ProductRepository db = new ProductRepository();
+
+            if (BuyPrice < 0)
+            {
+                errors.Add(new ValidationResult($"{nameof(BuyPrice)} cannot be a negative value.", new List<string> { nameof(BuyPrice) }));
+            }
+            if (SellPrice < 0)
+            {
+                errors.Add(new ValidationResult($"{nameof(SellPrice)} cannot be a negative value.", new List<string> { nameof(SellPrice) }));
+            }
+            if (SellPrice < BuyPrice)
+            {
+                errors.Add(new ValidationResult($"{nameof(SellPrice)} cannot be less than {nameof(BuyPrice)}"));
+            }
+
+
+            if (Quantity < 0)
+            {
+                errors.Add(new ValidationResult($"{nameof(Quantity)} cannot be a negative value.", new List<string> { nameof(Quantity) }));
+            }
+
+
+
+
+            return errors;
+        }
+
     }
 }

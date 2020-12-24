@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using BTv7.Repositories;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -8,7 +9,7 @@ using System.Web;
 
 namespace BTv7.Models
 {
-    public class Login
+    public class Login : IValidatableObject
     {
         [Key]
         public int ID { get; set; }
@@ -47,6 +48,54 @@ namespace BTv7.Models
         public virtual ICollection<Vendor> Vendors { get; set; }
         [JsonIgnore]
         public virtual ICollection<Product> Products { get; set; }
+
+
+
+
+
+
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            List<ValidationResult> errors = new List<ValidationResult>();
+            LoginRepository db = new LoginRepository();
+
+
+            //Username property
+            if (db.GetAll().Where(x => x.Username == Username).FirstOrDefault() != null)
+            {
+                errors.Add(new ValidationResult($"{nameof(Username)} exists already.", new List<string> { nameof(Username) }));
+            }
+            if (Username.Length < 8)
+            {
+                errors.Add(new ValidationResult($"{nameof(Username)} must contain atleast 8 characters.", new List<string> { nameof(Username) }));
+            }
+
+
+
+            //Email property
+            if (db.GetAll().Where(x => x.Email == Email).FirstOrDefault() != null)
+            {
+                errors.Add(new ValidationResult($"{nameof(Email)} exists already.", new List<string> { nameof(Email) }));
+            }
+
+
+
+
+            //Mobile property
+            if (db.GetAll().Where(x => x.Mobile == Mobile).FirstOrDefault() != null)
+            {
+                errors.Add(new ValidationResult($"{nameof(Mobile)} exists already.", new List<string> { nameof(Mobile) }));
+            }
+
+
+            //Password property
+            if (Password.Length < 8)
+            {
+                errors.Add(new ValidationResult($"{nameof(Password)}  must contain atleast 8 characters.", new List<string> { nameof(Password) }));
+            }
+
+            return errors;
+        }
 
     }
 }

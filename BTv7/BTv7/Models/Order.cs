@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using BTv7.Repositories;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -8,7 +9,7 @@ using System.Web;
 
 namespace BTv7.Models
 {
-    public class Order
+    public class Order : IValidatableObject
     {
         [Key]
         public int ID { get; set; }
@@ -46,5 +47,28 @@ namespace BTv7.Models
         public virtual ICollection<OrderCart> OrderCarts { get; set; }
         [JsonIgnore]
         public virtual ICollection<SaleRecord> SaleRecords { get; set; }
+
+
+
+
+
+
+
+
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            List<ValidationResult> errors = new List<ValidationResult>();
+            OrderRepository db = new OrderRepository();
+
+            if (TotalAmount < 0)
+            {
+                errors.Add(new ValidationResult($"{nameof(TotalAmount)} cannot be a negative value.", new List<string> { nameof(TotalAmount) }));
+            }
+
+
+
+
+            return errors;
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using BTv7.Repositories;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -8,7 +9,7 @@ using System.Web;
 
 namespace BTv7.Models
 {
-    public class Employee
+    public class Employee : IValidatableObject
     {
         [Key]
         public int ID { get; set; }
@@ -42,5 +43,26 @@ namespace BTv7.Models
         public virtual ICollection<Order> Orders { get; set; }
         [JsonIgnore]
         public virtual ICollection<Vendor> Vendors { get; set; }
+
+
+
+
+
+
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            List<ValidationResult> errors = new List<ValidationResult>();
+            //EmployeeRepository db = new EmployeeRepository();
+
+            if (Salary < 0)
+            {
+                errors.Add(new ValidationResult($"{nameof(Salary)} cannot be a negative value.", new List<string> { nameof(Salary) }));
+            }
+
+
+
+
+            return errors;
+        }
     }
 }
