@@ -144,20 +144,23 @@
     <Compile Include="Migrations\202012231414145_VendorChange.designer.cs">
       <DependentUpon>202012231414145_VendorChange.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202012231438056_StatusDataInput.cs" />
-    <Compile Include="Migrations\202012231438056_StatusDataInput.designer.cs">
-      <DependentUpon>202012231438056_StatusDataInput.cs</DependentUpon>
+    <Compile Include="Migrations\202012241756372_DeliveryStatusDeleted.cs" />
+    <Compile Include="Migrations\202012241756372_DeliveryStatusDeleted.Designer.cs">
+      <DependentUpon>202012241756372_DeliveryStatusDeleted.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202012231440293_LoginDataInput.cs" />
-    <Compile Include="Migrations\202012231440293_LoginDataInput.designer.cs">
-      <DependentUpon>202012231440293_LoginDataInput.cs</DependentUpon>
+    <Compile Include="Migrations\202012241757184_StatusDataInput.cs" />
+    <Compile Include="Migrations\202012241757184_StatusDataInput.Designer.cs">
+      <DependentUpon>202012241757184_StatusDataInput.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012241758134_LoginDataInput.cs" />
+    <Compile Include="Migrations\202012241758134_LoginDataInput.Designer.cs">
+      <DependentUpon>202012241758134_LoginDataInput.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccessStatus.cs" />
     <Compile Include="Models\BTv7DbContext.cs" />
     <Compile Include="Models\Chat.cs" />
     <Compile Include="Models\Customer.cs" />
-    <Compile Include="Models\DeliveryStatus.cs" />
     <Compile Include="Models\Employee.cs" />
     <Compile Include="Models\Feedback.cs" />
     <Compile Include="Models\Login.cs" />
@@ -231,11 +234,14 @@
     <EmbeddedResource Include="Migrations\202012231414145_VendorChange.resx">
       <DependentUpon>202012231414145_VendorChange.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202012231438056_StatusDataInput.resx">
-      <DependentUpon>202012231438056_StatusDataInput.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202012241756372_DeliveryStatusDeleted.resx">
+      <DependentUpon>202012241756372_DeliveryStatusDeleted.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202012231440293_LoginDataInput.resx">
-      <DependentUpon>202012231440293_LoginDataInput.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202012241757184_StatusDataInput.resx">
+      <DependentUpon>202012241757184_StatusDataInput.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012241758134_LoginDataInput.resx">
+      <DependentUpon>202012241758134_LoginDataInput.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
