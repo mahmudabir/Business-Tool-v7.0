@@ -21,9 +21,9 @@ namespace BTv7.Models
         [Required]
         public DateTime JoinDate { get; set; }
 
-        [ForeignKey("Employeee")]
+        //[ForeignKey("Employeee")]
         public int? AddeddBy { get; set; }
-        public virtual Employee Employeee { get; set; }
+        //public virtual Employee Employeee { get; set; }
 
 
         [ForeignKey("Login")]
@@ -38,8 +38,6 @@ namespace BTv7.Models
         [JsonIgnore]
         public virtual ICollection<Customer> Customers { get; set; }
         [JsonIgnore]
-        public virtual ICollection<Employee> Employees { get; set; }
-        [JsonIgnore]
         public virtual ICollection<Order> Orders { get; set; }
         [JsonIgnore]
         public virtual ICollection<Vendor> Vendors { get; set; }
@@ -52,13 +50,30 @@ namespace BTv7.Models
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             List<ValidationResult> errors = new List<ValidationResult>();
-            //EmployeeRepository db = new EmployeeRepository();
+            CustomerRepository cdb = new CustomerRepository();
+            EmployeeRepository edb = new EmployeeRepository();
+            VendorRepository vdb = new VendorRepository();
 
-            if (Salary < 0)
+            //Salary Cannot be nagetive value
+            //if (Salary < 0.00)
+            //{
+            //    errors.Add(new ValidationResult($"{nameof(Salary)} cannot be a negative value.", new List<string> { nameof(Salary) }));
+            //}
+
+
+            //check if the same login id is available in employee, customer and vendor tables
+            if (cdb.GetAll().Where(x => x.LoginID == LoginID).FirstOrDefault() != null)
             {
-                errors.Add(new ValidationResult($"{nameof(Salary)} cannot be a negative value.", new List<string> { nameof(Salary) }));
+                errors.Add(new ValidationResult($"User exists already.", new List<string> { nameof(LoginID) }));
             }
-
+            if (edb.GetAll().Where(x => x.LoginID == LoginID).FirstOrDefault() != null)
+            {
+                errors.Add(new ValidationResult($"User exists already.", new List<string> { nameof(LoginID) }));
+            }
+            if (vdb.GetAll().Where(x => x.LoginID == LoginID).FirstOrDefault() != null)
+            {
+                errors.Add(new ValidationResult($"User exists already.", new List<string> { nameof(LoginID) }));
+            }
 
 
 
