@@ -101,6 +101,7 @@
     <Compile Include="Controllers\CustomersController.cs" />
     <Compile Include="Controllers\EmployeesController.cs" />
     <Compile Include="Controllers\LoginsController.cs" />
+    <Compile Include="Controllers\NotesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -159,6 +160,10 @@
     <Compile Include="Migrations\202012241843555_ImageNullable.cs" />
     <Compile Include="Migrations\202012241843555_ImageNullable.Designer.cs">
       <DependentUpon>202012241843555_ImageNullable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012261328401_EmployeeFKEmployeeRemove.cs" />
+    <Compile Include="Migrations\202012261328401_EmployeeFKEmployeeRemove.Designer.cs">
+      <DependentUpon>202012261328401_EmployeeFKEmployeeRemove.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccessStatus.cs" />
@@ -264,6 +269,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202012241843555_ImageNullable.resx">
       <DependentUpon>202012241843555_ImageNullable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012261328401_EmployeeFKEmployeeRemove.resx">
+      <DependentUpon>202012261328401_EmployeeFKEmployeeRemove.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
