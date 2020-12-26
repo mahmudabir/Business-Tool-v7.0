@@ -82,7 +82,7 @@ $(document).ready(function () {
                     console.log("Logout Success");
                     localStorage.clear();
                     console.log(localStorage.user);
-                    window.location.href = "http://localhost/Business-Tool-v7.0-api/Front_End/Html/User/Authentication.html";
+                    window.location.href = "http://localhost/Business-Tool-v7.0-api/Front_End/Html/Login/Authentication.html";
                 } else {
                     $("#msg").html("<div class=\"alert alert-danger\" role=\"alert\">Error : " + xmlhttp.status + ":" + xmlhttp.statusText + "</div>");
                 }
