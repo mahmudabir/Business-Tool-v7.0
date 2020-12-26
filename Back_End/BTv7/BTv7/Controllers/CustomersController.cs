@@ -54,27 +54,27 @@ namespace BTv7.Controllers
         }
 
 
-        [Route("", Name = "CustomerRegistration")]
+        [Route("register", Name = "CustomerRegistration")]
         [BasicAuthentication, Authorize(Roles = "CUSTOMER")]
         public IHttpActionResult PostRegister(Customer customer)
         {
             LoginRepository loginDB = new LoginRepository();
             var loginFromDB = loginDB.GetUserByUsername(Thread.CurrentPrincipal.Identity.Name.ToString());
 
-            Customer customerToDB = new Customer();
+            //Customer customerToDB = new Customer();
 
-            customerToDB.Name = customer.Name;
-            customerToDB.JoinDate = DateTime.Now;
+            //customerToDB.Name = customer.Name;
+            customer.JoinDate = DateTime.Now;
 
-            customerToDB.LoginID = loginFromDB.ID;
+            customer.LoginID = loginFromDB.ID;
             //var identity = (ClaimsIdentity)User.Identity;
             //customerToDB.AddeddBy = Convert.ToInt32(identity.Claims.FirstOrDefault(x => x.Type == "ID").Value);
 
             if (ModelState.IsValid)
             {
-                customerDB.Insert(customerToDB);
+                customerDB.Insert(customer);
 
-                var customerFromDB = customerDB.GetCustomerByLoginID(customerToDB.LoginID);
+                var customerFromDB = customerDB.GetCustomerByLoginID(customer.LoginID);
 
 
 
@@ -89,7 +89,9 @@ namespace BTv7.Controllers
 
 
 
-                return Ok(result);
+                string uri = Url.Link("GetCustomerByID", new { id = customerFromDB.ID });
+
+                return Created(uri, result);
             }
             else
             {

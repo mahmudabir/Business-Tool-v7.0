@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Security.Principal;
 using System.Threading;
 using System.Web.Http;
 
@@ -53,9 +54,52 @@ namespace BTv7.Controllers
 
 
 
+        [Route("login", Name = "UserLogin")]
+        public IHttpActionResult PostLogin(Login login)
+        {
 
 
-        [Route("", Name = "UserRegistration")]
+            if (loginDB.Login(login.Username, login.Password))
+            {
+
+                var loginFromDB = loginDB.GetUserDetails(login.Username, login.Password);
+
+                var result = loginFromDB.AddLinks(
+                new HyperMedia { Href = Url.Link("GetUserByID", new { id = loginFromDB.ID }), Method = "GET", Rel = "Get one user by ID.", },
+                new HyperMedia { Href = Url.Link("GetUsers", null), Method = "GET", Rel = "Get all users.", },
+                new HyperMedia { Href = Url.Link("UserRegistration", null), Method = "POST", Rel = "Create new user.", }//,
+                //new HyperMedia { Href = Url.Link("PutUser", null), Method = "PUT", Rel = "Update User" },
+                //new HyperMedia { Href = Url.Link("DeleteUSer", null), Method = "DELETE", Rel = "Delete USer." }
+                );
+
+
+
+                return Ok(result);
+            }
+            else
+            {
+                return BadRequest("Invalid Login");
+            }
+        }
+
+
+
+        [Route("logout")]
+        public IHttpActionResult GetLogout()
+        {
+
+            Thread.CurrentPrincipal = new GenericPrincipal(new GenericIdentity(""), null);
+            var authOrNot = Thread.CurrentPrincipal.Identity.IsAuthenticated;
+            var authUsername = Thread.CurrentPrincipal.Identity.Name.ToString();
+            var authUserRole = Thread.CurrentPrincipal.IsInRole(null);
+            var authInstanceType = Thread.CurrentPrincipal.GetType();
+            var authType = Thread.CurrentPrincipal.Identity.AuthenticationType;
+            return StatusCode(HttpStatusCode.OK);
+        }
+
+
+
+        [Route("register", Name = "UserRegistration")]
         public IHttpActionResult PostRegister(Login login)
         {
             login.AccessStatusID = 2;
@@ -76,9 +120,9 @@ namespace BTv7.Controllers
                 //new HyperMedia { Href = Url.Link("DeleteUSer", null), Method = "DELETE", Rel = "Delete USer." }
                 );
 
+                string uri = Url.Link("GetUserByID", new { id = loginFromDB.ID });
 
-
-                return Ok(result);
+                return Created(uri, result);
             }
             else
             {

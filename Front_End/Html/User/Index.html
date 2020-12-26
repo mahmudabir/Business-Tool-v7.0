@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>User Details</title>
+    <script type="text/javascript" src="../../Content/jquery.js"></script>
+    <script type="text/javascript" src="../../JS/User/Index.js"></script>
+    <link rel="stylesheet" href="../../CSS/bootstrap.css">
+
+</head>
+<body class="bg-secondary">
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="">Blog</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="">Home</a>
+                </li>
+            </ul>
+            <a class="btn btn-outline-success my-2 my-sm-0 mr-2" href="https://localhost:44345/Views/User/Index.html">Profile</a>
+            <input class="btn btn-outline-danger my-2 my-sm-0 mr-2" type="button" id="logout" value="Logout">
+        </div>
+    </nav>
+
+
+    <div id="msg">
+
+    </div>
+
+    <div class="">
+
+        <div id="userDetails">
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+                        <div class="card card-signin my-5">
+                            <div class="card-body">
+                                <h5 class="card-title text-center">User Details</h5>
+                                <br /><br />
+
+                                <div class="form-label-group">
+                                    <label for="inputEmail">Username</label>
+                                    <input type="email" id="username" class="form-control" placeholder="Username" readonly>
+
+                                </div>
+                                <br />
+                                <div class="form-label-group">
+                                    <label for="inputPassword">Password</label>
+                                    <input type="password" id="password" class="form-control" placeholder="Password" autofocus>
+
+                                </div>
+
+                                <br />
+                                <input class="btn btn-lg btn-primary btn-block text-uppercase" type="button" id="btnEnableEdit" value="Edit" /><br />
+                                <input class="btn btn-lg btn-danger btn-block text-uppercase" type="button" id="btnEditProfile" value="Submit" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <!--<table>
+                <tr>
+                    <td><label><strong>User ID: </strong></label></td>
+                    <td><label id="userID"></label></td>
+                </tr>
+                <tr>
+                    <td><label><strong>Username: </strong></label></td>
+                    <td><input id="username" value="" disabled></td>
+                </tr>
+                <tr>
+                    <td><label><strong>Password: </strong></label></td>
+                    <td><input id="password" value="" disabled></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <br />
+                        <input type="button" id="btnEnableEdit" value="Edit" />
+                        <input type="button" id="btnEditProfile" value="Submit" hidden />
+                    </td>
+                </tr>
+            </table>-->
+
+        </div>
+    </div>
+
+</body>
+<script type="text/javascript" src="../../Content/jquery.js"></script>
+<script type="text/javascript" src="../../Content/popper.js"></script>
+<script type="text/javascript" src="../../Content/bootstrap.js"></script>
+</html>
