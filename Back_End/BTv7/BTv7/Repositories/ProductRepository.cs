@@ -12,5 +12,11 @@ namespace BTv7.Repositories
         {
             return this.GetAll().Where(x => x.Quantity > 0 || x.ProductTypeID == 1).ToList();
         }
+
+
+        public List<Product> ProductSearch(string search)
+        {
+            return this.GetAll().Where(x => x.ProductType.Type.ToLower().Contains(search.ToLower()) || x.Name.ToLower().Contains(search.ToLower())).ToList();
+        }
     }
 }

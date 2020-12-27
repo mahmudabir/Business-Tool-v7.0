@@ -47,5 +47,21 @@ namespace BTv7.Controllers
         }
 
 
+        [Route("search/{s}", Name = "GetProductSearch"), BasicAuthentication]
+        public IHttpActionResult GetPostSearch(string s = "")
+        {
+            var productFromDB = productDB.ProductSearch(s);
+
+            if (productFromDB != null)
+            {
+                return Ok(productFromDB);
+            }
+            else
+            {
+                return BadRequest("No Post Found");
+            }
+        }
+
+
     }
 }
