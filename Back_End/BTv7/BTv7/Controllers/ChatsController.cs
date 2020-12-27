@@ -33,11 +33,12 @@ namespace BTv7.Controllers
         public IHttpActionResult Get(int sid,int rid)
         {
             ChatRepository chatrepo = new ChatRepository();
-            var chatList = chatrepo.GetChatBySenderReceiver(sid, rid);
-            if (chatList != null)
+            var chatFromSender = chatrepo.GetChatBySenderReceiver(sid, rid);
+            
+            if (chatFromSender != null)
             {
                 MessageRepository msgrepo = new MessageRepository();
-                var msgList=msgrepo.GetMessageByChatId(chatList.ID);
+                var msgList=msgrepo.GetMessageByChatId(chatFromSender.ID);
                 if (msgList.Count()>0)
                 {
                     return Ok(msgList);

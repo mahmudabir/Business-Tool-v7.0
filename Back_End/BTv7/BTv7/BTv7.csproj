@@ -166,6 +166,10 @@
     <Compile Include="Migrations\202012261328401_EmployeeFKEmployeeRemove.Designer.cs">
       <DependentUpon>202012261328401_EmployeeFKEmployeeRemove.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202012270339173_SenderReceiverIdInMessagesTable.cs" />
+    <Compile Include="Migrations\202012270339173_SenderReceiverIdInMessagesTable.Designer.cs">
+      <DependentUpon>202012270339173_SenderReceiverIdInMessagesTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccessStatus.cs" />
     <Compile Include="Models\BTv7DbContext.cs" />
@@ -273,6 +277,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202012261328401_EmployeeFKEmployeeRemove.resx">
       <DependentUpon>202012261328401_EmployeeFKEmployeeRemove.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012270339173_SenderReceiverIdInMessagesTable.resx">
+      <DependentUpon>202012270339173_SenderReceiverIdInMessagesTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -15,6 +15,10 @@ namespace BTv7.Models
         public string Text { get; set; }
         [Required]
         public DateTime Date { get; set; }
+        [Required]
+        public int SenderID { get; set; }
+        [Required]
+        public int ReceiverID { get; set; }
 
 
 
