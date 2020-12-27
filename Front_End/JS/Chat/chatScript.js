@@ -1,7 +1,7 @@
 $(document).ready(function(){
 
 	var chatid;
-	var receiver;
+	var receiver=0;
 	$("#sendMsg").click(function(){
 	sendMessage();
 	});
@@ -11,6 +11,7 @@ $(document).ready(function(){
     }
 
 	
+
 
 
 //Starts Get All users connected in chat
@@ -31,6 +32,7 @@ var listChat=function(){
 				var user;
 				var alignment;
 				var smsColor;
+				var opacity;
 				
 				for (var i = 0; i < data.length; i++) {
 					if(data[i].senderID== localStorage.username){
@@ -39,10 +41,26 @@ var listChat=function(){
 						// user="<tr><th><span class='badge progress-bar-danger'>Receiver "+data[i].receiverID+"</span></th></tr>"
 						// alignment="left";
 						// smsColor="success";
-						str+="<tr align='left'><td><button btn-id-username="+data[i].receiverID+" id='choseUser' style='width:245px;'>"+data[i].receiverID+"</button></td></tr>"
+						if(data[i].receiverID==receiver){
+							opacity=.5;
+							console.log(opacity);
+						}
+						else{
+							opacity=1;
+							console.log(receiver);
+						}
+						str+="<tr align='left'><td><button btn-id-username="+data[i].receiverID+" id='choseUser' style='width:245px;opacity:"+opacity+"'>"+data[i].receiverID+"</button></td></tr>"
 					}
 					else if(data[i].receiverID==localStorage.username){
-						str+="<tr align='left'><td><button btn-id-username="+data[i].senderID+" id='choseUser' style='width:245px;'>"+data[i].senderID+"</button></td></tr>"
+						if(data[i].senderID==receiver){
+							opacity=.5;
+							console.log(opacity);
+						}
+						else{
+							opacity=1;
+							console.log(opacity);
+						}
+						str+="<tr align='left'><td><button btn-id-username="+data[i].senderID+" id='choseUser' style='width:245px;opacity:"+opacity+"'>"+data[i].senderID+"</button></td></tr>"
 					}
 
 					
@@ -206,6 +224,7 @@ $("#searchUser").keyup(function(){
 		},
 		complete:function(xmlhttp,status){
 			receiver=button.attr("btn-id-username");
+			listChat();
 			if(xmlhttp.status==200){
 				var data=xmlhttp.responseJSON;
 				var str;
