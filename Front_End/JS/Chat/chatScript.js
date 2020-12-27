@@ -1,7 +1,7 @@
 $(document).ready(function(){
 
 	var chatid;
-	var receiver;
+	var receiver=0;
 	$("#sendMsg").click(function(){
 	sendMessage();
 	});
@@ -11,6 +11,7 @@ $(document).ready(function(){
     }
 
 	
+
 
 
 //Starts Get All users connected in chat
@@ -31,7 +32,7 @@ var listChat=function(){
 				var user;
 				var alignment;
 				var smsColor;
-				
+				var opacity;
 				
 				for (var i = 0; i < data.length; i++) {
 					if(data[i].senderID== localStorage.username){
@@ -40,10 +41,26 @@ var listChat=function(){
 						// user="<tr><th><span class='badge progress-bar-danger'>Receiver "+data[i].receiverID+"</span></th></tr>"
 						// alignment="left";
 						// smsColor="success";
-						str+="<tr align='left'><td><button btn-id-username="+data[i].receiverID+" id='choseUser' style='padding-left:120px;padding-right:115px;'>"+data[i].receiverID+"</button></td></tr>"
+						if(data[i].receiverID==receiver){
+							opacity=.5;
+							console.log(opacity);
+						}
+						else{
+							opacity=1;
+							console.log(receiver);
+						}
+						str+="<tr align='left'><td><button btn-id-username="+data[i].receiverID+" id='choseUser' style='width:245px;opacity:"+opacity+"'>"+data[i].receiverID+"</button></td></tr>"
 					}
 					else if(data[i].receiverID==localStorage.username){
-						str+="<tr align='left'><td><button btn-id-username="+data[i].senderID+" id='choseUser' style='padding-left:120px;padding-right:115px;'>"+data[i].senderID+"</button></td></tr>"
+						if(data[i].senderID==receiver){
+							opacity=.5;
+							console.log(opacity);
+						}
+						else{
+							opacity=1;
+							console.log(opacity);
+						}
+						str+="<tr align='left'><td><button btn-id-username="+data[i].senderID+" id='choseUser' style='width:245px;opacity:"+opacity+"'>"+data[i].senderID+"</button></td></tr>"
 					}
 
 					
@@ -175,13 +192,13 @@ $("#searchUser").keyup(function(){
 				var data=xmlhttp.responseJSON;
 				
 				var str;
-				str="<tr><td><button btn-id-username="+data.username+" id='choseUser' style='padding-left:120px;padding-right:115px;'>"+data.username+"</button></td></tr>"
+				str="<tr><td><button btn-id-username="+data.username+" id='choseUser' style='width:245px;'>"+data.username+"</button></td></tr>"
 				$("#chatList tbody").html(str);
 				
 			}
 			else{
 				
-				$("#chatList tbody").html("No Data Found");
+				$("#chatList tbody").html("No User Found");
 			}
 			}
 			else{
@@ -207,6 +224,7 @@ $("#searchUser").keyup(function(){
 		},
 		complete:function(xmlhttp,status){
 			receiver=button.attr("btn-id-username");
+			listChat();
 			if(xmlhttp.status==200){
 				var data=xmlhttp.responseJSON;
 				var str;
@@ -215,7 +233,14 @@ $("#searchUser").keyup(function(){
 				var smsColor;
 				
 				chatid=data[0].chat.id;
+				var iScrollHeight = $("#fixedHeader").prop("scrollHeight");
+				//console.log(iScrollHeight);
+				$("#fixedHeader").animate({ scrollTop: $('#fixedHeader').prop("scrollHeight")+iScrollHeight}, 500);
 				
+				//$("#fixedHeader").animate({ scrollTop: $('#fixedHeader').height()}, 1000);
+
+				
+
 				
 				for (var i = 0; i < data.length; i++) {
 					if(data[i].senderID==localStorage.username){
@@ -274,6 +299,11 @@ var refreshChat=function(){
 				var alignment;
 				var smsColor;
 				
+				var iScrollHeight = $("#fixedHeader").prop("scrollHeight");
+				//console.log(iScrollHeight);
+				$("#fixedHeader").animate({ scrollTop: $('#fixedHeader').prop("scrollHeight")+iScrollHeight}, 500);
+
+
 				chatid=data[0].chat.id;
 				
 				

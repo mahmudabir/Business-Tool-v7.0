@@ -24,7 +24,7 @@ namespace BTv7.Controllers
             }
             else
             {
-                return StatusCode(HttpStatusCode.NotFound);
+                return StatusCode(HttpStatusCode.NoContent);
             }
         }
 
