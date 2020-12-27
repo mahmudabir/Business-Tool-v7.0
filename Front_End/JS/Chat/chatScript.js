@@ -215,7 +215,14 @@ $("#searchUser").keyup(function(){
 				var smsColor;
 				
 				chatid=data[0].chat.id;
+				var iScrollHeight = $("#fixedHeader").prop("scrollHeight");
+				//console.log(iScrollHeight);
+				$("#fixedHeader").animate({ scrollTop: $('#fixedHeader').prop("scrollHeight")+iScrollHeight}, 500);
 				
+				//$("#fixedHeader").animate({ scrollTop: $('#fixedHeader').height()}, 1000);
+
+				
+
 				
 				for (var i = 0; i < data.length; i++) {
 					if(data[i].senderID==localStorage.username){
@@ -273,6 +280,11 @@ var refreshChat=function(){
 				var user;
 				var alignment;
 				var smsColor;
+				
+				var iScrollHeight = $("#fixedHeader").prop("scrollHeight");
+				//console.log(iScrollHeight);
+				$("#fixedHeader").animate({ scrollTop: $('#fixedHeader').prop("scrollHeight")+iScrollHeight}, 500);
+
 				
 				chatid=data[0].chat.id;
 				
