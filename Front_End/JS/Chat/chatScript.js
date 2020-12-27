@@ -32,7 +32,6 @@ var listChat=function(){
 				var alignment;
 				var smsColor;
 				
-				
 				for (var i = 0; i < data.length; i++) {
 					if(data[i].senderID== localStorage.username){
 						// alignment="right";
@@ -40,10 +39,10 @@ var listChat=function(){
 						// user="<tr><th><span class='badge progress-bar-danger'>Receiver "+data[i].receiverID+"</span></th></tr>"
 						// alignment="left";
 						// smsColor="success";
-						str+="<tr align='left'><td><button btn-id-username="+data[i].receiverID+" id='choseUser' style='padding-left:120px;padding-right:115px;'>"+data[i].receiverID+"</button></td></tr>"
+						str+="<tr align='left'><td><button btn-id-username="+data[i].receiverID+" id='choseUser' style='width:245px;'>"+data[i].receiverID+"</button></td></tr>"
 					}
 					else if(data[i].receiverID==localStorage.username){
-						str+="<tr align='left'><td><button btn-id-username="+data[i].senderID+" id='choseUser' style='padding-left:120px;padding-right:115px;'>"+data[i].senderID+"</button></td></tr>"
+						str+="<tr align='left'><td><button btn-id-username="+data[i].senderID+" id='choseUser' style='width:245px;'>"+data[i].senderID+"</button></td></tr>"
 					}
 
 					
@@ -175,13 +174,13 @@ $("#searchUser").keyup(function(){
 				var data=xmlhttp.responseJSON;
 				
 				var str;
-				str="<tr><td><button btn-id-username="+data.username+" id='choseUser' style='padding-left:120px;padding-right:115px;'>"+data.username+"</button></td></tr>"
+				str="<tr><td><button btn-id-username="+data.username+" id='choseUser' style='width:245px;'>"+data.username+"</button></td></tr>"
 				$("#chatList tbody").html(str);
 				
 			}
 			else{
 				
-				$("#chatList tbody").html("No Data Found");
+				$("#chatList tbody").html("No User Found");
 			}
 			}
 			else{
@@ -285,7 +284,7 @@ var refreshChat=function(){
 				//console.log(iScrollHeight);
 				$("#fixedHeader").animate({ scrollTop: $('#fixedHeader').prop("scrollHeight")+iScrollHeight}, 500);
 
-				
+
 				chatid=data[0].chat.id;
 				
 				
