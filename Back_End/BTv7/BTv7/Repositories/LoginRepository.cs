@@ -21,10 +21,12 @@ namespace BTv7.Repositories
             List<Login> userFromDB = this.GetAll();
             return userFromDB.FirstOrDefault(x => x.Username.Equals(username) && x.Password == password);
         }
+        //This method is used to get the User Details
         public Login GetUserByUsername(string username)
         {
             List<Login> userFromDB = this.GetAll();
             return userFromDB.FirstOrDefault(x => x.Username.Equals(username));
         }
+        
     }
 }
