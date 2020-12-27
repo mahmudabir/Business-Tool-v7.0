@@ -8,5 +8,9 @@ namespace BTv7.Repositories
 {
     public class ProductRepository : Repository<Product>
     {
+        public List<Product> GetAvailableProducts()
+        {
+            return this.GetAll().Where(x => x.Quantity > 0 || x.ProductTypeID == 1).ToList();
+        }
     }
 }

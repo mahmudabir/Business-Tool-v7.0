@@ -1,6 +1,6 @@
 $(document).ready(function () {
     if (localStorage.authUser == null) {
-        window.location.href = "http://localhost/Business-Tool-v7.0-api/Front_End/Html/Login/Authentication.html";
+        window.location.href = "Authentication.html";
     }
 
 
