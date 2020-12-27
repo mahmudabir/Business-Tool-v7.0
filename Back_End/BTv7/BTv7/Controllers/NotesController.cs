@@ -18,7 +18,7 @@ namespace BTv7.Controllers
         public IHttpActionResult Get()
         {
             var notesFromDB = noterepo.GetAll();
-            if (notesFromDB != null)
+            if (notesFromDB.Count() != 0)
             {
                 return Ok(notesFromDB);
             }

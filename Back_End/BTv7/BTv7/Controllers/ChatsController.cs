@@ -28,6 +28,22 @@ namespace BTv7.Controllers
             }
         }
 
+        [Route("", Name = "GetAllUser")]
+        [BasicAuthentication]
+        public IHttpActionResult GetAll()
+        {
+            ChatRepository chatrepo = new ChatRepository();
+            var chatList = chatrepo.GetAll();
+            if (chatList.Count() != 0)
+            {
+                return Ok(chatList);
+            }
+            else
+            {
+                return StatusCode(HttpStatusCode.NotFound);
+            }
+        }
+
         [Route("{sid}/{rid}", Name = "GetChat")]
         [BasicAuthentication]
         public IHttpActionResult Get(int sid,int rid)
@@ -45,7 +61,7 @@ namespace BTv7.Controllers
                 }
                 else
                 {
-                    return StatusCode(HttpStatusCode.NoContent);
+                    return Created("",chatFromSender);
                 }
                
 
@@ -56,8 +72,45 @@ namespace BTv7.Controllers
                 chat.SenderID = sid;
                 chat.ReceiverID = rid;
                 chatrepo.Insert(chat);
-                return Ok(chat);
+                //Get(sid, rid);
+                return Created("", chat);
             }
+        }
+
+        //[Route("{id}", Name = "GetUserFromLogin")]
+        //[BasicAuthentication]
+        //public IHttpActionResult GetUser(int id)
+        //{
+        //    LoginRepository loginrepo = new LoginRepository();
+        //    var user = loginrepo.GetUserByUsername(id.ToString());
+        //    if (user != null)
+        //    {
+        //        EmployeeRepository emprepo = new EmployeeRepository();
+        //        var empList=emprepo.GetEmployeeByLoginID(user.ID);
+        //        if (empList != null)
+        //        {
+        //            return Ok(empList);
+        //        }
+        //        else
+        //        {
+        //            return StatusCode(HttpStatusCode.NotFound);
+        //        }
+        //    }
+        //    else
+        //    {
+        //        return StatusCode(HttpStatusCode.NotFound);
+        //    }
+        //}
+
+
+        [Route("",Name = "SendMessage")]
+        [BasicAuthentication]
+        public IHttpActionResult Post(Message message)
+        {
+            MessageRepository msgrepo = new MessageRepository();
+            message.Date = DateTime.Now;
+            msgrepo.Insert(message);
+            return Created("api/chats/" + message.ID, message);
         }
 
     }
