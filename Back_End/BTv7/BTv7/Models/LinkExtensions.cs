@@ -16,7 +16,7 @@ namespace BTv7.Models
             typeof(T)
                 .GetProperties(BindingFlags.Public | BindingFlags.Instance)
                 .ToList()
-                .ForEach(_ => result[_.Name.ToLower()] = _.GetValue(content));
+                .ForEach(_ => result[_.Name] = _.GetValue(content));
 
             result["links"] = links;
 

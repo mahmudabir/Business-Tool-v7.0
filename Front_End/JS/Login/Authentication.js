@@ -41,7 +41,7 @@ $(document).ready(function () {
                     var user = xhr.responseJSON;
                     localStorage.userId = user.id;
                     localStorage.username = user.username;
-                    localStorage.userRole = user.userdesignationid;
+                    localStorage.userRole = user.userDesignationID;
 
 
                     console.log(localStorage.userId);

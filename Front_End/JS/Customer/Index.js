@@ -23,11 +23,10 @@ $(document).ready(function () {
 
                     var str = '';
                     for (var i = 0; i < data.length; i++) {
-
-                        if (data[i].image != null || data[i].image == "") {
+                        if (data[i].image == null || data[i].image == "" || data[i].image == undefined) {
                             str += "<div class=\"col-md-4 mb-5\">"
                                 + "<div class=\"card\" style=\"width: 18rem; \">"
-                                + "<img src=\"" + data[i].image + "\" class=\"card-img-top\" alt=\"...\" height=\"200\" width=\"200\">"
+                                + "<img src=\"../../Image/no_product.jpg\" class=\"card-img-top\" alt=\"../../Image/no_product.jpg\" height=\"200\" width=\"200\">"
                                 + "<div class=\"card-body\">"
                                 + " <h5 class=\"card-title\">" + data[i].name + " <small> (" + data[i].productStatus.status + ")</small>" + "</h5>"
                                 + "<p class=\"card-text\">Type: " + data[i].productType.type + "</p>"
@@ -40,7 +39,7 @@ $(document).ready(function () {
 
                             str += "<div class=\"col-md-4 mb-5\">"
                                 + "<div class=\"card\" style=\"width: 18rem; \">"
-                                + "<img src=\"../../Image/no_product.jpg\" class=\"card-img-top\" alt=\"../../Image/no_product.jpg\" height=\"200\" width=\"200\">"
+                                + "<img src=\"" + data[i].image + "\" class=\"card-img-top\" alt=\"...\" height=\"200\" width=\"200\">"
                                 + "<div class=\"card-body\">"
                                 + " <h5 class=\"card-title\">" + data[i].name + " <small> (" + data[i].productStatus.status + ")</small>" + "</h5>"
                                 + "<p class=\"card-text\">Type: " + data[i].productType.type + "</p>"
