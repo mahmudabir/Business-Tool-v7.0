@@ -20,7 +20,7 @@ namespace BTv7.Controllers
         public IHttpActionResult GetCustomerByID(int id)
         {
             var customerFromDB = customerDB.Get(id);
-            if (customerFromDB != null)
+            if (customerFromDB.Count != 0)
             {
                 var result = customerFromDB.AddLinks(
                     new HyperMedia { Href = Url.Link("GetCustomerByID", new { id = id }), Method = "GET", Rel = "Get one customer by ID." },
@@ -43,7 +43,7 @@ namespace BTv7.Controllers
         public IHttpActionResult GetCustomers()
         {
             var customerFromDB = customerDB.GetAll();
-            if (customerFromDB != null)
+            if (customerFromDB.Count != 0)
             {
                 return Ok(customerFromDB);
             }

@@ -18,7 +18,7 @@ namespace BTv7.Controllers
         public IHttpActionResult Get()
         {
             var productsFromDB = productDB.GetAvailableProducts();
-            if (productsFromDB != null)
+            if (productsFromDB.Count != 0)
             {
                 return Ok(productsFromDB);
             }
@@ -32,7 +32,7 @@ namespace BTv7.Controllers
         public IHttpActionResult Get(int id)
         {
             var productFromDB = productDB.Get(id);
-            if (productFromDB != null)
+            if (productFromDB.Count != 0)
             {
                 var result = productFromDB.AddLinks(
                     new HyperMedia { Href = Url.Link("GetProducts", null), Rel = "Get all products", Method = "GET" },
@@ -52,13 +52,13 @@ namespace BTv7.Controllers
         {
             var productFromDB = productDB.ProductSearch(s);
 
-            if (productFromDB != null)
+            if (productFromDB.Count != 0)
             {
                 return Ok(productFromDB);
             }
             else
             {
-                return BadRequest("No Post Found");
+                return StatusCode(HttpStatusCode.NoContent);
             }
         }
 
