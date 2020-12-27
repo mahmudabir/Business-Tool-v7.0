@@ -16,6 +16,7 @@ $(document).ready(function () {
 
 
     var loadPost = function () {
+        $("#msg").removeAttr("hidden");
         console.log(pid);
         $.ajax({
             url: "https://localhost:44308/api/products/" + pid,
@@ -49,7 +50,7 @@ $(document).ready(function () {
 
                 }
                 else {
-                    $("#msg").html("<div class=\"alert alert-dander\" role=\"alert\">Product Unavailable</div>");
+                    $("#msg").html("<div class=\"alert alert-danger\" role=\"alert\">Product unavailable</div>");
                 }
             }
         });
@@ -58,6 +59,8 @@ $(document).ready(function () {
     loadPost();
 
 
-
+    $("#msg").click(function () {
+        $(this).attr("hidden", "hidden");
+    });
 
 });

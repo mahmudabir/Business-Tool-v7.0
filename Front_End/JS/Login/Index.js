@@ -70,29 +70,29 @@ $(document).ready(function () {
     //}
 
 
-    var loadLogout = function () {
-        $.ajax({
-            url: "https://localhost:44308/api/logins/logout",
-            method: "GET",
-            headers: {
-                'Authorization': 'Basic ' + localStorage.authUser,
-            },
-            complete: function (xmlhttp, status) {
-                if (xmlhttp.status == 200) {
-                    console.log("Logout Success");
-                    localStorage.clear();
-                    console.log(localStorage.user);
-                    window.location.href = "http://localhost/Business-Tool-v7.0-api/Front_End/Html/Login/Authentication.html";
-                } else {
-                    $("#msg").html("<div class=\"alert alert-danger\" role=\"alert\">Error : " + xmlhttp.status + ":" + xmlhttp.statusText + "</div>");
-                }
-            }
-        })
-    }
+    //var loadLogout = function () {
+    //    $.ajax({
+    //        url: "https://localhost:44308/api/logins/logout",
+    //        method: "GET",
+    //        headers: {
+    //            'Authorization': 'Basic ' + localStorage.authUser,
+    //        },
+    //        complete: function (xmlhttp, status) {
+    //            if (xmlhttp.status == 200) {
+    //                console.log("Logout Success");
+    //                localStorage.clear();
+    //                console.log(localStorage.user);
+    //                window.location.href = "http://localhost/Business-Tool-v7.0-api/Front_End/Html/Login/Authentication.html";
+    //            } else {
+    //                $("#msg").html("<div class=\"alert alert-danger\" role=\"alert\">Error : " + xmlhttp.status + ":" + xmlhttp.statusText + "</div>");
+    //            }
+    //        }
+    //    })
+    //}
 
-    $("#logout").click(function () {
-        loadLogout();
-    });
+    //$("#logout").click(function () {
+    //    loadLogout();
+    //});
 
 
 
