@@ -98,5 +98,25 @@ namespace BTv7.Controllers
                 return BadRequest(ModelState);
             }
         }
+
+
+
+        [Route("{cid}/feedbacks/", Name = "GetFeedbackByCustomerID"), BasicAuthentication]
+        [Authorize(Roles = "CUSTOMER")]
+        public IHttpActionResult GetFeedbackByCustomerID(int cid)
+        {
+            FeedbackRepository feedbackDB = new FeedbackRepository();
+
+            var feedbackFromDB = feedbackDB.GetFeedbackByCustomerID(cid);
+            if (feedbackFromDB != null)
+            {
+                return Ok(feedbackFromDB);
+            }
+            else
+            {
+                return StatusCode(HttpStatusCode.NoContent);
+            }
+
+        }
     }
 }

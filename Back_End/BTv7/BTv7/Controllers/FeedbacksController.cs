@@ -40,7 +40,8 @@ namespace BTv7.Controllers
                 var result = feedbackFromDB.AddLinks(
                     new HyperMedia { Href = Url.Link("GetFeedbacks", null), Method = "GET", Rel = "Get all feedbacks." },
                     new HyperMedia { Href = Url.Link("GetFeedbackByID", new { id = id }), Method = "GET", Rel = "Get one feedback by ID." },
-                    new HyperMedia { Href = Url.Link("PostFeedback", new { id = id }), Method = "GET", Rel = "Post feedback." }
+                    new HyperMedia { Href = Url.Link("PostFeedback", new { id = id }), Method = "GET", Rel = "Post feedback." },
+                    new HyperMedia { Href = Url.Link("GetFeedbackByCustomerID", new { id = id }), Method = "GET", Rel = "Post feedback." }
                     );
                 return Ok(result);
             }
