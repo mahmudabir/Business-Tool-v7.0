@@ -32,7 +32,7 @@ namespace BTv7.Controllers
         public IHttpActionResult Get(int id)
         {
             var productFromDB = productDB.Get(id);
-            if (productFromDB == null)
+            if (productFromDB != null)
             {
                 var result = productFromDB.AddLinks(
                     new HyperMedia { Href = Url.Link("GetProducts", null), Rel = "Get all products", Method = "GET" },
