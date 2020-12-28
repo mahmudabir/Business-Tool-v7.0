@@ -9,14 +9,14 @@
 	
 	 <style>
 	
-	/*#fixedHeader.table tr, .table td
+	/*#noteAddTable.table tr, .table td
 	{
 		border: 0!important;
 	}
 	#fixedHeader { overflow-y: auto; height: 500px; }
 	#fixedHeader thead th { position: sticky; top: 0; }
     table  { border-collapse: collapse; width: 100%; }*/
-	th{ background:#325678;}
+	th{ background:#37447d;}
 	</style>
 	
 </head>
@@ -28,7 +28,7 @@
 		<div class="col-xs-12 col-sm-12 col-md-2 col-lg-2">
 			
 		</div>
-			<div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+			<div class="col-xs-12 col-sm-12 col-md-7 col-lg-7">
 				<div id="noteTable">
 				<table class="table table-bordered table-hover" id="noteList">
 					
@@ -36,6 +36,8 @@
 						<tr>
 							<th>
 								<span style="color:White;">NOTES</span>
+								
+								<button id="addNote" class="btn btn-success btn-xs" style="float:right">Create</button>
 							</th>
 						</tr>
 					</thead>
@@ -45,7 +47,47 @@
 				</table>
 				</div>
 			</div>	
-		<div class="col-xs-12 col-sm-12 col-md-2 col-lg-2"></div>
+		<div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+			<div id="noteAddTable">
+				<table  class="table table-bordered" id="noteCreate">
+					
+					<thead>
+						<tr>
+							<th colspan="2">
+								<span style="color:White;">ADD NOTE</span>
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr style="border: 0!important;">
+							<td style="border: 0!important;">
+								<b>Subject</b>
+							</td>
+						</tr>
+						<tr style="border: 0!important;">
+							<td style="border: 0!important;">
+								<input type="text" class="form-control" id="addSub">
+							</td>
+						</tr>
+						<tr style="border: 0!important;">
+							<td style="border: 0!important;">
+								<b>Description</b>
+							</td>
+						</tr>
+						<tr style="border: 0!important;">
+							<td style="border: 0!important;">
+								<input type="text" class="form-control" id="addDesc">
+							</td>
+						</tr>
+						<tr style="border: 0!important;">
+							<td style="border: 0!important;">
+								<button class="btn btn-info" id="createNote" style="float:right;">Save</button>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				</div>
+		</div>
 	</div>
 </div>
 
@@ -56,7 +98,7 @@
 		<div class="col-xs-12 col-sm-12 col-md-2 col-lg-2">
 			
 		</div>
-			<div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+			<div class="col-xs-12 col-sm-12 col-md-7 col-lg-7">
 				<div id="noteDetailsTable">
 				<table class="table table-bordered" id="noteDetails">
 					
@@ -68,8 +110,14 @@
 					</tbody>
 				</table>
 				</div>
+				<div id="noteUpdateField">
+				<textarea  class="form-control" style="resize:none;" id="noteText" placeholder="Write....."></textarea>
+				<button class="btn btn-info" id="saveNote">Save</button>
+				</div>
 			</div>	
-		<div class="col-xs-12 col-sm-12 col-md-2 col-lg-2"></div>
+		<div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+
+		</div>
 	</div>
 </div>
 
