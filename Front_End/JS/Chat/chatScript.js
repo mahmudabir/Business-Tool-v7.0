@@ -49,7 +49,7 @@ var listChat=function(){
 							opacity=1;
 							console.log(receiver);
 						}
-						str+="<tr align='left'><td><button btn-id-username="+data[i].receiverID+" id='choseUser' style='width:245px;opacity:"+opacity+"'>"+data[i].receiverID+"</button></td></tr>"
+						str+="<tr align='left'><td><button btn-id-username="+data[i].receiverID+" id='choseUser' style='width:245px;color:blue; opacity:"+opacity+"'>@"+data[i].receiverID+"</button></td></tr>"
 					}
 					else if(data[i].receiverID==localStorage.username){
 						if(data[i].senderID==receiver){
@@ -60,7 +60,7 @@ var listChat=function(){
 							opacity=1;
 							console.log(opacity);
 						}
-						str+="<tr align='left'><td><button btn-id-username="+data[i].senderID+" id='choseUser' style='width:245px;opacity:"+opacity+"'>"+data[i].senderID+"</button></td></tr>"
+						str+="<tr align='left'><td><button btn-id-username="+data[i].senderID+" id='choseUser' style='width:245px;opacity:"+opacity+"'>@"+data[i].senderID+"</button></td></tr>"
 					}
 
 					
@@ -192,7 +192,7 @@ $("#searchUser").keyup(function(){
 				var data=xmlhttp.responseJSON;
 				
 				var str;
-				str="<tr><td><button btn-id-username="+data.username+" id='choseUser' style='width:245px;'>"+data.username+"</button></td></tr>"
+				str="<tr><td><button btn-id-username="+data.username+" id='choseUser' style='width:245px;color:blue;'>@"+data.username+"</button></td></tr>"
 				$("#chatList tbody").html(str);
 				
 			}
@@ -247,7 +247,7 @@ $("#searchUser").keyup(function(){
 						alignment="right";
 						smsColor="dark";
 						
-						user="<tr><th><span class='badge progress-bar-danger'>Receiver "+receiver+"</span></th></tr>"
+						user="<tr><th><span class='badge progress-bar-danger'>Receiver @"+receiver+"</span></th></tr>"
 					}
 					else{
 						alignment="left";
@@ -273,7 +273,7 @@ $("#searchUser").keyup(function(){
 				refreshChat();
 				}, 2000);
 				
-				var newUser="<tr><th><span class='badge progress-bar-danger'>Receiver "+receiver+"</span></th></tr>";
+				var newUser="<tr><th><span class='badge progress-bar-danger'>Receiver @"+receiver+"</span></th></tr>";
 				$("#postList thead").html(newUser);
 				$("#postList tbody").html(noStr);
 			}
@@ -312,7 +312,7 @@ var refreshChat=function(){
 						alignment="right";
 						smsColor="dark";
 						
-						user="<tr><th><span class='badge progress-bar-danger'>Receiver "+receiver+"</span></th></tr>"
+						user="<tr><th><span class='badge progress-bar-danger'>Receiver @"+receiver+"</span></th></tr>"
 					}
 					else{
 						alignment="left";
@@ -333,7 +333,7 @@ var refreshChat=function(){
 
 				var noStr="<tr><th></th></tr>";
 				
-				var newUser="<tr><th><span class='badge progress-bar-danger'>Receiver "+receiver+"</span></th></tr>";
+				var newUser="<tr><th><span class='badge progress-bar-danger'>Receiver @"+receiver+"</span></th></tr>";
 				$("#postList thead").html(newUser);
 				$("#postList tbody").html(noStr);
 			}
