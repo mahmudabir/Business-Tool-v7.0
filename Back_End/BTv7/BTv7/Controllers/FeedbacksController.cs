@@ -53,7 +53,8 @@ namespace BTv7.Controllers
         }
 
 
-        [Route("", Name = "PostFeedback"), Authorize(Roles = "CUSTOMER")]
+        [Route("", Name = "PostFeedback"), BasicAuthentication]
+        [Authorize(Roles = "CUSTOMER")]
         public IHttpActionResult Post(Feedback feedback)
         {
             if (ModelState.IsValid)

@@ -1,4 +1,5 @@
 ﻿using BTv7.Models;
+using BTv7.Models.ViewModel;
 using BTv7.Repositories;
 using System;
 using System.Collections.Generic;
@@ -47,14 +48,122 @@ namespace BTv7.Controllers
         }
 
 
-        [Route("search/{s}", Name = "GetProductSearch"), BasicAuthentication]
-        public IHttpActionResult GetPostSearch(string s = "")
+        [Route("search/", Name = "PostProductSearch"), BasicAuthentication]
+        public IHttpActionResult PostProductSearch(SearchProduct searchProduct)
         {
-            var productFromDB = productDB.ProductSearch(s);
+            var productFromDB = new List<Product>();
+            if (searchProduct.search == "" || searchProduct.search == null)
+            {
+                productFromDB = productDB.GetAll();
+                if (searchProduct.high != 0)
+                {
+                    if (searchProduct.sort == "aprice")
+                    {
+                        return Ok(productFromDB.OrderBy(o => o.SellPrice).Where(x => x.SellPrice >= (int)searchProduct.low && x.SellPrice <= (int)searchProduct.high));
+                    }
+                    else if (searchProduct.sort == "dprice")
+                    {
+                        return Ok(productFromDB.OrderByDescending(o => o.SellPrice).Where(x => x.SellPrice >= (int)searchProduct.low && x.SellPrice <= (int)searchProduct.high));
+                    }
+                    else if (searchProduct.sort == "adate")
+                    {
+                        return Ok(productFromDB.OrderBy(o => o.ID).Where(x => x.SellPrice >= (int)searchProduct.low && x.SellPrice <= (int)searchProduct.high));
+                    }
+                    else if (searchProduct.sort == "ddate")
+                    {
+                        return Ok(productFromDB.OrderByDescending(o => o.ID).Where(x => x.SellPrice >= (int)searchProduct.low && x.SellPrice <= (int)searchProduct.high));
+                    }
+                    else
+                    {
+                        return Ok(productFromDB.Where(x => x.SellPrice >= (int)searchProduct.low && x.SellPrice <= (int)searchProduct.high));
+                    }
+                }
+                else
+                {
+                    if (searchProduct.sort == "aprice")
+                    {
+                        return Ok(productFromDB.OrderBy(o => o.SellPrice));
+                    }
+                    else if (searchProduct.sort == "dprice")
+                    {
+                        return Ok(productFromDB.OrderByDescending(o => o.SellPrice));
+                    }
+                    else if (searchProduct.sort == "adate")
+                    {
+                        return Ok(productFromDB.OrderBy(o => o.ID));
+                    }
+                    else if (searchProduct.sort == "ddate")
+                    {
+                        return Ok(productFromDB.OrderByDescending(o => o.ID));
+                    }
+                    else
+                    {
+                        return Ok(productFromDB);
+                    }
+                }
+            }
+            else
+            {
+                productFromDB = productDB.ProductSearch(searchProduct.search.ToString());
+            }
+
+
+
+            if (searchProduct.low >= searchProduct.high)
+            {
+                searchProduct.high = searchProduct.low;
+            }
 
             if (productFromDB.Count != 0)
             {
-                return Ok(productFromDB);
+                if (searchProduct.high == 0)
+                {
+
+
+                    if (searchProduct.sort == "aprice")
+                    {
+                        return Ok(productFromDB.OrderBy(o => o.SellPrice));
+                    }
+                    else if (searchProduct.sort == "dprice")
+                    {
+                        return Ok(productFromDB.OrderByDescending(o => o.SellPrice));
+                    }
+                    else if (searchProduct.sort == "adate")
+                    {
+                        return Ok(productFromDB.OrderBy(o => o.ID));
+                    }
+                    else if (searchProduct.sort == "ddate")
+                    {
+                        return Ok(productFromDB.OrderByDescending(o => o.ID));
+                    }
+                    else
+                    {
+                        return Ok(productFromDB);
+                    }
+                }
+                else
+                {
+                    if (searchProduct.sort == "aprice")
+                    {
+                        return Ok(productFromDB.OrderBy(o => o.SellPrice).Where(x => x.SellPrice >= (int)searchProduct.low && x.SellPrice <= (int)searchProduct.high));
+                    }
+                    else if (searchProduct.sort == "dprice")
+                    {
+                        return Ok(productFromDB.OrderByDescending(o => o.SellPrice).Where(x => x.SellPrice >= (int)searchProduct.low && x.SellPrice <= (int)searchProduct.high));
+                    }
+                    else if (searchProduct.sort == "adate")
+                    {
+                        return Ok(productFromDB.OrderBy(o => o.ID).Where(x => x.SellPrice >= (int)searchProduct.low && x.SellPrice <= (int)searchProduct.high));
+                    }
+                    else if (searchProduct.sort == "ddate")
+                    {
+                        return Ok(productFromDB.OrderByDescending(o => o.ID).Where(x => x.SellPrice >= (int)searchProduct.low && x.SellPrice <= (int)searchProduct.high));
+                    }
+                    else
+                    {
+                        return Ok(productFromDB.Where(x => x.SellPrice >= (int)searchProduct.low && x.SellPrice <= (int)searchProduct.high));
+                    }
+                }
             }
             else
             {

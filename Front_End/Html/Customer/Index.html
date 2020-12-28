@@ -47,17 +47,56 @@
             </form>
         </div>
         <!-- Search Bar -->
+
+
+
+
+        <div class="container jumbotron">
+            <div class="col-md-12 order-md-1">
+                <div align="center"><h5>Filter Products</h5><br /></div>
+
+                <div class="needs-validation" novalidate>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <input type="number" class="form-control" id="lowerPrice" placeholder="Lower Bound (BDT)">
+                        </div>
+                        <div class="col-md-4">
+                            <input type="number" class="form-control" id="higherPrice" placeholder="Upper Bound (BDT)">
+                        </div>
+
+                        <div class="col-md-3">
+                            <select name="sortby" class="form-control" id="sortBy">
+                                <option value="nothing">-------Sort by-------</option>
+                                <option value="aprice">Price(Low to High)</option>
+                                <option value="dprice">Price(High to Low)</option>
+                                <option value="adate">Date(Old to New)</option>
+                                <option value="ddate">Date(New to Old)</option>
+                            </select>
+                        </div>
+                        <div class="col-md-1" align="center">
+                            <input type="button" class="btn btn-outline-primary" id="btnFilter" value="Search">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
         <!-- Products -->
         <div class="card-deck mt-5" id="divProducts">
 
             <!--<div class="col-md-4 mb-5">
-                <div class="card" style="width: 18rem;">
-                    <img src="..." class="card-img-top" alt="..." height="200" width="200">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>-->
+            <div class="card" style="width: 18rem;">
+                <img src="..." class="card-img-top" alt="..." height="200" width="200">
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                </div>-->
             <!--<div class="card-body">
                 <a href="#" class="card-link btn btn-primary">Card link</a>
                 <a href="#" class="card-link btn btn-primary">Another link</a>
