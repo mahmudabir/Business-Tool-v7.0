@@ -55,7 +55,7 @@ namespace BTv7.Controllers
             if (searchProduct.search == "" || searchProduct.search == null)
             {
                 productFromDB = productDB.GetAll();
-                if (searchProduct.high != 0)
+                if (searchProduct.high > 0)
                 {
                     if (searchProduct.sort == "aprice")
                     {
@@ -125,7 +125,7 @@ namespace BTv7.Controllers
 
             if (productFromDB.Count != 0)
             {
-                if (searchProduct.high == 0)
+                if (searchProduct.high <= 0)
                 {
 
 
