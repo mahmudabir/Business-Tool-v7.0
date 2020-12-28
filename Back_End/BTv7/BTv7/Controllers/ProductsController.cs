@@ -59,23 +59,32 @@ namespace BTv7.Controllers
                 {
                     if (searchProduct.sort == "aprice")
                     {
-                        return Ok(productFromDB.OrderBy(o => o.SellPrice).Where(x => x.SellPrice >= (int)searchProduct.low && x.SellPrice <= (int)searchProduct.high));
+                        return Ok(productFromDB
+                            .OrderBy(o => o.SellPrice)
+                            .Where(x => x.SellPrice >= (int)searchProduct.low && x.SellPrice <= (int)searchProduct.high));
                     }
                     else if (searchProduct.sort == "dprice")
                     {
-                        return Ok(productFromDB.OrderByDescending(o => o.SellPrice).Where(x => x.SellPrice >= (int)searchProduct.low && x.SellPrice <= (int)searchProduct.high));
+                        return Ok(productFromDB
+                            .OrderByDescending(o => o.SellPrice)
+                            .Where(x => x.SellPrice >= (int)searchProduct.low && x.SellPrice <= (int)searchProduct.high));
                     }
                     else if (searchProduct.sort == "adate")
                     {
-                        return Ok(productFromDB.OrderBy(o => o.ID).Where(x => x.SellPrice >= (int)searchProduct.low && x.SellPrice <= (int)searchProduct.high));
+                        return Ok(productFromDB
+                            .OrderBy(o => o.ID)
+                            .Where(x => x.SellPrice >= (int)searchProduct.low && x.SellPrice <= (int)searchProduct.high));
                     }
                     else if (searchProduct.sort == "ddate")
                     {
-                        return Ok(productFromDB.OrderByDescending(o => o.ID).Where(x => x.SellPrice >= (int)searchProduct.low && x.SellPrice <= (int)searchProduct.high));
+                        return Ok(productFromDB
+                            .OrderByDescending(o => o.ID)
+                            .Where(x => x.SellPrice >= (int)searchProduct.low && x.SellPrice <= (int)searchProduct.high));
                     }
                     else
                     {
-                        return Ok(productFromDB.Where(x => x.SellPrice >= (int)searchProduct.low && x.SellPrice <= (int)searchProduct.high));
+                        return Ok(productFromDB
+                            .Where(x => x.SellPrice >= (int)searchProduct.low && x.SellPrice <= (int)searchProduct.high));
                     }
                 }
                 else
@@ -145,23 +154,32 @@ namespace BTv7.Controllers
                 {
                     if (searchProduct.sort == "aprice")
                     {
-                        return Ok(productFromDB.OrderBy(o => o.SellPrice).Where(x => x.SellPrice >= (int)searchProduct.low && x.SellPrice <= (int)searchProduct.high));
+                        return Ok(productFromDB
+                            .OrderBy(o => o.SellPrice)
+                            .Where(x => x.SellPrice >= (int)searchProduct.low && x.SellPrice <= (int)searchProduct.high));
                     }
                     else if (searchProduct.sort == "dprice")
                     {
-                        return Ok(productFromDB.OrderByDescending(o => o.SellPrice).Where(x => x.SellPrice >= (int)searchProduct.low && x.SellPrice <= (int)searchProduct.high));
+                        return Ok(productFromDB
+                            .OrderByDescending(o => o.SellPrice)
+                            .Where(x => x.SellPrice >= (int)searchProduct.low && x.SellPrice <= (int)searchProduct.high));
                     }
                     else if (searchProduct.sort == "adate")
                     {
-                        return Ok(productFromDB.OrderBy(o => o.ID).Where(x => x.SellPrice >= (int)searchProduct.low && x.SellPrice <= (int)searchProduct.high));
+                        return Ok(productFromDB
+                            .OrderBy(o => o.ID)
+                            .Where(x => x.SellPrice >= (int)searchProduct.low && x.SellPrice <= (int)searchProduct.high));
                     }
                     else if (searchProduct.sort == "ddate")
                     {
-                        return Ok(productFromDB.OrderByDescending(o => o.ID).Where(x => x.SellPrice >= (int)searchProduct.low && x.SellPrice <= (int)searchProduct.high));
+                        return Ok(productFromDB
+                            .OrderByDescending(o => o.ID)
+                            .Where(x => x.SellPrice >= (int)searchProduct.low && x.SellPrice <= (int)searchProduct.high));
                     }
                     else
                     {
-                        return Ok(productFromDB.Where(x => x.SellPrice >= (int)searchProduct.low && x.SellPrice <= (int)searchProduct.high));
+                        return Ok(productFromDB
+                            .Where(x => x.SellPrice >= (int)searchProduct.low && x.SellPrice <= (int)searchProduct.high));
                     }
                 }
             }
