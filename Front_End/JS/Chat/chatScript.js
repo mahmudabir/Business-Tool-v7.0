@@ -6,11 +6,9 @@ $(document).ready(function(){
 	sendMessage();
 	});
 
-	if (localStorage.authUser == null) {
+	if (localStorage.authUser == null || localStorage.userRole == 5) {
         window.location.href = "Authentication.html";
     }
-
-	
 
 
 
@@ -43,11 +41,11 @@ var listChat=function(){
 						// smsColor="success";
 						if(data[i].receiverID==receiver){
 							opacity=.5;
-							console.log(opacity);
+							
 						}
 						else{
 							opacity=1;
-							console.log(receiver);
+							
 						}
 						str+="<tr align='left'><td><button btn-id-username="+data[i].receiverID+" id='choseUser' style='width:245px;color:blue; opacity:"+opacity+"'>@"+data[i].receiverID+"</button></td></tr>"
 					}
@@ -60,7 +58,7 @@ var listChat=function(){
 							opacity=1;
 							console.log(opacity);
 						}
-						str+="<tr align='left'><td><button btn-id-username="+data[i].senderID+" id='choseUser' style='width:245px;opacity:"+opacity+"'>@"+data[i].senderID+"</button></td></tr>"
+						str+="<tr align='left'><td><button btn-id-username="+data[i].senderID+" id='choseUser' style='width:245px;color:blue;opacity:"+opacity+"'>@"+data[i].senderID+"</button></td></tr>"
 					}
 
 					
