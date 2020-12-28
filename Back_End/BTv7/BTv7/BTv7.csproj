@@ -104,6 +104,7 @@
     <Compile Include="Controllers\FeedbacksController.cs" />
     <Compile Include="Controllers\LoginsController.cs" />
     <Compile Include="Controllers\NotesController.cs" />
+    <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\SaleRecordController.cs" />
     <Compile Include="Global.asax.cs">
