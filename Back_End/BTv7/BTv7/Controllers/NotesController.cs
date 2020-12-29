@@ -81,6 +81,7 @@ namespace BTv7.Controllers
         {
             NoteRepository noterepo = new NoteRepository();
             note.ID = id;
+            note.Date = DateTime.Now;
             noterepo.Update(note);
             return Ok(note);
         }

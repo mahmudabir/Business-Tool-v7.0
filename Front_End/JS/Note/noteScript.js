@@ -146,6 +146,7 @@ var listNoteDetails=function(){
 				title=data.subject;
 				noteDesc=data.description;
 				empID=data.employeeID;
+				date=data.date;
 				if(checked=="YES"){
 					impMsg="Important";
 				}
@@ -245,8 +246,8 @@ $("#noteUpdateField").on("click","#saveNote",function(){
 			"subject": title,
 	        "description": $("#noteText").val(),
 	        "employeeID": empID,
-	        "important":checked,
-	        "date":date
+	        "important":checked
+	        
 			
 		},
 		complete:function(xmlhttp,status){
