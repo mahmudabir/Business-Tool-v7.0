@@ -27,5 +27,10 @@ namespace BTv7.Repositories
         {
             return this.GetAll().Where(x => x.CustomerID == cid && x.SaleTypeID == stid).ToList();
         }
+
+        public List<Order> GetOrderByDeliverymanID(int id)
+        {
+            return this.GetAll().Where(x => x.SellBy == id && x.OrderStatusID == 2).ToList();
+        }
     }
 }
