@@ -4,9 +4,20 @@ $(document).ready(function(){
 	var title;
 	var empID;
 	var check=0;
-	//Starts Get All users connected in chat
+	var checkbox=1;
+	var imp;
+	var showImportant;
+	var date;
+	var checked;
 
-var listNote=function(){
+	if (localStorage.authUser == null) {
+        window.location.href = "Authentication.html";
+    }
+
+
+//Starts Get All users connected in chat
+
+var listUser=function(){
 	$("#noteUpdateField").hide();
 	$("#noteDetailsTable").hide();
 	if(check==0){
@@ -32,8 +43,68 @@ var listNote=function(){
 					if(data[i].employee.login.id==localStorage.username)
 					{
 						empID=data[0].employeeID;
-						console.log(empID);
-						str+="<tr id='cell' btn-id-noteID="+data[i].id+"><td>"+data[i].subject+"</td></tr>"	
+
+						listNote();
+						
+					}
+					else
+					{}
+
+					}
+					
+					
+				}
+				else{
+					
+
+				}
+
+			}
+	});
+}
+listUser();
+//Ends Get All users connected in chat
+
+
+
+//Starts Get All users connected in chat
+
+var listNote=function(){
+	$("#noteUpdateField").hide();
+	$("#noteDetailsTable").hide();
+	if(check==0){
+	$("#noteAddTable").hide();
+	}
+	$("#noteTable").fadeIn(1000);
+
+	$.ajax({
+		url:"https://localhost:44308/api/notes/"+localStorage.username+"/"+empID,
+		method:"GET",
+		headers:{
+				//Authorization:"Basic "+ btoa("4:4444")
+				'Authorization': 'Basic ' + localStorage.authUser
+		},
+		complete:function(xmlhttp,status){
+
+			if(xmlhttp.status==200){
+				var data=xmlhttp.responseJSON;
+				
+				
+				var str;
+				for (var i = 0; i < data.length; i++) {
+					if(data[i].employee.login.id==localStorage.username)
+					{
+
+						if(data[i].important=="YES"){
+							showImportant="Important";
+						}
+						else{
+							showImportant="";
+						}
+
+						empID=data[0].employeeID;
+						
+						str+="<tr id='cell' btn-id-date="+data[i].date+" btn-id-checked="+data[i].important+" btn-id-noteID="+data[i].id+"><td>"+data[i].subject+"<span style='float:right; font-style: italic; font-size:13px; color:red;'>"+showImportant+"</span><br><span style='float:left; font-style: italic; font-size:10px; color:blue;'>"+data[i].date+"</span></td></tr>"	
 					}
 					else
 					{}
@@ -42,11 +113,15 @@ var listNote=function(){
 					$("#noteList tbody").html(str);
 					
 				}
+				else{
+					$("#noteList tbody").html("");
+
+				}
 
 			}
 	});
 }
-listNote();
+
 //Ends Get All users connected in chat
 
 
@@ -67,11 +142,19 @@ var listNoteDetails=function(){
 				// console.log(data);
 				var str;
 				var sub;
+				var impMsg;
 				title=data.subject;
 				noteDesc=data.description;
 				empID=data.employeeID;
-				sub="<tr><th style='color:white;'>TITLE - "+data.subject+"</th></tr>"
-				str="<tr><td><b>-</b>"+data.description+"<br><br><button id='delete' btn-id-noteID="+data.id+" class='btn btn-danger btn-xs'>Delete</button> &nbsp <button id='update' btn-id-noteID="+data.id+" class='btn btn-info btn-xs'>Update</button><button id='back' class='btn btn-warning btn-xs' style='float:right;'>Back</button></td></tr>"
+				if(checked=="YES"){
+					impMsg="Important";
+				}
+				else{
+					impMsg="";
+				}
+
+				sub="<tr><th style='color:white;'>TITLE - "+data.subject+"<span style='float:right; font-style: italic; font-size:14px; color:red;'>"+impMsg+"</span></th></tr>"
+				str="<tr><td><b>-</b>"+data.description+"<br><span style='float:left; font-style: italic; font-size:10px; color:blue;'>"+date+"</span><br><button id='delete' btn-id-noteID="+data.id+" class='btn btn-danger btn-sm'>Delete</button> &nbsp <button id='update' btn-id-noteID="+data.id+" class='btn btn-info btn-sm'>Update</button><button id='back' class='btn btn-warning btn-sm' style='float:right;'>Back</button></td></tr>"
 
 				$("#noteDetails thead").html(sub);	
 				$("#noteDetails tbody").html(str);
@@ -91,6 +174,8 @@ var listNoteDetails=function(){
 $("#noteList").on("click","#cell",function(){
 	var button=$(this);
 	clickedRow=button.attr("btn-id-noteID")
+	checked=button.attr("btn-id-checked")
+	date=button.attr("btn-id-date")
 	// console.log(button.attr("btn-id-noteID"));
 	$("#noteAddTable").fadeOut(1000);
    $("#noteTable").fadeOut(1000,function(){
@@ -139,6 +224,7 @@ $("#noteDetails").on("click","#back",function(){
 
 $("#noteTable").on("click","#addNote",function(){
    	$("#noteAddTable").fadeToggle(1000);
+   	$('#important').attr('checked', false);
    
 });
 
@@ -158,7 +244,9 @@ $("#noteUpdateField").on("click","#saveNote",function(){
 		data:{
 			"subject": title,
 	        "description": $("#noteText").val(),
-	        "employeeID": empID
+	        "employeeID": empID,
+	        "important":checked,
+	        "date":date
 			
 		},
 		complete:function(xmlhttp,status){
@@ -184,8 +272,17 @@ $("#noteUpdateField").on("click","#saveNote",function(){
 
 $("#noteAddTable").on("click","#createNote",function(){
 	if($("#addSub").val()!="" && $("#addDesc").val()!=""){
+
+		if(checkbox==2){
+			imp="YES";
+		}
+		else{
+			imp="NO";
+		}
+		
 		
    	$.ajax({
+
 		url:"https://localhost:44308/api/notes",
 		method:"POST",
 		headers:{
@@ -196,15 +293,20 @@ $("#noteAddTable").on("click","#createNote",function(){
 		data:{
 			"subject": $("#addSub").val(),
 	        "description": $("#addDesc").val(),
-	        "employeeID": empID
+	        "employeeID": empID,
+	        "important": imp
 			
 		},
+
 		complete:function(xmlhttp,status){
+			
 			if(xmlhttp.status==201){
 				$("#addSub").val("")
 				$("#addDesc").val("")
 				check=1;
 				listNote();
+				
+				$('#important').attr('checked', false);
 			}
 			else
 			{
@@ -220,7 +322,17 @@ $("#noteAddTable").on("click","#createNote",function(){
 	
 });
 
+$('#important').change(function () {
 
+	if(checkbox==1){
+	checkbox=2;
+	}
+	else if(checkbox==2){
+	checkbox=1;
+	}
+	
+		
+});
 
 
 });
