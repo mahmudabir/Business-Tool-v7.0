@@ -49,6 +49,30 @@ namespace BTv7.Controllers
 
 
 
+        [Route("{oid}/items", Name = "GetCartsByOrderID")]
+        public IHttpActionResult GetCartsByOrderID(int oid)
+        {
+            OrderCartRepository orderCartDB = new OrderCartRepository();
+
+            var cartFromDB = orderCartDB.GetCartsByOrderID(oid);
+
+            if (cartFromDB.Count != 0)
+            {
+                return Ok(cartFromDB);
+            }
+            else
+            {
+                return StatusCode(HttpStatusCode.NoContent);
+            }
+        }
+
+
+
+
+
+
+
+
 
 
 

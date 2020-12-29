@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Security.Claims;
 using System.Threading;
 using System.Web.Http;
 
@@ -229,6 +230,32 @@ namespace BTv7.Controllers
 
 
 
+        [Route("{cid}/orders/{oid}/items", Name = "GetCartsByLoginNOrderID"), BasicAuthentication]
+        public IHttpActionResult GetCartsByLoginNOrderID(int cid, int oid)
+        {
+            var identity = (ClaimsIdentity)User.Identity;
+            int lidFromDB = Convert.ToInt32(identity.Claims.FirstOrDefault(x => x.Type == "ID").Value);
 
+            int cidFromDB = customerDB.GetCustomerByLoginID(lidFromDB).ID;
+
+            if (cidFromDB != cid)
+            {
+                return BadRequest();
+            }
+
+            OrderCartRepository orderCartDB = new OrderCartRepository();
+
+            var cartFromDB = orderCartDB.GetCartsByCustomerNOrderID(cid, oid);
+
+            if (cartFromDB.Count != 0)
+            {
+                return Ok(cartFromDB);
+            }
+            else
+            {
+                return StatusCode(HttpStatusCode.NoContent);
+            }
+
+        }
     }
 }
