@@ -101,6 +101,7 @@
     <Compile Include="Attributes\BasicAuthenticationAttribute.cs" />
     <Compile Include="Controllers\ChatsController.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
+    <Compile Include="Controllers\DeliveryOrdersController.cs" />
     <Compile Include="Controllers\EmployeesController.cs" />
     <Compile Include="Controllers\FeedbacksController.cs" />
     <Compile Include="Controllers\LoginsController.cs" />
