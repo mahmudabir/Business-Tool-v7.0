@@ -47,7 +47,7 @@ var listChat=function(){
 							opacity=1;
 							
 						}
-						str+="<tr align='left'><td><button btn-id-username="+data[i].receiverID+" id='choseUser' style='width:245px;color:blue; opacity:"+opacity+"'>@"+data[i].receiverID+"</button></td></tr>"
+						str+="<tr align='left'><td><button class='btn btn-outline-info' btn-id-username="+data[i].receiverID+" id='choseUser' style='width:245px;color:white; opacity:"+opacity+"'>@"+data[i].receiverID+"</button></td></tr>"
 					}
 					else if(data[i].receiverID==localStorage.username){
 						if(data[i].senderID==receiver){
@@ -58,7 +58,7 @@ var listChat=function(){
 							opacity=1;
 							console.log(opacity);
 						}
-						str+="<tr align='left'><td><button btn-id-username="+data[i].senderID+" id='choseUser' style='width:245px;color:blue;opacity:"+opacity+"'>@"+data[i].senderID+"</button></td></tr>"
+						str+="<tr align='left'><td><button class='btn btn-outline-info' btn-id-username="+data[i].senderID+" id='choseUser' style='width:245px;color:white;opacity:"+opacity+"'>@"+data[i].senderID+"</button></td></tr>"
 					}
 
 					
@@ -84,7 +84,8 @@ listChat();
 //Starts Get All messages  from message
 	var listMsg=function(){
 	
-	user="<tr><th><span class='badge progress-bar-danger'>Receiver</span></th></tr>"
+
+	user="<tr><th><span style='color:white;'><b>Receiver</b></span></th></tr>"
 					
 	str="<tr><td></td></tr>"
 	
@@ -136,16 +137,16 @@ var sendMessage=function(){
 					for (var i = 0; i < data.length; i++) {
 						if(data[i].senderID==localStorage.username){
 							alignment="right";
-							smsColor="dark";
+							smsColor="light";
 							
-							user="<tr><th><span class='badge progress-bar-danger'>Receiver "+receiver+"</span></th></tr>"
+							user="<tr><th><span style='color:white;'><b>Receiver "+receiver+"</b></span></th></tr>"
 						}
 						else{
 							alignment="left";
 							smsColor="success";
 						}
 
-						str+="<tr align="+alignment+"><td><span class='badge progress-bar-"+smsColor+"'>"+data[i].text+"</span></td></tr>"
+						str+="<tr align="+alignment+"><td><span class='badge badge-"+smsColor+"'>"+data[i].text+"</span></td></tr>"
 					}
 					
 					$("#postList thead").html(user);
@@ -154,7 +155,7 @@ var sendMessage=function(){
 				}
 				else{
 					var noStr="<tr><th></th></tr>";
-					var newUser="<tr><th><span class='badge progress-bar-danger'>Receiver "+receiver+"</span></th></tr>";
+					var newUser="<tr><th><span style='color:white;'><b>Receiver "+receiver+"</b></span></th></tr>";
 					$("#postList thead").html(newUser);
 					$("#postList tbody").html(noStr);
 				}
@@ -190,7 +191,7 @@ $("#searchUser").keyup(function(){
 				var data=xmlhttp.responseJSON;
 				
 				var str;
-				str="<tr><td><button btn-id-username="+data.username+" id='choseUser' style='width:245px;color:blue;'>@"+data.username+"</button></td></tr>"
+				str="<tr><td><button class='btn btn-outline-info' btn-id-username="+data.username+" id='choseUser' style='width:245px;color:white;'>@"+data.username+"</button></td></tr>"
 				$("#chatList tbody").html(str);
 				
 			}
@@ -245,14 +246,14 @@ $("#searchUser").keyup(function(){
 						alignment="right";
 						smsColor="dark";
 						
-						user="<tr><th><span class='badge progress-bar-danger'>Receiver @"+receiver+"</span></th></tr>"
+						user="<tr><th><span style='color:white;'><b>Receiver @"+receiver+"</b></span></th></tr>"
 					}
 					else{
 						alignment="left";
 						smsColor="success";
 					}
 
-					str+="<tr align="+alignment+"><td><span class='badge progress-bar-"+smsColor+"'>"+data[i].text+"</span></td></tr>"
+					str+="<tr align="+alignment+"><td><span class='badge badge-"+smsColor+"'>"+data[i].text+"</span></td></tr>"
 				}
 				
 				$("#postList thead").html(user);
@@ -271,7 +272,7 @@ $("#searchUser").keyup(function(){
 				refreshChat();
 				}, 2000);
 				
-				var newUser="<tr><th><span class='badge progress-bar-danger'>Receiver @"+receiver+"</span></th></tr>";
+				var newUser="<tr><th><span style='color:white;'><b>Receiver @"+receiver+"</b></span></th></tr>";
 				$("#postList thead").html(newUser);
 				$("#postList tbody").html(noStr);
 			}
@@ -310,14 +311,14 @@ var refreshChat=function(){
 						alignment="right";
 						smsColor="dark";
 						
-						user="<tr><th><span class='badge progress-bar-danger'>Receiver @"+receiver+"</span></th></tr>"
+						user="<tr><th><span style='color:white;'><b>Receiver @"+receiver+"</b></span></th></tr>"
 					}
 					else{
 						alignment="left";
 						smsColor="success";
 					}
 
-					str+="<tr align="+alignment+"><td><span class='badge progress-bar-"+smsColor+"'>"+data[i].text+"</span></td></tr>"
+					str+="<tr align="+alignment+"><td><span class='badge badge-"+smsColor+"'>"+data[i].text+"</span></td></tr>"
 				}
 				
 				$("#postList thead").html(user);
@@ -331,7 +332,7 @@ var refreshChat=function(){
 
 				var noStr="<tr><th></th></tr>";
 				
-				var newUser="<tr><th><span class='badge progress-bar-danger'>Receiver @"+receiver+"</span></th></tr>";
+				var newUser="<tr><th><span  style='color:white;'><b>Receiver @"+receiver+"</b></span></th></tr>";
 				$("#postList thead").html(newUser);
 				$("#postList tbody").html(noStr);
 			}
