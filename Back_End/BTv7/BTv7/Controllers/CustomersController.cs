@@ -199,16 +199,36 @@ namespace BTv7.Controllers
         public IHttpActionResult GetOrderByCustomerNSaleTypeIDNNotIsSold(int cid, int stid)
         {
             OrderRepository orderDB = new OrderRepository();
+            //var orderFromDB = new List<Order>();
 
-            var orderFromDB = orderDB.GetOrderByCustomerNSaleTypeID(cid, stid);
-            if (orderFromDB.Count != 0)
+
+
+            if (Thread.CurrentPrincipal.IsInRole("CUSTOMER") == true)
             {
-                return Ok(orderFromDB.Where(x => x.IsSold == false));
+                var orderFromDB = orderDB.GetOrderByCustomerNSaleTypeID(cid, stid).Where(x => x.IsSold == false).FirstOrDefault();
+                if (orderFromDB != null)
+                {
+                    return Ok(orderFromDB);
+                }
+                else
+                {
+                    return StatusCode(HttpStatusCode.NoContent);
+                }
             }
             else
             {
-                return StatusCode(HttpStatusCode.NoContent);
+                var orderFromDB = orderDB.GetOrderByCustomerNSaleTypeID(cid, stid);
+                if (orderFromDB.Count != 0)
+                {
+                    return Ok(orderFromDB.Where(x => x.IsSold == false));
+                }
+                else
+                {
+                    return StatusCode(HttpStatusCode.NoContent);
+                }
             }
+
+
         }
 
 
