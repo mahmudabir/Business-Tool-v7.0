@@ -7,7 +7,7 @@ $(document).ready(function(){
 	});
 
 	if (localStorage.authUser == null || localStorage.userRole == 5) {
-        window.location.href = "Authentication.html";
+        window.location.href = "../Login/Authentication.html";
     }
 
 

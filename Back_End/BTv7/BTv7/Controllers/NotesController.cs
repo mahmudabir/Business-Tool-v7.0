@@ -55,7 +55,7 @@ namespace BTv7.Controllers
             }
             else
             {
-                return StatusCode(HttpStatusCode.NotFound);
+                return StatusCode(HttpStatusCode.NoContent);
             }
 
         }
@@ -66,13 +66,13 @@ namespace BTv7.Controllers
         {
             NoteRepository noterepo = new NoteRepository();
             var noteFromDB = noterepo.GetNoteByEmpID(eid);
-            if (noteFromDB != null)
+            if (noteFromDB.Count()!= 0)
             {
                 return Ok(noteFromDB);
             }
             else
             {
-                return StatusCode(HttpStatusCode.NotFound);
+                return StatusCode(HttpStatusCode.NoContent);
             }
 
         }

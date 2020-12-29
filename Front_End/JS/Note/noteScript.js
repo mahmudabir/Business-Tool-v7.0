@@ -11,7 +11,7 @@ $(document).ready(function(){
 	var checked;
 
 	if (localStorage.authUser == null) {
-        window.location.href = "Authentication.html";
+        window.location.href = "../Login/Authentication.html";
     }
 
 
