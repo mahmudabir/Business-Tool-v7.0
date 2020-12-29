@@ -18,7 +18,7 @@ namespace BTv7.Models
         [Required]
         public string Important { get; set; }
         [Required]
-        public DateTime Date { get; set; } 
+        public DateTime Date { get; set; }
 
 
         [ForeignKey("Employee")]

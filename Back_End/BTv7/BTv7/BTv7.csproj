@@ -175,13 +175,9 @@
     <Compile Include="Migrations\202012270339173_SenderReceiverIdInMessagesTable.Designer.cs">
       <DependentUpon>202012270339173_SenderReceiverIdInMessagesTable.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202012290414212_DropImportantInNote.cs" />
-    <Compile Include="Migrations\202012290414212_DropImportantInNote.Designer.cs">
-      <DependentUpon>202012290414212_DropImportantInNote.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202012290415293_AddImportantInNote.cs" />
-    <Compile Include="Migrations\202012290415293_AddImportantInNote.Designer.cs">
-      <DependentUpon>202012290415293_AddImportantInNote.cs</DependentUpon>
+    <Compile Include="Migrations\202012291008444_NewColumnAddNoteModel.cs" />
+    <Compile Include="Migrations\202012291008444_NewColumnAddNoteModel.Designer.cs">
+      <DependentUpon>202012291008444_NewColumnAddNoteModel.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccessStatus.cs" />
@@ -293,11 +289,8 @@
     <EmbeddedResource Include="Migrations\202012270339173_SenderReceiverIdInMessagesTable.resx">
       <DependentUpon>202012270339173_SenderReceiverIdInMessagesTable.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202012290414212_DropImportantInNote.resx">
-      <DependentUpon>202012290414212_DropImportantInNote.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202012290415293_AddImportantInNote.resx">
-      <DependentUpon>202012290415293_AddImportantInNote.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202012291008444_NewColumnAddNoteModel.resx">
+      <DependentUpon>202012291008444_NewColumnAddNoteModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

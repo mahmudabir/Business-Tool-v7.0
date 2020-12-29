@@ -7,13 +7,13 @@ namespace BTv7.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class AddImportantInNote : IMigrationMetadata
+    public sealed partial class NewColumnAddNoteModel : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AddImportantInNote));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(NewColumnAddNoteModel));
         
         string IMigrationMetadata.Id
         {
-            get { return "202012290415293_AddImportantInNote"; }
+            get { return "202012291008444_NewColumnAddNoteModel"; }
         }
         
         string IMigrationMetadata.Source
