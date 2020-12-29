@@ -20,7 +20,15 @@ namespace BTv7.Controllers
             var user=loginrepo.GetUserByUsername(id);
             if (user != null)
             {
-                return Ok(user);
+                if (user.UserDesignationID != 5)
+                {
+                    return Ok(user);
+                }
+                else
+                {
+                    return StatusCode(HttpStatusCode.NoContent);
+                }
+
             }
             else
             {

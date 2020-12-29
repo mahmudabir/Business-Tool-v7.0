@@ -52,11 +52,11 @@ var listChat=function(){
 					else if(data[i].receiverID==localStorage.username){
 						if(data[i].senderID==receiver){
 							opacity=.5;
-							console.log(opacity);
+							
 						}
 						else{
 							opacity=1;
-							console.log(opacity);
+							
 						}
 						str+="<tr align='left'><td><button class='btn btn-outline-info' btn-id-username="+data[i].senderID+" id='choseUser' style='width:245px;color:white;opacity:"+opacity+"'>@"+data[i].senderID+"</button></td></tr>"
 					}
@@ -186,13 +186,18 @@ $("#searchUser").keyup(function(){
 		},
 			complete:function(xmlhttp,status){
 				
-			if($("#searchUser").val()!=""){
+			if($("#searchUser").val()!="" ){
 				if(xmlhttp.status==200){
 				var data=xmlhttp.responseJSON;
-				
+				console.log(data);
+				if(data.userDesignation.id!=5){
 				var str;
 				str="<tr><td><button class='btn btn-outline-info' btn-id-username="+data.username+" id='choseUser' style='width:245px;color:white;'>@"+data.username+"</button></td></tr>"
 				$("#chatList tbody").html(str);
+				}
+				else{
+					listChat();
+				}
 				
 			}
 			else{
