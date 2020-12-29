@@ -108,7 +108,7 @@ namespace BTv7.Controllers
             FeedbackRepository feedbackDB = new FeedbackRepository();
 
             var feedbackFromDB = feedbackDB.GetFeedbackByCustomerID(cid);
-            if (feedbackFromDB != null)
+            if (feedbackFromDB.Count != 0)
             {
                 return Ok(feedbackFromDB);
             }
@@ -118,5 +118,117 @@ namespace BTv7.Controllers
             }
 
         }
+
+
+
+        [Route("{cid}/orders/", Name = "GetAllOrderByCustomerID"), BasicAuthentication]
+        public IHttpActionResult GetAllOrderByCustomerID(int cid)
+        {
+            OrderRepository orderDB = new OrderRepository();
+
+            var orderFromDB = orderDB.GetAllOrderByCustomerID(cid);
+            if (orderFromDB.Count != 0)
+            {
+                return Ok(orderFromDB);
+            }
+            else
+            {
+                return StatusCode(HttpStatusCode.NoContent);
+            }
+
+        }
+
+
+
+        [Route("{cid}/orders/{oid}", Name = "GetOrderByCustomerNOrderID"), BasicAuthentication]
+        public IHttpActionResult GetOrderByCustomerNOrderID(int cid, int oid)
+        {
+            OrderRepository orderDB = new OrderRepository();
+
+            var orderFromDB = orderDB.GetOrderByCustomerNOrderID(cid, oid);
+            if (orderFromDB.Count != 0)
+            {
+                return Ok(orderFromDB);
+            }
+            else
+            {
+                return StatusCode(HttpStatusCode.NoContent);
+            }
+
+        }
+
+
+
+
+        [Route("{cid}/orders/status/{osid}", Name = "GetOrderByCustomerNStatusID"), BasicAuthentication]
+        public IHttpActionResult GetOrderByCustomerNStatusID(int cid, int osid)
+        {
+            OrderRepository orderDB = new OrderRepository();
+
+            var orderFromDB = orderDB.GetOrderByCustomerNStatusID(cid, osid);
+            if (orderFromDB.Count != 0)
+            {
+                return Ok(orderFromDB);
+            }
+            else
+            {
+                return StatusCode(HttpStatusCode.NoContent);
+            }
+        }
+
+
+        [Route("{cid}/orders/saletype/{stid}", Name = "GetOrderByCustomerNSaleTypeID"), BasicAuthentication]
+        public IHttpActionResult GetOrderByCustomerNSaleTypeID(int cid, int stid)
+        {
+            OrderRepository orderDB = new OrderRepository();
+
+            var orderFromDB = orderDB.GetOrderByCustomerNSaleTypeID(cid, stid);
+            if (orderFromDB.Count != 0)
+            {
+                return Ok(orderFromDB);
+            }
+            else
+            {
+                return StatusCode(HttpStatusCode.NoContent);
+            }
+        }
+
+
+        [Route("{cid}/orders/saletype/{stid}/notissold", Name = "GetOrderByCustomerNSaleTypeIDNNotIsSold"), BasicAuthentication]
+        public IHttpActionResult GetOrderByCustomerNSaleTypeIDNNotIsSold(int cid, int stid)
+        {
+            OrderRepository orderDB = new OrderRepository();
+
+            var orderFromDB = orderDB.GetOrderByCustomerNSaleTypeID(cid, stid);
+            if (orderFromDB.Count != 0)
+            {
+                return Ok(orderFromDB.Where(x => x.IsSold == false));
+            }
+            else
+            {
+                return StatusCode(HttpStatusCode.NoContent);
+            }
+        }
+
+
+        [Route("{cid}/orders/saletype/{stid}/issold", Name = "GetOrderByCustomerNSaleTypeIDNIsSold"), BasicAuthentication]
+        public IHttpActionResult GetOrderByCustomerNSaleTypeIDNIsSold(int cid, int stid)
+        {
+            OrderRepository orderDB = new OrderRepository();
+
+            var orderFromDB = orderDB.GetOrderByCustomerNSaleTypeID(cid, stid);
+            if (orderFromDB.Count != 0)
+            {
+                return Ok(orderFromDB.Where(x => x.IsSold == true));
+            }
+            else
+            {
+                return StatusCode(HttpStatusCode.NoContent);
+            }
+        }
+
+
+
+
     }
 }
