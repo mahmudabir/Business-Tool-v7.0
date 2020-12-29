@@ -17,11 +17,11 @@ namespace BTv7.Controllers
         [BasicAuthentication]
         public IHttpActionResult Get()
         {
-            NoteRepository noterepo = new NoteRepository();
-            var notesFromDB = noterepo.GetAll();
-            if (notesFromDB.Count() != 0)
+            EmployeeRepository emprepo = new EmployeeRepository();
+            var UserFromDB = emprepo.GetAll();
+            if (UserFromDB.Count() != 0)
             {
-                return Ok(notesFromDB);
+                return Ok(UserFromDB);
             }
             else
             {
@@ -35,6 +35,9 @@ namespace BTv7.Controllers
         {
             NoteRepository noterepo = new NoteRepository();
             note.ID = note.ID;
+            note.Subject = note.Subject;
+            note.Description = note.Description;
+            note.EmployeeID = note.EmployeeID;
             note.Date = DateTime.Now;
             noterepo.Insert(note);
             return Created("api/notes/" + note.ID, note);

@@ -40,10 +40,10 @@ var listUser=function(){
 				
 				var str;
 				for (var i = 0; i < data.length; i++) {
-					if(data[i].employee.login.id==localStorage.username)
+					if(data[i].login.id==localStorage.username)
 					{
-						empID=data[0].employeeID;
-
+						empID=data[i].id;
+						
 						listNote();
 						
 					}
