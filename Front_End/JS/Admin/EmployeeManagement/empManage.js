@@ -144,4 +144,37 @@ $(document).ready(function(){
         loadAllEmployeesByName();
     }); 
 
+    //ADD EMPLOYEE
+        //1 ADD LOGIN
+    var insertLogin = function () {
+        $.ajax({
+            url: "https://localhost:44308/api/logins/register",
+            method: "POST",
+            data: {
+                email: $("#email").val(),
+                mobile: $("#contact").val(),
+                username: $("#username").val(),
+                password: "12345",
+                accessStatusId: "1",
+                registrationStatusId: "2",
+                userDesignationId: $("#role").val()
+            },
+            headers: {
+                'Authorization': 'Basic ' + btoa($("#username").val() + ":" + "12345"),
+            },
+            complete: function (xhr, status) {
+                if (xhr.status == 201) {
+                   alert("Asigned...");
+                    //insertInCustomer();
+                }
+                else {
+                    console.log(xhr);
+                }
+            }
+        });
+    }
+    $("#btnadd").on("click",function(){
+        insertLogin();
+    }); 
+
 });
