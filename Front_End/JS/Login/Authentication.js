@@ -95,7 +95,7 @@ $(document).ready(function () {
             data: {
                 name: $("#regname").val(),
                 //joinDate: "1-1-1",
-                joinDate: Date.now().toString(),
+                joinDate: "1-1-1"
             },
             headers: {
                 'Authorization': 'Basic ' + btoa($("#regusername").val() + ":" + $("#regpassword").val()),
@@ -124,9 +124,9 @@ $(document).ready(function () {
                 mobile: $("#regmobile").val(),
                 username: $("#regusername").val(),
                 password: $("#regpassword").val(),
-                accessStatusId: 2,
-                registrationStatusId: 1,
-                userDesignationId: 5
+                accessStatusId: "2",
+                registrationStatusId: "1",
+                userDesignationId: "5"
             },
             headers: {
                 'Authorization': 'Basic ' + btoa($("#regusername").val() + ":" + $("#regpassword").val()),

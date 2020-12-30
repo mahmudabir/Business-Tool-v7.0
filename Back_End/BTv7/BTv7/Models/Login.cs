@@ -65,7 +65,7 @@ namespace BTv7.Models
             {
                 errors.Add(new ValidationResult($"{nameof(Username)} exists already.", new List<string> { nameof(Username) }));
             }
-            if (Username.Length < 8)
+            if (Username.Length < 4)
             {
                 errors.Add(new ValidationResult($"{nameof(Username)} must contain atleast 8 characters.", new List<string> { nameof(Username) }));
             }
@@ -89,7 +89,7 @@ namespace BTv7.Models
 
 
             //Password property
-            if (Password.Length < 8)
+            if (Password.Length < 4)
             {
                 errors.Add(new ValidationResult($"{nameof(Password)}  must contain atleast 8 characters.", new List<string> { nameof(Password) }));
             }
