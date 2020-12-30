@@ -1,5 +1,12 @@
 $(document).ready(function(){
 	var orderID;
+	var str;
+	var nextLine;
+	var count=0;
+	var productNames="";
+	var sepration;
+	var orderAmount=0;
+	var individualAmount=0;
 	if (localStorage.authUser == null || localStorage.userRole!=4) {
         window.location.href = "../Login/Authentication.html";
     }
@@ -23,7 +30,7 @@ var listPendingOrderID=function(){
 				var dataOrder=xmlhttp.responseJSON;
 				
 				
-				var str;
+				
 				for (var i = 0; i < dataOrder.length; i++) {
 					
 					orderID=dataOrder[i].id;
@@ -45,7 +52,7 @@ listPendingOrderID();
 
 
 var listPending=function(){
-	console.log(orderID);
+	
 		$.ajax({
 				url:"https://localhost:44308/api/deliveryorders/"+localStorage.username+"/"+orderID,
 				method:"GET",
@@ -60,11 +67,33 @@ var listPending=function(){
 							
 					for (var j=0; j<data.length; j++)
 					{
+						count+=1;
+						console.log(count);
+						if(count==2){
+							nextLine="<tr>";
+							count=0;
+						}
+						else{
+							nextLine="&nsbp &nsbp &nsbp";
+						}
 
-					str+="<tr><td>"+data[j].product.name+"</td><td>"+data[j].product.sellPrice+"</td><td>"+data[j].product.quantity+"</td></tr>"	
-	
+						for (var k=0; k<data.length; k++)
+						{
+							if(data.length==1 || data.length-1==k){
+								sepration="";
+							}
+							else{
+								sepration="<br>"
+							}
+							orderAmount+=data[k].cartAmount;
+							productNames+="<b>"+data[k].product.name+"</b>= "+data[k].cartAmount+" TK "+sepration;
+						}
+						str+="<tr><td><b>"+data[j].order.id+"</b></td><td>"+data.length+" Products</td><td>"+productNames+"</td><td>"+orderAmount+" TK</td><td><button id='Accepted' class='btn btn-success btn-sm'>Accepted</button></td><td><button id='Rejected' class='btn btn-danger btn-sm'>Rejected</button></td></tr>"	
+						productNames="";
+						orderAmount=0;
+						break;
 					}
-					$("#pendingList tbody").html(str);
+						$("#pendingList tbody").html(str);
 							
 					}
 				else
