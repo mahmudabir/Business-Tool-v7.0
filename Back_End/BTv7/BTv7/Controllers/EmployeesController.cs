@@ -14,7 +14,23 @@ namespace BTv7.Controllers
     [RoutePrefix("api/employees")]
     public class EmployeesController : ApiController
     {
-        private EmployeeRepository employeeDB = new EmployeeRepository();
+        EmployeeRepository employeeDB = new EmployeeRepository();
+
+        [Route("", Name = "GetEmployees")]
+        [BasicAuthentication]
+        public IHttpActionResult GetEmployees()
+        {
+
+            var employeeFromDB = employeeDB.GetAll();
+            if (employeeFromDB != null || employeeFromDB.Count != 0)
+            {
+                return Ok(employeeFromDB);
+            }
+            else
+            {
+                return StatusCode(HttpStatusCode.NotFound);
+            }
+        }
 
         //[Route("{id}", Name = "GetEmployeeByID")]
         //[BasicAuthentication]//, Authorize(Roles = "ADMIN,MANAGER,SALESMAN,DELIVERYMAN")]
@@ -31,22 +47,6 @@ namespace BTv7.Controllers
         //            //new HyperMedia { Href = Url.Link("DeleteEmployee", null), Method = "DELETE", Rel = "Delete Employee." }
         //            );
         //        return Ok(result);
-        //    }
-        //    else
-        //    {
-        //        return StatusCode(HttpStatusCode.NotFound);
-        //    }
-        //}
-
-
-        //[Route("", Name = "GetEmployees")]
-        //[BasicAuthentication]
-        //public IHttpActionResult GetEmployees()
-        //{
-        //    var employeeFromDB = employeeDB.GetAll();
-        //    if (employeeFromDB != null || employeeFromDB.Count != 0)
-        //    {
-        //        return Ok(employeeFromDB);
         //    }
         //    else
         //    {
