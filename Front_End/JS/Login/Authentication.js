@@ -51,8 +51,36 @@ $(document).ready(function () {
 
                     console.log(xhr);
 
-                    window.location.href = "Index.html";
-                    $("#msg").html("<div class=\"alert alert-success\" role=\"alert\">Success: Successfully Logged In</div>");
+                    if(localStorage.userRole==1)
+                    {
+                        window.location.href = "../../html/Admin";
+                        $("#msg").html("<div class=\"alert alert-success\" role=\"alert\">Success: Successfully Logged In</div>");
+                    }
+                    else if(localStorage.userRole==2)
+                    {
+                        window.location.href = "../../html/Manager";
+                        $("#msg").html("<div class=\"alert alert-success\" role=\"alert\">Success: Successfully Logged In</div>");
+                    }
+                    else if(localStorage.userRole==3)
+                    {
+                        window.location.href = "../../html/Salesman";
+                        $("#msg").html("<div class=\"alert alert-success\" role=\"alert\">Success: Successfully Logged In</div>");
+                    }
+                    else if(localStorage.userRole==4)
+                    {
+                        window.location.href = "../../html/Deliveryman";
+                        $("#msg").html("<div class=\"alert alert-success\" role=\"alert\">Success: Successfully Logged In</div>");
+                    }
+                    else if(localStorage.userRole==5)
+                    {
+                        window.location.href = "../../html/Customer";
+                        $("#msg").html("<div class=\"alert alert-success\" role=\"alert\">Success: Successfully Logged In</div>");
+                    }
+                    else if(localStorage.userRole==6)
+                    {
+                        window.location.href = "../../html/Vendor";
+                        $("#msg").html("<div class=\"alert alert-success\" role=\"alert\">Success: Successfully Logged In</div>");
+                    }
                 }
                 else {
                     console.log(xhr);
