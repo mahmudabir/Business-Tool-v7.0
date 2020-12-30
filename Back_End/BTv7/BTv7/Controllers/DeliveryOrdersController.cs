@@ -85,9 +85,9 @@ namespace BTv7.Controllers
 
         }
 
-        [Route("{oid}", Name = "AcceptedOrder")]
+        [Route("{oid}/accepted", Name = "AcceptedOrder")]
         [BasicAuthentication]
-        public IHttpActionResult Put([FromUri] int oid,[FromBody] Order order)
+        public IHttpActionResult PutAccepted([FromUri] int oid,[FromBody] Order order)
         {
             OrderRepository orderrepo = new OrderRepository();
             order.ID = oid;
@@ -95,6 +95,94 @@ namespace BTv7.Controllers
             order.Date = DateTime.Now;
             orderrepo.Update(order);
             return Ok(order);
+
+
+
+        }
+
+
+        [Route("{oid}/ordercart", Name = "GetOrderCartByOrderID")]
+        [BasicAuthentication]
+        public IHttpActionResult GetOrdercart(int oid)
+        {
+            OrderCartRepository orderCartrepo = new OrderCartRepository();
+            var orderCartList = orderCartrepo.GetCartsByOrderID(oid);
+
+            if (orderCartList.Count() != 0)
+            {
+                return Ok(orderCartList);
+            }
+            else
+            {
+                return StatusCode(HttpStatusCode.NoContent);
+            }
+
+        }
+
+        [Route("{pid}/product", Name = "GetProductByProductID")]
+        [BasicAuthentication]
+        public IHttpActionResult GetProduct(int pid)
+        {
+            ProductRepository prodrepo = new ProductRepository();
+            var productList = prodrepo.Get(pid);
+
+            if (productList !=null)
+            {
+                return Ok(productList);
+            }
+            else
+            {
+                return StatusCode(HttpStatusCode.NoContent);
+            }
+
+        }
+
+
+        [Route("{oid}/{pid}/rejected", Name = "RejectedOrder")]
+        [BasicAuthentication]
+        public IHttpActionResult PutRejected([FromUri] int oid, [FromUri] int pid, [FromBody] Product product)
+        {
+            //OrderRepository orderrepo = new OrderRepository();
+            OrderCartRepository orderCartrepo = new OrderCartRepository();
+            //ProductRepository prodrepo = new ProductRepository();
+
+            //var orderCartData = orderCartrepo.GetCartsByOrderID(oid);
+            //int quantity;
+
+            //foreach (var item in orderCartData)
+            //{
+            //    var prodFromDB = prodrepo.Get((int)item.ProductID);
+            //    product.ID = prodFromDB.ID;
+            //    quantity = (prodFromDB.Quantity + item.Quantity);
+            //    product.Quantity = quantity;
+            //    product.Image = prodFromDB.Image;
+            //    product.Name = prodFromDB.Name;
+            //    product.BuyPrice = prodFromDB.BuyPrice;
+            //    product.SellPrice = prodFromDB.SellPrice;
+            //    product.ProductType = prodFromDB.ProductType;
+            //    product.ProductStatus = prodFromDB.ProductStatus;
+            //    product.ProductTypeID = prodFromDB.ProductTypeID;
+            //    product.ProductStatusID = prodFromDB.ProductStatusID;
+            //    product.Vendor = prodFromDB.Vendor;
+            //    product.VendorID = prodFromDB.VendorID;
+            //    product.Login = prodFromDB.Login;
+            //    product.ModifiedBy = prodFromDB.ModifiedBy;
+
+            //    prodrepo.Update(product);
+            //    orderCartrepo.Delete(item.ID);
+
+            //}
+
+
+
+            ProductRepository prodrepo = new ProductRepository();
+            product.ID = pid;
+
+           
+            prodrepo.Update(product);
+            //orderCartrepo.Delete(oid);
+            return Ok(product);
+
 
 
 
