@@ -3,8 +3,16 @@ $(document).ready(function () {
         window.location.replace = "http://localhost/Business-Tool-v7.0-api/Front_End/Html/Index.html";
     }
 
-    $("#divregister").hide();
-
+    if(sessionStorage.signup=="true")
+    {
+        $("#divlogin").hide();
+        $("#divregister").show();
+        sessionStorage.clear();
+    }
+    else
+    {
+        $("#divregister").hide();
+    }
 
     $("#gotoregister").click(function () {
         $("#divlogin").hide();
