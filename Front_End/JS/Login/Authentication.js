@@ -81,6 +81,10 @@ $(document).ready(function () {
                         window.location.href = "../../html/Vendor";
                         $("#msg").html("<div class=\"alert alert-success\" role=\"alert\">Success: Successfully Logged In</div>");
                     }
+                    else
+                    {
+                        $("#msg").html("<div class=\"alert alert-danger\" role=\"alert\">Error : " + xhr.responseJSON.message + "</div>");
+                    }
                 }
                 else {
                     console.log(xhr);
