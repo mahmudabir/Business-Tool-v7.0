@@ -93,7 +93,7 @@ $(document).ready(function(){
         if($.trim($("#search").val()) !== "")
         {
             $.ajax({
-                url: "https://localhost:44308/api/employees/"+$("#search").val(),
+                url: "https://localhost:44308/api/employees/name/"+$("#search").val(),
                 method: "GET",
                 headers: {
                     'Authorization': 'Basic ' + localStorage.authUser,
@@ -145,7 +145,34 @@ $(document).ready(function(){
     }); 
 
     //ADD EMPLOYEE
-        //1 ADD LOGIN
+        //1 ADD EMPLOYEE
+    var insertInEmployee = function () {
+        $.ajax({
+            url: "https://localhost:44308/api/employees/register",
+            method: "POST",
+            data: {
+                name: $("#fullname").val(),
+                salary: $("#salary").val(),
+                addeddBy: localStorage.userId,
+                joinDate: "1-1-1"
+            },
+            headers: {
+                'Authorization': 'Basic ' + btoa($("#username").val() + ":" + "12345"),
+            },
+            complete: function (xhr, status) {
+                if (xhr.status == 201) {
+                    console.log("Added"); 
+                    loadAllEmployees();
+                    alert("Employee `"+$("#username").val()+"` assigned.");      
+                }
+                else {
+                    alert("Check Username/Email."); 
+                    console.log(xhr);
+                }
+            }
+        });
+    }
+        //2 ADD LOGIN
     var insertLogin = function () {
         $.ajax({
             url: "https://localhost:44308/api/logins/register",
@@ -164,10 +191,10 @@ $(document).ready(function(){
             },
             complete: function (xhr, status) {
                 if (xhr.status == 201) {
-                   alert("Asigned...");
-                    //insertInCustomer();
+                    insertInEmployee();
                 }
                 else {
+                    alert("Check Username/Email."); 
                     console.log(xhr);
                 }
             }

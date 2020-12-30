@@ -8,10 +8,9 @@ namespace BTv7.Repositories
 {
     public class EmployeeRepository : Repository<Employee>
     {
-        public Employee GetEmployeeByLoginID(int loginID)
+        public List<Employee> GetEmployeeByLoginID(int loginID)
         {
-            List<Employee> userFromDB = this.GetAll();
-            return userFromDB.FirstOrDefault(x => x.LoginID.Equals(loginID));
+            return this.context.Set<Employee>().Where(x => x.LoginID == loginID).ToList();
         }
 
         public List<Employee> GetByName(string id)

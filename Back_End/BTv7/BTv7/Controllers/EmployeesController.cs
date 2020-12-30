@@ -32,7 +32,7 @@ namespace BTv7.Controllers
             }
         }
 
-        [Route("{name}", Name = "GetEmployeesByName")]
+        [Route("name/{name}", Name = "GetEmployeesByName")]
         [BasicAuthentication]
         public IHttpActionResult GetEmployeesByName(string name)
         {
@@ -45,6 +45,50 @@ namespace BTv7.Controllers
             else
             {
                 return StatusCode(HttpStatusCode.NotFound);
+            }
+        }
+
+        [Route("loginID/{loginID}", Name = "GetEmployeeByLoginID")]
+        [BasicAuthentication]
+        public IHttpActionResult GetEmployeeByLoginID(int loginID)
+        {
+            var employeeFromDB = employeeDB.GetEmployeeByLoginID(loginID);
+
+            if (employeeFromDB != null || employeeFromDB.Count != 0)
+            {
+                return Ok(employeeFromDB);
+            }
+            else
+            {
+                return StatusCode(HttpStatusCode.NotFound);
+            }
+        }
+
+        [Route("register", Name = "EmployeeRegistration")]
+        [BasicAuthentication]
+        public IHttpActionResult PostRegister(Employee employee)
+        {
+            LoginRepository loginDB = new LoginRepository();
+            var loginFromDB = loginDB.GetUserByUsername(Thread.CurrentPrincipal.Identity.Name.ToString());
+
+            employee.Salary = (float)employee.Salary;
+
+            employee.JoinDate = DateTime.Now;
+
+            employee.LoginID = loginFromDB.ID;
+
+            //employee.AddeddBy = 1;
+            if (ModelState.IsValid)
+            {
+                employeeDB.Insert(employee);
+
+                string uri = Url.Link("GetEmployeeByLoginID", new { loginID = loginFromDB.ID });
+
+                return Created(uri, employee);
+            }
+            else
+            {
+                return BadRequest(ModelState);
             }
         }
 
