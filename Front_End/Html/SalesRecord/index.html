@@ -8,31 +8,14 @@
     <link rel="stylesheet" href="../../CSS/bootstrap.css">
     <script src="../../Content/popper.js"></script>
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <script src="../../JS/SalesRecord/index.js"></script>
 </head>
 <body class="bg-secondary">
     
     <div id="content"></div>
 
     <div class="p-4">
-        <!-- load Nav -->
-        <script>
-            $(document).ready(function(){
-                
-                if(localStorage.userRole==1)
-                {
-                  $('#content').load("../Admin/adminnav.html");
-                }
-                if(localStorage.userRole==2)
-                {
-                  $('#content').load("../Manager/managernav.html");
-                }
-                if(localStorage.userRole==3)
-                {
-                  $('#content').load("../Salesman/salesmannav.html");
-                }
-            });
-        </script>
-        <!-- load Nav-->
+    
     </div>
     <div class="container rounded">
         <div class="row">
@@ -40,36 +23,22 @@
                 <div class="card my-5">
                     <div class="card-body">
                         <h3 class="card-title text-center">Sales Record</h3>
-                        <input type="button" value="Export PDF" class="mb-1 btn-info btn-lg">
-                        <input type="button" value="Export Excel" class="mb-1 btn-info btn-lg">
-                        <table class="table table-bordered table-hover">
+                        <div class="col-sm-12 col-md-8 col-lg">
+                          <input type="button" value="Export PDF" class="mb-1 btn-info btn-lg">
+                          <input type="button" value="Export Excel" class="mb-1 btn-info btn-lg">
+                          <input type="text" id="search" style="width: 20%;font-size: 22px;" class="border-info float-right mx-3 mt-1" placeholder="Search">
+                        </div>
+                        <table class="table table-bordered table-hover" id="table">
                             <thead class="thead-light">
                                 <tr>
-                                  <th scope="col">#</th>
-                                  <th scope="col">First</th>
-                                  <th scope="col">Last</th>
-                                  <th scope="col">Handle</th>
+                                  <th scope="col">ID</th>
+                                  <th scope="col">TotalAmount</th>
+                                  <th scope="col">Date</th>
+                                  <th scope="col">OrderID</th>
                                 </tr>
                               </thead>
                               <tbody>
-                                <tr>
-                                  <th scope="row">1</th>
-                                  <td>Mark</td>
-                                  <td>Otto</td>
-                                  <td>@mdo</td>
-                                </tr>
-                                <tr>
-                                  <th scope="row">2</th>
-                                  <td>Jacob</td>
-                                  <td>Thornton</td>
-                                  <td>@fat</td>
-                                </tr>
-                                <tr>
-                                  <th scope="row">3</th>
-                                  <td>Larry</td>
-                                  <td>the Bird</td>
-                                  <td>@twitter</td>
-                                </tr>
+                                <!-- Data From API -->
                               </tbody>
                         </table>
                         
