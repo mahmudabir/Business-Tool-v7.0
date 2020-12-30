@@ -34,20 +34,49 @@
                                         <div class="modal-body">    
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
-                                                    <span class="input-group-text" id="username">Username</span>
+                                                    <span class="input-group-text">Username</span>
                                                 </div>
-                                                <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                                                <input type="text" class="form-control" id="xyz@3" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
                                             </div> 
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
-                                                    <span class="input-group-text" id="fullname">Full Name</span>
+                                                    <span class="input-group-text">Full Name</span>
                                                 </div>
-                                                <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
-                                            </div>   
+                                                <input type="text" class="form-control" id="fullname" placeholder="FirstName MiddleName LastName" aria-label="Username" aria-describedby="basic-addon1">
+                                            </div> 
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">Contact</span>
+                                                </div>
+                                                <input type="number" class="form-control" id="contact" placeholder="01...." aria-label="Username" aria-describedby="basic-addon1">
+                                            </div> 
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">Email</span>
+                                                </div>
+                                                <input type="email" class="form-control" id="email" placeholder="sample@sample.sample" aria-label="Username" aria-describedby="basic-addon1">
+                                            </div> 
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">Designation</span>
+                                                </div>
+                                                <select class="custom-select" id="role">
+                                                    <option selected>Open this select menu</option>
+                                                    <option value="1">One</option>
+                                                    <option value="2">Two</option>
+                                                    <option value="3">Three</option>
+                                                </select>
+                                            </div> 
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">Salary</span>
+                                                </div>
+                                                <input type="email" class="form-control" id="salary" placeholder="1-10000......" aria-label="Username" aria-describedby="basic-addon1">
+                                            </div> 
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                            <button type="button" class="btn btn-primary">Save changes</button>
+                                            <button type="button" class="btn btn-primary">Add</button>
                                         </div>
                                     </div>
                                 </div>
@@ -58,9 +87,9 @@
                                 <thead class="thead-dark">
                                     <tr>
                                       <th scope="col">#</th>
-                                      <th scope="col">First</th>
-                                      <th scope="col">Last</th>
-                                      <th scope="col">Handle</th>
+                                      <th scope="col">Username</th>
+                                      <th scope="col">Full Name</th>
+                                      <th scope="col">Designation</th>
                                     </tr>
                                   </thead>
                                   <tbody>
