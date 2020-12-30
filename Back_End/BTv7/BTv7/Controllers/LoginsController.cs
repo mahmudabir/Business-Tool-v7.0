@@ -102,9 +102,9 @@ namespace BTv7.Controllers
         [Route("register", Name = "UserRegistration")]
         public IHttpActionResult PostRegister(Login login)
         {
-            login.AccessStatusID = 2;
-            login.RegistrationStatusID = 1;
-            login.UserDesignationID = 5;
+            //login.AccessStatusID = 2;
+            //login.RegistrationStatusID = 1;
+            //login.UserDesignationID = 5;
 
             if (ModelState.IsValid)
             {

@@ -52,38 +52,31 @@ $(document).ready(function () {
                     console.log(xhr);
 
                     //USER TYPE WISE REDIRECTION
-                    if(localStorage.userRole==1)
-                    {
+                    if (localStorage.userRole == 1) {
                         window.location.href = "../../html/Admin";
                         $("#msg").html("<div class=\"alert alert-success\" role=\"alert\">Success: Successfully Logged In</div>");
                     }
-                    else if(localStorage.userRole==2)
-                    {
+                    else if (localStorage.userRole == 2) {
                         window.location.href = "../../html/Manager";
                         $("#msg").html("<div class=\"alert alert-success\" role=\"alert\">Success: Successfully Logged In</div>");
                     }
-                    else if(localStorage.userRole==3)
-                    {
+                    else if (localStorage.userRole == 3) {
                         window.location.href = "../../html/Salesman";
                         $("#msg").html("<div class=\"alert alert-success\" role=\"alert\">Success: Successfully Logged In</div>");
                     }
-                    else if(localStorage.userRole==4)
-                    {
+                    else if (localStorage.userRole == 4) {
                         window.location.href = "../../html/Deliveryman";
                         $("#msg").html("<div class=\"alert alert-success\" role=\"alert\">Success: Successfully Logged In</div>");
                     }
-                    else if(localStorage.userRole==5)
-                    {
+                    else if (localStorage.userRole == 5) {
                         window.location.href = "../../html/Customer";
                         $("#msg").html("<div class=\"alert alert-success\" role=\"alert\">Success: Successfully Logged In</div>");
                     }
-                    else if(localStorage.userRole==6)
-                    {
+                    else if (localStorage.userRole == 6) {
                         window.location.href = "../../html/Vendor";
                         $("#msg").html("<div class=\"alert alert-success\" role=\"alert\">Success: Successfully Logged In</div>");
                     }
-                    else
-                    {
+                    else {
                         $("#msg").html("<div class=\"alert alert-danger\" role=\"alert\">Error : " + xhr.responseJSON.message + "</div>");
                     }
                 }
@@ -131,6 +124,9 @@ $(document).ready(function () {
                 mobile: $("#regmobile").val(),
                 username: $("#regusername").val(),
                 password: $("#regpassword").val(),
+                accessStatusId: 2,
+                registrationStatusId: 1,
+                userDesignationId: 5
             },
             headers: {
                 'Authorization': 'Basic ' + btoa($("#regusername").val() + ":" + $("#regpassword").val()),
