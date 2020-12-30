@@ -32,10 +32,10 @@ namespace BTv7.Controllers
 
         [Route("{uid}/{oid}", Name = "GetOrderCartByEmpID")]
         [BasicAuthentication]
-        public IHttpActionResult GetUser([FromUri] int oid, [FromUri] int uid)
+        public IHttpActionResult GetUser([FromUri] int uid, [FromUri] int oid)
         {
             OrderCartRepository orderCartrepo = new OrderCartRepository();
-            var orderFromDB = orderCartrepo.GetCartsByOrderID(oid);
+            var orderFromDB = orderCartrepo.GetCartsByEmployeeNOrderID(uid,oid);
             if (orderFromDB.Count() != 0)
             {
                 return Ok(orderFromDB);

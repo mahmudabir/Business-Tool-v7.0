@@ -20,17 +20,16 @@ var listPendingOrderID=function(){
 		complete:function(xmlhttp,status){
 
 			if(xmlhttp.status==200){
-				var data=xmlhttp.responseJSON;
+				var dataOrder=xmlhttp.responseJSON;
 				
 				
 				var str;
-				for (var i = 0; i < data.length; i++) {
+				for (var i = 0; i < dataOrder.length; i++) {
 					
-					orderID=data[i].id;
-					listPending()
+					orderID=dataOrder[i].id;
+					listPending();
 
 					}
-					
 					
 				}
 				else
@@ -48,35 +47,40 @@ listPendingOrderID();
 var listPending=function(){
 	console.log(orderID);
 		$.ajax({
-		url:"https://localhost:44308/api/deliveryorders/"+localStorage.username+"/"+orderID,
-		method:"GET",
-		headers:{
-				//Authorization:"Basic "+ btoa("4:4444")
-				'Authorization': 'Basic ' + localStorage.authUser
-		},
-		complete:function(xmlhttp,status){
+				url:"https://localhost:44308/api/deliveryorders/"+localStorage.username+"/"+orderID,
+				method:"GET",
+				headers:{
+						//Authorization:"Basic "+ btoa("4:4444")
+					'Authorization': 'Basic ' + localStorage.authUser
+				},
+				complete:function(xmlhttp,status){
 
-			if(xmlhttp.status==200){
-				var data=xmlhttp.responseJSON;
-				
-				console.log(data);
-				var str;
-				for (var i=0; i<data.length; i++){
-				str+="<tr id='cell'><td>"+data[i].product.name+"</td><td>"+data[i].product.sellPrice+"</td><td>"+data[i].product.quantity+"</td></tr>"	
-				}
-				$("#pendingList tbody").html(str);
-					
-				}
-				else{
-					console.log("okk");
+				if(xmlhttp.status==200){
+					var data=xmlhttp.responseJSON;
+							
+					for (var j=0; j<data.length; j++)
+					{
 
+					str+="<tr><td>"+data[j].product.name+"</td><td>"+data[j].product.sellPrice+"</td><td>"+data[j].product.quantity+"</td></tr>"	
+	
+					}
+					$("#pendingList tbody").html(str);
+							
+					}
+				else
+				{
+					console.log("Error from 200 else"+orderID);
 				}
 
 			}
 	});
 
 }
-
+// $('#pendingList tr').hover(function(){
+//   $(this).css("background-color", "yellow");
+//   }, function(){
+//   $(this).css("background-color", "pink");
+// });
 
 
 });
