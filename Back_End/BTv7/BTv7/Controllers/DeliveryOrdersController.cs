@@ -12,7 +12,7 @@ namespace BTv7.Controllers
     [RoutePrefix("api/deliveryorders")]
     public class DeliveryOrdersController : ApiController
     {
-        [Route("{id}", Name = "GetAllOrder")]
+        [Route("{id}", Name = "GetAllOrderByDeliverymanID")]
         [BasicAuthentication]
         public IHttpActionResult Get(int id)
         {
@@ -30,7 +30,28 @@ namespace BTv7.Controllers
 
         }
 
-        [Route("{uid}/{oid}", Name = "GetOrderCartByEmpID")]
+
+        [Route("{id}/order", Name = "GetOrderByOrderID")]
+        [BasicAuthentication]
+        public IHttpActionResult Getorder(int id)
+        {
+            OrderRepository orderrepo = new OrderRepository();
+            var orderList = orderrepo.Get(id);
+
+            if (orderList !=null)
+            {
+                return Ok(orderList);
+            }
+            else
+            {
+                return StatusCode(HttpStatusCode.NoContent);
+            }
+
+        }
+
+
+
+        [Route("{uid}/{oid}", Name = "GetOrderCartByDeliverymanID")]
         [BasicAuthentication]
         public IHttpActionResult GetOrderCart([FromUri] int uid, [FromUri] int oid)
         {
@@ -52,7 +73,7 @@ namespace BTv7.Controllers
         public IHttpActionResult GetUser([FromUri] int eid, [FromUri] int oid)
         {
             OrderRepository orderrepo = new OrderRepository();
-            var orderFromDB = orderrepo.GetOrderByEmpIDNOrderID(eid, oid);
+            var orderFromDB = orderrepo.GetOrderByDeliverymanIDNOrderID(eid, oid);
             if (orderFromDB != null)
             {
                 return Ok(orderFromDB);
@@ -61,6 +82,21 @@ namespace BTv7.Controllers
             {
                 return StatusCode(HttpStatusCode.NoContent);
             }
+
+        }
+
+        [Route("{oid}", Name = "AcceptedOrder")]
+        [BasicAuthentication]
+        public IHttpActionResult Put([FromUri] int oid,[FromBody] Order order)
+        {
+            OrderRepository orderrepo = new OrderRepository();
+            order.ID = oid;
+
+            order.Date = DateTime.Now;
+            orderrepo.Update(order);
+            return Ok(order);
+
+
 
         }
 

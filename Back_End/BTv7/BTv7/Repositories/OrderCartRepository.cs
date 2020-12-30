@@ -22,7 +22,7 @@ namespace BTv7.Repositories
 
         public List<OrderCart> GetCartsByEmployeeNOrderID(int eid, int oid)
         {
-            return this.GetAll().Where(x => x.OrderID == oid && x.Order.Employee.ID == eid).ToList();
+            return this.context.Set<OrderCart>().Where(x => x.OrderID == oid && x.Order.Employee.ID == eid).OrderBy(y=> y.Order.ID).ToList();
         }
 
     }

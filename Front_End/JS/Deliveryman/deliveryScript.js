@@ -81,7 +81,7 @@ var listPending=function(){
 							orderAmount+=data[k].cartAmount;
 							productNames+="<b>"+data[k].product.name+"</b>= "+data[k].cartAmount+" TK "+sepration;
 						}
-						str+="<tr><td><b>"+data[j].order.id+"</b></td><td>"+data.length+" Products</td><td>"+productNames+"</td><td>"+orderAmount+" TK</td><td><button id='Accepted' class='btn btn-success btn-sm'>Accepted</button></td><td><button id='Rejected' class='btn btn-danger btn-sm'>Rejected</button></td></tr>"	
+						str+="<tr><td><b>"+data[j].order.id+"</b></td><td>"+data.length+" Products</td><td>"+productNames+"</td><td>"+orderAmount+" TK</td><td><button id='Accepted' btn-id-accept="+data[j].order.id+" class='btn btn-success btn-sm'>Accepted</button></td><td><button id='Rejected' btn-id-reject="+data[j].order.id+" class='btn btn-danger btn-sm'>Rejected</button></td></tr>"	
 						productNames="";
 						orderAmount=0;
 						break;
@@ -142,6 +142,76 @@ $("#search").keyup(function(){
 			}
 	});
 //Ends search
+
+
+$("#pendingList").on("click","#Accepted",function(){
+	var button=$(this);
+	var orderid=button.attr("btn-id-accept");
+	console.log(orderid);
+	$.ajax({
+				url:"https://localhost:44308/api/deliveryorders/"+orderid+"/order",
+				method:"GET",
+				headers:{
+						//Authorization:"Basic "+ btoa("4:4444")
+					'Authorization': 'Basic ' + localStorage.authUser
+				},
+				complete:function(xmlhttp,status){
+
+				if(xmlhttp.status==200){
+					var orderdata=xmlhttp.responseJSON;
+					console.log(orderdata);
+					$.ajax({
+					url:"https://localhost:44308/api/deliveryorders/"+orderid,
+					method:"PUT",
+					headers:{
+							//Authorization:"Basic "+ btoa("4:4444")
+							'Authorization': 'Basic ' + localStorage.authUser
+					},
+					header:"Content-Type:application/json",
+					data:{
+							"id": orderid,
+							"totalAmount": orderdata.totalAmount,
+							"address": orderdata.address,
+							
+							"customerID": orderdata.customerID,
+							"customerName": orderdata.customerName,
+							
+							
+							"saleType": orderdata.saleType,
+							"saleTypeID": orderdata.saleTypeID,
+							"isSold": true,
+							"orderStatusID": 4,
+							"sellBy": localStorage.username
+
+				        
+						
+					},
+					complete:function(xmlhttp,status){
+						var data=xmlhttp.responseJSON;
+						if(xmlhttp.status==200){
+								str="";
+								listPendingOrderID();
+						}
+						else{
+							console.log("Error");
+						}
+						}
+				});
+				}
+			}
+		});
+});
+
+
+
+
+
+
+
+		
+	
+
+
 
 
 
