@@ -21,6 +21,7 @@
                     <div class="card my-3">
                         <div class="card-body">
                             <button type="button" class="btn btn-primary btn-lg btn-block mb-2" data-toggle="modal" data-target="#addEmployee">ADD NEW EMPLOYEE</button>
+                            <input class="form-control mb-2" style="text-align: center;" type="search" id="search" placeholder="Search By Name" autocomplete="off">
                             <!-- Modal -->
                             <div class="modal fade" style="margin-top: 5%;" id="addEmployee" tabindex="-1" role="dialog" aria-labelledby="addEmployeeLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
@@ -82,8 +83,9 @@
                                 </div>
                             </div>
                             <!-- Modal -->
+
                             <!-- CONTENT -->
-                            <table class="table table-bordered table-hover">
+                            <table class="table table-bordered table-hover" id="emptable">
                                 <thead class="thead-dark">
                                     <tr>
                                       <th scope="col">#</th>
@@ -93,24 +95,7 @@
                                     </tr>
                                   </thead>
                                   <tbody>
-                                    <tr>
-                                      <th scope="row">1</th>
-                                      <td>Mark</td>
-                                      <td>Otto</td>
-                                      <td>@mdo</td>
-                                    </tr>
-                                    <tr>
-                                      <th scope="row">2</th>
-                                      <td>Jacob</td>
-                                      <td>Thornton</td>
-                                      <td>@fat</td>
-                                    </tr>
-                                    <tr>
-                                      <th scope="row">3</th>
-                                      <td>Larry</td>
-                                      <td>the Bird</td>
-                                      <td>@twitter</td>
-                                    </tr>
+                                    <!--DATA FROM API-->
                                   </tbody>
                             </table>
                             
