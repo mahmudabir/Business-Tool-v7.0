@@ -51,6 +51,7 @@ $(document).ready(function () {
 
                     console.log(xhr);
 
+                    //USER TYPE WISE REDIRECTION
                     if(localStorage.userRole==1)
                     {
                         window.location.href = "../../html/Admin";
