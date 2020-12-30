@@ -95,9 +95,9 @@ $(document).ready(function(){
             $.ajax({
                 url: "https://localhost:44308/api/employees/"+$("#search").val(),
                 method: "GET",
-                /*headers: {
+                headers: {
                     'Authorization': 'Basic ' + localStorage.authUser,
-                },*/
+                },
                 complete: function (xhr, status) {
                     if (xhr.status == 200) {
                         console.log(xhr.responseJSON);
