@@ -54,6 +54,40 @@ $(document).ready(function(){
     loadAllEmployees();
 
 
+    //LOAD EMPLOYEES DESIGNATIONS LIST
+    var loadAllEmployees = function () {
+        $.ajax({
+            url: "https://localhost:44308/api/employees",
+            method: "GET",
+            headers: {
+                'Authorization': 'Basic ' + localStorage.authUser,
+            },
+            complete: function (xhr, status) {
+                if (xhr.status == 200) {
+                    console.log(xhr.responseJSON);
+
+                    var data = xhr.responseJSON;
+
+                    if(data.length>0)
+                    {
+                        for (var i = 0; i < data.length; i++) 
+                        {
+                            
+                            $('#role').append(`<option value="${optionValue}">  ${optionText} </option>`); 
+                        }
+                    }
+                    
+                }
+                else 
+                {
+                    alert("Something Went Wrong.");
+                }
+            }
+        });
+    }
+    loadAllEmployees();
+
+
     //Load Employees By Name
     var loadAllEmployeesByName = function () {
         if($.trim($("#search").val()) !== "")
