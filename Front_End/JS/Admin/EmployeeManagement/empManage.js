@@ -144,4 +144,7 @@ $(document).ready(function(){
         loadAllEmployeesByName();
     }); 
 
+    //ADD EMPLOYEE
+    //1 ADD LOGIN
+
 });
