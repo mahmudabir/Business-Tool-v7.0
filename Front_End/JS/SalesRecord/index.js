@@ -92,35 +92,21 @@ $(document).ready(function(){
                         var data = xhr.responseJSON;
                         console.log(data);
                         var str = '';
-                        //if(data.length>0)
-                        //{
-                            //for (var i = 0; i < data.length; i++) 
-                            //{
-                                
-                                str += "<tr>"+
-                                            "<td>"+ data.id + "</td>"+
-                                            "<td>"+ data.totalAmount +"</td>"+
-                                            "<td>"+ data.date+ "</td>"+
-                                            "<td>" + data.orderID + "</td>"+
-                                    "</tr>";
-                                sl++;
-                            // }
-                        //}
-                        //else
-                        //{
-                            //str += "<tr><td colspan='4' align='middle'>NO DATA FOUND</td></tr>";
-                        //}
-
+                        str += "<tr>"+
+                                "<td>"+ data.id + "</td>"+
+                                "<td>"+ data.totalAmount +"</td>"+
+                                "<td>"+ data.date+ "</td>"+
+                                "<td>" + data.orderID + "</td>"+
+                            "</tr>";
                         $("#table tbody").html(str);
                     }
-                    else {
+                    else 
+                    {
                         str += "<tr><td colspan='4' align='middle'>NO DATA FOUND</td></tr>";
-                        //alert("Something Went Wrong.");
                     }
                 }
             });
         }
-        
         else
         {
             loadAllSalesRecord();
