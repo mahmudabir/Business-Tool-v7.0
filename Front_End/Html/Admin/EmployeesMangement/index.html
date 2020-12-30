@@ -1,0 +1,95 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employees Management</title>
+    <script type="text/javascript" src="../../../Content/jquery.js"></script>
+    <script type="text/javascript" src="../../../Content/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../../../CSS/bootstrap.css">
+    <script src="../../../Content/popper.js"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <script type="text/javascript" src="../../../JS/Admin/EmployeeManagement/empManage.js"></script>
+</head>
+<body class="bg-secondary">
+    <form class="form"></form>
+    <div id="content"></div>
+
+    <div class="p-4" style="margin-top:55px; height:90%; overflow-y: scroll;">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm sol-md col-lg">
+                    <div class="card my-3">
+                        <div class="card-body">
+                            <button type="button" class="btn btn-primary btn-lg btn-block mb-2" data-toggle="modal" data-target="#addEmployee">ADD NEW EMPLOYEE</button>
+                            <!-- Modal -->
+                            <div class="modal fade" style="margin-top: 5%;" id="addEmployee" tabindex="-1" role="dialog" aria-labelledby="addEmployeeLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                        <h5 class="modal-title" id="addEmployeeLabel">ADD EMPLOYEE</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                        </div>
+                                        <div class="modal-body">    
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" id="username">Username</span>
+                                                </div>
+                                                <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                                            </div> 
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" id="fullname">Full Name</span>
+                                                </div>
+                                                <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                                            </div>   
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            <button type="button" class="btn btn-primary">Save changes</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Modal -->
+                            <!-- CONTENT -->
+                            <table class="table table-bordered table-hover">
+                                <thead class="thead-dark">
+                                    <tr>
+                                      <th scope="col">#</th>
+                                      <th scope="col">First</th>
+                                      <th scope="col">Last</th>
+                                      <th scope="col">Handle</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    <tr>
+                                      <th scope="row">1</th>
+                                      <td>Mark</td>
+                                      <td>Otto</td>
+                                      <td>@mdo</td>
+                                    </tr>
+                                    <tr>
+                                      <th scope="row">2</th>
+                                      <td>Jacob</td>
+                                      <td>Thornton</td>
+                                      <td>@fat</td>
+                                    </tr>
+                                    <tr>
+                                      <th scope="row">3</th>
+                                      <td>Larry</td>
+                                      <td>the Bird</td>
+                                      <td>@twitter</td>
+                                    </tr>
+                                  </tbody>
+                            </table>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>  
+        </div>
+    </form>
+</body>
+</html>
