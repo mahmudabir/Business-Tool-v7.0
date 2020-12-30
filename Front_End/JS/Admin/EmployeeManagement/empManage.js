@@ -55,9 +55,9 @@ $(document).ready(function(){
 
 
     //LOAD EMPLOYEES DESIGNATIONS LIST
-    var loadAllEmployees = function () {
+    var loadAllDesignations = function () {
         $.ajax({
-            url: "https://localhost:44308/api/employees",
+            url: "https://localhost:44308/api/designations",
             method: "GET",
             headers: {
                 'Authorization': 'Basic ' + localStorage.authUser,
@@ -70,10 +70,10 @@ $(document).ready(function(){
 
                     if(data.length>0)
                     {
-                        for (var i = 0; i < data.length; i++) 
+                        for (var i = 0; i < data.length-2; i++) 
                         {
                             
-                            $('#role').append(`<option value="${optionValue}">  ${optionText} </option>`); 
+                            $('#role').append(`<option value="${data[i].id}">  ${data[i].designation} </option>`); 
                         }
                     }
                     
@@ -85,7 +85,7 @@ $(document).ready(function(){
             }
         });
     }
-    loadAllEmployees();
+    loadAllDesignations();
 
 
     //Load Employees By Name
