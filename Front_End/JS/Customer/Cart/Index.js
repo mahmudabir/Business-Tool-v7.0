@@ -53,9 +53,9 @@ $(document).ready(function () {
                                 + "</div>"
                                 + "<div>"
                                 + "<div class=\"def-number-input number-input safari_only mb-0 w-100\">"
-                                + "<input class=\"quantity\" id=\"" + data[i].id + "\" min=\"1\" max=\"" + data[i].product.quantity + "\" name=\"quantity\" value=\"" + parseInt(data[i].quantity) + "\" type=\"number\" style=\"width: 70px;\" readonly>"
-                                + "<button onclick=\"this.parentNode.querySelector('input[type=number]').stepDown()\" class=\"btn btn-outline-danger text-black-50\"><strong>-</strong></button>"
-                                + "<button onclick=\"this.parentNode.querySelector('input[type=number]').stepUp()\" class=\"btn btn-outline-success text-black-50\"><strong>+</strong></button>"
+                                + "<button onclick=\"this.parentNode.querySelector('input[type=number]').stepDown()\"  minus=\"" + data[i].id + "\"  class=\"btn btn-outline-danger text-black-50 minus\"><i class=\"fas fa-minus\"></i></button>"
+                                + "<input class=\"quantity\" id=\"" + data[i].id + "\" min=\"0\" max=\"" + data[i].product.quantity + "\" name=\"quantity\" value=\"" + parseInt(data[i].quantity) + "\" type=\"number\" style=\"width: 70px; font-size: 18px;\" readonly>"
+                                + "<button onclick=\"this.parentNode.querySelector('input[type=number]').stepUp()\"  plus=\"" + data[i].id + "\"  class=\"btn btn-outline-success text-black-50 plus\"><i class=\"fas fa-plus\"></i></button>"
                                 + "</div>"
                                 + "<small id=\"availableNumber\" class=\"form-text text-muted text-center\">"
                                 + "Max: " + data[i].product.quantity + " pcs"
@@ -92,9 +92,9 @@ $(document).ready(function () {
                                 + "</div>"
                                 + "<div>"
                                 + "<div class=\"def-number-input number-input safari_only mb-0 w-100\">"
-                                + "<input class=\"quantity\" id=\"" + data[i].id + "\" min=\"1\" max=\"" + data[i].product.quantity + "\" name=\"quantity\" value=\"" + parseInt(data[i].quantity) + "\" type=\"number\" style=\"width: 70px;\" readonly>"
-                                + "<button onclick=\"this.parentNode.querySelector('input[type=number]').stepDown()\" class=\"btn btn-outline-danger text-black-50\"><strong>-</strong></button>"
-                                + "<button onclick=\"this.parentNode.querySelector('input[type=number]').stepUp()\" class=\"btn btn-outline-success text-black-50\"><strong>+</strong></button>"
+                                + "<button onclick=\"this.parentNode.querySelector('input[type=number]').stepDown()\" minus=\"" + data[i].id + "\" class=\"btn btn-outline-danger text-black-50 minus\"><i class=\"fas fa-minus\"></i></button>"
+                                + "<input class=\"quantity\" id=\"" + data[i].id + "\" min=\"0\" max=\"" + data[i].product.quantity + "\" name=\"quantity\" value=\"" + parseInt(data[i].quantity) + "\" type=\"number\" style=\"width: 70px; font-size: 18px;\" readonly>"
+                                + "<button onclick=\"this.parentNode.querySelector('input[type=number]').stepUp()\"  plus=\"" + data[i].id + "\" class=\"btn btn-outline-success text-black-50 plus\"><i class=\"fas fa-plus\"></i></button>"
                                 + "</div>"
                                 + "<small id=\"availableNumber\" class=\"form-text text-muted text-center\">"
                                 + "Max: " + data[i].product.quantity + " pcs"
@@ -121,6 +121,36 @@ $(document).ready(function () {
 
 
                     $("#itemDetails").html(str);
+
+                    //$(".quantity").on('input', function () {
+                    //    console.log("Tag ID: " + $(this).attr("id"));
+                    //});
+
+
+
+                    $(".plus").click(function () {
+                        console.log($("#" + $(this).attr("plus")).val());
+                    });
+
+                    $(".minus").click(function () {
+
+                        if ($("#" + $(this).attr("minus")).val() <= 0) {
+                            if (confirm("Do you want to remove the item?")) {
+
+
+                                alert("Item Removed.");
+                            } else {
+                                //$("#" + $(this).attr("minus")).val("1")
+                                this.parentNode.querySelector('input[type=number]').stepUp();
+                                alert("Item not removed.");
+                            }
+                        }
+                        else {
+                            console.log($("#" + $(this).attr("minus")).val());
+                        }
+
+                    });
+
 
                 }
                 else {
@@ -203,16 +233,19 @@ $(document).ready(function () {
 
 
 
+    $(".quantity").change(function () {
+        console.log("Tag ID: ");
+        console.log($(this).attr("id"));
+    });
 
 
+    var inputQuantity = document.getElementsByClassName("quantity");
 
-
-
-
-
-
-
-
+    for (var i = 0; i < inputQuantity.length; i++) {
+        inputQuantity[i].addEventListener('keyup', function () {
+            console.log(this.id.toString());
+        });
+    }
 
 
 
