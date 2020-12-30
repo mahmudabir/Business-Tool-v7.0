@@ -1,5 +1,6 @@
 $(document).ready(function(){
 	var orderID;
+
 	var str;
 	var nextLine;
 	var count=0;
@@ -67,15 +68,7 @@ var listPending=function(){
 							
 					for (var j=0; j<data.length; j++)
 					{
-						count+=1;
-						console.log(count);
-						if(count==2){
-							nextLine="<tr>";
-							count=0;
-						}
-						else{
-							nextLine="&nsbp &nsbp &nsbp";
-						}
+						
 
 						for (var k=0; k<data.length; k++)
 						{
@@ -110,6 +103,46 @@ var listPending=function(){
 //   }, function(){
 //   $(this).css("background-color", "pink");
 // });
+
+
+//Strats search
+$("#search").keyup(function(){
+	var dataOrder;
+			if($("#search").val() != ""){
+			$.ajax({
+			url:"https://localhost:44308/api/deliveryorders/"+ localStorage.username +"/order/"+ $("#search").val(),
+			method:"Get",
+			headers:{
+				'Authorization': 'Basic ' + localStorage.authUser
+		},
+			complete:function(xmlhttp,status){
+				
+			
+				if(xmlhttp.status==200){
+					dataOrder=xmlhttp.responseJSON;
+					
+
+					orderID=dataOrder.id;
+					str="";
+					listPending();
+				
+				}
+				else
+				{
+					
+				}
+				
+			}
+					
+		});
+		}
+		else{
+				str="";
+				listPendingOrderID();
+			}
+	});
+//Ends search
+
 
 
 });
