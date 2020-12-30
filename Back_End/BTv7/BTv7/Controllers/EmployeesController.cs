@@ -32,10 +32,11 @@ namespace BTv7.Controllers
             }
         }
 
-        [Route("{post_by}", Name = "GetEmployeesByName")]
-        public IHttpActionResult GetEmployeesByName(string post_by)
+        [Route("{name}", Name = "GetEmployeesByName")]
+        [BasicAuthentication]
+        public IHttpActionResult GetEmployeesByName(string name)
         {
-            var employeeFromDB = employeeDB.GetByName(post_by);
+            var employeeFromDB = employeeDB.GetByName(name);
 
             if (employeeFromDB != null || employeeFromDB.Count != 0)
             {
