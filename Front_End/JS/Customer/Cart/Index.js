@@ -53,12 +53,12 @@ $(document).ready(function () {
                                 + "</div>"
                                 + "<div>"
                                 + "<div class=\"def-number-input number-input safari_only mb-0 w-100\">"
-                                + " <input class=\"quantity\" min=\"1\" max=\"" + data[i].product.quantity + "\" name=\"quantity\" value=\"1\" type=\"number\" style=\"width: 70px; readonly \">"
-                                + "  <button onclick=\"this.parentNode.querySelector('input[type=number]').stepDown()\" class=\"btn btn-outline-danger text-black-50\"><strong>-</strong></button>"
+                                + "<input class=\"quantity\" id=\"" + data[i].id + "\" min=\"1\" max=\"" + data[i].product.quantity + "\" name=\"quantity\" value=\"" + parseInt(data[i].quantity) + "\" type=\"number\" style=\"width: 70px;\" readonly>"
+                                + "<button onclick=\"this.parentNode.querySelector('input[type=number]').stepDown()\" class=\"btn btn-outline-danger text-black-50\"><strong>-</strong></button>"
                                 + "<button onclick=\"this.parentNode.querySelector('input[type=number]').stepUp()\" class=\"btn btn-outline-success text-black-50\"><strong>+</strong></button>"
                                 + "</div>"
                                 + "<small id=\"availableNumber\" class=\"form-text text-muted text-center\">"
-                                + data[i].product.quantity + " pcs Available"
+                                + "Max: " + data[i].product.quantity + " pcs"
                                 + "</small>"
                                 + "</div>"
                                 + "</div>"
@@ -67,11 +67,7 @@ $(document).ready(function () {
                                 + "<a href=\"#!\" type=\"button\" class=\"card-link-secondary small text-uppercase mr-3\">"
                                 + "<i class=\"fas fa-trash-alt mr-1\"></i> Remove item"
                                 + "</a>"
-                                //+ "<a href=\"#!\" type=\"button\" class=\"card-link-secondary small text-uppercase\">"
-                                //+ "<i class=\"fas fa-heart mr-1\"></i> Move to wish list"
-                                //+ "</a>"
                                 + "</div>"
-                                //+ "<p class=\"mb-0\"><span><strong>$17.99</strong></span></p>"
                                 + "</div>"
                                 + "</div>"
                                 + "</div>"
@@ -79,7 +75,6 @@ $(document).ready(function () {
                                 + "<hr class=\"mb-4\">";
                         }
                         else {
-                            console.log("Image: " + data[i].product.image);
                             str += "<div class=\"row mb-4\">"
                                 + "<div class=\"col-md-5 col-lg-3 col-xl-3\">"
                                 + "<div class=\"view zoom overlay z-depth-1 rounded mb-3 mb-md-0\">"
@@ -97,12 +92,12 @@ $(document).ready(function () {
                                 + "</div>"
                                 + "<div>"
                                 + "<div class=\"def-number-input number-input safari_only mb-0 w-100\">"
-                                + " <input class=\"quantity\" min=\"1\" max=\"" + data[i].product.quantity + "\" name=\"quantity\" value=\"1\" type=\"number\" style=\"width: 70px; readonly \">"
-                                + "  <button onclick=\"this.parentNode.querySelector('input[type=number]').stepDown()\" class=\"btn btn-outline-danger text-black-50\"><strong>-</strong></button>"
+                                + "<input class=\"quantity\" id=\"" + data[i].id + "\" min=\"1\" max=\"" + data[i].product.quantity + "\" name=\"quantity\" value=\"" + parseInt(data[i].quantity) + "\" type=\"number\" style=\"width: 70px;\" readonly>"
+                                + "<button onclick=\"this.parentNode.querySelector('input[type=number]').stepDown()\" class=\"btn btn-outline-danger text-black-50\"><strong>-</strong></button>"
                                 + "<button onclick=\"this.parentNode.querySelector('input[type=number]').stepUp()\" class=\"btn btn-outline-success text-black-50\"><strong>+</strong></button>"
                                 + "</div>"
                                 + "<small id=\"availableNumber\" class=\"form-text text-muted text-center\">"
-                                + data[i].product.quantity + " pcs Available"
+                                + "Max: " + data[i].product.quantity + " pcs"
                                 + "</small>"
                                 + "</div>"
                                 + "</div>"
@@ -111,11 +106,7 @@ $(document).ready(function () {
                                 + "<a href=\"#!\" type=\"button\" class=\"card-link-secondary small text-uppercase mr-3\">"
                                 + "<i class=\"fas fa-trash-alt mr-1\"></i> Remove item"
                                 + "</a>"
-                                //+ "<a href=\"#!\" type=\"button\" class=\"card-link-secondary small text-uppercase\">"
-                                //+ "<i class=\"fas fa-heart mr-1\"></i> Move to wish list"
-                                //+ "</a>"
                                 + "</div>"
-                                //+ "<p class=\"mb-0\"><span><strong>$17.99</strong></span></p>"
                                 + "</div>"
                                 + "</div>"
                                 + "</div>"
@@ -124,7 +115,9 @@ $(document).ready(function () {
                         }
                     }
 
-                    str += "<p class=\"text-primary mb-0\"><i class=\"fas fa-info-circle mr-1\"></i> Do not delay the purchase, adding items to your cart does not mean booking them.</p>";
+                    str += "<p class=\"text-primary mb-0\">"
+                        + "<i class=\"fas fa-info-circle mr-1\"></i>"
+                        + "Do not delay the purchase, adding items to your cart does not mean booking them.</p>";
 
 
                     $("#itemDetails").html(str);
@@ -206,6 +199,12 @@ $(document).ready(function () {
 
     loadUser();
     console.log("CustomerID: " + sessionStorage.cid);
+
+
+
+
+
+
 
 
 

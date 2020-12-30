@@ -1,6 +1,10 @@
 $(document).ready(function(){
 	var orderID;
-
+	var productId;
+	var orderid;
+	var productdata;
+	var orderQuantity;
+	var Orderdata;
 	var str;
 	var nextLine;
 	var count=0;
@@ -146,7 +150,7 @@ $("#search").keyup(function(){
 
 $("#pendingList").on("click","#Accepted",function(){
 	var button=$(this);
-	var orderid=button.attr("btn-id-accept");
+	orderid=button.attr("btn-id-accept");
 	console.log(orderid);
 	$.ajax({
 				url:"https://localhost:44308/api/deliveryorders/"+orderid+"/order",
@@ -161,7 +165,7 @@ $("#pendingList").on("click","#Accepted",function(){
 					var orderdata=xmlhttp.responseJSON;
 					console.log(orderdata);
 					$.ajax({
-					url:"https://localhost:44308/api/deliveryorders/"+orderid,
+					url:"https://localhost:44308/api/deliveryorders/"+orderid+"/accepted",
 					method:"PUT",
 					headers:{
 							//Authorization:"Basic "+ btoa("4:4444")
@@ -204,14 +208,178 @@ $("#pendingList").on("click","#Accepted",function(){
 
 
 
+$("#pendingList").on("click","#Rejected",function(){
+	var button=$(this);
+	orderid=button.attr("btn-id-reject");
+	console.log(orderid);
+	$.ajax({
+				url:"https://localhost:44308/api/deliveryorders/"+orderid+"/order",
+				method:"GET",
+				headers:{
+						//Authorization:"Basic "+ btoa("4:4444")
+					'Authorization': 'Basic ' + localStorage.authUser
+				},
+				complete:function(xmlhttp,status){
+
+				if(xmlhttp.status==200){
+					var orderdata=xmlhttp.responseJSON;
+					console.log(orderdata);
+					$.ajax({
+					url:"https://localhost:44308/api/deliveryorders/"+orderid+"/accepted",
+					method:"PUT",
+					headers:{
+							//Authorization:"Basic "+ btoa("4:4444")
+							'Authorization': 'Basic ' + localStorage.authUser
+					},
+					header:"Content-Type:application/json",
+					data:{
+							"id": orderid,
+							"totalAmount": orderdata.totalAmount,
+							"address": orderdata.address,
+							
+							"customerID": orderdata.customerID,
+							"customerName": orderdata.customerName,
+							
+							
+							"saleType": orderdata.saleType,
+							"saleTypeID": orderdata.saleTypeID,
+							"isSold": false,
+							"orderStatusID": 5,
+							"sellBy": localStorage.username
+
+				        
+						
+					},
+					complete:function(xmlhttp,status){
+						var data=xmlhttp.responseJSON;
+						if(xmlhttp.status==200){
+								//str="";
+								GetOrderCart();
+								//console.log(data);
+						}
+						else{
+							console.log("error");
+						}
+						}
+				});
+				}
+			}
+		});
+});
 
 
 
-
-		
+var GetOrderCart=function(){
 	
 
+	$.ajax({
+		url:"https://localhost:44308/api/deliveryorders/"+orderid+"/ordercart",
+		method:"GET",
+		headers:{
+				//Authorization:"Basic "+ btoa("4:4444")
+				'Authorization': 'Basic ' + localStorage.authUser
+		},
+		complete:function(xmlhttp,status){
 
+			if(xmlhttp.status==200){
+				Orderdata=xmlhttp.responseJSON;
+				
+				
+				
+				for (var i = 0; i < Orderdata.length; i++) {
+					
+					productId=Orderdata[i].productID;
+					orderQuantity= Orderdata[i].quantity;
+					GetProduct();
+
+					}
+					
+				}
+				else
+				{	
+
+				}
+
+			}
+	});
+}
+
+		
+var GetProduct=function(){
+	
+		$.ajax({
+				url:"https://localhost:44308/api/deliveryorders/"+productId+"/product",
+				method:"GET",
+				headers:{
+						//Authorization:"Basic "+ btoa("4:4444")
+						'Authorization': 'Basic ' + localStorage.authUser
+				},
+				
+					complete:function(xmlhttp,status){
+						
+						if(xmlhttp.status==200){
+							productdata=xmlhttp.responseJSON;
+								//str="";
+								RejectedUpdated();
+								//console.log(data);
+						}
+						else{
+							console.log("error");
+						}
+						}
+				});
+
+}
+
+var RejectedUpdated=function(){
+				var quant= orderQuantity+productdata.quantity;
+				console.log(quant);
+					$.ajax({
+					url:"https://localhost:44308/api/deliveryorders/"+orderid+"/"+productId+"/rejected",
+					method:"PUT",
+					headers:{
+							//Authorization:"Basic "+ btoa("4:4444")
+							'Authorization': 'Basic ' + localStorage.authUser
+					},
+					header:"Content-Type:application/json",
+					data:{
+							"id": productId,
+							"name": productdata.name,
+							"quantity": quant,
+							
+							"buyPrice": productdata.buyPrice,
+							"sellPrice": productdata.sellPrice,
+							"image": productdata.image,
+							
+							"productType": productdata.productType,
+							"productTypeID": productdata.productTypeID,
+							"productStatus": productdata.productStatus,
+							"productStatusID": productdata.productStatusID,
+							
+							"vendorID": productdata.vendorID,
+							
+							"modifiedBy": productdata.modifiedBy
+							
+
+				        
+						
+					},
+					complete:function(xmlhttp,status){
+						var data=xmlhttp.responseJSON;
+						if(xmlhttp.status==200){
+								str="";
+								//console.log(data);
+								//console.log(data);
+								
+								listPendingOrderID()
+						}
+						else{
+							console.log("Error");
+						}
+						}
+				})
+
+}
 
 
 
