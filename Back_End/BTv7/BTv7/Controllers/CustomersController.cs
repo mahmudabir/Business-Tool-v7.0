@@ -77,6 +77,7 @@ namespace BTv7.Controllers
             customer.ID = id;
             customer.Image = com[0].Image;
             customer.ApprovedBy = com[0].ApprovedBy;
+            customer.Address = com[0].Address;
             customer.LoginID = com[0].LoginID;
             customer.JoinDate = com[0].JoinDate;
             customerDB.UpdateCustomerDetails(customer);

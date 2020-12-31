@@ -126,7 +126,7 @@ $(document).ready(function(){
         }
         var updateCustomerDetails = function () {
             $.ajax({
-                url: "https://localhost:44308/api/customer/update/customerID/"+sessionStorage.id,
+                url: "https://localhost:44308/api/customers/update/customerID/"+sessionStorage.id,
                 method: "PUT",
                 header: "Content-Type:application/json",
                 data: {
@@ -142,7 +142,7 @@ $(document).ready(function(){
                         loadUserInfo();
                     } 
                     else {
-                        alert("Fill Correctly.");
+                        alert("Something Went Wrong.");
                     }
                 }
             });
@@ -170,23 +170,22 @@ $(document).ready(function(){
                     if(localStorage.userRole!=5)
                     {
                         updateEmployeeDetails();
+                        $("#msg").html("<div class=\"alert alert-success\" role=\"alert\">Succssfully Update User Info</div>");
                     }
                     else
                     {
                         updateCustomerDetails();
+                        $("#msg").html("<div class=\"alert alert-success\" role=\"alert\">Succssfully Update User Info</div>");
                     }
-                    $("#msg").html("<div class=\"alert alert-success\" role=\"alert\">Succssfully Update User Info</div>");
                 } 
                 else {
-                    alert("Fill Correctly.");
+                    alert("Something Went Wrong.");
                 }
             }
         });
     }
     $("#btnsave").on("click",function(){
         updateLoginDetails();
-        $("#divedit").hide();
-        $("#divshow").show();
     });
 
 
@@ -197,7 +196,6 @@ $(document).ready(function(){
 
 
     $("#divedit").hide();
-    //$("#divshow").show();
     $("#btnedit").click(function () {
         $("#divshow").hide();
         $("#divedit").show();
