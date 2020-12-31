@@ -12,7 +12,7 @@ namespace BTv7.Repositories
         public bool Login(string username, string password)
         {
             List<Login> userFromDB = this.GetAll();
-            return userFromDB.Any(x => x.Username.Equals(username) && x.Password.Equals(password));
+            return userFromDB.Any(x => x.Username.Equals(username) && x.Password.Equals(password) && x.AccessStatusID.Equals(1) && x.RegistrationStatusID.Equals(2));
         }
 
         //This method is used to return the User Details
