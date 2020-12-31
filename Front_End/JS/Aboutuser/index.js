@@ -170,11 +170,13 @@ $(document).ready(function(){
                     if(localStorage.userRole!=5)
                     {
                         updateEmployeeDetails();
+                        sessionStorage.clear();
                         $("#msg").html("<div class=\"alert alert-success\" role=\"alert\">Succssfully Update User Info</div>");
                     }
                     else
                     {
                         updateCustomerDetails();
+                        sessionStorage.clear();
                         $("#msg").html("<div class=\"alert alert-success\" role=\"alert\">Succssfully Update User Info</div>");
                     }
                 } 

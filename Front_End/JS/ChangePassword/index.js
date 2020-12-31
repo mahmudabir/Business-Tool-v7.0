@@ -48,4 +48,66 @@ $(document).ready(function(){
     {
         $('#content').load("../Vendor/vendornav.html");
     }
+
+    var getPasswordFromLogin = function(){
+        $.ajax({
+            url: "https://localhost:44308/api/logins/"+localStorage.userId,
+            method: "GET",
+            headers: {
+                'Authorization': 'Basic ' + localStorage.authUser,
+            },
+            complete: function (xhr, status) {
+                if (xhr.status == 200) {
+                    var data = xhr.responseJSON;
+                    console.log(data);
+                    sessionStorage.pass = data.password;
+                    sessionStorage.mobile = data.mobile;
+                    sessionStorage.email = data.email;
+                    sessionStorage.userDesignationID=data.employees[0].login.userDesignationID;
+                    //console.log(data.employees[0].login.userDesignationID);
+                }
+                else {
+                    alert("Something Went Wrong.");
+                }
+            }
+        });
+    }
+    getPasswordFromLogin();
+
+    var updateLoginPassword = function () {
+        $.ajax({
+            url: "https://localhost:44308/api/logins/update/employeeID/"+localStorage.userId,
+            method: "PUT",
+            header: "Content-Type:application/json",
+            data: {
+                id: localStorage.userId,
+                username: localStorage.username,
+                password: $("#newpass").val(),
+                userDesignationID: sessionStorage.userDesignationID,
+                
+            },
+            headers: {
+                'Authorization': 'Basic ' + localStorage.authUser,
+            },
+            complete: function (xhr, status) {
+                if($("#oldpass").val()==localStorage.pass)
+                {
+                    if (xhr.status == 200) {
+                        $("#msg").html("<div class=\"alert alert-success\" role=\"alert\">Password Updated</div>");
+                       
+                    } 
+                    else {
+                        alert("Something Went Wrong.");
+                    }
+                }
+                else
+                {
+                    alert("Wrong Old Password");
+                }
+            }
+        });
+    }
+    $("#btnconfirm").on("click",function(){
+        updateLoginPassword();
+    });
 });
