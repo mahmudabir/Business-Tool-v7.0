@@ -52,7 +52,7 @@ $(document).ready(function(){
         //Load Profile Info
         var loadUserInfo = function(){
             $.ajax({
-                url: "https://localhost:44308/api/employees/"+localStorage.userId,
+                url: "https://localhost:44308/api/logins/"+localStorage.userId,
                 method: "GET",
                 headers: {
                     'Authorization': 'Basic ' + localStorage.authUser,
@@ -62,30 +62,142 @@ $(document).ready(function(){
                     
                         var data = xhr.responseJSON;
                         console.log(data);
-                        //if(data.length>0)
-                        //{
-                            $("#username").val(data.login.username);
-                            $("#name").val(data.name);
-                            console.log(data.name);
-                            $("#mobile").val(data.login.mobile);
-                            $("#email").val(data.login.email);
-                            $("#joindate").val(data.joinDate);
-                        // }
-                        // else
-                        // {
-                        //     alert("User Not Found");
-                        // }
+                        $("#username").val(data.username);
+                        $("#editusername").val(data.username);
+                        $("#mobile").val(data.mobile);
+                        $("#editmobile").val(data.mobile);
+                        $("#email").val(data.email);
+                        $("#editemail").val(data.email);
+                        if(localStorage.userRole!=5)
+                        {
+                            sessionStorage.id= data.employees[0].id;
+                            sessionStorage.userDesignationID = data.employees[0].login.userDesignation.id;
+                            console.log(data.employees[0].login.userDesignation.id);
+                            $("#name").val(data.employees[0].name);
+                            $("#editname").val(data.employees[0].name);
+                            $("#joindate").val(data.employees[0].joinDate);
+                            $("#editjoindate").val(data.employees[0].joinDate);
+                        }
+                        else
+                        {
+                            sessionStorage.id= data.customers[0].id;
+                            sessionStorage.userDesignationID = data.customers[0].login.userDesignation.id;
+                            console.log(data.customers[0].login.userDesignation.id);
+                            $("#name").val(data.customers[0].name);
+                            $("#editname").val(data.customers[0].name);
+                            $("#joindate").val(data.customers[0].joinDate);
+                            $("#editjoindate").val(data.customers[0].joinDate);
+                        }
                     }
                     else {
                         alert("Something Went Wrong.");
                     }
                 }
             });
+            
         }
         loadUserInfo();
+        //Load Profile Info
+
+        // update profile info
+
+        var updateEmployeeDetails = function () {
+            $.ajax({
+                url: "https://localhost:44308/api/employees/update/employeeID/"+sessionStorage.id,
+                method: "PUT",
+                header: "Content-Type:application/json",
+                data: {
+                    id: sessionStorage.id,
+                    name: $("#editname").val(),
+                    joinDate: $("#editjoindate").val()
+                },
+                headers: {
+                    'Authorization': 'Basic ' + localStorage.authUser,
+                },
+                complete: function (xhr, status) {
+                    if (xhr.status == 200) {
+                        loadUserInfo();
+                    } 
+                    else {
+                        alert("Fill Correctly.");
+                    }
+                }
+            });
+        }
+        var updateCustomerDetails = function () {
+            $.ajax({
+                url: "https://localhost:44308/api/customer/update/customerID/"+sessionStorage.id,
+                method: "PUT",
+                header: "Content-Type:application/json",
+                data: {
+                    id: sessionStorage.id,
+                    name: $("#editname").val(),
+                    joinDate: $("#editjoindate").val()
+                },
+                headers: {
+                    'Authorization': 'Basic ' + localStorage.authUser,
+                },
+                complete: function (xhr, status) {
+                    if (xhr.status == 200) {
+                        loadUserInfo();
+                    } 
+                    else {
+                        alert("Fill Correctly.");
+                    }
+                }
+            });
+        }
+
+    var updateLoginDetails = function () {
+        $.ajax({
+            url: "https://localhost:44308/api/logins/update/employeeID/"+localStorage.userId,
+            method: "PUT",
+            header: "Content-Type:application/json",
+            data: {
+                id: localStorage.userId,
+                username: $("#editusername").val(),
+                email: $("#editemail").val(),
+                mobile: $("#editmobile").val(),
+                userDesignationID: sessionStorage.userDesignationID,
+                
+            },
+            headers: {
+                'Authorization': 'Basic ' + localStorage.authUser,
+            },
+            complete: function (xhr, status) {
+                if (xhr.status == 200) {
+                    
+                    if(localStorage.userRole!=5)
+                    {
+                        updateEmployeeDetails();
+                    }
+                    else
+                    {
+                        updateCustomerDetails();
+                    }
+                    $("#msg").html("<div class=\"alert alert-success\" role=\"alert\">Succssfully Update User Info</div>");
+                } 
+                else {
+                    alert("Fill Correctly.");
+                }
+            }
+        });
+    }
+    $("#btnsave").on("click",function(){
+        updateLoginDetails();
+        $("#divedit").hide();
+        $("#divshow").show();
+    });
+
+
+        // update profile info
+        
+
+
 
 
     $("#divedit").hide();
+    //$("#divshow").show();
     $("#btnedit").click(function () {
         $("#divshow").hide();
         $("#divedit").show();

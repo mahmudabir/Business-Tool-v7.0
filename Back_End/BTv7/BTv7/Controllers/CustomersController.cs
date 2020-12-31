@@ -69,6 +69,24 @@ namespace BTv7.Controllers
             }
         }
 
+        [Route("update/customerID/{id}", Name = "PutCustomerByID")]
+        [BasicAuthentication]
+        public IHttpActionResult PutCustomerByID([FromUri] int id, [FromBody] Customer customer)
+        {
+            var com = customerDB.GetCustomerByID(id);
+            customer.ID = id;
+            customer.Image = com[0].Image;
+            customer.ApprovedBy = com[0].ApprovedBy;
+            customer.LoginID = com[0].LoginID;
+            customer.JoinDate = com[0].JoinDate;
+            customerDB.UpdateCustomerDetails(customer);
+
+            return Ok(customer);
+        }
+
+
+
+
 
         [Route("register", Name = "CustomerRegistration")]
         [BasicAuthentication, Authorize(Roles = "CUSTOMER")]
