@@ -4,7 +4,7 @@
 	<title>Deliveryman</title>
 	<meta charset="utf-8">
 	<script type="text/javascript" src="../../Content/jquery.js"></script>
-	<script type="text/javascript" src="../../JS/Deliveryman/deliveryScript.js"></script>
+	<script type="text/javascript" src="../../JS/Deliveryman/rejectScript.js"></script>
 	<!-- <link rel="stylesheet" href="../../CSS/bootstrap2.css"> -->
 	<script type="text/javascript" src="../../Content/bootstrap.min.js"></script>
     <link rel="stylesheet" href="../../CSS/bootstrap.css">
@@ -20,9 +20,9 @@
 	/*#fixedHeader { overflow-y: auto; height: 500px; }
 	#fixedHeader thead th { position: sticky; top: 0; }
     table  { border-collapse: collapse; width: 100%; }*/
-	#th th{ background:#37447d;}
-	#th2 th{ background:#AEC3D9;}
-
+	#th th{ background:#771D32;}
+	#th2 th{ background:#EAD6EE;}
+    .hiddenTr td{ background:#014871;}
 	</style>
 	
 </head>
@@ -46,14 +46,14 @@
 			
 		</div> -->
 			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-				<div id="pendingTable" style="background-color: white;">
-				<table class="table table-bordered table-striped" id="pendingList">
+				<div id="rejectedTable" style="background-color: white;">
+				<table class="table table-bordered table-striped" id="rejectedList">
 					
 					<thead>
 						<tr id="th">
 							<th colspan="6">
-								<span style="color:White;">Pending Orders</span>
-								<span style=" float: right;"><input type="text" class="form-control" id="search" placeholder="search by ID....."></span>
+								<span style="color:White;">Rejected Orders</span>
+								<!-- <span style=" float: right;"><input type="text" class="form-control" id="search" placeholder="search by ID....."></span> -->
 
 							</th>
 						</tr>
@@ -62,15 +62,12 @@
 								#Order ID
 							</th>
 							<th>
-								Total Order
-							</th>
-							<th>
-								Products Name
+								Delivery Date
 							</th>
 							<th>
 								Total Ammount
 							</th>
-							<th colspan="2">
+							<th>
 								Status
 							</th>
 						</tr>
