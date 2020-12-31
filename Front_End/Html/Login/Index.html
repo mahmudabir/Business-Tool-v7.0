@@ -9,6 +9,7 @@
     <script type="text/javascript" src="../../Content/jquery.js"></script>
     <script type="text/javascript" src="../../JS/Login/Authentication.js"></script>
     <link rel="stylesheet" href="../../CSS/bootstrap.css">
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
 </head>
 
 <body class="bg-secondary">
@@ -22,7 +23,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">Home</a>
+                    <a class="nav-link" href="../index.html"><i class="fas fa-home"></i> Home</a>
                 </li>
             </ul>
             <input class="btn btn-outline-success my-2 my-sm-0 mr-2" type="button" id="gotologin" value="Login">
@@ -45,16 +46,17 @@
                     <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
                         <div class="card card-signin my-5">
                             <div class="card-body">
-                                <h5 class="card-title text-center">Login</h5>
+                                <h5 class="card-title text-center text-info" style="font-weight: bolder;font-size: 30px;">Login</h5>
                                 <br /><br />
 
                                 <div class="form-label-group">
                                     <input type="text" id="username" class="form-control" placeholder="Username" autofocus autocomplete="off">
-
+                                    <span style="color: red;font-weight: bold;" id="msg1"></span>
                                 </div>
                                 <br />
                                 <div class="form-label-group">
                                     <input type="password" id="password" class="form-control" placeholder="Password" required autocomplete="off">
+                                    <span style="color: red;font-weight: bold;" id="msg2"></span>
                                 </div>
 
                                 <br /><br />
@@ -76,38 +78,43 @@
                     <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
                         <div class="card card-signin my-5">
                             <div class="card-body">
-                                <h5 class="card-title text-center">Register</h5>
+                                <h5 class="card-title text-center text-info" style="font-weight: bolder;font-size: 30px;">Register</h5>
                                 
 
                                 <div class="form-label-group">
-                                    <label for="inputName">Full Name</label>
+                                    <label for="inputName" class="text-info" style="font-weight: bolder;">Full Name</label>
                                     <input type="text" id="regname" class="form-control" placeholder="Full Name" autofocus autocomplete="off">
+                                    <span style="color: red;font-weight: bold;" id="msg11"></span>
                                 </div>
                                 <br />
 
                                 <div class="form-label-group">
-                                    <label for="inputEmail">Email</label>
+                                    <label for="inputEmail" class="text-info" style="font-weight: bolder;">Email</label>
                                     <input type="email" id="regemail" class="form-control" placeholder="Email" autocomplete="off">
+                                    <span style="color: red;font-weight: bold;" id="msg21"></span>
                                 </div>
                                 <br />
 
 
                                 <div class="form-label-group">
-                                    <label for="inputMobile">Mobile No.</label>
+                                    <label for="inputMobile" class="text-info" style="font-weight: bolder;">Mobile No.</label>
                                     <input type="text" id="regmobile" class="form-control" placeholder="Mobile No." autocomplete="off">
+                                    <span style="color: red;font-weight: bold;" id="msg3"></span>
                                 </div>
                                 <br />
 
                                 <div class="form-label-group">
-                                    <label for="inputUsername">Username</label>
+                                    <label for="inputUsername" class="text-info" style="font-weight: bolder;">Username</label>
                                     <input type="text" id="regusername" class="form-control" placeholder="Username" autocomplete="off">
+                                    <span style="color: red;font-weight: bold;" id="msg4"></span>
                                 </div>
                                 <br />
 
 
                                 <div class="form-label-group">
-                                    <label for="inputPassword">Password</label>
+                                    <label for="inputPassword" class="text-info" style="font-weight: bolder;">Password</label>
                                     <input type="password" id="regpassword" class="form-control" placeholder="Password" autocomplete="off">
+                                    <span style="color: red;font-weight: bold;" id="msg5"></span>
                                 </div>
                                 <br />
 
