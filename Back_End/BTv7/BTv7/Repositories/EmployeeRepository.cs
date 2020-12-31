@@ -21,5 +21,13 @@ namespace BTv7.Repositories
         {
             return this.context.Set<Employee>().Where(x => x.Name.ToLower().Contains(id.ToLower())).ToList();
         }
+
+        public void UpdateEmployeeDetails(Employee emp)
+        {
+            using (var employee = new BTv7DbContext())
+            {
+                int noOfEmployeeRowAffected = employee.Database.ExecuteSqlCommand("UPDATE Employees SET Name = '"+emp.Name+ "', Salary = '" + emp.Salary + "' WHERE ID = "+emp.ID+";");
+            }
+        }
     }
 }

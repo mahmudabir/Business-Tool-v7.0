@@ -7,6 +7,7 @@ $(document).ready(function(){
 
     $('#content').load("../adminnav.html");
 
+    
     //LOAD EMPLOYEES LIST
     var loadAllEmployees = function () {
         $.ajax({
@@ -232,6 +233,8 @@ $(document).ready(function(){
                         $("#editcontact").val(data[0].login.mobile);
                         $("#editemail").val(data[0].login.email);
                         $("#editsalary").val(data[0].salary);
+                        $("#editjoindate").val(data[0].joinDate);
+                        $("#editenrollby").val(data[0].addeddBy);
                         $('#editrole option[value="'+data[0].login.userDesignationID+'"]').attr("selected", "selected");
                         if(data[0].login.accessStatusID == '1')
                         {
@@ -269,6 +272,37 @@ $(document).ready(function(){
     });
 
 
-    
+    //UPDATE EMPLOYEE 
+    var updateEmployeeDetails = function () {
+            $.ajax({
+                url: "https://localhost:44308/api/employees/update/employeeID/"+$("#editid").val(),
+                method: "PUT",
+                header: "Content-Type:application/json",
+                data: {
+                    id: $("#editid").val(),
+                    name: $("#editfullname").val(),
+                    salary: $("#editsalary").val(),
+                    addeddBy: $("#editenrollby").val(),
+                    loginID: $("#editloginid").val(),
+                    image: "",
+                    joinDate: $("#editjoindate").val()
+                },
+                headers: {
+                    'Authorization': 'Basic ' + localStorage.authUser,
+                },
+                complete: function (xhr, status) {
+                    if (xhr.status == 200) {
+                        alert("Information Updated.");
+                        loadAllEmployees();
+                    } 
+                    else {
+                        alert("Error while updating.");
+                    }
+                }
+            });
+    }
+    $("#btnupdate").on("click",function(){
+        updateEmployeeDetails();
+    });
 
 });

@@ -48,6 +48,21 @@ namespace BTv7.Controllers
             }
         }
 
+        [Route("update/employeeID/{id}", Name = "PutEmployeesByID")]
+        [BasicAuthentication]
+        public IHttpActionResult PutEmployeesByID([FromUri] int id, [FromBody] Employee employee)
+        {
+            var com = employeeDB.GetEmployeeByID(id);
+            employee.ID = id;
+            employee.Image = com[0].Image;
+            employee.AddeddBy = com[0].AddeddBy;
+            employee.LoginID = com[0].LoginID;
+            employee.JoinDate = com[0].JoinDate;
+            employeeDB.UpdateEmployeeDetails(employee);
+
+            return Ok(employee);
+        }
+
         [Route("name/{name}", Name = "GetEmployeesByName")]
         [BasicAuthentication]
         public IHttpActionResult GetEmployeesByName(string name)
