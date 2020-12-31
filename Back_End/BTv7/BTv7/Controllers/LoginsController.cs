@@ -38,7 +38,6 @@ namespace BTv7.Controllers
             return Ok(result);
         }
 
-
         [Route("update/employeeID/{id}", Name = "PutLoginByID")]
         [BasicAuthentication]
         public IHttpActionResult PutLoginByID([FromUri] int id, [FromBody] Login login)

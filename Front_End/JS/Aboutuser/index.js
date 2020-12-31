@@ -49,6 +49,42 @@ $(document).ready(function(){
         $('#content').load("../Vendor/vendornav.html");
     }
 
+        //Load Profile Info
+        var loadUserInfo = function(){
+            $.ajax({
+                url: "https://localhost:44308/api/employees/"+localStorage.userId,
+                method: "GET",
+                headers: {
+                    'Authorization': 'Basic ' + localStorage.authUser,
+                },
+                complete: function (xhr, status) {
+                    if (xhr.status == 200) {
+                    
+                        var data = xhr.responseJSON;
+                        console.log(data);
+                        //if(data.length>0)
+                        //{
+                            $("#username").val(data.login.username);
+                            $("#name").val(data.name);
+                            console.log(data.name);
+                            $("#mobile").val(data.login.mobile);
+                            $("#email").val(data.login.email);
+                            $("#joindate").val(data.joinDate);
+                        // }
+                        // else
+                        // {
+                        //     alert("User Not Found");
+                        // }
+                    }
+                    else {
+                        alert("Something Went Wrong.");
+                    }
+                }
+            });
+        }
+        loadUserInfo();
+
+
     $("#divedit").hide();
     $("#btnedit").click(function () {
         $("#divshow").hide();
