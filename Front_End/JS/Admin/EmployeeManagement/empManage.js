@@ -31,7 +31,7 @@ $(document).ready(function(){
                         {
                             if(data[i].login.accessStatusID == 1)
                             {
-                                icon = '<i style="color: blue;" class="fas fa-user-check"></i>';
+                                icon = '<i style="color: green;" class="fas fa-user-check"></i>';
                             } 
                             else
                             {
@@ -127,7 +127,7 @@ $(document).ready(function(){
                                 
                                 if(data[i].login.accessStatusID == 1)
                                 {
-                                    icon = '<i style="color: blue;" class="fas fa-user-check"></i>';
+                                    icon = '<i style="color: green;" class="fas fa-user-check"></i>';
                                 } 
                                 else
                                 {
@@ -408,6 +408,9 @@ $(document).ready(function(){
                     $("#updateMesg").attr("hidden", "hidden");
                     $("#disableMesg").attr("hidden", "hidden");
 
+                    $("#btndeactive").removeAttr("hidden", "hidden");
+                    $("#btnactive").attr("hidden", "hidden");
+
                     if($("#editid").val() == localStorage.userId)
                     {
                         alert("System Logged Out.");
@@ -415,7 +418,6 @@ $(document).ready(function(){
                     }
                 } 
                 else {
-                    alert(xhr.accessStatusID);
                     alert("Error Proccessing.");
                 }
             }
@@ -447,6 +449,9 @@ $(document).ready(function(){
                     $("#updateMesg").attr("hidden", "hidden");
                     $("#enableMesg").attr("hidden", "hidden");
 
+                    $("#btndeactive").attr("hidden", "hidden");
+                    $("#btnactive").removeAttr("hidden", "hidden");
+
                     if($("#editid").val() == localStorage.userId)
                     {
                         alert("System Logged Out.");
@@ -454,7 +459,6 @@ $(document).ready(function(){
                     }
                 } 
                 else {
-                    alert(xhr.accessStatusID);
                     alert("Error Proccessing.");
                 }
             }

@@ -1,6 +1,6 @@
 $(document).ready(function () {
     if (localStorage.authUser == null || localStorage.userRole != 5) {
-        window.location.href = "../../Login/Authentication.html";
+        window.location.href = "../../Login/Index.html";
     }
 
     var cid = 0;
@@ -73,7 +73,36 @@ $(document).ready(function () {
 
 
 
+    var createOrder = function () {
+        $("#msg").removeAttr("hidden");
+        $.ajax({
+            url: "https://localhost:44308/api/customers/" + localStorage.cid + "/orders",
+            method: "POST",
+            data: {
+                address: "Dummy",
+                customerName: "Dummy",
+                date: "1-1-1",
+                isSold: false,
+                totalAmount: 0.0,
+                customerId: localStorage.cid,
+            },
+            headers: {
+                'Authorization': 'Basic ' + localStorage.authUser,
+            },
+            complete: function (xhr, status) {
+                if (xhr.status == 201) {
 
+
+                }
+                else {
+                    console.log(xhr);
+                    //$("#msg").html("<div class=\"alert alert-danger\" role=\"alert\">Error : Cart already Exist</div>");
+                }
+            }
+        });
+    }
+
+    createOrder();
 
 
 
