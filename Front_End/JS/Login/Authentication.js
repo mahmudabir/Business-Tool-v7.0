@@ -3,14 +3,12 @@ $(document).ready(function () {
         window.location.replace = "http://localhost/Business-Tool-v7.0-api/Front_End/Html/Index.html";
     }
 
-    if(sessionStorage.signup=="true")
-    {
+    if (sessionStorage.signup == "true") {
         $("#divlogin").hide();
         $("#divregister").show();
         sessionStorage.clear();
     }
-    else
-    {
+    else {
         $("#divregister").hide();
     }
 
@@ -36,26 +34,25 @@ $(document).ready(function () {
                 'Authorization': 'Basic ' + btoa($("#username").val() + ":" + $("#password").val()),
             },
             complete: function (xhr, status) {
-                if($("#username").val()!="" && $("#password").val()!="")
-                {
+                if ($("#username").val() != "" && $("#password").val() != "") {
                     if (xhr.status == 200) {
                         localStorage.authUser = btoa($("#username").val() + ":" + $("#password").val());
-    
+
                         console.log(xhr);
-    
+
                         var user = xhr.responseJSON;
                         localStorage.userId = user.id;
                         localStorage.username = user.username;
                         localStorage.userRole = user.userDesignationID;
-    
-    
+
+
                         console.log(localStorage.userId);
                         console.log(localStorage.username);
                         console.log(localStorage.authUser);
                         console.log("Login Success");
-    
+
                         console.log(xhr);
-    
+
                         //USER TYPE WISE REDIRECTION
                         if (localStorage.userRole == 1) {
                             window.location.href = "../../html/Admin";
@@ -82,22 +79,19 @@ $(document).ready(function () {
                             $("#msg").html("<div class=\"alert alert-success\" role=\"alert\">Success: Successfully Logged In</div>");
                         }
                         else {
-                            $("#msg").html("<div class=\"alert alert-danger\" role=\"alert\">Error : " + xhr.responseJSON.message + "</div>");
+                            $("#msg").html("<div class=\"alert alert-danger\" role=\"alert\">Error : Invalid Login</div>");
                         }
                     }
                     else {
                         console.log(xhr);
-                        $("#msg").html("<div class=\"alert alert-danger\" role=\"alert\">Error : " + xhr.responseJSON.message + "</div>");
+                        $("#msg").html("<div class=\"alert alert-danger\" role=\"alert\">Error : Invalid Login</div>");
                     }
                 }
-                else
-                {
-                    if($("#username").val()=="")
-                    {
+                else {
+                    if ($("#username").val() == "") {
                         $("#msg1").html("*Username Can't be Empty");
-                    }                    
-                    if($("#password").val()=="")
-                    {
+                    }
+                    if ($("#password").val() == "") {
                         $("#msg2").html("*Password Can't be Empty");
                     }
                 }
@@ -150,8 +144,7 @@ $(document).ready(function () {
                 'Authorization': 'Basic ' + btoa($("#regusername").val() + ":" + $("#regpassword").val()),
             },
             complete: function (xhr, status) {
-                if($("#regname").val()!="" && $("#regemail").val()!="" && $("#regmobile").val()!="" && $("#regusername").val()!="" && $("#regpassword").val()!="")
-                {
+                if ($("#regname").val() != "" && $("#regemail").val() != "" && $("#regmobile").val() != "" && $("#regusername").val() != "" && $("#regpassword").val() != "") {
                     if (xhr.status == 201) {
                         console.log("Login Table Data insert Success");
                         insertInCustomer();
@@ -160,24 +153,18 @@ $(document).ready(function () {
                         console.log(xhr);
                     }
                 }
-                else
-                {
-                    if($("#regname").val()=="")
-                    {
+                else {
+                    if ($("#regname").val() == "") {
                         $("#msg11").html("*Full Name Can't be Empty");
-                    }                    
-                    if($("#regemail").val()=="")
-                    {
+                    }
+                    if ($("#regemail").val() == "") {
                         $("#msg21").html("*Email Can't be Empty");
                     }
-                    if($("#regmobile").val()=="")
-                    {
+                    if ($("#regmobile").val() == "") {
                         $("#msg3").html("*Mobile No. Can't be Empty");
-                    }if($("#regusername").val()=="")
-                    {
+                    } if ($("#regusername").val() == "") {
                         $("#msg4").html("*Username Can't be Empty");
-                    }if($("#regpassword").val()=="")
-                    {
+                    } if ($("#regpassword").val() == "") {
                         $("#msg5").html("*password Can't be Empty");
                     }
                 }
@@ -185,30 +172,30 @@ $(document).ready(function () {
         });
     }
 
-    $("#username").keyup(function(){
+    $("#username").keyup(function () {
         $("#msg1").hide();
     })
-    $("#password").keyup(function(){
+    $("#password").keyup(function () {
         $("#msg2").hide();
     })
-    $("#regname").keyup(function(){
+    $("#regname").keyup(function () {
         $("#msg11").hide();
     })
-    $("#regemail").keyup(function(){
+    $("#regemail").keyup(function () {
         $("#msg21").hide();
     })
-    $("#regmobile").keyup(function(){
+    $("#regmobile").keyup(function () {
         $("#msg3").hide();
     })
-    $("#regusername").keyup(function(){
+    $("#regusername").keyup(function () {
         $("#msg4").hide();
     })
-    $("#regpassword").keyup(function(){
+    $("#regpassword").keyup(function () {
         $("#msg5").hide();
     })
 
     $("#btnlogin").click(function () {
-        loadLogin();  
+        loadLogin();
     });
     $("#btnregister").click(function () {
         loadRegister();

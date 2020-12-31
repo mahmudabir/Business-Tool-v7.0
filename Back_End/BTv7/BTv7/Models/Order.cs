@@ -17,7 +17,6 @@ namespace BTv7.Models
         public DateTime Date { get; set; }
         [Required]
         public float TotalAmount { get; set; }
-        [Required]
         public string Address { get; set; }
 
 
@@ -68,7 +67,7 @@ namespace BTv7.Models
 
 
             var orderFromDB = db.GetAll()
-                .Where(x => x.CustomerID.Equals(CustomerID) && x.SaleTypeID == 1 && x.IsSold == false && x.OrderStatusID == 6).ToList();
+                .Where(x => x.CustomerID == CustomerID && x.SaleTypeID == 1 && x.IsSold == false && x.OrderStatusID == 6).ToList();
 
 
             if (orderFromDB.Count != 0)

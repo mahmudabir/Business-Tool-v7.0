@@ -182,6 +182,10 @@
     <Compile Include="Migrations\202012291008444_NewColumnAddNoteModel.Designer.cs">
       <DependentUpon>202012291008444_NewColumnAddNoteModel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202012311656227_OrderModelAddressNullable.cs" />
+    <Compile Include="Migrations\202012311656227_OrderModelAddressNullable.designer.cs">
+      <DependentUpon>202012311656227_OrderModelAddressNullable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccessStatus.cs" />
     <Compile Include="Models\BTv7DbContext.cs" />
@@ -294,6 +298,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202012291008444_NewColumnAddNoteModel.resx">
       <DependentUpon>202012291008444_NewColumnAddNoteModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012311656227_OrderModelAddressNullable.resx">
+      <DependentUpon>202012311656227_OrderModelAddressNullable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

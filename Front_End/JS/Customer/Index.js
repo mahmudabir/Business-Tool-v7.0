@@ -34,6 +34,38 @@ $(document).ready(function () {
     console.log("CustomerID: " + localStorage.cid);
 
 
+    var createOrder = function () {
+        $("#msg").removeAttr("hidden");
+        $.ajax({
+            url: "https://localhost:44308/api/customers/" + localStorage.cid + "/orders",
+            method: "POST",
+            data: {
+                address: "Dummy",
+                customerName: "Dummy",
+                date: "1-1-1",
+                isSold: false,
+                totalAmount: 0.0,
+                customerId: localStorage.cid,
+            },
+            headers: {
+                'Authorization': 'Basic ' + localStorage.authUser,
+            },
+            complete: function (xhr, status) {
+                if (xhr.status == 201) {
+
+
+                }
+                else {
+                    console.log(xhr);
+                    //$("#msg").html("<div class=\"alert alert-danger\" role=\"alert\">Error : Cart already Exist</div>");
+                }
+            }
+        });
+    }
+
+    createOrder();
+
+
 
     var loadAllProducts = function () {
         $("#msg").removeAttr("hidden");

@@ -148,7 +148,7 @@ $(document).ready(function () {
                 }
                 else {
                     console.log(xhr);
-                    $("#msg").html("<div class=\"alert alert-danger\" role=\"alert\">Error : " + xhr.responseJSON.message + "</div>");
+                    $("#msg").html("<div class=\"alert alert-danger\" role=\"alert\">Error : No Item in the Cart</div>");
                 }
             }
         });
@@ -158,29 +158,36 @@ $(document).ready(function () {
 
 
 
-    //var createOrder = function () {
-    //    $("#msg").removeAttr("hidden");
-    //    $.ajax({
-    //        url: "https://localhost:44308/api/customers/" + localStorage.cid + "/orders",
-    //        method: "POST",
-    //        data: {
-    //            customerId: localStorage.cid,
-    //        },
-    //        headers: {
-    //            'Authorization': 'Basic ' + localStorage.authUser,
-    //        },
-    //        complete: function (xhr, status) {
-    //            if (xhr.status == 201) {
+    var createOrder = function () {
+        $("#msg").removeAttr("hidden");
+        $.ajax({
+            url: "https://localhost:44308/api/customers/" + localStorage.cid + "/orders",
+            method: "POST",
+            data: {
+                address: "Dummy",
+                customerName: "Dummy",
+                date: "1-1-1",
+                isSold: false,
+                totalAmount: 0.0,
+                customerId: localStorage.cid,
+            },
+            headers: {
+                'Authorization': 'Basic ' + localStorage.authUser,
+            },
+            complete: function (xhr, status) {
+                if (xhr.status == 201) {
 
 
-    //            }
-    //            else {
-    //                console.log(xhr);
-    //                $("#msg").html("<div class=\"alert alert-danger\" role=\"alert\">Error : " + xhr.responseJSON.message + "</div>");
-    //            }
-    //        }
-    //    });
-    //}
+                }
+                else {
+                    console.log(xhr);
+                    //$("#msg").html("<div class=\"alert alert-danger\" role=\"alert\">Error : Cart already Exist</div>");
+                }
+            }
+        });
+    }
+
+    createOrder();
 
 
 
