@@ -406,4 +406,43 @@ $(document).ready(function(){
         EnableEmployeeLogin();
     });
 
+    var DisbaleEmployeeLogin = function () {
+        $.ajax({
+            url: "https://localhost:44308/api/logins/disable/user/"+$("#editloginid").val(),
+            method: "PUT",
+            header: "Content-Type:application/json",
+            data: {
+                id: $("#editloginid").val(),
+                username: $("#editusername").val(),
+                email: $("#editemail").val(),
+                mobile: $("#editcontact").val(),
+                userDesignationID: $("#editrole").val()
+            },
+            headers: {
+                'Authorization': 'Basic ' + localStorage.authUser,
+            },
+            complete: function (xhr, status) {
+                if (xhr.status == 200) {
+                    loadAllEmployees();
+                    $("#disableMesg").removeAttr("hidden", "hidden");
+                    $("#updateMesg").attr("hidden", "hidden");
+                    $("#enableMesg").attr("hidden", "hidden");
+
+                    if($("#editid").val() == localStorage.userId)
+                    {
+                        alert("System Logged Out.");
+                        loadLogout();
+                    }
+                } 
+                else {
+                    alert(xhr.accessStatusID);
+                    alert("Error Proccessing.");
+                }
+            }
+        });
+    }
+    $("#btndeactive").on("click",function(){
+        DisbaleEmployeeLogin();
+    });
+
 });
