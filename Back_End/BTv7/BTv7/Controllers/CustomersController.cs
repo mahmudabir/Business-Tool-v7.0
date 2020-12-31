@@ -285,8 +285,8 @@ namespace BTv7.Controllers
 
 
 
-        [Route("{cid}/orders/{oid}/items", Name = "GetCartsByLoginNOrderID"), BasicAuthentication]
-        public IHttpActionResult GetCartsByLoginNOrderID(int cid, int oid)
+        [Route("{cid}/orders/{oid}/items", Name = "GetCartsByCustomerNOrderID"), BasicAuthentication]
+        public IHttpActionResult GetCartsByCustomerNOrderID(int cid, int oid)
         {
             var identity = (ClaimsIdentity)User.Identity;
             int lidFromDB = Convert.ToInt32(identity.Claims.FirstOrDefault(x => x.Type == "ID").Value);
@@ -309,6 +309,38 @@ namespace BTv7.Controllers
             else
             {
                 return StatusCode(HttpStatusCode.NoContent);
+            }
+
+        }
+
+
+
+
+
+        [Route("{cid}/orders/{oid}/items", Name = "PostCartsByCustomerNOrderID"), BasicAuthentication]
+        public IHttpActionResult PostCartByCustomerNOrderID(int cid, int oid, OrderCart orderCart)
+        {
+            OrderCartRepository orderCartDB = new OrderCartRepository();
+            ProductRepository productDB = new ProductRepository();
+
+            var productFromDB = productDB.Get((int)orderCart.ProductID);
+
+
+            orderCart.OrderID = oid;
+            orderCart.CartAmount = orderCart.Quantity * productFromDB.SellPrice;
+
+
+            if (ModelState.IsValid)
+            {
+                orderCartDB.Insert(orderCart);
+
+                var uri = Url.Link("GetCartsByCustomerNOrderID", null);
+
+                return Created(uri, orderCart);
+            }
+            else
+            {
+                return BadRequest(ModelState);
             }
 
         }
