@@ -15,7 +15,7 @@ $(document).ready(function(){
 	var individualAmount=0;
 	if (localStorage.authUser == null || localStorage.userRole!=4) {
 
-        window.location.href = "../Salesman/Index.html";
+        window.location.href = "../Login/Index.html";
     }
 
 

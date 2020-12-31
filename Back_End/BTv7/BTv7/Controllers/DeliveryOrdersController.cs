@@ -190,11 +190,46 @@ namespace BTv7.Controllers
             prodrepo.Update(product);
             
             return Ok(product);
+        }
 
 
 
+        [Route("{id}/accepted", Name = "GetAllAcceptedOrderByDeliverymanID")]
+        [BasicAuthentication]
+        public IHttpActionResult GetAcceptedOrder(int id)
+        {
+            OrderRepository orderrepo = new OrderRepository();
+            var orderList = orderrepo.GetAcceptOrderBydeliverymanID(id);
+
+            if (orderList.Count() != 0)
+            {
+                return Ok(orderList);
+            }
+            else
+            {
+                return StatusCode(HttpStatusCode.NoContent);
+            }
 
         }
+
+        [Route("{id}/rejected", Name = "GetAllRejectedOrderByDeliverymanID")]
+        [BasicAuthentication]
+        public IHttpActionResult GetRejectedOrder(int id)
+        {
+            OrderRepository orderrepo = new OrderRepository();
+            var orderList = orderrepo.GetRejectOrderBydeliverymanID(id);
+
+            if (orderList.Count() != 0)
+            {
+                return Ok(orderList);
+            }
+            else
+            {
+                return StatusCode(HttpStatusCode.NoContent);
+            }
+
+        }
+
 
     }
 }
