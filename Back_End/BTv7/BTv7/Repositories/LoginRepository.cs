@@ -42,5 +42,21 @@ namespace BTv7.Repositories
             }
         }
 
+        public void DisableLogin(Login log)
+        {
+            using (var login1 = new BTv7DbContext())
+            {
+                int d = login1.Database.ExecuteSqlCommand("UPDATE Logins SET AccessStatusID = '" + log.AccessStatusID + "' WHERE ID = " + log.ID + ";");
+            }
+        }
+
+        public void EnableLogin(Login log)
+        {
+            using (var login2 = new BTv7DbContext())
+            {
+                int e = login2.Database.ExecuteSqlCommand("UPDATE Logins SET AccessStatusID = '" + log.AccessStatusID + "' WHERE ID = " + log.ID + ";");
+            }
+        }
+
     }
 }

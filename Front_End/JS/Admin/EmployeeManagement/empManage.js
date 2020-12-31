@@ -239,6 +239,8 @@ $(document).ready(function(){
                         if(data[0].login.accessStatusID == '1')
                         {                    
                             $("#updateMesg").attr("hidden", "hidden");
+                            $("#enableMesg").attr("hidden", "hidden");
+                            $("#disableMesg").attr("hidden", "hidden");
                             $("#btnactive").attr("hidden", "hidden");
                             $("#btndeactive").removeAttr("hidden", "hidden");
                             $("#btnupdate").removeAttr("hidden", "hidden");
@@ -246,6 +248,8 @@ $(document).ready(function(){
                         else if(data[0].login.accessStatusID == 2)
                         {
                             $("#updateMesg").attr("hidden", "hidden");
+                            $("#enableMesg").attr("hidden", "hidden");
+                            $("#disableMesg").attr("hidden", "hidden");
                             $("#btndeactive").attr("hidden", "hidden");
                             $("#btnactive").removeAttr("hidden", "hidden");
                             $("#btnupdate").removeAttr("hidden", "hidden");
@@ -253,6 +257,8 @@ $(document).ready(function(){
                         else
                         {
                             $("#updateMesg").attr("hidden", "hidden");
+                            $("#enableMesg").attr("hidden", "hidden");
+                            $("#disableMesg").attr("hidden", "hidden");
                             $("#btnupdate").attr("hidden", "hidden");
                             $("#btndeactive").attr("hidden", "hidden");
                             $("#btnactive").attr("hidden", "hidden");
@@ -316,6 +322,8 @@ $(document).ready(function(){
                     if (xhr.status == 200) {
                         loadAllEmployees();
                         $("#updateMesg").removeAttr("hidden", "hidden");
+                        $("#enableMesg").attr("hidden", "hidden");
+                        $("#disableMesg").attr("hidden", "hidden");
 
                         if($("#editid").val() == localStorage.userId)
                         {
@@ -356,6 +364,46 @@ $(document).ready(function(){
     }
     $("#btnupdate").on("click",function(){
         updateLoginDetails();
+    });
+
+    //Login Access Controlling
+    var EnableEmployeeLogin = function () {
+        $.ajax({
+            url: "https://localhost:44308/api/logins/enable/user/"+$("#editloginid").val(),
+            method: "PUT",
+            header: "Content-Type:application/json",
+            data: {
+                id: $("#editloginid").val(),
+                username: $("#editusername").val(),
+                email: $("#editemail").val(),
+                mobile: $("#editcontact").val(),
+                userDesignationID: $("#editrole").val()
+            },
+            headers: {
+                'Authorization': 'Basic ' + localStorage.authUser,
+            },
+            complete: function (xhr, status) {
+                if (xhr.status == 200) {
+                    loadAllEmployees();
+                    $("#enableMesg").removeAttr("hidden", "hidden");
+                    $("#updateMesg").attr("hidden", "hidden");
+                    $("#disableMesg").attr("hidden", "hidden");
+
+                    if($("#editid").val() == localStorage.userId)
+                    {
+                        alert("System Logged Out.");
+                        loadLogout();
+                    }
+                } 
+                else {
+                    alert(xhr.accessStatusID);
+                    alert("Error Proccessing.");
+                }
+            }
+        });
+    }
+    $("#btnactive").on("click",function(){
+        EnableEmployeeLogin();
     });
 
 });

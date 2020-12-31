@@ -53,6 +53,35 @@ namespace BTv7.Controllers
             return Ok(login);
         }
 
+        [Route("disable/user/{id}", Name = "DisableLogin")]
+        [BasicAuthentication]
+        public IHttpActionResult PutDisableLogin([FromUri] int id, [FromBody] Login login)
+        {
+            var com1 = loginDB.GetLoginByID(id);
+            login.ID = id;
+            login.Password = com1.Password;
+            login.AccessStatusID = 2;
+            login.RegistrationStatusID = com1.RegistrationStatusID;
+
+            loginDB.DisableLogin(login);
+
+            return Ok(login);
+        }
+
+        [Route("enable/user/{id}", Name = "EnableLogin")]
+        [BasicAuthentication]
+        public IHttpActionResult PutEnableLogin([FromUri] int id, [FromBody] Login login)
+        {
+            var com2 = loginDB.GetLoginByID(id);
+            login.ID = id;
+            login.Password = com2.Password;
+            login.AccessStatusID = 1;
+            login.RegistrationStatusID = com2.RegistrationStatusID;
+
+            loginDB.EnableLogin(login);
+
+            return Ok(login);
+        }
 
 
 
@@ -61,8 +90,6 @@ namespace BTv7.Controllers
         {
 
             var result = loginDB.GetAll();
-
-
 
             return Ok(result);
         }
