@@ -35,7 +35,7 @@ namespace BTv7.Models
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             List<ValidationResult> errors = new List<ValidationResult>();
-            //OrderCartRepository db = new OrderCartRepository();
+            OrderCartRepository db = new OrderCartRepository();
 
             if (CartAmount < 0)
             {
@@ -44,6 +44,14 @@ namespace BTv7.Models
             if (Quantity < 0)
             {
                 errors.Add(new ValidationResult($"{nameof(Quantity)} cannot be a negative value.", new List<string> { nameof(Quantity) }));
+            }
+
+
+            var cartFromDB = db.GetAll().Where(x => x.OrderID == OrderID && x.ProductID == ProductID).ToList();
+
+            if (cartFromDB.Count != 0)
+            {
+                errors.Add(new ValidationResult($"Item Already Exists in the Cart."));
             }
 
 
