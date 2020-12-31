@@ -40,7 +40,26 @@ var listPendingOrderID=function(){
 				for (var i = 0; i < dataOrder.length; i++) {
 					
 					orderID=dataOrder[i].id;
-					$.ajax({
+
+					listPending();
+					}
+					
+				}
+				else
+				{	
+					$("#pendingList tbody").html("");
+				}
+
+			}
+	});
+}
+listPendingOrderID();
+//Ends Get All users connected in chat
+
+
+var listPending=function(){
+	
+				$.ajax({
 				url:"https://localhost:44308/api/deliveryorders/"+localStorage.username+"/"+orderID,
 				method:"GET",
 				headers:{
@@ -84,68 +103,6 @@ var listPendingOrderID=function(){
 
 			}
 	});
-
-					}
-					
-				}
-				else
-				{	
-					$("#pendingList tbody").html("");
-				}
-
-			}
-	});
-}
-listPendingOrderID();
-//Ends Get All users connected in chat
-
-
-var listPending=function(){
-	
-	// 	$.ajax({
-	// 			url:"https://localhost:44308/api/deliveryorders/"+localStorage.username+"/"+orderID,
-	// 			method:"GET",
-	// 			headers:{
-	// 					//Authorization:"Basic "+ btoa("4:4444")
-	// 				'Authorization': 'Basic ' + localStorage.authUser
-	// 			},
-	// 			complete:function(xmlhttp,status){
-
-	// 			if(xmlhttp.status==200){
-	// 				var data="";
-
-	// 				data=xmlhttp.responseJSON;
-							
-	// 				for (var j=0; j<data.length; j++)
-	// 				{
-						
-
-	// 					for (var k=0; k<data.length; k++)
-	// 					{
-	// 						if(data.length==1 || data.length-1==k){
-	// 							sepration="";
-	// 						}
-	// 						else{
-	// 							sepration="<br>"
-	// 						}
-	// 						orderAmount+=data[k].cartAmount;
-	// 						productNames+="<b>"+data[k].product.name+"</b>= "+data[k].cartAmount+" TK "+sepration;
-	// 					}
-	// 					str+="<tr><td><b>"+data[j].order.id+"</b></td><td>"+data.length+" Products</td><td>"+productNames+"</td><td>"+orderAmount+" TK</td><td><button id='Accepted' btn-id-accept="+data[j].order.id+" class='btn btn-success btn-sm'>Accepted</button></td><td><button id='Rejected' btn-id-reject="+data[j].order.id+" class='btn btn-danger btn-sm'>Rejected</button></td></tr>"	
-	// 					productNames="";
-	// 					orderAmount=0;
-	// 					break;
-	// 				}
-	// 					$("#pendingList tbody").html(str);
-							
-	// 				}
-	// 			else
-	// 			{
-	// 				console.log("Error from 200 else"+orderID);
-	// 			}
-
-	// 		}
-	// });
 
 }
 // $('#pendingList tr').hover(function(){
