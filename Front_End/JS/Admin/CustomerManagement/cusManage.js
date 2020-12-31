@@ -95,12 +95,12 @@ $(document).ready(function(){
                         var str = '';
                         var sl = 1;
                         var icon = "";
+                        var count = 0;
                         
                         if(data.length>0)
                         {
                             for (var i = 0; i < data.length; i++) 
                             {
-                                
                                 if(data[i].login.accessStatusID == 1)
                                 {
                                     icon = '<i style="color: green;" class="fas fa-user-check"></i>';
@@ -109,7 +109,10 @@ $(document).ready(function(){
                                 {
                                     icon = '<i style="color: red;" class="fas fa-user-slash"></i>';
                                 }
-                                str += "<tr>"+
+
+                                if(data[i].login.registrationStatusID == 2)
+                                {
+                                    str += "<tr>"+
                                             "<td align='center'>"+ sl + "</td>"+
                                             "<td>"+ data[i].login.username/*data[i].login.username.substr(0,180)*/ +"</td>"+
                                             "<td>"+ data[i].name+ "</td>"+
@@ -117,7 +120,15 @@ $(document).ready(function(){
                                             "<td align='center'>" + icon + "</td>"+
                                             "<td align='center'> <button type='button' data-toggle='modal' data-target='#detailCustomer' data-id="+data[i].id+" class='btn btn-outline-dark'>Details</button>" +
                                     "</tr>";
+                                    count++;
+                                }
+                                
                                 sl++;
+                            }
+
+                            if(count < 1)
+                            {
+                                str += "<tr><td colspan='6' align='middle'>NO DATA FOUND</td></tr>";
                             }
                         }
                         else
