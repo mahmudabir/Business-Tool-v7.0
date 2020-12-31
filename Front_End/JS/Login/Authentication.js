@@ -185,11 +185,27 @@ $(document).ready(function () {
         });
     }
 
-
-
-
-
-
+    $("#username").keyup(function(){
+        $("#msg1").hide();
+    })
+    $("#password").keyup(function(){
+        $("#msg2").hide();
+    })
+    $("#regname").keyup(function(){
+        $("#msg11").hide();
+    })
+    $("#regemail").keyup(function(){
+        $("#msg21").hide();
+    })
+    $("#regmobile").keyup(function(){
+        $("#msg3").hide();
+    })
+    $("#regusername").keyup(function(){
+        $("#msg4").hide();
+    })
+    $("#regpassword").keyup(function(){
+        $("#msg5").hide();
+    })
 
     $("#btnlogin").click(function () {
         loadLogin();  
