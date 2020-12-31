@@ -32,6 +32,22 @@ namespace BTv7.Controllers
             }
         }
 
+        [Route("id/{id}", Name = "GetEmployeesByID")]
+        [BasicAuthentication]
+        public IHttpActionResult GetEmployeesByID(int id)
+        {
+            var employeeFromDB = employeeDB.GetEmployeeByID(id);
+
+            if (employeeFromDB != null || employeeFromDB.Count() != 0)
+            {
+                return Ok(employeeFromDB);
+            }
+            else
+            {
+                return StatusCode(HttpStatusCode.NotFound);
+            }
+        }
+
         [Route("name/{name}", Name = "GetEmployeesByName")]
         [BasicAuthentication]
         public IHttpActionResult GetEmployeesByName(string name)

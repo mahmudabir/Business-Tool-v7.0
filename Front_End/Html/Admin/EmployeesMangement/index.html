@@ -20,9 +20,9 @@
                 <div class="col-sm sol-md col-lg">
                     <div class="card my-3">
                         <div class="card-body">
-                            <button type="button" class="btn btn-primary btn-lg btn-block mb-2" data-toggle="modal" data-target="#addEmployee">ADD NEW EMPLOYEE</button>
+                            <button type="button" class="btn btn-outline-dark btn-lg btn-block mb-2" data-toggle="modal" data-target="#addEmployee">ADD NEW EMPLOYEE</button>
                             <input class="form-control mb-2" style="text-align: center;" type="search" id="search" placeholder="Search By Name" autocomplete="off">
-                            <!-- Modal -->
+                            <!-- Start Add Employee Modal -->
                             <div class="modal fade" style="margin-top: 5%;" id="addEmployee" tabindex="-1" role="dialog" aria-labelledby="addEmployeeLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
@@ -74,12 +74,75 @@
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                            <button type="button" class="btn btn-primary" id="btnadd">Add</button>
+                                            <button type="button" class="btn btn-info" id="btnadd">Add</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <!-- Modal -->
+                            <!-- End Add Employee Modal -->
+
+                            <!-- Start Details Employee Modal -->
+                            <div class="modal fade" style="margin-top: 5%;" id="detailEmployee" tabindex="-1" role="dialog" aria-labelledby="detailEmployeeLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                        <h5 class="modal-title" id="detailEmployeeLabel">EMPLOYEE DETAILS</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                        </div>
+                                        <div class="modal-body">    
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">Username</span>
+                                                </div>
+                                                <input type="text" class="form-control" id="editusername" placeholder="xyz@3" aria-label="Username" aria-describedby="basic-addon1" autocomplete="off" readonly>
+                                                <input type="hidden" class="form-control" id="editloginid" placeholder="xyz@3" aria-label="Username" aria-describedby="basic-addon1" autocomplete="off" readonly>
+                                                <input type="hidden" class="form-control" id="editid" placeholder="xyz@3" aria-label="Username" aria-describedby="basic-addon1" autocomplete="off" readonly>
+                                            </div> 
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">Full Name</span>
+                                                </div>
+                                                <input type="text" class="form-control" id="editfullname" placeholder="FirstName MiddleName LastName" aria-label="Username" aria-describedby="basic-addon1" autocomplete="off">
+                                            </div> 
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">Contact</span>
+                                                </div>
+                                                <input type="number" class="form-control" id="editcontact" placeholder="01...." aria-label="Username" aria-describedby="basic-addon1" autocomplete="off">
+                                            </div> 
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">Email</span>
+                                                </div>
+                                                <input type="email" class="form-control" id="editemail" placeholder="sample@sample.sample" aria-label="Username" aria-describedby="basic-addon1" autocomplete="off">
+                                            </div> 
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">Designation</span>
+                                                </div>
+                                                <select class="custom-select" id="editrole">
+                                    
+                                                </select>
+                                            </div> 
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">Salary</span>
+                                                </div>
+                                                <input type="email" class="form-control" id="editsalary" placeholder="1-10000......" aria-label="Username" aria-describedby="basic-addon1" autocomplete="off">
+                                            </div> 
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            <button type="button" class="btn btn-success" id="btnupdate">Update</button>
+                                            <button type="button" class="btn btn-danger" id="btndeactive">Deactivate</button>
+                                            <button type="button" class="btn btn-primary" id="btnactive">Activate</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Details Employee Modal -->
 
                             <!-- CONTENT -->
                             <table class="table table-bordered table-hover" id="emptable">
