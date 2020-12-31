@@ -1,10 +1,37 @@
 $(document).ready(function () {
     if (localStorage.authUser == null || localStorage.userRole != 5) {
-        window.location.href = "../Login/Authentication.html";
+        window.location.href = "../Login/Index.html";
     }
 
 
+    var loadUser = function () {
+        $("#msg").removeAttr("hidden");
+        $.ajax({
+            url: "https://localhost:44308/api/logins/" + localStorage.userId,
+            method: "GET",
+            headers: {
+                'Authorization': 'Basic ' + localStorage.authUser,
+            },
+            complete: function (xhr, status) {
+                if (xhr.status == 200) {
+                    //console.log(xhr.responseJSON);
 
+                    var data = xhr.responseJSON;
+
+                    localStorage.cid = data.customers[0].id;
+
+
+                }
+                else {
+                    console.log(xhr);
+                    $("#msg").html("<div class=\"alert alert-danger\" role=\"alert\">Error : " + xhr.responseJSON.message + "</div>");
+                }
+            }
+        });
+    }
+
+    loadUser();
+    console.log("CustomerID: " + localStorage.cid);
 
 
 

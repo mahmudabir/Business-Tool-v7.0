@@ -102,7 +102,7 @@ namespace BTv7.Controllers
 
 
 
-        [Route("{cid}/feedbacks/", Name = "GetFeedbackByCustomerID"), BasicAuthentication]
+        [Route("{cid}/feedbacks", Name = "GetFeedbackByCustomerID"), BasicAuthentication]
         [Authorize(Roles = "CUSTOMER")]
         public IHttpActionResult GetFeedbackByCustomerID(int cid)
         {
@@ -122,7 +122,7 @@ namespace BTv7.Controllers
 
 
 
-        [Route("{cid}/orders/", Name = "GetAllOrderByCustomerID"), BasicAuthentication]
+        [Route("{cid}/orders", Name = "GetAllOrderByCustomerID"), BasicAuthentication]
         public IHttpActionResult GetAllOrderByCustomerID(int cid)
         {
             OrderRepository orderDB = new OrderRepository();
@@ -137,6 +137,41 @@ namespace BTv7.Controllers
                 return StatusCode(HttpStatusCode.NoContent);
             }
 
+        }
+
+
+
+        [Route("{cid}/orders/", Name = "PostOrderByCustomer")]
+        public IHttpActionResult PostOrderByCustomer(int cid, Order order)
+        {
+            OrderRepository orderDB = new OrderRepository();
+            CustomerRepository customerDB = new CustomerRepository();
+            int loginID = customerDB.Get(cid).LoginID;
+            var customerFromDB = customerDB.GetCustomerByLoginID(loginID);
+
+            order.Date = DateTime.Now;
+            order.TotalAmount = 0.0f;
+            order.CustomerID = cid;
+
+
+            order.CustomerName = customerFromDB.Name;
+            order.Address = customerFromDB.Address;
+
+            order.SaleTypeID = 1;
+            order.IsSold = false;
+            order.OrderStatusID = 6;
+            order.SellBy = 1;
+
+            if (ModelState.IsValid)
+            {
+                orderDB.Insert(order);
+                var uri = Url.Link("GetOrderByID", new { id = order.ID });
+                return Created(uri, order);
+            }
+            else
+            {
+                return BadRequest(ModelState);
+            }
         }
 
 
@@ -195,8 +230,8 @@ namespace BTv7.Controllers
         }
 
 
-        [Route("{cid}/orders/saletype/{stid}/notissold", Name = "GetOrderByCustomerNSaleTypeIDNNotIsSold"), BasicAuthentication]
-        public IHttpActionResult GetOrderByCustomerNSaleTypeIDNNotIsSold(int cid, int stid)
+        [Route("{cid}/orders/saletype/{stid}/orderstatus/{osid}/notissold", Name = "GetOrderByCustomerNSaleTypeNOrderStatusIDNNotIsSold"), BasicAuthentication]
+        public IHttpActionResult GetOrderByCustomerNSaleTypeNOrderStatusIDNNotIsSold(int cid, int stid)
         {
             OrderRepository orderDB = new OrderRepository();
             //var orderFromDB = new List<Order>();
@@ -232,8 +267,8 @@ namespace BTv7.Controllers
         }
 
 
-        [Route("{cid}/orders/saletype/{stid}/issold", Name = "GetOrderByCustomerNSaleTypeIDNIsSold"), BasicAuthentication]
-        public IHttpActionResult GetOrderByCustomerNSaleTypeIDNIsSold(int cid, int stid)
+        [Route("{cid}/orders/saletype/{stid}/orderstatus/{osid}/issold", Name = "GetOrderByCustomerNSaleTypeNOrderStatusIDNIsSold"), BasicAuthentication]
+        public IHttpActionResult GetOrderByCustomerNSaleTypeNOrderStatusIDNIsSold(int cid, int stid)
         {
             OrderRepository orderDB = new OrderRepository();
 

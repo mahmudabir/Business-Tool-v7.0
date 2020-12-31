@@ -1,6 +1,6 @@
 $(document).ready(function () {
     if (localStorage.authUser == null || localStorage.userRole != 5) {
-        window.location.href = "../../Login/Authentication.html";
+        window.location.href = "../../Login/Index.html";
     }
 
 
@@ -12,7 +12,7 @@ $(document).ready(function () {
     var loadCart = function () {
         $("#msg").removeAttr("hidden");
         $.ajax({
-            url: "https://localhost:44308/api/customers/" + sessionStorage.cid + "/orders/" + sessionStorage.oid + "/items",
+            url: "https://localhost:44308/api/customers/" + localStorage.cid + "/orders/" + sessionStorage.oid + "/items",
             method: "GET",
             headers: {
                 'Authorization': 'Basic ' + localStorage.authUser,
@@ -122,10 +122,6 @@ $(document).ready(function () {
 
                     $("#itemDetails").html(str);
 
-                    //$(".quantity").on('input', function () {
-                    //    console.log("Tag ID: " + $(this).attr("id"));
-                    //});
-
 
 
                     $(".plus").click(function () {
@@ -140,7 +136,6 @@ $(document).ready(function () {
 
                                 alert("Item Removed.");
                             } else {
-                                //$("#" + $(this).attr("minus")).val("1")
                                 this.parentNode.querySelector('input[type=number]').stepUp();
                                 alert("Item not removed.");
                             }
@@ -148,9 +143,7 @@ $(document).ready(function () {
                         else {
                             console.log($("#" + $(this).attr("minus")).val());
                         }
-
                     });
-
 
                 }
                 else {
@@ -165,12 +158,45 @@ $(document).ready(function () {
 
 
 
+    //var createOrder = function () {
+    //    $("#msg").removeAttr("hidden");
+    //    $.ajax({
+    //        url: "https://localhost:44308/api/customers/" + localStorage.cid + "/orders",
+    //        method: "POST",
+    //        data: {
+    //            customerId: localStorage.cid,
+    //        },
+    //        headers: {
+    //            'Authorization': 'Basic ' + localStorage.authUser,
+    //        },
+    //        complete: function (xhr, status) {
+    //            if (xhr.status == 201) {
+
+
+    //            }
+    //            else {
+    //                console.log(xhr);
+    //                $("#msg").html("<div class=\"alert alert-danger\" role=\"alert\">Error : " + xhr.responseJSON.message + "</div>");
+    //            }
+    //        }
+    //    });
+    //}
+
+
+
+
+
+
+
+
+
+
 
 
     var loadOrder = function () {
         $("#msg").removeAttr("hidden");
         $.ajax({
-            url: "https://localhost:44308/api/customers/" + sessionStorage.cid + "/orders/saletype/1/notissold",
+            url: "https://localhost:44308/api/customers/" + localStorage.cid + "/orders/saletype/1/orderstatus/6/notissold",
             method: "GET",
             headers: {
                 'Authorization': 'Basic ' + localStorage.authUser,
@@ -184,6 +210,9 @@ $(document).ready(function () {
                     console.log("OrderID: " + sessionStorage.oid);
                     loadCart();
 
+
+                } else if (xhr.status == 204) {
+                    console.log("No Order in the database.");
 
                 }
                 else {
@@ -212,7 +241,7 @@ $(document).ready(function () {
 
                     var data = xhr.responseJSON;
 
-                    sessionStorage.cid = data.customers[0].id;
+                    localStorage.cid = data.customers[0].id;
 
 
                     loadOrder();
@@ -228,24 +257,24 @@ $(document).ready(function () {
     }
 
     loadUser();
-    console.log("CustomerID: " + sessionStorage.cid);
+    console.log("CustomerID: " + localStorage.cid);
 
 
 
 
-    $(".quantity").change(function () {
-        console.log("Tag ID: ");
-        console.log($(this).attr("id"));
-    });
+    //$(".quantity").change(function () {
+    //    console.log("Tag ID: ");
+    //    console.log($(this).attr("id"));
+    //});
 
 
-    var inputQuantity = document.getElementsByClassName("quantity");
+    //var inputQuantity = document.getElementsByClassName("quantity");
 
-    for (var i = 0; i < inputQuantity.length; i++) {
-        inputQuantity[i].addEventListener('keyup', function () {
-            console.log(this.id.toString());
-        });
-    }
+    //for (var i = 0; i < inputQuantity.length; i++) {
+    //    inputQuantity[i].addEventListener('keyup', function () {
+    //        console.log(this.id.toString());
+    //    });
+    //}
 
 
 
