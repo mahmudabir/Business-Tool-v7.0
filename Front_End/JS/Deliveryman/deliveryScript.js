@@ -293,7 +293,7 @@ var GetOrderCart=function(){
 					
 					productId=orderdata[i].productID;
 					orderQuantity= orderdata[i].quantity;
-					var quant= orderQuantity+ orderdata[i].product.quantity;
+					var quant= orderQuantity + orderdata[i].product.quantity;
 					console.log(quant);
 					$.ajax({
 					url:"https://localhost:44308/api/deliveryorders/"+orderid+"/"+productId+"/rejected",

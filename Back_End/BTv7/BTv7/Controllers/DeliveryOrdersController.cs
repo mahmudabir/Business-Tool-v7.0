@@ -90,10 +90,19 @@ namespace BTv7.Controllers
         public IHttpActionResult PutAccepted([FromUri] int oid,[FromBody] Order order)
         {
             OrderRepository orderrepo = new OrderRepository();
+            SaleRecordRepository salerepo = new SaleRecordRepository();
+            SaleRecord sale = new SaleRecord();
             order.ID = oid;
-
+            order.OrderStatusID = order.OrderStatusID;
             order.Date = DateTime.Now;
             orderrepo.Update(order);
+            if (order.OrderStatusID == 4)
+            {
+                sale.TotalAmount = order.TotalAmount;
+                sale.Date = order.Date;
+                sale.OrderID = order.ID;
+                salerepo.Insert(sale);
+            }
             return Ok(order);
 
 
