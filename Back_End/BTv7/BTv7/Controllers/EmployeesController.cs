@@ -123,27 +123,23 @@ namespace BTv7.Controllers
             }
         }
 
-        //[Route("{id}", Name = "GetEmployeeByID")]
-        //[BasicAuthentication]//, Authorize(Roles = "ADMIN,MANAGER,SALESMAN,DELIVERYMAN")]
-        //public IHttpActionResult GetEmployeeByID(int id)
-        //{
-        //    var employeeFromDB = employeeDB.Get(id);
-        //    if (employeeFromDB != null)
-        //    {
-        //        var result = employeeFromDB.AddLinks(
-        //            new HyperMedia { Href = Url.Link("GetEmployeeByID", new { id = id }), Method = "GET", Rel = "Get one employee by ID." },
-        //            new HyperMedia { Href = Url.Link("GetEmployees", null), Method = "GET", Rel = "Get all employees." },
-        //            new HyperMedia { Href = Url.Link("EmployeeRegistration", null), Method = "POST", Rel = "Create new employee." }//,
-        //            //new HyperMedia { Href = Url.Link("PutEmployee", null), Method = "PUT", Rel = "Update Employee" },
-        //            //new HyperMedia { Href = Url.Link("DeleteEmployee", null), Method = "DELETE", Rel = "Delete Employee." }
-        //            );
-        //        return Ok(result);
-        //    }
-        //    else
-        //    {
-        //        return StatusCode(HttpStatusCode.NotFound);
-        //    }
-        //}
+        [Route("{id}", Name = "GetEmployeeByID")]
+        [BasicAuthentication]//, Authorize(Roles = "ADMIN,MANAGER,SALESMAN,DELIVERYMAN")]
+        public IHttpActionResult GetEmployeeByID(int id)
+        {
+            var employeeFromDB = employeeDB.Get(id);
+            if (employeeFromDB != null)
+            {
+                var result = employeeFromDB.AddLinks(
+                    new HyperMedia { Href = Url.Link("GetEmployeeByID", new { id = id }), Method = "GET", Rel = "Get one employee by ID." }
+                    );
+               return Ok(result);
+            }
+            else
+            {
+               return StatusCode(HttpStatusCode.NotFound);
+            }
+        }
 
 
         //[Route("", Name = "EmployeeRegistration")]
