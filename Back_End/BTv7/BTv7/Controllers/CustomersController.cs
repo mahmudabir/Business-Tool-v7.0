@@ -38,6 +38,21 @@ namespace BTv7.Controllers
             }
         }
 
+        [Route("id/{id}", Name = "GetCustomersByID")]
+        [BasicAuthentication]
+        public IHttpActionResult GetCustomersByID(int id)
+        {
+            var customerFromDB = customerDB.GetCustomerByID(id);
+
+            if (customerFromDB != null || customerFromDB.Count() != 0)
+            {
+                return Ok(customerFromDB);
+            }
+            else
+            {
+                return StatusCode(HttpStatusCode.NotFound);
+            }
+        }
 
         [Route("", Name = "GetCustomers")]
         [BasicAuthentication]
@@ -100,7 +115,21 @@ namespace BTv7.Controllers
             }
         }
 
+        [Route("name/{name}", Name = "GetCustomersByName")]
+        [BasicAuthentication]
+        public IHttpActionResult GetCustomersByName(string name)
+        {
+            var customerFromDB = customerDB.GetByName(name);
 
+            if (customerFromDB != null || customerFromDB.Count != 0)
+            {
+                return Ok(customerFromDB);
+            }
+            else
+            {
+                return StatusCode(HttpStatusCode.NotFound);
+            }
+        }
 
         [Route("{cid}/feedbacks", Name = "GetFeedbackByCustomerID"), BasicAuthentication]
         [Authorize(Roles = "CUSTOMER")]

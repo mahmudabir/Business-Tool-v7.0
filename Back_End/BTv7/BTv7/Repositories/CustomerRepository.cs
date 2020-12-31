@@ -13,5 +13,15 @@ namespace BTv7.Repositories
             List<Customer> userFromDB = this.GetAll();
             return userFromDB.FirstOrDefault(x => x.LoginID.Equals(loginID));
         }
+
+        public List<Customer> GetCustomerByID(int id)
+        {
+            return this.context.Set<Customer>().Where(x => x.ID == id).ToList();
+        }
+
+        public List<Customer> GetByName(string id)
+        {
+            return this.context.Set<Customer>().Where(x => x.Name.ToLower().Contains(id.ToLower())).ToList();
+        }
     }
 }

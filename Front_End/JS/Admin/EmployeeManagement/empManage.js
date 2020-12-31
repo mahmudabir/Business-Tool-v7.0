@@ -2,7 +2,7 @@ $(document).ready(function(){
     if (localStorage.authUser == null || localStorage.userRole!=1)
     {
         //localStorage.clear();
-        window.location.href = "../../Login/index.html";
+        window.location.href = "http://localhost/Business-Tool-v7.0-api/Front_End/Html/Login/";
     }
 
     $('#content').load("../adminnav.html");
@@ -102,7 +102,7 @@ $(document).ready(function(){
 
     //Load Employees By Name
     var loadAllEmployeesByName = function () {
-        if($.trim($("#search").val()) !== "")
+        if($.trim($("#search").val()) != "")
         {
             $.ajax({
                 url: "https://localhost:44308/api/employees/name/"+$("#search").val(),
@@ -313,7 +313,7 @@ $(document).ready(function(){
                     console.log("Logout Success");
                     localStorage.clear();
                     console.log(localStorage.user);
-                    window.location.href = "http://localhost/Business-Tool-v7.0-api/Front_End/Html/Login/index.html";
+                    window.location.href = "http://localhost/Business-Tool-v7.0-api/Front_End/Html/Login/";
                 } else {
                     $("#msg").html("<div class=\"alert alert-danger\" role=\"alert\">Error : " + xmlhttp.status + ":" + xmlhttp.statusText + "</div>");
                 }
