@@ -4,10 +4,11 @@ $(document).ready(function(){
 	var orderid;
 	var productdata;
 	var orderQuantity;
-	var Orderdata;
+	
 	var str;
 	var nextLine;
 	var count=0;
+	var c=0;
 	var productNames="";
 	var sepration;
 	var orderAmount=0;
@@ -39,26 +40,7 @@ var listPendingOrderID=function(){
 				for (var i = 0; i < dataOrder.length; i++) {
 					
 					orderID=dataOrder[i].id;
-					listPending();
-
-					}
-					
-				}
-				else
-				{	
-					$("#pendingList tbody").html("");
-				}
-
-			}
-	});
-}
-listPendingOrderID();
-//Ends Get All users connected in chat
-
-
-var listPending=function(){
-	
-		$.ajax({
+					$.ajax({
 				url:"https://localhost:44308/api/deliveryorders/"+localStorage.username+"/"+orderID,
 				method:"GET",
 				headers:{
@@ -68,6 +50,8 @@ var listPending=function(){
 				complete:function(xmlhttp,status){
 
 				if(xmlhttp.status==200){
+					
+
 					var data=xmlhttp.responseJSON;
 							
 					for (var j=0; j<data.length; j++)
@@ -100,6 +84,68 @@ var listPending=function(){
 
 			}
 	});
+
+					}
+					
+				}
+				else
+				{	
+					$("#pendingList tbody").html("");
+				}
+
+			}
+	});
+}
+listPendingOrderID();
+//Ends Get All users connected in chat
+
+
+var listPending=function(){
+	
+	// 	$.ajax({
+	// 			url:"https://localhost:44308/api/deliveryorders/"+localStorage.username+"/"+orderID,
+	// 			method:"GET",
+	// 			headers:{
+	// 					//Authorization:"Basic "+ btoa("4:4444")
+	// 				'Authorization': 'Basic ' + localStorage.authUser
+	// 			},
+	// 			complete:function(xmlhttp,status){
+
+	// 			if(xmlhttp.status==200){
+	// 				var data="";
+
+	// 				data=xmlhttp.responseJSON;
+							
+	// 				for (var j=0; j<data.length; j++)
+	// 				{
+						
+
+	// 					for (var k=0; k<data.length; k++)
+	// 					{
+	// 						if(data.length==1 || data.length-1==k){
+	// 							sepration="";
+	// 						}
+	// 						else{
+	// 							sepration="<br>"
+	// 						}
+	// 						orderAmount+=data[k].cartAmount;
+	// 						productNames+="<b>"+data[k].product.name+"</b>= "+data[k].cartAmount+" TK "+sepration;
+	// 					}
+	// 					str+="<tr><td><b>"+data[j].order.id+"</b></td><td>"+data.length+" Products</td><td>"+productNames+"</td><td>"+orderAmount+" TK</td><td><button id='Accepted' btn-id-accept="+data[j].order.id+" class='btn btn-success btn-sm'>Accepted</button></td><td><button id='Rejected' btn-id-reject="+data[j].order.id+" class='btn btn-danger btn-sm'>Rejected</button></td></tr>"	
+	// 					productNames="";
+	// 					orderAmount=0;
+	// 					break;
+	// 				}
+	// 					$("#pendingList tbody").html(str);
+							
+	// 				}
+	// 			else
+	// 			{
+	// 				console.log("Error from 200 else"+orderID);
+	// 			}
+
+	// 		}
+	// });
 
 }
 // $('#pendingList tr').hover(function(){
@@ -253,7 +299,7 @@ $("#pendingList").on("click","#Rejected",function(){
 					complete:function(xmlhttp,status){
 						var data=xmlhttp.responseJSON;
 						if(xmlhttp.status==200){
-								//str="";
+								str="";
 								GetOrderCart();
 								//console.log(data);
 						}
@@ -282,58 +328,16 @@ var GetOrderCart=function(){
 		complete:function(xmlhttp,status){
 
 			if(xmlhttp.status==200){
-				Orderdata=xmlhttp.responseJSON;
+				var orderdata=xmlhttp.responseJSON;
 				
 				
-				
-				for (var i = 0; i < Orderdata.length; i++) {
+				console.log(orderdata);
+				for (var i = 0; i < orderdata.length; i++) {
 					
-					productId=Orderdata[i].productID;
-					orderQuantity= Orderdata[i].quantity;
-					GetProduct();
-
-					}
-					
-				}
-				else
-				{	
-
-				}
-
-			}
-	});
-}
-
-		
-var GetProduct=function(){
-	
-		$.ajax({
-				url:"https://localhost:44308/api/deliveryorders/"+productId+"/product",
-				method:"GET",
-				headers:{
-						//Authorization:"Basic "+ btoa("4:4444")
-						'Authorization': 'Basic ' + localStorage.authUser
-				},
-				
-					complete:function(xmlhttp,status){
-						
-						if(xmlhttp.status==200){
-							productdata=xmlhttp.responseJSON;
-								//str="";
-								RejectedUpdated();
-								//console.log(data);
-						}
-						else{
-							console.log("error");
-						}
-						}
-				});
-
-}
-
-var RejectedUpdated=function(){
-				var quant= orderQuantity+productdata.quantity;
-				console.log(quant);
+					productId=orderdata[i].productID;
+					orderQuantity= orderdata[i].quantity;
+					var quant= orderQuantity+ orderdata[i].product.quantity;
+					console.log(quant);
 					$.ajax({
 					url:"https://localhost:44308/api/deliveryorders/"+orderid+"/"+productId+"/rejected",
 					method:"PUT",
@@ -344,21 +348,21 @@ var RejectedUpdated=function(){
 					header:"Content-Type:application/json",
 					data:{
 							"id": productId,
-							"name": productdata.name,
+							"name": orderdata[i].product.name,
 							"quantity": quant,
 							
-							"buyPrice": productdata.buyPrice,
-							"sellPrice": productdata.sellPrice,
-							"image": productdata.image,
+							"buyPrice": orderdata[i].product.buyPrice,
+							"sellPrice": orderdata[i].product.sellPrice,
+							"image": orderdata[i].product.image,
 							
 							//"productType": productdata.productType,
-							"productTypeID": productdata.productTypeID,
-							"productStatus": productdata.productStatus,
-							"productStatusID": productdata.productStatusID,
+							"productTypeID": orderdata[i].product.productTypeID,
+							"productStatus": orderdata[i].product.productStatus,
+							"productStatusID": orderdata[i].product.productStatusID,
 							
-							"vendorID": productdata.vendorID,
+							"vendorID": orderdata[i].product.vendorID,
 							
-							"modifiedBy": productdata.modifiedBy
+							"modifiedBy": orderdata[i].product.modifiedBy
 							
 
 				        
@@ -368,20 +372,115 @@ var RejectedUpdated=function(){
 						var data=xmlhttp.responseJSON;
 						if(xmlhttp.status==200){
 								str="";
+								 c =c+1;
 								//console.log(data);
 								//console.log(data);
-								
+								//productdata="";
+								data="";
+								if(c==orderdata.length){
 								listPendingOrderID()
+								c=0;
+								}
 						}
 						else{
 							str="";
 								//console.log(data);
-								//console.log(data);
+								console.log("error from last loop");
 								
-								listPendingOrderID()
+								
 						}
 						}
-				})
+				});
+
+					}
+					
+				}
+				else
+				{	
+					console.log("Error");
+				}
+
+			}
+	});
+}
+
+		
+var GetProduct=function(){
+	
+		// $.ajax({
+		// 		url:"https://localhost:44308/api/deliveryorders/"+productId+"/product",
+		// 		method:"GET",
+		// 		headers:{
+		// 				//Authorization:"Basic "+ btoa("4:4444")
+		// 				'Authorization': 'Basic ' + localStorage.authUser
+		// 		},
+				
+		// 			complete:function(xmlhttp,status){
+						
+		// 				if(xmlhttp.status==200){
+		// 					productdata=xmlhttp.responseJSON;
+		// 						//str="";
+		// 						RejectedUpdated();
+		// 						//console.log(data);
+		// 				}
+		// 				else{
+		// 					console.log("error");
+		// 				}
+		// 				}
+		// 		});
+
+}
+
+var RejectedUpdated=function(){
+				
+				// 	$.ajax({
+				// 	url:"https://localhost:44308/api/deliveryorders/"+orderid+"/"+productId+"/rejected",
+				// 	method:"PUT",
+				// 	headers:{
+				// 			//Authorization:"Basic "+ btoa("4:4444")
+				// 			'Authorization': 'Basic ' + localStorage.authUser
+				// 	},
+				// 	header:"Content-Type:application/json",
+				// 	data:{
+				// 			"id": productId,
+				// 			"name": productdata.name,
+				// 			"quantity": quant,
+							
+				// 			"buyPrice": productdata.buyPrice,
+				// 			"sellPrice": productdata.sellPrice,
+				// 			"image": productdata.image,
+							
+				// 			//"productType": productdata.productType,
+				// 			"productTypeID": productdata.productTypeID,
+				// 			"productStatus": productdata.productStatus,
+				// 			"productStatusID": productdata.productStatusID,
+							
+				// 			"vendorID": productdata.vendorID,
+							
+				// 			"modifiedBy": productdata.modifiedBy
+							
+
+				        
+						
+				// 	},
+				// 	complete:function(xmlhttp,status){
+				// 		var data=xmlhttp.responseJSON;
+				// 		if(xmlhttp.status==200){
+				// 				str="";
+				// 				//console.log(data);
+				// 				//console.log(data);
+				// 				productdata="";
+				// 				listPendingOrderID()
+				// 		}
+				// 		else{
+				// 			str="";
+				// 				//console.log(data);
+				// 				console.log("error from last loop");
+								
+								
+				// 		}
+				// 		}
+				// });
 
 }
 
