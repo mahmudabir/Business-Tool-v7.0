@@ -46,7 +46,7 @@ var listPendingOrderID=function(){
 				}
 				else
 				{	
-
+					$("#pendingList tbody").html("");
 				}
 
 			}
@@ -351,7 +351,7 @@ var RejectedUpdated=function(){
 							"sellPrice": productdata.sellPrice,
 							"image": productdata.image,
 							
-							"productType": productdata.productType,
+							//"productType": productdata.productType,
 							"productTypeID": productdata.productTypeID,
 							"productStatus": productdata.productStatus,
 							"productStatusID": productdata.productStatusID,
@@ -374,7 +374,11 @@ var RejectedUpdated=function(){
 								listPendingOrderID()
 						}
 						else{
-							console.log("Error");
+							str="";
+								//console.log(data);
+								//console.log(data);
+								
+								listPendingOrderID()
 						}
 						}
 				})

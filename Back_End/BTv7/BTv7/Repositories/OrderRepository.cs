@@ -33,13 +33,11 @@ namespace BTv7.Repositories
             return this.context.Set<Order>().Where(x => x.SellBy == id && x.OrderStatusID == 2).OrderBy(y=> y.ID).ToList();
         }
 
-        public Order GetOrderByDeliverymanIDNOrderID(int eid, int oid)
+        public Order GetOrderByDeliverymanIDNOrderIDnStatusID(int eid, int oid)
         {
             List<Order> orderFromDB = this.GetAll();
-            return orderFromDB.FirstOrDefault(x => x.SellBy == eid && x.ID == oid);
+            return orderFromDB.FirstOrDefault(x => x.SellBy == eid && x.ID == oid && x.OrderStatusID == 2);
         }
-
-        
 
     }
 }

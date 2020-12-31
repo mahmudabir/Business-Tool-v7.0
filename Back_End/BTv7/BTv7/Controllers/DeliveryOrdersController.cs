@@ -68,12 +68,12 @@ namespace BTv7.Controllers
 
         }
 
-        [Route("{eid}/order/{oid}", Name = "GetOrderByEmpID")]
+        [Route("{eid}/order/{oid}", Name = "GetOrderByDeliverymanIDnStatusID")]
         [BasicAuthentication]
         public IHttpActionResult GetUser([FromUri] int eid, [FromUri] int oid)
         {
             OrderRepository orderrepo = new OrderRepository();
-            var orderFromDB = orderrepo.GetOrderByDeliverymanIDNOrderID(eid, oid);
+            var orderFromDB = orderrepo.GetOrderByDeliverymanIDNOrderIDnStatusID(eid, oid);
             if (orderFromDB != null)
             {
                 return Ok(orderFromDB);
@@ -177,10 +177,9 @@ namespace BTv7.Controllers
 
             ProductRepository prodrepo = new ProductRepository();
             product.ID = pid;
-
-           
+            product.ProductTypeID = product.ProductTypeID;
             prodrepo.Update(product);
-            //orderCartrepo.Delete(oid);
+            
             return Ok(product);
 
 
