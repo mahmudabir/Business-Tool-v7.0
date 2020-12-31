@@ -28,8 +28,7 @@ namespace BTv7.Models
         public string CustomerName { get; set; }
 
         [ForeignKey("SaleType")]
-        public int? SaleTypeID { get; set; }
-        [Required]
+        public int SaleTypeID { get; set; }
         public virtual SaleType SaleType { get; set; }
         [Required]
         public bool IsSold { get; set; }
@@ -65,6 +64,17 @@ namespace BTv7.Models
                 errors.Add(new ValidationResult($"{nameof(TotalAmount)} cannot be a negative value.", new List<string> { nameof(TotalAmount) }));
             }
 
+
+
+
+            var orderFromDB = db.GetAll()
+                .Where(x => x.CustomerID.Equals(CustomerID) && x.SaleTypeID == 1 && x.IsSold == false && x.OrderStatusID == 6).ToList();
+
+
+            if (orderFromDB.Count != 0)
+            {
+                errors.Add(new ValidationResult($"Order Cannot be created because there is an active order."));
+            }
 
 
 
