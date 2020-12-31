@@ -39,6 +39,21 @@ namespace BTv7.Controllers
         }
 
 
+        [Route("update/employeeID/{id}", Name = "PutLoginByID")]
+        [BasicAuthentication]
+        public IHttpActionResult PutLoginByID([FromUri] int id, [FromBody] Login login)
+        {
+            var com = loginDB.GetLoginByID(id);
+            login.ID = id;
+            login.Password = com.Password;
+            login.AccessStatusID = com.AccessStatusID;
+            login.RegistrationStatusID = com.RegistrationStatusID;
+            loginDB.UpdateEmployeeLoginDetails(login);
+
+            return Ok(login);
+        }
+
+
 
 
         [Route("", Name = "GetUsers"), BasicAuthentication]

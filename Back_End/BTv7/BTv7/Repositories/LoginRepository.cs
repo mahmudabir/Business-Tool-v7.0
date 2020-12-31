@@ -27,6 +27,20 @@ namespace BTv7.Repositories
             List<Login> userFromDB = this.GetAll();
             return userFromDB.FirstOrDefault(x => x.Username.Equals(username));
         }
-        
+
+        public Login GetLoginByID(int id)
+        {
+            List<Login> userFromDB = this.GetAll();
+            return userFromDB.FirstOrDefault(x => x.ID == id);
+        }
+
+        public void UpdateEmployeeLoginDetails(Login log)
+        {
+            using (var login = new BTv7DbContext())
+            {
+                int noOfLoginRowAffected = login.Database.ExecuteSqlCommand("UPDATE Logins SET Email = '" + log.Email + "', Mobile = '" + log.Mobile + "', UserDesignationID = '" + log.UserDesignationID + "' WHERE ID = " + log.ID + ";");
+            }
+        }
+
     }
 }

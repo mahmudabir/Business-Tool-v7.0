@@ -237,19 +237,22 @@ $(document).ready(function(){
                         $("#editenrollby").val(data[0].addeddBy);
                         $('#editrole option[value="'+data[0].login.userDesignationID+'"]').attr("selected", "selected");
                         if(data[0].login.accessStatusID == '1')
-                        {
+                        {                    
+                            $("#updateMesg").attr("hidden", "hidden");
                             $("#btnactive").attr("hidden", "hidden");
                             $("#btndeactive").removeAttr("hidden", "hidden");
                             $("#btnupdate").removeAttr("hidden", "hidden");
                         }
                         else if(data[0].login.accessStatusID == 2)
                         {
+                            $("#updateMesg").attr("hidden", "hidden");
                             $("#btndeactive").attr("hidden", "hidden");
                             $("#btnactive").removeAttr("hidden", "hidden");
                             $("#btnupdate").removeAttr("hidden", "hidden");
                         }
                         else
                         {
+                            $("#updateMesg").attr("hidden", "hidden");
                             $("#btnupdate").attr("hidden", "hidden");
                             $("#btndeactive").attr("hidden", "hidden");
                             $("#btnactive").attr("hidden", "hidden");
@@ -272,7 +275,26 @@ $(document).ready(function(){
     });
 
 
-    //UPDATE EMPLOYEE 
+    //UPDATE EMPLOYEE DETAILS
+    var loadLogout = function () {
+        $.ajax({
+            url: "https://localhost:44308/api/logins/logout",
+            method: "GET",
+            headers: {
+                'Authorization': 'Basic ' + localStorage.authUser,
+            },
+            complete: function (xmlhttp, status) {
+                if (xmlhttp.status == 200) {
+                    console.log("Logout Success");
+                    localStorage.clear();
+                    console.log(localStorage.user);
+                    window.location.href = "http://localhost/Business-Tool-v7.0-api/Front_End/Html/Login/index.html";
+                } else {
+                    $("#msg").html("<div class=\"alert alert-danger\" role=\"alert\">Error : " + xmlhttp.status + ":" + xmlhttp.statusText + "</div>");
+                }
+            }
+        })
+    }
     var updateEmployeeDetails = function () {
             $.ajax({
                 url: "https://localhost:44308/api/employees/update/employeeID/"+$("#editid").val(),
@@ -292,17 +314,48 @@ $(document).ready(function(){
                 },
                 complete: function (xhr, status) {
                     if (xhr.status == 200) {
-                        alert("Information Updated.");
                         loadAllEmployees();
+                        $("#updateMesg").removeAttr("hidden", "hidden");
+
+                        if($("#editid").val() == localStorage.userId)
+                        {
+                            alert("System Logged Out.");
+                            loadLogout();
+                        }
                     } 
                     else {
-                        alert("Error while updating.");
+                        alert("Fill Correctly.");
                     }
                 }
             });
     }
+    var updateLoginDetails = function () {
+        $.ajax({
+            url: "https://localhost:44308/api/logins/update/employeeID/"+$("#editloginid").val(),
+            method: "PUT",
+            header: "Content-Type:application/json",
+            data: {
+                id: $("#editloginid").val(),
+                username: $("#editusername").val(),
+                email: $("#editemail").val(),
+                mobile: $("#editcontact").val(),
+                userDesignationID: $("#editrole").val()
+            },
+            headers: {
+                'Authorization': 'Basic ' + localStorage.authUser,
+            },
+            complete: function (xhr, status) {
+                if (xhr.status == 200) {
+                    updateEmployeeDetails();
+                } 
+                else {
+                    alert("Fill Correctly.");
+                }
+            }
+        });
+    }
     $("#btnupdate").on("click",function(){
-        updateEmployeeDetails();
+        updateLoginDetails();
     });
 
 });
