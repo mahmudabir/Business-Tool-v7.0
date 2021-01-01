@@ -177,7 +177,7 @@ $(document).ready(function(){
                         $("#editfullname").val(data[0].name);
                         $("#editcontact").val(data[0].login.mobile);
                         $("#editemail").val(data[0].login.email);
-                        $("#editaddress").val(data[0].address);
+                        //$("#editcount").val(data[0].product.length);
                         $("#editjoindate").val(data[0].joinDate);
                         $("#editenrollby").val(data[0].addeddBy);
                         if(data[0].login.accessStatusID == '1')
@@ -327,7 +327,7 @@ $(document).ready(function(){
 
                     $("#btndeactive").attr("hidden", "hidden");
                     $("#btnactive").removeAttr("hidden", "hidden");
-
+                    alert("All Products from `"+$("#editusername").val()+"` are Restricted from Sell/Order.");
                 } 
             }
         });
