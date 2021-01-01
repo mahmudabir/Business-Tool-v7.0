@@ -118,18 +118,18 @@ namespace BTv7.Controllers
             employee.LoginID = loginFromDB.ID;
 
             //employee.AddeddBy = 1;
-            if (ModelState.IsValid)
-            {
+            /*if (ModelState.IsValid)
+            {*/
                 employeeDB.Insert(employee);
 
                 string uri = Url.Link("GetEmployeeByLoginID", new { loginID = loginFromDB.ID });
 
                 return Created(uri, employee);
-            }
+            /*}
             else
             {
                 return BadRequest(ModelState);
-            }
+            }*/
         }
 
         [Route("{id}", Name = "GetEmployeeByID")]

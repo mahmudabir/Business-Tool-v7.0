@@ -114,8 +114,8 @@ namespace BTv7.Controllers
             //var identity = (ClaimsIdentity)User.Identity;
             //customerToDB.AddeddBy = Convert.ToInt32(identity.Claims.FirstOrDefault(x => x.Type == "ID").Value);
 
-            if (ModelState.IsValid)
-            {
+            /*if (ModelState.IsValid)
+            {*/
                 customerDB.Insert(customer);
 
                 var customerFromDB = customerDB.GetCustomerByLoginID(customer.LoginID);
@@ -136,11 +136,11 @@ namespace BTv7.Controllers
                 string uri = Url.Link("GetCustomerByID", new { id = customerFromDB.ID });
 
                 return Created(uri, result);
-            }
+            /*}
             else
             {
                 return BadRequest(ModelState);
-            }
+            }*/
         }
 
         [Route("name/{name}", Name = "GetCustomersByName")]
