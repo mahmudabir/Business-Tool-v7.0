@@ -17,5 +17,7 @@ namespace BTv7.Repositories
         {
             return this.context.Set<Vendor>().Where(x => x.ID == id).ToList();
         }
+
+
     }
 }

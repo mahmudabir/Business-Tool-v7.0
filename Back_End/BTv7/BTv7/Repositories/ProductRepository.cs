@@ -45,5 +45,11 @@ namespace BTv7.Repositories
                 int e = p2.Database.ExecuteSqlCommand("UPDATE Products SET ProductStatusID = '1' WHERE VendorID = " + id + ";");
             }
         }
+
+        //ByName
+        public List<Product> GetByName(string id)
+        {
+            return this.context.Set<Product>().Where(x => x.Name.ToLower().Contains(id.ToLower())).ToList();
+        }
     }
 }
