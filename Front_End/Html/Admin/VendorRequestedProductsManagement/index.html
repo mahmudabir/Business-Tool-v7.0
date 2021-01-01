@@ -1,0 +1,118 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Requested Products</title>
+    <script type="text/javascript" src="../../../Content/jquery.js"></script>
+    <script type="text/javascript" src="../../../Content/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../../../CSS/bootstrap.css">
+    <script src="../../../Content/popper.js"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <script type="text/javascript" src="../../../JS/Admin/VendorRequestedProductManagement/venproManage.js"></script>
+</head>
+<body class="bg-secondary">
+    <form method="POST">
+    <div id="content"></div>
+
+    <div class="p-4" style="margin-top:55px; height:90%; overflow-y: scroll;">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm sol-md col-lg">
+                    <div class="card my-3">
+                        <div class="card-body">
+                            <button type="button" id="btnacceptall" class="btn btn-primary btn-lg btn-block mb-2">ACCEPT ALL PRODUCTS REQUEST</button>
+                            <input class="form-control mb-2" style="text-align: center;" type="search" id="search" placeholder="Search By Name" autocomplete="off">
+
+                            <!-- Start Details Pending Products Modal -->
+                            <div class="modal fade" style="margin-top: 5%;" id="detailVendor" tabindex="-1" role="dialog" aria-labelledby="detailVendorLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                        <h5 class="modal-title" id="detailVendorLabel">PRODUCT DETAILS</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                        </div>
+                                        <div class="modal-body">  
+                                            <div id="enableMesg" class="alert alert-primary" role="alert" align="center" hidden>
+                                                User Access Has Been Successfully Enabled.
+                                            </div> 
+                                            <div id="disableMesg" class="alert alert-danger" role="alert" align="center" hidden>
+                                                User Access Has Been Successfully Disabled.
+                                            </div> 
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">Username</span>
+                                                </div>
+                                                <input type="text" class="form-control" id="editusername" placeholder="xyz@3" aria-label="Username" aria-describedby="basic-addon1" autocomplete="off" readonly>
+                                                <input type="hidden" class="form-control" id="editloginid" placeholder="xyz@3" aria-label="Username" aria-describedby="basic-addon1" autocomplete="off" readonly>
+                                                <input type="hidden" class="form-control" id="editid" placeholder="xyz@3" aria-label="Username" aria-describedby="basic-addon1" autocomplete="off" readonly>
+                                                <input type="hidden" class="form-control" id="editenrollby" placeholder="" aria-label="Username" aria-describedby="basic-addon1" autocomplete="off" readonly>
+                                            </div> 
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">Company Name</span>
+                                                </div>
+                                                <input type="text" class="form-control" id="editfullname" placeholder="FirstName MiddleName LastName" aria-label="Username" aria-describedby="basic-addon1" autocomplete="off" readonly>
+                                            </div> 
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">Contact</span>
+                                                </div>
+                                                <input type="number" class="form-control" id="editcontact" placeholder="01...." aria-label="Username" aria-describedby="basic-addon1" autocomplete="off" readonly>
+                                            </div> 
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">Email</span>
+                                                </div>
+                                                <input type="email" class="form-control" id="editemail" placeholder="sample@sample.sample" aria-label="Username" aria-describedby="basic-addon1" autocomplete="off" readonly>
+                                            </div> 
+                                            <!--<div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">Product Count</span>
+                                                </div>
+                                                <input type="text" class="form-control" id="editcount" placeholder="" aria-label="Username" aria-describedby="basic-addon1" autocomplete="off" readonly>
+                                            </div> -->
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">Joining Date</span>
+                                                </div>
+                                                <input type="datetime" class="form-control" id="editjoindate" placeholder="" aria-label="Username" aria-describedby="basic-addon1" autocomplete="off" readonly>
+                                            </div> 
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            <button type="button" class="btn btn-danger" id="btndeactive">Deactivate</button>
+                                            <button type="button" class="btn btn-primary" id="btnactive">Activate</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Details Pending Products Modal -->
+
+                            <!-- CONTENT -->
+                            <table class="table table-bordered table-hover" id="emptable">
+                                <thead class="thead-dark">
+                                    <tr align="center">
+                                      <th scope="col" align="center">#</th>
+                                      <th scope="col" align="center">Name</th>
+                                      <th scope="col" align="center">Vendor Company Name</th>
+                                      <th scope="col" align="center">Vendor Username</th>
+                                      <th scope="col" align="center">Sell Price</th>
+                                      <th scope="col" align="center">Accessibility</th>
+                                      <th scope="col" align="center"></th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    <!--DATA FROM API-->
+                                  </tbody>
+                            </table>
+                            <!-- END CONTENT -->     
+                        </div>
+                    </div>
+                </div>
+            </div>  
+        </div>
+    </form>
+</body>
+</html>
