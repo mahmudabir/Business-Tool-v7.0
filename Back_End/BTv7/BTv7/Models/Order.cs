@@ -23,7 +23,7 @@ namespace BTv7.Models
         [ForeignKey("Customer")]
         public int? CustomerID { get; set; }
         public virtual Customer Customer { get; set; }
-        [Required]
+
         public string CustomerName { get; set; }
 
         [ForeignKey("SaleType")]
