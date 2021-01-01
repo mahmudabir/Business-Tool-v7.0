@@ -45,7 +45,7 @@ $(document).ready(function(){
                                         "<td>" + data[i].login.username + "</td>"+
                                         "<td>" + data[i].sellPrice + "</td>"+
                                         "<td align='center'>" + icon + "</td>"+
-                                        "<td align='center'> <button type='button' data-toggle='modal' data-target='#detailCustomer' data-id="+data[i].id+" class='btn btn-outline-dark'>Details</button>" +
+                                        "<td align='center'> <button type='button' data-toggle='modal' data-target='#detailProduct' data-id="+data[i].id+" class='btn btn-outline-dark'>Details</button>" +
                                 "</tr>";
                                 count++;
                             }
@@ -74,12 +74,12 @@ $(document).ready(function(){
     }
     loadAllProducts();
 
-    //Load Pending Products By Company Name
-    var loadAllProductsByCompanyName = function () {
+    //Load Pending Products By Name
+    var loadAllProductsByName = function () {
         if($.trim($("#search").val()) != "")
         {
             $.ajax({
-                url: "https://localhost:44308/api/customers/name/"+$("#search").val(),
+                url: "https://localhost:44308/api/products/name/"+$("#search").val(),
                 method: "GET",
                 headers: {
                     'Authorization': 'Basic ' + localStorage.authUser,
@@ -94,49 +94,47 @@ $(document).ready(function(){
                         var sl = 1;
                         var icon = "";
                         var count = 0;
-                        
                         if(data.length>0)
                         {
                             for (var i = 0; i < data.length; i++) 
                             {
-                                if(data[i].login.accessStatusID == 1)
+                                if(data[i].productStatusID == 2)
                                 {
-                                    icon = '<i style="color: green;" class="fas fa-user-check"></i>';
+                                    icon = '<i style="color: red;" class="fas fa-ban"></i>';
                                 } 
-                                else
-                                {
-                                    icon = '<i style="color: red;" class="fas fa-user-slash"></i>';
-                                }
-
-                                if(data[i].login.registrationStatusID == 2)
+                                
+    
+                                if(data[i].productStatusID == 2)
                                 {
                                     str += "<tr>"+
                                             "<td align='center'>"+ sl + "</td>"+
-                                            "<td>"+ data[i].login.username/*data[i].login.username.substr(0,180)*/ +"</td>"+
                                             "<td>"+ data[i].name+ "</td>"+
-                                            "<td>" + data[i].address + "</td>"+
+                                            "<td>"+ data[i].vendor.name+ "</td>"+
+                                            "<td>" + data[i].login.username + "</td>"+
+                                            "<td>" + data[i].sellPrice + "</td>"+
                                             "<td align='center'>" + icon + "</td>"+
-                                            "<td align='center'> <button type='button' data-toggle='modal' data-target='#detailCustomer' data-id="+data[i].id+" class='btn btn-outline-dark'>Details</button>" +
+                                            "<td align='center'> <button type='button' data-toggle='modal' data-target='#detailProduct' data-id="+data[i].id+" class='btn btn-outline-dark'>Details</button>" +
                                     "</tr>";
                                     count++;
                                 }
                                 
                                 sl++;
                             }
-
+    
                             if(count < 1)
                             {
-                                str += "<tr><td colspan='6' align='middle'>NO DATA FOUND</td></tr>";
+                                str += "<tr><td colspan='7' align='middle'>NO DATA FOUND</td></tr>";
                             }
                         }
                         else
                         {
-                            str += "<tr><td colspan='6' align='middle'>NO DATA FOUND</td></tr>";
+                            str += "<tr><td colspan='7' align='middle'>NO DATA FOUND</td></tr>";
                         }
-
+    
                         $("#emptable tbody").html(str);
                     }
-                    else {
+                    else 
+                    {
                         alert("Something Went Wrong.");
                     }
                 }
@@ -145,14 +143,14 @@ $(document).ready(function(){
         
         else
         {
-            loadAllCustomers();
+            loadAllProducts();
         }
     }
     $("#search").on("keyup change",function(){
-        loadAllProductsByCompanyName();
+        loadAllProductsByName();
     });
 
-
+    /*
     //Load Details Modal
     var loadCustomerDetails = function(id){
         $.ajax({
@@ -283,5 +281,5 @@ $(document).ready(function(){
     $("#btndeactive").on("click",function(){
         DisbaleCustomerLogin();
     });
-
+    */
 });

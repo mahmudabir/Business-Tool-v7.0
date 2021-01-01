@@ -29,6 +29,22 @@ namespace BTv7.Controllers
             }
         }
 
+        //Search By Company Name
+        [Route("name/{name}", Name = "GetProductsByName")]
+        [BasicAuthentication]
+        public IHttpActionResult GetProductsByName(string name)
+        {
+            var productFromDB = productDB.GetByName(name);
+
+            if (productFromDB != null || productFromDB.Count != 0)
+            {
+                return Ok(productFromDB);
+            }
+            else
+            {
+                return StatusCode(HttpStatusCode.NotFound);
+            }
+        }
         [Route("{id}", Name = "GetProductByID")]
         public IHttpActionResult Get(int id)
         {
