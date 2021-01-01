@@ -73,16 +73,25 @@ namespace BTv7.Controllers
         [BasicAuthentication]
         public IHttpActionResult PutCustomerByID([FromUri] int id, [FromBody] Customer customer)
         {
-            var com = customerDB.GetCustomerByID(id);
-            customer.ID = id;
-            customer.Image = com[0].Image;
-            customer.ApprovedBy = com[0].ApprovedBy;
-            customer.Address = com[0].Address;
-            customer.LoginID = com[0].LoginID;
-            customer.JoinDate = com[0].JoinDate;
-            customerDB.UpdateCustomerDetails(customer);
+            if(ModelState.IsValid)
+            {
+                var com = customerDB.GetCustomerByID(id);
+                customer.ID = id;
+                customer.Image = com[0].Image;
+                customer.ApprovedBy = com[0].ApprovedBy;
+                customer.Address = com[0].Address;
+                customer.LoginID = com[0].LoginID;
+                customer.JoinDate = com[0].JoinDate;
+                customerDB.UpdateCustomerDetails(customer);
 
-            return Ok(customer);
+                return Ok(customer);
+            }
+            else
+            {
+                return BadRequest(ModelState);
+            }
+            
+
         }
 
 
