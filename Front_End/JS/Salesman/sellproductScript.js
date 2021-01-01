@@ -6,7 +6,9 @@ $(document).ready(function(){
 	var price=0;
 	var opacity=.5;
 	var productName;
-	var buyQuantity
+	var productid;
+	var buyQuantity;
+	var updatedQuantity;
 	var dataCart;
 	if (localStorage.authUser == null || localStorage.userRole!=3) {
 
@@ -134,13 +136,14 @@ $("#orderList").on("click","#Ordercell",function(){
 	var btn=$(this);
 	OrderclickedRow=btn.attr("btn-id-order");
 	valueOfK=btn.attr("btn-k-val");
+	orderCartShow();
    
 });
 
 
 
 
-$("#orderList").on("click","#Ordercell",function(){
+var orderCartShow=function(){
 	
 
 	$.ajax({
@@ -194,7 +197,7 @@ $("#orderList").on("click","#Ordercell",function(){
 			}
 });
 
-});
+}
 
 
 
@@ -221,17 +224,18 @@ var updateDataInTables=function(){
 	        "cartAmount": cartamount,
 	        "orderID": OrderclickedRow,
 	        "productID": clickedRow
-	        //"order.customerID": 0
-	       
-			
 		},
 
 		complete:function(xmlhttp,status){
-			var data=xmlhttp.responseJSON;
-			console.log(data);
+			
+			
 			if(xmlhttp.status==201)
 			{
-				console.log("okkk");
+				var data=xmlhttp.responseJSON;
+				
+				productid=data.productID;
+
+				getTheProduct();
 			}
 			else
 			{
@@ -243,9 +247,73 @@ var updateDataInTables=function(){
 	
 }
 
+var getTheProduct=function(){
+	$.ajax({
+		url:"https://localhost:44308/api/sellproducts/product/"+productid,
+		method:"GET",
+		headers:{
+				//Authorization:"Basic "+ btoa("4:4444")
+				'Authorization': 'Basic ' + localStorage.authUser
+		},
+		complete:function(xmlhttp,status){
 
+			if(xmlhttp.status==200){
+				var data=xmlhttp.responseJSON;
+				var productQuantity=data.quantity;
+				updatedQuantity=productQuantity - buyQuantity;
+				$.ajax({
 
+				url:"https://localhost:44308/api/sellproducts/"+productid+"/product",
+				method:"PUT",
+				headers:{
+						//Authorization:"Basic "+ btoa("4:4444")
+						'Authorization': 'Basic ' + localStorage.authUser
+				},
+				header:"Content-Type:application/json",
+				data:{
+							"id": productid,
+							"name": data.name,
+							"quantity": updatedQuantity,
+							
+							"buyPrice": data.buyPrice,
+							"sellPrice": data.sellPrice,
+							"image": data.image,
+							
+							//"productType": productdata.productType,
+							"productTypeID": data.productTypeID,
+							"productStatus": data.productStatus,
+							"productStatusID": data.productStatusID,
+							
+							"vendorID": data.vendorID,
+							
+							"modifiedBy": data.modifiedBy
+				},
 
+				complete:function(xmlhttp,status){
+					
+					
+					if(xmlhttp.status==200)
+					{
+						var data=xmlhttp.responseJSON;
+						
+						console.log("OKK from productUpdate");
+					}
+					else
+					{
+						
+					}
+				}
+			});
+			
+
+					}
+					else{
+						console.log("error");
+					}
+				}
+			});
+
+}
 
 
 

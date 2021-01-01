@@ -67,8 +67,8 @@ namespace BTv7.Controllers
         {
             OrderCartRepository cartrepo = new OrderCartRepository();
 
-            ordercart.ID = ordercart.ID;
-            ordercart.Order.CustomerID = 0;
+            //ordercart.ID = ordercart.ID;
+           //ordercart.Order.CustomerID = 0;
             //ordercart.Quantity = ordercart.Quantity;
             //ordercart.OrderID = ordercart.OrderID;
             //ordercart.Order = ordercart.Order;
@@ -78,5 +78,37 @@ namespace BTv7.Controllers
             return Created("api/sellproducts/" + ordercart.ID, ordercart);
 
         }
+
+        [Route("product/{pid}", Name = "GetProdByProductID")]
+        [BasicAuthentication]
+        public IHttpActionResult GetProduct(int pid)
+        {
+            ProductRepository prodrepo = new ProductRepository();
+            var productList = prodrepo.Get(pid);
+
+            if (productList != null)
+            {
+                return Ok(productList);
+            }
+            else
+            {
+                return StatusCode(HttpStatusCode.NoContent);
+            }
+
+        }
+
+        [Route("{pid}/product", Name = "UpdateQuantity")]
+        [BasicAuthentication]
+        public IHttpActionResult Put( [FromUri] int pid, [FromBody] Product product)
+        {
+            ProductRepository prodrepo = new ProductRepository();
+            product.ID = pid;
+            product.ProductTypeID = product.ProductTypeID;
+            prodrepo.Update(product);
+
+            return Ok(product);
+        }
+
+
     }
 }
