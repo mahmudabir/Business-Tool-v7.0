@@ -18,7 +18,14 @@ namespace BTv7.Controllers
         {
             ProductRepository prodrepo = new ProductRepository();
             var product=prodrepo.GetAllAvailableProducts();
-            return Ok(product);
+            if (product.Count() != 0)
+            {
+                return Ok(product);
+            }
+            else
+            {
+                return StatusCode(HttpStatusCode.NoContent);
+            }
         }
 
         [Route("{id}/uncheckedorder", Name = "GetAllUncheckedOrders")]
@@ -27,7 +34,49 @@ namespace BTv7.Controllers
         {
             OrderRepository orderrepo = new OrderRepository();
             var order = orderrepo.GetAllUncheckedOrders(id);
-            return Ok(order);
+            if (order.Count() != 0)
+            {
+                return Ok(order);
+            }
+            else
+            {
+                return StatusCode(HttpStatusCode.NoContent);
+            }
+        }
+
+        [Route("{id}/cart", Name = "GetAllCarts")]
+        [BasicAuthentication]
+        public IHttpActionResult Getcart(int id)
+        {
+            OrderCartRepository cartrepo = new OrderCartRepository();
+            var cart = cartrepo.GetCartsByOrderID(id);
+            if(cart.Count() != 0)
+            {
+                return Ok(cart);
+            }
+            else
+            {
+                return StatusCode(HttpStatusCode.NoContent);
+            }
+            
+        }
+
+        [Route("", Name = "InsertNewProductInOrderCart")]
+        [BasicAuthentication]
+        public IHttpActionResult Post([FromBody]OrderCart ordercart)
+        {
+            OrderCartRepository cartrepo = new OrderCartRepository();
+
+            ordercart.ID = ordercart.ID;
+            ordercart.Order.CustomerID = 0;
+            //ordercart.Quantity = ordercart.Quantity;
+            //ordercart.OrderID = ordercart.OrderID;
+            //ordercart.Order = ordercart.Order;
+            //ordercart.Product = ordercart.Product;
+            //ordercart.ProductID = ordercart.ProductID;
+            cartrepo.Insert(ordercart);
+            return Created("api/sellproducts/" + ordercart.ID, ordercart);
+
         }
     }
 }

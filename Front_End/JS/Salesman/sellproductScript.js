@@ -3,8 +3,11 @@ $(document).ready(function(){
 	var valueOfI;
 	var OrderclickedRow="";
 	var valueOfK;
+	var price=0;
 	var opacity=.5;
-
+	var productName;
+	var buyQuantity
+	var dataCart;
 	if (localStorage.authUser == null || localStorage.userRole!=3) {
 
         window.location.href = "../Login/Index.html";
@@ -32,16 +35,9 @@ var listProduct=function(){
 				
 				for (var i = 0; i < dataProduct.length; i++) {
 					
-					str+="<tr  btn-id-product="+dataProduct[i].id+" btn-i-val="+i+"><td>"+dataProduct[i].id+"</td><td>"+dataProduct[i].name+"</td><td>"+dataProduct[i].quantity+"</td><td>"+dataProduct[i].sellPrice+"</td><td><button id='cell' class='btn btn-success btn-sm'>Select</td></tr>"
-
-					$("#productList tbody").html(str);
-					// for(var j=0;j<dataProduct.length;j++){
-					// 	$("#buyQuantity"+[j]).hide();
-					// 	$("#addToCart"+[j]).hide();
-					// }
-					
+					str+="<tr  btn-id-product="+dataProduct[i].id+" btn-i-val="+i+"><td>"+dataProduct[i].id+"</td><td>"+dataProduct[i].name+"</td><td>"+dataProduct[i].quantity+"</td><td>"+dataProduct[i].sellPrice+"</td><td colspan='2'><button style='float:right' id='cell' btn-price-product="+dataProduct[i].sellPrice+" btn-id-product="+dataProduct[i].id+" class='btn btn-success btn-sm'>Select</td></tr>"	
 				}
-					
+					$("#productList tbody").html(str);
 				}
 				else
 				{	
@@ -59,26 +55,25 @@ listProduct();
 $("#productList").on("click","#cell",function(){
 	var button=$(this);
 	clickedRow=button.attr("btn-id-product");
+	price=button.attr("btn-price-product");
 	valueOfI=button.attr("btn-i-val");
-	//console.log(clickedRow);
-   	// $("#buyQuantity"+[valueOfI]).fadeIn(1000);
-   	
-   	// $("#addToCart"+[valueOfI]).fadeIn(1000);
- //   	console.log(valueOfI);
-	// console.log(clickedRow);
    
 });
 
 $("#productList").on("click","#addToCart",function(){
 	
-// console.log(valueOfI);
-	var buyQuantity=$("#buyQuantity").val();
-	console.log(buyQuantity);
+
+	buyQuantity=$("#buyQuantity").val();
+	
 	if(clickedRow!=""){
 	if(OrderclickedRow!=""){
 	if(buyQuantity!="")
 	{
-		confirm(buyQuantity+","+OrderclickedRow);
+		var msg="This Product will be added as";
+		if(confirm(msg+"..................                                                  "+                                                        
+			"OrderID: "+OrderclickedRow+"     Quantity: "+buyQuantity+"    ProductID:"+clickedRow)){
+			updateDataInTables();
+		}
 	}
 	else{
 		confirm("No quantity is Added!! Add some quantity First");
@@ -120,11 +115,10 @@ var listOrder=function(){
 				for (var k = 0; k < dataOrder.length; k++) {
 					
 					str+="<tr id='Ordercell' btn-id-order="+dataOrder[k].id+" btn-k-val="+k+"><td>"+dataOrder[k].id+"</td></tr>"
-
-					$("#orderList tbody").html(str);
-					
 				}
-					
+
+				$("#orderList tbody").html(str);	
+
 				}
 				else
 				{	
@@ -137,108 +131,120 @@ var listOrder=function(){
 listOrder();
 
 $("#orderList").on("click","#Ordercell",function(){
-	var button=$(this);
-	OrderclickedRow=button.attr("btn-id-order");
-	valueOfK=button.attr("btn-k-val");
-	//console.log(clickedRow);
-   	
+	var btn=$(this);
+	OrderclickedRow=btn.attr("btn-id-order");
+	valueOfK=btn.attr("btn-k-val");
    
 });
 
 
 
-// var listPending=function(){
+
+$("#orderList").on("click","#Ordercell",function(){
 	
-// 				$.ajax({
-// 				url:"https://localhost:44308/api/deliveryorders/"+localStorage.username+"/"+orderID,
-// 				method:"GET",
-// 				headers:{
-// 						//Authorization:"Basic "+ btoa("4:4444")
-// 					'Authorization': 'Basic ' + localStorage.authUser
-// 				},
-// 				complete:function(xmlhttp,status){
 
-// 				if(xmlhttp.status==200){
+	$.ajax({
+		url:"https://localhost:44308/api/sellproducts/"+OrderclickedRow+"/cart",
+		method:"GET",
+		headers:{
+				//Authorization:"Basic "+ btoa("4:4444")
+				'Authorization': 'Basic ' + localStorage.authUser
+		},
+		complete:function(xmlhttp,status){
+
+			if(xmlhttp.status==200){
+				dataCart=xmlhttp.responseJSON;
+				var str;
+				var totalAmount=0;
+				var productNames="";
+				var head="<tr id='th'><th><span style='color:White;''>#OrderCART "+OrderclickedRow+"</span></th></tr>"
+				
+				for (var j = 0; j < dataCart.length; j++) {
+					
 					
 
-// 					var data=xmlhttp.responseJSON;
-							
-// 					for (var j=0; j<data.length; j++)
-// 					{
+					for (var k=0; k<dataCart.length; k++)
+						{
+							if(dataCart.length==1 || dataCart.length-1==k){
+								sepration="";
+							}
+							else{
+								sepration="<br>"
+							}
+							totalAmount+=dataCart[k].cartAmount;
+							productNames+=dataCart[k].product.name+"= "+dataCart[k].cartAmount+" TK "+sepration;
 						
+						}
 
-// 						for (var k=0; k<data.length; k++)
-// 						{
-// 							if(data.length==1 || data.length-1==k){
-// 								sepration="";
-// 							}
-// 							else{
-// 								sepration="<br>"
-// 							}
-// 							orderAmount+=data[k].cartAmount;
-// 							productNames+="<b>"+data[k].product.name+"</b>= "+data[k].cartAmount+" TK "+sepration;
-// 						}
-// 						str+="<tr><td><b>"+data[j].order.id+"</b></td><td>"+data.length+" Products</td><td>"+productNames+"</td><td>"+orderAmount+" TK</td><td><button id='Accepted' btn-id-accept="+data[j].order.id+" class='btn btn-success btn-sm'>Accepted</button></td><td><button id='Rejected' btn-id-reject="+data[j].order.id+" class='btn btn-danger btn-sm'>Rejected</button></td></tr>"	
-// 						productNames="";
-// 						orderAmount=0;
-// 						break;
-// 					}
-// 						$("#pendingList tbody").html(str);
-							
-// 					}
-// 				else
-// 				{
-// 					console.log("Error from 200 else"+orderID);
-// 				}
-
-// 			}
-// 	});
-
-// }
-// $('#pendingList tr').hover(function(){
-//   $(this).css("background-color", "yellow");
-//   }, function(){
-//   $(this).css("background-color", "pink");
-// });
-
-
-//Strats search
-// $("#search").keyup(function(){
-// 	var dataOrder;
-// 			if($("#search").val() != ""){
-// 			$.ajax({
-// 			url:"https://localhost:44308/api/deliveryorders/"+ localStorage.username +"/order/"+ $("#search").val(),
-// 			method:"Get",
-// 			headers:{
-// 				'Authorization': 'Basic ' + localStorage.authUser
-// 		},
-// 			complete:function(xmlhttp,status){
+						str="<tr><td><b>Total Products: "+dataCart.length+"</b><br><b>Total Amount: "+totalAmount+"</b><br><b>ProductName:<br>"+productNames+"</b><br><br><button class='btn btn-danger btn-sm'>Go to Checkout</button></td></tr>"
+						productNames="";
+						totalAmount=0;
+						break;
+				}
 				
+					$("#cartList tbody").html(str);
+					$("#cartList thead").html(head);
+
+				}
+				else
+				{	
+					$("#cartList tbody").html("No data");
+				}
+
+			}
+});
+
+});
+
+
+
+
+
+var updateDataInTables=function(){
+	var cartamount=price*buyQuantity;
+	console.log(buyQuantity);
+	console.log(cartamount);
+	console.log(OrderclickedRow);
+	console.log(clickedRow);
+
+   	$.ajax({
+
+		url:"https://localhost:44308/api/sellproducts",
+		method:"POST",
+		headers:{
+				//Authorization:"Basic "+ btoa("4:4444")
+				'Authorization': 'Basic ' + localStorage.authUser
+		},
+		header:"Content-Type:application/json",
+		data:{
+			"quantity": buyQuantity,
+	        "cartAmount": cartamount,
+	        "orderID": OrderclickedRow,
+	        "productID": clickedRow
+	        //"order.customerID": 0
+	       
 			
-// 				if(xmlhttp.status==200){
-// 					dataOrder=xmlhttp.responseJSON;
-					
+		},
 
-// 					orderID=dataOrder.id;
-// 					str="";
-// 					listPending();
+		complete:function(xmlhttp,status){
+			var data=xmlhttp.responseJSON;
+			console.log(data);
+			if(xmlhttp.status==201)
+			{
+				console.log("okkk");
+			}
+			else
+			{
 				
-// 				}
-// 				else
-// 				{
-					
-// 				}
-				
-// 			}
-					
-// 		});
-// 		}
-// 		else{
-// 				str="";
-// 				listPendingOrderID();
-// 			}
-// 	});
-//Ends search
+			}
+		}
+	});
+	
+	
+}
+
+
+
 
 
 

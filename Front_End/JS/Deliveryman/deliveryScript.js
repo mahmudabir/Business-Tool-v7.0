@@ -273,7 +273,7 @@ $("#pendingList").on("click","#Rejected",function(){
 
 
 
-var GetOrderCart=function(){
+
 	
 
 	$.ajax({
