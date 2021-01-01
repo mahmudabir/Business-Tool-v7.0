@@ -231,7 +231,33 @@ $(document).ready(function(){
         loadProdDetails(id);
     });
 
-    
+    //Product Access Controlling
+    var Approve = function () {
+        $.ajax({
+            url: "https://localhost:44308/api/products/pending/accept/"+$("#editid").val(),
+            method: "PUT",
+            header: "Content-Type:application/json",
+            headers: {
+                'Authorization': 'Basic ' + localStorage.authUser,
+            },
+            complete: function (xhr, status) {
+                if (xhr.status == 200) {
+                    loadAllProducts();
+                    //$("#enableMesg").removeAttr("hidden", "hidden");
+                    //$("#disableMesg").attr("hidden", "hidden");
+
+                    //$("#btndeactive").removeAttr("hidden", "hidden");
+                    //$("#btnactive").attr("hidden", "hidden");
+                } 
+                else {
+                    alert("Error Proccessing.");
+                }
+            }
+        });
+    }
+    $("#btnactive").on("click",function(){
+        Approve();
+    });
 
     /*
     //Load Details Modal

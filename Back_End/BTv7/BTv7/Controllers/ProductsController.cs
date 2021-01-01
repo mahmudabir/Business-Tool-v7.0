@@ -79,6 +79,25 @@ namespace BTv7.Controllers
             }
         }
 
+        //Accept
+        [Route("pending/accept/{id}", Name = "Aprove")]
+        [BasicAuthentication]
+        public IHttpActionResult PutAprove([FromUri] int id)
+        {
+            productDB.AproveProduct(id);
+
+            var productsFromDB = productDB.GetAvailableProducts();
+
+            if (productsFromDB.Count != 0)
+            {
+                return Ok(productsFromDB);
+            }
+            else
+            {
+                return StatusCode(HttpStatusCode.NoContent);
+            }
+        }
+
         [Route("{id}", Name = "GetProductByID")]
         public IHttpActionResult Get(int id)
         {
