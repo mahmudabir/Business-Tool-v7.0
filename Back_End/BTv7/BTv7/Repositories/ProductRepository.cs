@@ -62,6 +62,14 @@ namespace BTv7.Repositories
             }
         }
 
+        public void RejectProduct(int id)
+        {
+            using (var p2 = new BTv7DbContext())
+            {
+                int noOfRowDeleted = p2.Database.ExecuteSqlCommand("DELETE FROM Products WHERE ID = '" + id + "';");
+            }
+        }
+
         //ByName
         public List<Product> GetByName(string id)
         {

@@ -98,6 +98,15 @@ namespace BTv7.Controllers
             }
         }
 
+        //Reject
+        [Route("pending/reject/{id}", Name = "Reject")]
+        [BasicAuthentication]
+        public IHttpActionResult Delete([FromUri] int id)
+        {
+            productDB.RejectProduct(id);
+            return StatusCode(HttpStatusCode.NoContent);
+        }
+
         [Route("{id}", Name = "GetProductByID")]
         public IHttpActionResult Get(int id)
         {

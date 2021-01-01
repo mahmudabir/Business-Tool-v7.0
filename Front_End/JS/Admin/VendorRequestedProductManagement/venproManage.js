@@ -242,6 +242,7 @@ $(document).ready(function(){
             },
             complete: function (xhr, status) {
                 if (xhr.status == 200) {
+                    alert("Action Complited.");
                     loadAllProducts();
                     //$("#enableMesg").removeAttr("hidden", "hidden");
                     //$("#disableMesg").attr("hidden", "hidden");
@@ -259,95 +260,23 @@ $(document).ready(function(){
         Approve();
     });
 
-    /*
-    //Load Details Modal
-    var loadCustomerDetails = function(id){
+    var Reject = function () {
         $.ajax({
-            url: "https://localhost:44308/api/customers/id/"+id,
-            method: "GET",
-            headers: {
-                'Authorization': 'Basic ' + localStorage.authUser,
-            },
-            complete: function (xhr, status) {
-                if (xhr.status == 200) {
-                    console.log(xhr.responseJSON);
-
-                    var data = xhr.responseJSON;
-                    
-                    if(data.length>0)
-                    {
-                        $("#editusername").val(data[0].login.username);
-                        $("#editloginid").val(data[0].loginID);//LOGIN
-                        $("#editid").val(data[0].id);//CUSTOMER
-                        $("#editfullname").val(data[0].name);
-                        $("#editcontact").val(data[0].login.mobile);
-                        $("#editemail").val(data[0].login.email);
-                        $("#editaddress").val(data[0].address);
-                        $("#editjoindate").val(data[0].joinDate);
-                        $("#editenrollby").val(data[0].addeddBy);
-                        if(data[0].login.accessStatusID == '1')
-                        {                    
-                            $("#enableMesg").attr("hidden", "hidden");
-                            $("#disableMesg").attr("hidden", "hidden");
-                            $("#btnactive").attr("hidden", "hidden");
-                            $("#btndeactive").removeAttr("hidden", "hidden");
-                        }
-                        else if(data[0].login.accessStatusID == 2)
-                        {
-                            $("#enableMesg").attr("hidden", "hidden");
-                            $("#disableMesg").attr("hidden", "hidden");
-                            $("#btndeactive").attr("hidden", "hidden");
-                            $("#btnactive").removeAttr("hidden", "hidden");
-                        }
-                        else
-                        {
-                            $("#enableMesg").attr("hidden", "hidden");
-                            $("#disableMesg").attr("hidden", "hidden");
-                            $("#btndeactive").attr("hidden", "hidden");
-                            $("#btnactive").attr("hidden", "hidden");
-                        }
-                    }
-                    else
-                    {
-                        alert("User Not Found");
-                    }
-                }
-                else {
-                    alert("Something Went Wrong.");
-                }
-            }
-        });
-    }
-    $('#detailCustomer').on('show.bs.modal', function(e) {
-        var id = $(e.relatedTarget).data('id');
-        loadCustomerDetails(id);
-    });
-
-
-    //Login Access Controlling
-    var EnableCustomerLogin = function () {
-        $.ajax({
-            url: "https://localhost:44308/api/logins/enable/user/"+$("#editloginid").val(),
-            method: "PUT",
+            url: "https://localhost:44308/api/products/pending/reject/"+$("#editid").val(),
+            method: "DELETE",
             header: "Content-Type:application/json",
-            data: {
-                id: $("#editloginid").val(),
-                username: $("#editusername").val(),
-                email: $("#editemail").val(),
-                mobile: $("#editcontact").val(),
-                userDesignationID: $("#editrole").val()
-            },
             headers: {
                 'Authorization': 'Basic ' + localStorage.authUser,
             },
             complete: function (xhr, status) {
-                if (xhr.status == 200) {
-                    loadAllCustomerByName();
-                    $("#enableMesg").removeAttr("hidden", "hidden");
-                    $("#disableMesg").attr("hidden", "hidden");
+                if (xhr.status == 204) {
+                    loadAllProducts();
+                    alert("Action Complited.");
+                    //$("#enableMesg").removeAttr("hidden", "hidden");
+                    //$("#disableMesg").attr("hidden", "hidden");
 
-                    $("#btndeactive").removeAttr("hidden", "hidden");
-                    $("#btnactive").attr("hidden", "hidden");
+                    //$("#btndeactive").removeAttr("hidden", "hidden");
+                    //$("#btnactive").attr("hidden", "hidden");
                 } 
                 else {
                     alert("Error Proccessing.");
@@ -355,40 +284,11 @@ $(document).ready(function(){
             }
         });
     }
-    $("#btnactive").on("click",function(){
-        EnableCustomerLogin();
-    });
-
-    var DisbaleCustomerLogin = function () {
-        $.ajax({
-            url: "https://localhost:44308/api/logins/disable/user/"+$("#editloginid").val(),
-            method: "PUT",
-            header: "Content-Type:application/json",
-            data: {
-                id: $("#editloginid").val(),
-                username: $("#editusername").val(),
-                email: $("#editemail").val(),
-                mobile: $("#editcontact").val(),
-                userDesignationID: $("#editrole").val()
-            },
-            headers: {
-                'Authorization': 'Basic ' + localStorage.authUser,
-            },
-            complete: function (xhr, status) {
-                if (xhr.status == 200) {
-                    loadAllCustomerByName();
-                    $("#disableMesg").removeAttr("hidden", "hidden");
-                    $("#enableMesg").attr("hidden", "hidden");
-
-                    $("#btndeactive").attr("hidden", "hidden");
-                    $("#btnactive").removeAttr("hidden", "hidden");
-
-                } 
-            }
-        });
-    }
     $("#btndeactive").on("click",function(){
-        DisbaleCustomerLogin();
+        if (confirm("Do you really want to reject the product?"))
+        {
+            Reject();
+        }  
     });
-    */
+
 });
