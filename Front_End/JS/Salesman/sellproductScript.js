@@ -1,5 +1,10 @@
 $(document).ready(function(){
-	
+	var clickedRow="";
+	var valueOfI;
+	var OrderclickedRow="";
+	var valueOfK;
+	var opacity=.5;
+
 	if (localStorage.authUser == null || localStorage.userRole!=3) {
 
         window.location.href = "../Login/Index.html";
@@ -12,7 +17,7 @@ var listProduct=function(){
 	
 
 	$.ajax({
-		url:"https://localhost:44308/api/deliveryorders/"+localStorage.username,
+		url:"https://localhost:44308/api/sellproducts/availableproducts",
 		method:"GET",
 		headers:{
 				//Authorization:"Basic "+ btoa("4:4444")
@@ -21,16 +26,21 @@ var listProduct=function(){
 		complete:function(xmlhttp,status){
 
 			if(xmlhttp.status==200){
-				var dataOrder=xmlhttp.responseJSON;
+				var dataProduct=xmlhttp.responseJSON;
 				var str;
 				
 				
-				for (var i = 0; i < dataOrder.length; i++) {
+				for (var i = 0; i < dataProduct.length; i++) {
 					
-					orderID=dataOrder[i].id;
+					str+="<tr  btn-id-product="+dataProduct[i].id+" btn-i-val="+i+"><td>"+dataProduct[i].id+"</td><td>"+dataProduct[i].name+"</td><td>"+dataProduct[i].quantity+"</td><td>"+dataProduct[i].sellPrice+"</td><td><button id='cell' class='btn btn-success btn-sm'>Select</td></tr>"
 
 					$("#productList tbody").html(str);
-					}
+					// for(var j=0;j<dataProduct.length;j++){
+					// 	$("#buyQuantity"+[j]).hide();
+					// 	$("#addToCart"+[j]).hide();
+					// }
+					
+				}
 					
 				}
 				else
@@ -43,6 +53,98 @@ var listProduct=function(){
 }
 listProduct();
 //Ends Get All users connected in chat
+
+
+
+$("#productList").on("click","#cell",function(){
+	var button=$(this);
+	clickedRow=button.attr("btn-id-product");
+	valueOfI=button.attr("btn-i-val");
+	//console.log(clickedRow);
+   	// $("#buyQuantity"+[valueOfI]).fadeIn(1000);
+   	
+   	// $("#addToCart"+[valueOfI]).fadeIn(1000);
+ //   	console.log(valueOfI);
+	// console.log(clickedRow);
+   
+});
+
+$("#productList").on("click","#addToCart",function(){
+	
+// console.log(valueOfI);
+	var buyQuantity=$("#buyQuantity").val();
+	console.log(buyQuantity);
+	if(clickedRow!=""){
+	if(OrderclickedRow!=""){
+	if(buyQuantity!="")
+	{
+		confirm(buyQuantity+","+OrderclickedRow);
+	}
+	else{
+		confirm("No quantity is Added!! Add some quantity First");
+	}
+
+	}
+
+	else{
+		confirm("No Cart is Sellected!! Select a Cart First");
+	}
+   	}
+   	else{
+		confirm("No Product is Sellected!! Select a A First");
+	}
+   
+});
+
+
+
+
+
+var listOrder=function(){
+	
+
+	$.ajax({
+		url:"https://localhost:44308/api/sellproducts/"+localStorage.username+"/uncheckedorder",
+		method:"GET",
+		headers:{
+				//Authorization:"Basic "+ btoa("4:4444")
+				'Authorization': 'Basic ' + localStorage.authUser
+		},
+		complete:function(xmlhttp,status){
+
+			if(xmlhttp.status==200){
+				var dataOrder=xmlhttp.responseJSON;
+				var str;
+				
+				
+				for (var k = 0; k < dataOrder.length; k++) {
+					
+					str+="<tr id='Ordercell' btn-id-order="+dataOrder[k].id+" btn-k-val="+k+"><td>"+dataOrder[k].id+"</td></tr>"
+
+					$("#orderList tbody").html(str);
+					
+				}
+					
+				}
+				else
+				{	
+					$("#orderList tbody").html("No data");
+				}
+
+			}
+	});
+}
+listOrder();
+
+$("#orderList").on("click","#Ordercell",function(){
+	var button=$(this);
+	OrderclickedRow=button.attr("btn-id-order");
+	valueOfK=button.attr("btn-k-val");
+	//console.log(clickedRow);
+   	
+   
+});
+
 
 
 // var listPending=function(){

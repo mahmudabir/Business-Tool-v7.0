@@ -50,6 +50,12 @@ namespace BTv7.Repositories
         {
             return this.context.Set<Order>().OrderBy(y => y.ID).Where(x => x.SellBy == id && x.OrderStatusID == 5).ToList();
         }
+        
+
+         public List<Order> GetAllUncheckedOrders(int eid)
+        {
+            return this.GetAll().Where(x => x.SellBy == eid && x.SaleTypeID == 2 && x.IsSold==false).ToList();
+        }
 
         //public Order GetOrderByDeliverymanIDNOrderAccept(int eid, int oid)
         //{
