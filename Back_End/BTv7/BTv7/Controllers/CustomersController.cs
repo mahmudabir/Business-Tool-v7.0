@@ -73,8 +73,8 @@ namespace BTv7.Controllers
         [BasicAuthentication]
         public IHttpActionResult PutCustomerByID([FromUri] int id, [FromBody] Customer customer)
         {
-            /*if(ModelState.IsValid)
-            {*/
+            if(ModelState.IsValid)
+            {
                 var com = customerDB.GetCustomerByID(id);
                 customer.ID = id;
                 customer.Image = com[0].Image;
@@ -85,11 +85,11 @@ namespace BTv7.Controllers
                 customerDB.UpdateCustomerDetails(customer);
 
                 return Ok(customer);
-            /*}
+            }
             else
             {
                 return BadRequest(ModelState);
-            }*/
+            }
             
 
         }
@@ -114,8 +114,8 @@ namespace BTv7.Controllers
             //var identity = (ClaimsIdentity)User.Identity;
             //customerToDB.AddeddBy = Convert.ToInt32(identity.Claims.FirstOrDefault(x => x.Type == "ID").Value);
 
-            /*if (ModelState.IsValid)
-            {*/
+            if (ModelState.IsValid)
+            {
                 customerDB.Insert(customer);
 
                 var customerFromDB = customerDB.GetCustomerByLoginID(customer.LoginID);
@@ -136,11 +136,11 @@ namespace BTv7.Controllers
                 string uri = Url.Link("GetCustomerByID", new { id = customerFromDB.ID });
 
                 return Created(uri, result);
-            /*}
+            }
             else
             {
                 return BadRequest(ModelState);
-            }*/
+            }
         }
 
         [Route("name/{name}", Name = "GetCustomersByName")]
