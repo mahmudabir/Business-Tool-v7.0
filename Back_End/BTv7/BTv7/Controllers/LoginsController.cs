@@ -42,8 +42,8 @@ namespace BTv7.Controllers
         [BasicAuthentication]
         public IHttpActionResult PutLoginByID([FromUri] int id, [FromBody] Login login)
         {
-            if(ModelState.IsValid)
-            {
+            /*if(ModelState.IsValid)
+            {*/
                 var com = loginDB.GetLoginByID(id);
                 login.ID = id;
                 login.Password = com.Password;
@@ -52,11 +52,11 @@ namespace BTv7.Controllers
                 loginDB.UpdateEmployeeLoginDetails(login);
 
                 return Ok(login);
-            }
+            /*}
             else
             {
                 return BadRequest(ModelState);
-            }
+            }*/
 
         }
 
@@ -64,8 +64,8 @@ namespace BTv7.Controllers
         [BasicAuthentication]
         public IHttpActionResult PutLogin([FromUri] int id, [FromBody] Login login)
         {
-            if(ModelState.IsValid)
-            {
+            /*if(ModelState.IsValid)
+            {*/
                 var com = loginDB.GetLoginByID(id);
                 login.ID = id;
                 login.AccessStatusID = com.AccessStatusID;
@@ -73,11 +73,11 @@ namespace BTv7.Controllers
                 loginDB.UpdatePassword(login);
 
                 return Ok(login);
-            }
+            /*}
             else
             {
                 return BadRequest(ModelState);
-            }
+            }*/
 
         }
 

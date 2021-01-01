@@ -53,8 +53,8 @@ namespace BTv7.Controllers
         public IHttpActionResult PutEmployeesByID([FromUri] int id, [FromBody] Employee employee)
         {
             
-            if(ModelState.IsValid)
-            {
+/*            if(ModelState.IsValid)
+            {*/
                 var com = employeeDB.GetEmployeeByID(id);
                 employee.ID = id;
                 employee.Image = com[0].Image;
@@ -64,11 +64,11 @@ namespace BTv7.Controllers
                 employeeDB.UpdateEmployeeDetails(employee);
 
                 return Ok(employee);
-            }
+            /*}
             else
             {
                 return BadRequest(ModelState);
-            }
+            }*/
 
         }
 
