@@ -52,15 +52,24 @@ namespace BTv7.Controllers
         [BasicAuthentication]
         public IHttpActionResult PutEmployeesByID([FromUri] int id, [FromBody] Employee employee)
         {
-            var com = employeeDB.GetEmployeeByID(id);
-            employee.ID = id;
-            employee.Image = com[0].Image;
-            employee.AddeddBy = com[0].AddeddBy;
-            employee.LoginID = com[0].LoginID;
-            employee.JoinDate = com[0].JoinDate;
-            employeeDB.UpdateEmployeeDetails(employee);
+            
+            if(ModelState.IsValid)
+            {
+                var com = employeeDB.GetEmployeeByID(id);
+                employee.ID = id;
+                employee.Image = com[0].Image;
+                employee.AddeddBy = com[0].AddeddBy;
+                employee.LoginID = com[0].LoginID;
+                employee.JoinDate = com[0].JoinDate;
+                employeeDB.UpdateEmployeeDetails(employee);
 
-            return Ok(employee);
+                return Ok(employee);
+            }
+            else
+            {
+                return BadRequest(ModelState);
+            }
+
         }
 
         [Route("name/{name}", Name = "GetEmployeesByName")]

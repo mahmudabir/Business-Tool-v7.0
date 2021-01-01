@@ -42,27 +42,43 @@ namespace BTv7.Controllers
         [BasicAuthentication]
         public IHttpActionResult PutLoginByID([FromUri] int id, [FromBody] Login login)
         {
-            var com = loginDB.GetLoginByID(id);
-            login.ID = id;
-            login.Password = com.Password;
-            login.AccessStatusID = com.AccessStatusID;
-            login.RegistrationStatusID = com.RegistrationStatusID;
-            loginDB.UpdateEmployeeLoginDetails(login);
+            if(ModelState.IsValid)
+            {
+                var com = loginDB.GetLoginByID(id);
+                login.ID = id;
+                login.Password = com.Password;
+                login.AccessStatusID = com.AccessStatusID;
+                login.RegistrationStatusID = com.RegistrationStatusID;
+                loginDB.UpdateEmployeeLoginDetails(login);
 
-            return Ok(login);
+                return Ok(login);
+            }
+            else
+            {
+                return BadRequest(ModelState);
+            }
+
         }
 
         [Route("update/password/{id}", Name = "PutLogin")]
         [BasicAuthentication]
         public IHttpActionResult PutLogin([FromUri] int id, [FromBody] Login login)
         {
-            var com = loginDB.GetLoginByID(id);
-            login.ID = id;
-            login.AccessStatusID = com.AccessStatusID;
-            login.RegistrationStatusID = com.RegistrationStatusID;
-            loginDB.UpdatePassword(login);
+            if(ModelState.IsValid)
+            {
+                var com = loginDB.GetLoginByID(id);
+                login.ID = id;
+                login.AccessStatusID = com.AccessStatusID;
+                login.RegistrationStatusID = com.RegistrationStatusID;
+                loginDB.UpdatePassword(login);
 
-            return Ok(login);
+                return Ok(login);
+            }
+            else
+            {
+                return BadRequest(ModelState);
+            }
+
         }
 
 
