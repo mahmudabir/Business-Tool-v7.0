@@ -187,6 +187,39 @@ $(document).ready(function () {
         });
     }
 
+    // vendor register
+
+    // var insertInEmployee = function () {
+    //     $.ajax({
+    //         url: "https://localhost:44308/api/employees/register",
+    //         method: "POST",
+    //         data: {
+    //             name: $("#regname").val(),
+    //             //joinDate: "1-1-1",
+    //             joinDate: "1-1-1"
+    //         },
+    //         headers: {
+    //             'Authorization': 'Basic ' + btoa($("#regusername").val() + ":" + $("#regpassword").val()),
+    //         },
+    //         complete: function (xhr2, status) {
+    //             if (xhr2.status == 201) {
+    //                 console.log("Customer Table Data insert Success");
+
+    //                 $("#msg").html("<div class=\"alert alert-primary\" role=\"alert\">Successfully Registered</div>");
+    //             }
+    //             else {
+    //                 console.log(xhr2);
+    //                 //$("#msg").html("<div class=\"alert alert-danger\" role=\"alert\">Error : " + xhr.responseJSON.message + "</div>");
+    //             }
+    //         }
+    //     });
+    // }
+
+
+
+
+    //vendor register
+
     $("#username").keyup(function () {
         $("#msg1").hide();
     })
