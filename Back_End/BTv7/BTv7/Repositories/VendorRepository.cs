@@ -8,5 +8,14 @@ namespace BTv7.Repositories
 {
     public class VendorRepository : Repository<Vendor>
     {
+        public List<Vendor> GetByName(string id)
+        {
+            return this.context.Set<Vendor>().Where(x => x.Name.ToLower().Contains(id.ToLower())).ToList();
+        }
+
+        public List<Vendor> GetVendorByID(int id)
+        {
+            return this.context.Set<Vendor>().Where(x => x.ID == id).ToList();
+        }
     }
 }

@@ -8,10 +8,10 @@ $(document).ready(function(){
     $('#content').load("../adminnav.html");
 
     
-    //LOAD CUSTOMERS LIST
+    //LOAD VENDORS LIST
     var loadAllVendors = function () {
         $.ajax({
-            url: "https://localhost:44308/api/customers",
+            url: "https://localhost:44308/api/vendors",
             method: "GET",
             headers: {
                 'Authorization': 'Basic ' + localStorage.authUser,
@@ -45,9 +45,9 @@ $(document).ready(function(){
                                         "<td align='center'>"+ sl + "</td>"+
                                         "<td>"+ data[i].login.username/*data[i].login.username.substr(0,180)*/ +"</td>"+
                                         "<td>"+ data[i].name+ "</td>"+
-                                        "<td>" + data[i].address + "</td>"+
+                                        "<td>" + data[i].joinDate + "</td>"+
                                         "<td align='center'>" + icon + "</td>"+
-                                        "<td align='center'> <button type='button' data-toggle='modal' data-target='#detailCustomer' data-id="+data[i].id+" class='btn btn-outline-dark'>Details</button>" +
+                                        "<td align='center'> <button type='button' data-toggle='modal' data-target='#detailVendor' data-id="+data[i].id+" class='btn btn-outline-dark'>Details</button>" +
                                 "</tr>";
                                 count++;
                             }
@@ -76,12 +76,12 @@ $(document).ready(function(){
     }
     loadAllVendors();
 
-    //Load Customers By Name
-    var loadAllCustomerByName = function () {
+    //Load Vendors By Name
+    var loadAllVendorByName = function () {
         if($.trim($("#search").val()) != "")
         {
             $.ajax({
-                url: "https://localhost:44308/api/customers/name/"+$("#search").val(),
+                url: "https://localhost:44308/api/vendors/name/"+$("#search").val(),
                 method: "GET",
                 headers: {
                     'Authorization': 'Basic ' + localStorage.authUser,
@@ -116,9 +116,9 @@ $(document).ready(function(){
                                             "<td align='center'>"+ sl + "</td>"+
                                             "<td>"+ data[i].login.username/*data[i].login.username.substr(0,180)*/ +"</td>"+
                                             "<td>"+ data[i].name+ "</td>"+
-                                            "<td>" + data[i].address + "</td>"+
+                                            "<td>" + data[i].joinDate + "</td>"+
                                             "<td align='center'>" + icon + "</td>"+
-                                            "<td align='center'> <button type='button' data-toggle='modal' data-target='#detailCustomer' data-id="+data[i].id+" class='btn btn-outline-dark'>Details</button>" +
+                                            "<td align='center'> <button type='button' data-toggle='modal' data-target='#detailVendor' data-id="+data[i].id+" class='btn btn-outline-dark'>Details</button>" +
                                     "</tr>";
                                     count++;
                                 }
@@ -147,18 +147,18 @@ $(document).ready(function(){
         
         else
         {
-            loadAllCustomers();
+            loadAllVendors();
         }
     }
     $("#search").on("keyup change",function(){
-        loadAllCustomerByName();
+        loadAllVendorByName();
     });
 
 
     //Load Details Modal
-    var loadCustomerDetails = function(id){
+    var loadVendorDetails = function(id){
         $.ajax({
-            url: "https://localhost:44308/api/customers/id/"+id,
+            url: "https://localhost:44308/api/vendors/id/"+id,
             method: "GET",
             headers: {
                 'Authorization': 'Basic ' + localStorage.authUser,
@@ -213,14 +213,14 @@ $(document).ready(function(){
             }
         });
     }
-    $('#detailCustomer').on('show.bs.modal', function(e) {
+    $('#detailVendor').on('show.bs.modal', function(e) {
         var id = $(e.relatedTarget).data('id');
-        loadCustomerDetails(id);
+        loadVendorDetails(id);
     });
 
 
     //Login Access Controlling
-    var EnableCustomerLogin = function () {
+    var EnableVendorLogin = function () {
         $.ajax({
             url: "https://localhost:44308/api/logins/enable/user/"+$("#editloginid").val(),
             method: "PUT",
@@ -237,7 +237,7 @@ $(document).ready(function(){
             },
             complete: function (xhr, status) {
                 if (xhr.status == 200) {
-                    loadAllCustomerByName();
+                    loadAllVendorByName();
                     $("#enableMesg").removeAttr("hidden", "hidden");
                     $("#disableMesg").attr("hidden", "hidden");
 
@@ -251,10 +251,10 @@ $(document).ready(function(){
         });
     }
     $("#btnactive").on("click",function(){
-        EnableCustomerLogin();
+        EnableVendorLogin();
     });
 
-    var DisbaleCustomerLogin = function () {
+    var DisbaleVendorLogin = function () {
         $.ajax({
             url: "https://localhost:44308/api/logins/disable/user/"+$("#editloginid").val(),
             method: "PUT",
@@ -271,7 +271,7 @@ $(document).ready(function(){
             },
             complete: function (xhr, status) {
                 if (xhr.status == 200) {
-                    loadAllCustomerByName();
+                    loadAllVendorByName();
                     $("#disableMesg").removeAttr("hidden", "hidden");
                     $("#enableMesg").attr("hidden", "hidden");
 
@@ -283,7 +283,7 @@ $(document).ready(function(){
         });
     }
     $("#btndeactive").on("click",function(){
-        DisbaleCustomerLogin();
+        DisbaleVendorLogin();
     });
 
 });
