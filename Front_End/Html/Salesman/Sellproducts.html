@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Deliveryman</title>
+	<meta charset="utf-8">
+	<script type="text/javascript" src="../../Content/jquery.js"></script>
+	<script type="text/javascript" src="../../JS/Salesman/sellproductScript.js"></script>
+	<!-- <link rel="stylesheet" href="../../CSS/bootstrap2.css"> -->
+	<script type="text/javascript" src="../../Content/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../../CSS/bootstrap.css">
+    <script src="../../Content/popper.js"></script>
+	<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+	
+	 <style>
+	
+	#pendingTable.table tr, .table td
+	{
+		border: 0!important;
+	}
+	/*#fixedHeader { overflow-y: auto; height: 500px; }
+	#fixedHeader thead th { position: sticky; top: 0; }
+    table  { border-collapse: collapse; width: 100%; }*/
+	#th th{ background:#37447d;}
+	#th2 th{ background:#AEC3D9;}
+
+	</style>
+	
+</head>
+<body class="bg-secondary">
+ <div id="content"></div>
+ <div class="p-4">
+        <!-- load Nav -->
+        <script>
+            $(document).ready(function () {
+
+                $('#content').load("salesmannav.html"); //change salesman to deliveryman
+
+            });
+        </script>
+        <!-- load Nav -->
+    </div>
+
+<div class="container" style="margin-top:60px;">
+	<div class="row">
+		<!-- <div class="col-xs-12 col-sm-12 col-md-1 col-lg-1">
+			
+		</div> -->
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+				<div id="sellTable" style="background-color: white;">
+				<table class="table table-bordered table-striped" id="productList">
+					
+					<thead>
+						<tr id="th">
+							<th colspan="6">
+								<span style="color:White;">Pending Orders</span>
+								<span style=" float: right;"><input type="text" class="form-control" id="search" placeholder="search by ID....."></span>
+
+							</th>
+						</tr>
+						<tr id="th2">
+							<th>
+								#ProductID
+							</th>
+							<th>
+								Products Name
+							</th>
+							<th>
+								Available Quantity
+							</th>
+							<th>
+								Price
+							</th>
+							<th colspan="2">
+								Status
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						
+					</tbody>
+				</table>
+				</div>
+			</div>
+			<!-- <div class="col-xs-12 col-sm-12 col-md-1 col-lg-1">
+			
+		</div> -->
+	</div>
+</div>
+
+</body>
+</html>
