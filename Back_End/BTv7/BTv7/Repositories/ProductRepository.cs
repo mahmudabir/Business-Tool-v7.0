@@ -46,10 +46,24 @@ namespace BTv7.Repositories
             }
         }
 
+        public void AproveAllProduct()
+        {
+            using (var p2 = new BTv7DbContext())
+            {
+                int e = p2.Database.ExecuteSqlCommand("UPDATE Products SET ProductStatusID = '1' WHERE ProductStatusID = '3';");
+            }
+        }
+
         //ByName
         public List<Product> GetByName(string id)
         {
             return this.context.Set<Product>().Where(x => x.Name.ToLower().Contains(id.ToLower())).ToList();
+        }
+
+        //ByID
+        public List<Product> GetProductsByID(int id)
+        {
+            return this.context.Set<Product>().Where(x => x.ID == id).ToList();
         }
     }
 }

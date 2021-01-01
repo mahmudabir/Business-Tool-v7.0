@@ -11,7 +11,7 @@ $(document).ready(function(){
     //LOAD PENDING PRODUCTS LIST
     var loadAllProducts = function () {
         $.ajax({
-            url: "https://localhost:44308/api/products",
+            url: "https://localhost:44308/api/products/all",
             method: "GET",
             headers: {
                 'Authorization': 'Basic ' + localStorage.authUser,
@@ -30,13 +30,13 @@ $(document).ready(function(){
                     {
                         for (var i = 0; i < data.length; i++) 
                         {
-                            if(data[i].productStatusID == 2)
+                            if(data[i].productStatusID == 3)
                             {
                                 icon = '<i style="color: red;" class="fas fa-ban"></i>';
                             } 
                             
 
-                            if(data[i].productStatusID == 2)
+                            if(data[i].productStatusID == 3)
                             {
                                 str += "<tr>"+
                                         "<td align='center'>"+ sl + "</td>"+
@@ -55,11 +55,18 @@ $(document).ready(function(){
 
                         if(count < 1)
                         {
+                            $('#btnacceptall').prop("disabled",true);
                             str += "<tr><td colspan='7' align='middle'>NO DATA FOUND</td></tr>";
+                        }
+                        else
+                        {
+                            $('#btnacceptall').prop("disabled",false);
                         }
                     }
                     else
                     {
+                        //$("#btnacceptall").attr("disabled", "disabled");
+                        $('#btnacceptall').prop("disabled",true);
                         str += "<tr><td colspan='7' align='middle'>NO DATA FOUND</td></tr>";
                     }
 
@@ -67,6 +74,7 @@ $(document).ready(function(){
                 }
                 else 
                 {
+                    $('#btnacceptall').prop("disabled",true);
                     alert("Something Went Wrong.");
                 }
             }
@@ -98,13 +106,13 @@ $(document).ready(function(){
                         {
                             for (var i = 0; i < data.length; i++) 
                             {
-                                if(data[i].productStatusID == 2)
+                                if(data[i].productStatusID == 3)
                                 {
                                     icon = '<i style="color: red;" class="fas fa-ban"></i>';
                                 } 
                                 
     
-                                if(data[i].productStatusID == 2)
+                                if(data[i].productStatusID == 3)
                                 {
                                     str += "<tr>"+
                                             "<td align='center'>"+ sl + "</td>"+
@@ -123,11 +131,17 @@ $(document).ready(function(){
     
                             if(count < 1)
                             {
+                                $('#btnacceptall').prop("disabled",true);
                                 str += "<tr><td colspan='7' align='middle'>NO DATA FOUND</td></tr>";
+                            }
+                            else
+                            {
+                                $('#btnacceptall').prop("disabled",false);
                             }
                         }
                         else
                         {
+                            $('#btnacceptall').prop("disabled",true);
                             str += "<tr><td colspan='7' align='middle'>NO DATA FOUND</td></tr>";
                         }
     
@@ -135,6 +149,7 @@ $(document).ready(function(){
                     }
                     else 
                     {
+                        $('#btnacceptall').prop("disabled",true);
                         alert("Something Went Wrong.");
                     }
                 }
@@ -149,6 +164,74 @@ $(document).ready(function(){
     $("#search").on("keyup change",function(){
         loadAllProductsByName();
     });
+
+    //Aprove All Pendings
+    var AcceptAll = function () {
+        $.ajax({
+            url: "https://localhost:44308/api/products/pending/acceptAll",
+            method: "PUT",
+            header: "Content-Type:application/json",
+            headers: {
+                'Authorization': 'Basic ' + localStorage.authUser,
+            },
+            complete: function (xhr, status) {
+                if (xhr.status == 200) {
+                    loadAllProducts();
+                    alert("All Pending Requests Accepted.");
+                } 
+                else {
+                    alert("Error Proccessing.");
+                }
+            }
+        });
+    }
+    $("#btnacceptall").on("click",function(){
+        AcceptAll();
+    });
+
+    //Load Details Modal
+    var loadProdDetails = function(id){
+        $.ajax({
+            url: "https://localhost:44308/api/products/id/"+id,
+            method: "GET",
+            headers: {
+                'Authorization': 'Basic ' + localStorage.authUser,
+            },
+            complete: function (xhr, status) {
+                if (xhr.status == 200) {
+                    console.log(xhr.responseJSON);
+
+                    var data = xhr.responseJSON;
+                    
+                    if(data.length>0)
+                    {
+                        $("#editid").val(data[0].id);
+                        $("#editproductname").val(data[0].name);
+                        $("#editproducttype").val(data[0].productType.type);
+                        $("#editcomapanyname").val(data[0].vendor.name);
+                        $("#editvendorusername").val(data[0].vendor.login.username);
+                        $("#editvendoremail").val(data[0].vendor.login.email);
+                        $("#editquantity").val(data[0].quantity);
+                        $("#editbuyprice").val(data[0].buyPrice);
+                        $("#editsellprice").val(data[0].sellPrice);
+                    }
+                    else
+                    {
+                        alert("Product Not Found");
+                    }
+                }
+                else {
+                    alert("Something Went Wrong.");
+                }
+            }
+        });
+    }
+    $('#detailProduct').on('show.bs.modal', function(e) {
+        var id = $(e.relatedTarget).data('id');
+        loadProdDetails(id);
+    });
+
+    
 
     /*
     //Load Details Modal

@@ -29,6 +29,20 @@ namespace BTv7.Controllers
             }
         }
 
+        [Route("all", Name = "GetAllProducts")]
+        public IHttpActionResult GetAll()
+        {
+            var productsFromDB = productDB.GetAll();
+            if (productsFromDB.Count != 0)
+            {
+                return Ok(productsFromDB);
+            }
+            else
+            {
+                return StatusCode(HttpStatusCode.NoContent);
+            }
+        }
+
         //Search By Company Name
         [Route("name/{name}", Name = "GetProductsByName")]
         [BasicAuthentication]
@@ -45,6 +59,26 @@ namespace BTv7.Controllers
                 return StatusCode(HttpStatusCode.NotFound);
             }
         }
+
+        //Accept All
+        [Route("pending/acceptAll", Name = "AproveAll")]
+        [BasicAuthentication]
+        public IHttpActionResult PutAproveAll()
+        {
+            productDB.AproveAllProduct();
+
+            var productsFromDB = productDB.GetAvailableProducts();
+
+            if (productsFromDB.Count != 0)
+            {
+                return Ok(productsFromDB);
+            }
+            else
+            {
+                return StatusCode(HttpStatusCode.NoContent);
+            }
+        }
+
         [Route("{id}", Name = "GetProductByID")]
         public IHttpActionResult Get(int id)
         {
@@ -60,6 +94,22 @@ namespace BTv7.Controllers
             else
             {
                 return StatusCode(HttpStatusCode.NoContent);
+            }
+        }
+
+        [Route("id/{id}", Name = "GetProductsByID")]
+        [BasicAuthentication]
+        public IHttpActionResult GetCustomersByID(int id)
+        {
+            var productFromDB = productDB.GetProductsByID(id);
+
+            if (productFromDB != null || productFromDB.Count() != 0)
+            {
+                return Ok(productFromDB);
+            }
+            else
+            {
+                return StatusCode(HttpStatusCode.NotFound);
             }
         }
 
