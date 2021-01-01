@@ -10,16 +10,31 @@ $(document).ready(function () {
     }
     else {
         $("#divregister").hide();
+        $("#divregistervendor").hide();
     }
 
     $("#gotoregister").click(function () {
         $("#divlogin").hide();
         $("#divregister").show();
+        $("#divregistervendor").hide();
     })
 
     $("#gotologin").click(function () {
         $("#divregister").hide();
+        $("#divregistervendor").hide();
         $("#divlogin").show();
+    })
+
+    $("#btnven").click(function () {
+        $("#divregister").hide();
+        $("#divregistervendor").show();
+        $("#divlogin").hide();
+    })
+
+    $("#btncus").click(function () {
+        $("#divregister").show();
+        $("#divregistervendor").hide();
+        $("#divlogin").hide();
     })
 
     var loadLogin = function () {

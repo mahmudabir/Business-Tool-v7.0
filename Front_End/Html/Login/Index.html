@@ -70,15 +70,15 @@
 
         </div>
 
-
         <div id="divregister">
 
-            <div class="container">
+            <div class="container" id="cusReg">
                 <div class="row">
                     <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
                         <div class="card card-signin my-5">
                             <div class="card-body">
-                                <h5 class="card-title text-center text-info" style="font-weight: bolder;font-size: 30px;">Register</h5>
+                                <button type="button"id="btnven" class="btn btn-primary btn-lg btn-block">Go To Vendor Registration</button>
+                                <h5 class="card-title text-center text-info" style="font-weight: bolder;font-size: 30px;">Customer Register</h5>
                                 
 
                                 <div class="form-label-group">
@@ -130,9 +130,61 @@
             </div>
         </div>
 
+        <!--VENDOR REGESITRATION-->
+        <div id="divregistervendor">
+
+            <div class="container" id="cusReg">
+                <div class="row">
+                    <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+                        <div class="card card-signin my-5">
+                            <div class="card-body">
+                                <button type="button"id="btncus" class="btn btn-primary btn-lg btn-block">Go To Customer Registration</button>
+                                <h5 class="card-title text-center text-info" style="font-weight: bolder;font-size: 30px;">Vendor Register</h5>
+                                
+
+                                <div class="form-label-group">
+                                    <label for="inputName" class="text-info" style="font-weight: bolder;">Vendor Name</label>
+                                    <input type="text" id="venregname" class="form-control" placeholder="Full Name" autofocus autocomplete="off">
+                                    <span style="color: red;font-weight: bold;" id="msg11"></span>
+                                </div>
+                                <br />
+
+                                <div class="form-label-group">
+                                    <label for="inputEmail" class="text-info" style="font-weight: bolder;">Email</label>
+                                    <input type="email" id="venregemail" class="form-control" placeholder="Email" autocomplete="off">
+                                    <span style="color: red;font-weight: bold;" id="msg21"></span>
+                                </div>
+                                <br />
 
 
-    </div>
+                                <div class="form-label-group">
+                                    <label for="inputMobile" class="text-info" style="font-weight: bolder;">Mobile No.</label>
+                                    <input type="text" id="venregmobile" class="form-control" placeholder="Mobile No." autocomplete="off">
+                                    <span style="color: red;font-weight: bold;" id="msg3"></span>
+                                </div>
+                                <br />
+
+                                <div class="form-label-group">
+                                    <label for="inputUsername" class="text-info" style="font-weight: bolder;">Username</label>
+                                    <input type="text" id="venregusername" class="form-control" placeholder="Username" autocomplete="off">
+                                    <span style="color: red;font-weight: bold;" id="msg4"></span>
+                                </div>
+                                <br />
+
+
+                                <div class="form-label-group">
+                                    <label for="inputPassword" class="text-info" style="font-weight: bolder;">Password</label>
+                                    <input type="password" id="venregpassword" class="form-control" placeholder="Password" autocomplete="off">
+                                    <span style="color: red;font-weight: bold;" id="msg5"></span>
+                                </div>
+                                <br />
+                                <input class="btn btn-lg btn-success btn-block text-uppercase" type="button" id="btnvenregister" value="Register">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
     </div>
 
