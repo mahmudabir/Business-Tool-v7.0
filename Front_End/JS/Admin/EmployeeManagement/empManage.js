@@ -187,9 +187,11 @@ $(document).ready(function(){
                 if (xhr.status == 201) {
                     console.log("Added"); 
                     loadAllEmployees();
-                    alert("Employee `"+$("#username").val()+"` assigned.");      
+                    $("#insertMesg").removeAttr("hidden", "hidden");
+                    alert("Username: `"+$("#username").val()+"`\nPassword: 12345");      
                 }
                 else {
+                    $("#insertMesg").attr("hidden", "hidden");
                     alert("Check Username/Email."); 
                     console.log(xhr);
                 }
