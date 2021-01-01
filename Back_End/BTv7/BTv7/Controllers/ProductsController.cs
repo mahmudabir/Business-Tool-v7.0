@@ -191,5 +191,26 @@ namespace BTv7.Controllers
 
 
         //ENABLE AND DISABLE PRODUCTS
+        [Route("disable/vendor/{id}", Name = "DisableProduct")]
+        [BasicAuthentication]
+        public IHttpActionResult PutDisableProduct([FromUri] int id)
+        {
+            productDB.DisableProduct(id);
+
+            var product = productDB.GetProductByVendorID(id);
+
+            return Ok(product);
+        }
+
+        [Route("enable/vendor/{id}", Name = "EnableProduct")]
+        [BasicAuthentication]
+        public IHttpActionResult PutEnableProduct([FromUri] int id, [FromBody] Login login)
+        {
+            productDB.EnableProduct(id);
+
+            var product = productDB.GetProductByVendorID(id);
+
+            return Ok(product);
+        }
     }
 }

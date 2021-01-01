@@ -220,6 +220,31 @@ $(document).ready(function(){
 
 
     //Login Access Controlling
+    var EnableVendorProduct = function () {
+        $.ajax({
+            url: "https://localhost:44308/api/products/enable/vendor/"+$("#editid").val(),
+            method: "PUT",
+            header: "Content-Type:application/json",
+            /*data: {
+                id: $("#editloginid").val(),
+                username: $("#editusername").val(),
+                email: $("#editemail").val(),
+                mobile: $("#editcontact").val(),
+                userDesignationID: $("#editrole").val()
+            },*/
+            headers: {
+                'Authorization': 'Basic ' + localStorage.authUser,
+            },
+            complete: function (xhr, status) {
+                if (xhr.status == 200) {
+                    EnableVendorLogin();
+                } 
+                else {
+                    alert("Error Proccessing.");
+                }
+            }
+        });
+    }
     var EnableVendorLogin = function () {
         $.ajax({
             url: "https://localhost:44308/api/logins/enable/user/"+$("#editloginid").val(),
@@ -251,9 +276,34 @@ $(document).ready(function(){
         });
     }
     $("#btnactive").on("click",function(){
-        EnableVendorLogin();
+        EnableVendorProduct();
     });
 
+    var DisableVendorProduct = function () {
+        $.ajax({
+            url: "https://localhost:44308/api/products/disable/vendor/"+$("#editid").val(),
+            method: "PUT",
+            header: "Content-Type:application/json",
+            /*data: {
+                id: $("#editloginid").val(),
+                username: $("#editusername").val(),
+                email: $("#editemail").val(),
+                mobile: $("#editcontact").val(),
+                userDesignationID: $("#editrole").val()
+            },*/
+            headers: {
+                'Authorization': 'Basic ' + localStorage.authUser,
+            },
+            complete: function (xhr, status) {
+                if (xhr.status == 200) {
+                    DisbaleVendorLogin();
+                } 
+                else {
+                    alert("Error Proccessing.");
+                }
+            }
+        });
+    }
     var DisbaleVendorLogin = function () {
         $.ajax({
             url: "https://localhost:44308/api/logins/disable/user/"+$("#editloginid").val(),
@@ -283,7 +333,7 @@ $(document).ready(function(){
         });
     }
     $("#btndeactive").on("click",function(){
-        DisbaleVendorLogin();
+        DisableVendorProduct();
     });
 
 });
