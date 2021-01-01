@@ -149,47 +149,71 @@ $(document).ready(function(){
         }
 
     var updateLoginDetails = function () {
-        $.ajax({
-            url: "https://localhost:44308/api/logins/update/employeeID/"+localStorage.userId,
-            method: "PUT",
-            header: "Content-Type:application/json",
-            data: {
-                id: localStorage.userId,
-                username: $("#editusername").val(),
-                email: $("#editemail").val(),
-                mobile: $("#editmobile").val(),
-                userDesignationID: sessionStorage.userDesignationID,
-                
-            },
-            headers: {
-                'Authorization': 'Basic ' + localStorage.authUser,
-            },
-            complete: function (xhr, status) {
-                if (xhr.status == 200) {
+        if ($("#editname").val() != "" && $("#editemail").val() != "" && $("#editmobile").val() != "")
+        {
+            $.ajax({
+                url: "https://localhost:44308/api/logins/update/employeeID/"+localStorage.userId,
+                method: "PUT",
+                header: "Content-Type:application/json",
+                data: {
+                    id: localStorage.userId,
+                    username: $("#editusername").val(),
+                    email: $("#editemail").val(),
+                    mobile: $("#editmobile").val(),
+                    userDesignationID: sessionStorage.userDesignationID,
                     
-                    if(localStorage.userRole!=5)
-                    {
-                        updateEmployeeDetails();
-                        sessionStorage.clear();
-                        $("#msg").html("<div class=\"alert alert-success\" role=\"alert\">Succssfully Update User Info</div>");
+                },
+                headers: {
+                    'Authorization': 'Basic ' + localStorage.authUser,
+                },
+                complete: function (xhr, status) {
+                    if (xhr.status == 200) {
+                        
+                        if(localStorage.userRole!=5)
+                        {
+                            updateEmployeeDetails();
+                            sessionStorage.clear();
+                            $("#msg").html("<div class=\"alert alert-success\" role=\"alert\">Succssfully Update User Info</div>");
+                        }
+                        else
+                        {
+                            updateCustomerDetails();
+                            sessionStorage.clear();
+                            $("#msg").html("<div class=\"alert alert-success\" role=\"alert\">Succssfully Update User Info</div>");
+                        }
+                    } 
+                    else {
+                        alert("Something Went Wrong.");
                     }
-                    else
-                    {
-                        updateCustomerDetails();
-                        sessionStorage.clear();
-                        $("#msg").html("<div class=\"alert alert-success\" role=\"alert\">Succssfully Update User Info</div>");
-                    }
-                } 
-                else {
-                    alert("Something Went Wrong.");
                 }
+            });
+        }
+        else
+        {
+            if ($("#editname").val() == "") {
+                $("#msg1").html("*This Field Can't be Empty");
             }
-        });
+            if ($("#editemail").val() == "") {
+                $("#msg2").html("*This Field Can't be Empty");
+            }
+            if ($("#editmobile").val() == "") {
+                $("#msg3").html("*This Field Can't be Empty");
+            }
+        }
+        
     }
     $("#btnsave").on("click",function(){
         updateLoginDetails();
     });
-
+    $("#editname").keyup(function () {
+        $("#msg1").hide();
+    })
+    $("#editemail").keyup(function () {
+        $("#msg2").hide();
+    })
+    $("#editmobile").keyup(function () {
+        $("#msg3").hide();
+    })
 
         // update profile info
         
