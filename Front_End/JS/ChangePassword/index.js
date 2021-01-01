@@ -61,10 +61,13 @@ $(document).ready(function(){
                     var data = xhr.responseJSON;
                     console.log(data);
                     sessionStorage.pass = data.password;
-                    sessionStorage.mobile = data.mobile;
-                    sessionStorage.email = data.email;
-                    sessionStorage.userDesignationID=data.employees[0].login.userDesignationID;
-                    //console.log(data.employees[0].login.userDesignationID);
+                    console.log(sessionStorage.pass);
+                    // sessionStorage.mobile = data.mobile;
+                    // sessionStorage.email = data.email;
+                    // console.log(sessionStorage.mobile);
+                    // console.log(sessionStorage.email);
+                    // sessionStorage.userDesignationID=data.employees[0].login.userDesignationID;
+                    // console.log(data.employees[0].login.userDesignationID);
                 }
                 else {
                     alert("Something Went Wrong.");
@@ -74,39 +77,89 @@ $(document).ready(function(){
     }
     getPasswordFromLogin();
 
-    var updateLoginPassword = function () {
+    var loadLogout = function () {
         $.ajax({
-            url: "https://localhost:44308/api/logins/update/employeeID/"+localStorage.userId,
-            method: "PUT",
-            header: "Content-Type:application/json",
-            data: {
-                id: localStorage.userId,
-                username: localStorage.username,
-                password: $("#newpass").val(),
-                userDesignationID: sessionStorage.userDesignationID,
-                
-            },
+            url: "https://localhost:44308/api/logins/logout",
+            method: "GET",
             headers: {
                 'Authorization': 'Basic ' + localStorage.authUser,
             },
-            complete: function (xhr, status) {
-                if($("#oldpass").val()==localStorage.pass)
+            complete: function (xmlhttp, status) {
+                if (xmlhttp.status == 200) {
+                    console.log("Logout Success");
+                    localStorage.clear();
+                    sessionStorage.clear();
+                    console.log(localStorage.user);
+                    window.location.href = "http://localhost/Business-Tool-v7.0-api/Front_End/Html/Login/";
+                } else {
+                    $("#msg").html("<div class=\"alert alert-danger\" role=\"alert\">Error : " + xmlhttp.status + ":" + xmlhttp.statusText + "</div>");
+                }
+            }
+        })
+    }
+    
+    var updateLoginPassword = function () {
+        if ($("#oldpass").val() != "" && $("#newpass").val() != "" && $("#confirmnewpass").val() != "")
+        {
+            if($("#oldpass").val()==sessionStorage.pass)
+            {
+                if($("#newpass").val()==$("#confirmnewpass").val())
                 {
-                    if (xhr.status == 200) {
-                        $("#msg").html("<div class=\"alert alert-success\" role=\"alert\">Password Updated</div>");
-                       
-                    } 
-                    else {
-                        alert("Something Went Wrong.");
-                    }
+                    $.ajax({
+                        url: "https://localhost:44308/api/logins/update/password/"+localStorage.userId,
+                        method: "PUT",
+                        header: "Content-Type:application/json",
+                        data: {
+                            id: localStorage.userId,
+                            password: $("#confirmnewpass").val(),
+                        },
+                        headers: {
+                            'Authorization': 'Basic ' + localStorage.authUser,
+                        },
+                        complete: function (xhr, status) {
+                            if (xhr.status == 200) {
+                                $("#msg").html("<div class=\"alert alert-success\" role=\"alert\">Password Updated</div>");
+                                loadLogout();
+                            } 
+                            else {
+                                alert("Something Went Wrong.");
+                            }
+                        }
+                    });
                 }
                 else
                 {
-                    alert("Wrong Old Password");
+                    alert("New Password & Confirm Password Doesn't match")
                 }
             }
-        });
+            else
+            {
+                alert("Wrong Old Password");
+            }
+        }
+        else
+        {
+            if ($("#oldpass").val() == "") {
+                $("#msg1").html("*This Field Can't be Empty");
+            }
+            if ($("#newpass").val() == "") {
+                $("#msg2").html("*This Field Can't be Empty");
+            }
+            if ($("#confirmnewpass").val() == "") {
+                $("#msg3").html("*This Field Can't be Empty");
+            }
+        }
     }
+
+    $("#oldpass").keyup(function () {
+        $("#msg1").hide();
+    })
+    $("#newpass").keyup(function () {
+        $("#msg2").hide();
+    })
+    $("#confirmnewpass").keyup(function () {
+        $("#msg3").hide();
+    })
     $("#btnconfirm").on("click",function(){
         updateLoginPassword();
     });

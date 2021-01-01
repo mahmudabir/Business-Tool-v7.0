@@ -52,6 +52,19 @@ namespace BTv7.Controllers
             return Ok(login);
         }
 
+        [Route("update/password/{id}", Name = "PutLogin")]
+        [BasicAuthentication]
+        public IHttpActionResult PutLogin([FromUri] int id, [FromBody] Login login)
+        {
+            var com = loginDB.GetLoginByID(id);
+            login.ID = id;
+            login.AccessStatusID = com.AccessStatusID;
+            login.RegistrationStatusID = com.RegistrationStatusID;
+            loginDB.UpdatePassword(login);
+
+            return Ok(login);
+        }
+
 
         [Route("disable/user/{id}", Name = "DisableLogin")]
         [BasicAuthentication]

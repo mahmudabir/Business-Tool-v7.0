@@ -40,6 +40,14 @@ namespace BTv7.Repositories
             {
                 int noOfLoginRowAffected = login.Database.ExecuteSqlCommand("UPDATE Logins SET Email = '" + log.Email + "', Mobile = '" + log.Mobile + "', UserDesignationID = '" + log.UserDesignationID + "' WHERE ID = " + log.ID + ";");
             }
+        }        
+        
+        public void UpdatePassword(Login log)
+        {
+            using (var login = new BTv7DbContext())
+            {
+                int noOfLoginRowAffected = login.Database.ExecuteSqlCommand("UPDATE Logins SET Password = '" + log.Password +"' WHERE ID = " + log.ID + ";");
+            }
         }
 
         public void DisableLogin(Login log)
