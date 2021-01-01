@@ -105,7 +105,7 @@ namespace BTv7.Controllers
         }
 
         [Route("register", Name = "EmployeeRegistration")]
-        [BasicAuthentication]
+        [BasicAuthentication, Authorize(Roles = "VENDOR")]
         public IHttpActionResult PostRegister(Employee employee)
         {
             LoginRepository loginDB = new LoginRepository();
@@ -118,19 +118,19 @@ namespace BTv7.Controllers
             employee.LoginID = loginFromDB.ID;
 
             //employee.AddeddBy = 1;
-            /*if (ModelState.IsValid)
-            {*/
+            if (ModelState.IsValid)
+            {
                 employeeDB.Insert(employee);
 
                 string uri = Url.Link("GetEmployeeByLoginID", new { loginID = loginFromDB.ID });
 
                 return Created(uri, employee);
-            /*}
+            }
             else
             {
                 return BadRequest(ModelState);
-            }*/
-        }
+    }
+}
 
         [Route("{id}", Name = "GetEmployeeByID")]
         [BasicAuthentication]//, Authorize(Roles = "ADMIN,MANAGER,SALESMAN,DELIVERYMAN")]

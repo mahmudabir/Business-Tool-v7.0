@@ -161,7 +161,7 @@ $(document).ready(function () {
             complete: function (xhr, status) {
                 if ($("#regname").val() != "" && $("#regemail").val() != "" && $("#regmobile").val() != "" && $("#regusername").val() != "" && $("#regpassword").val() != "") {
                     if (xhr.status == 201) {
-                        console.log("Login Table Data insert Success");
+                        console.log("Login For Customer Table Data insert Success");
                         insertInCustomer();
                     }
                     else {
@@ -189,32 +189,76 @@ $(document).ready(function () {
 
     // vendor register
 
-    // var insertInEmployee = function () {
-    //     $.ajax({
-    //         url: "https://localhost:44308/api/employees/register",
-    //         method: "POST",
-    //         data: {
-    //             name: $("#regname").val(),
-    //             //joinDate: "1-1-1",
-    //             joinDate: "1-1-1"
-    //         },
-    //         headers: {
-    //             'Authorization': 'Basic ' + btoa($("#regusername").val() + ":" + $("#regpassword").val()),
-    //         },
-    //         complete: function (xhr2, status) {
-    //             if (xhr2.status == 201) {
-    //                 console.log("Customer Table Data insert Success");
+    var insertInEmployee = function () {
+        $.ajax({
+            url: "https://localhost:44308/api/employees/register",
+            method: "POST",
+            data: {
+                name: $("#venregname").val(),
+                //joinDate: "1-1-1",
+                joinDate: "1-1-1"
+            },
+            headers: {
+                'Authorization': 'Basic ' + btoa($("#venregusername").val() + ":" + $("#venregpassword").val()),
+            },
+            complete: function (xhr2, status) {
+                if (xhr2.status == 201) {
+                    console.log("Employees Table Data insert Success");
 
-    //                 $("#msg").html("<div class=\"alert alert-primary\" role=\"alert\">Successfully Registered</div>");
-    //             }
-    //             else {
-    //                 console.log(xhr2);
-    //                 //$("#msg").html("<div class=\"alert alert-danger\" role=\"alert\">Error : " + xhr.responseJSON.message + "</div>");
-    //             }
-    //         }
-    //     });
-    // }
+                    $("#msg").html("<div class=\"alert alert-primary\" role=\"alert\">Successfully Registered</div>");
+                }
+                else {
+                    console.log(xhr2);
+                    //$("#msg").html("<div class=\"alert alert-danger\" role=\"alert\">Error : " + xhr.responseJSON.message + "</div>");
+                }
+            }
+        });
+    }
 
+    var loadVendorRegister = function () {
+        $.ajax({
+            url: "https://localhost:44308/api/logins/register",
+            method: "POST",
+            data: {
+                email: $("#venregemail").val(),
+                mobile: $("#venregmobile").val(),
+                username: $("#venregusername").val(),
+                password: $("#venregpassword").val(),
+                accessStatusId: "2",
+                registrationStatusId: "1",
+                userDesignationId: "6"
+            },
+            headers: {
+                'Authorization': 'Basic ' + btoa($("#venregusername").val() + ":" + $("#venregpassword").val()),
+            },
+            complete: function (xhr, status) {
+                if ($("#venregname").val() != "" && $("#venregemail").val() != "" && $("#venregmobile").val() != "" && $("#venregusername").val() != "" && $("#venregpassword").val() != "") {
+                    if (xhr.status == 201) {
+                        console.log("Login For Employees Table Data insert Success");
+                        insertInEmployee();
+                    }
+                    else {
+                        console.log(xhr);
+                    }
+                }
+                else {
+                    if ($("#venregname").val() == "") {
+                        $("#msg6").html("*Full Name Can't be Empty");
+                    }
+                    if ($("#venregemail").val() == "") {
+                        $("#msg7").html("*Email Can't be Empty");
+                    }
+                    if ($("#venregmobile").val() == "") {
+                        $("#msg8").html("*Mobile No. Can't be Empty");
+                    } if ($("#venregusername").val() == "") {
+                        $("#msg9").html("*Username Can't be Empty");
+                    } if ($("#venregpassword").val() == "") {
+                        $("#msg10").html("*password Can't be Empty");
+                    }
+                }
+            }
+        });
+    }
 
 
 
@@ -241,12 +285,37 @@ $(document).ready(function () {
     $("#regpassword").keyup(function () {
         $("#msg5").hide();
     })
+    $("#venregname").keyup(function () {
+        $("#msg6").hide();
+    })
+    $("#venregemail").keyup(function () {
+        $("#msg7").hide();
+    })
+    $("#venregmobile").keyup(function () {
+        $("#msg8").hide();
+    })
+    $("#venregusername").keyup(function () {
+        $("#msg9").hide();
+    })
+    $("#venregpassword").keyup(function () {
+        $("#msg10").hide();
+    })
 
     $("#btnlogin").click(function () {
         loadLogin();
+
     });
     $("#btnregister").click(function () {
         loadRegister();
+        // $("#divregister").hide();
+        // $("#divregistervendor").hide();
+        // $("#divlogin").show();
+    });    
+    $("#btnvenregister").click(function () {
+        loadVendorRegister();
+        // $("#divregister").hide();
+        // $("#divregistervendor").hide();
+        // $("#divlogin").show();
     });
 
     //$("#btnlogin2").click(function () {
