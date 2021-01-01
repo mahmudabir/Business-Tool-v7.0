@@ -46,14 +46,13 @@ namespace BTv7.Models
                 errors.Add(new ValidationResult($"{nameof(Quantity)} cannot be a negative value.", new List<string> { nameof(Quantity) }));
             }
 
-            if (Order.CustomerID != 0)
-            {
-                var cartFromDB = db.GetAll().Where(x => x.OrderID == OrderID && x.ProductID == ProductID).ToList();
 
-                if (cartFromDB.Count != 0)
-                {
-                    errors.Add(new ValidationResult($"Item Already Exists in the Cart."));
-                }
+
+            var cartFromDB = db.GetAll().Where(x => x.OrderID == OrderID && x.ProductID == ProductID).ToList();
+
+            if (cartFromDB.Count != 0)
+            {
+                errors.Add(new ValidationResult($"Item Already Exists in the Cart."));
             }
 
 
