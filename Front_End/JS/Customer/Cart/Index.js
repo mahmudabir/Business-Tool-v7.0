@@ -53,9 +53,9 @@ $(document).ready(function () {
                                 + "</div>"
                                 + "<div>"
                                 + "<div class=\"def-number-input number-input safari_only mb-0 w-100\">"
-                                + "<button onclick=\"this.parentNode.querySelector('input[type=number]').stepDown()\"  minus=\"" + data[i].id + "\"  class=\"btn btn-outline-danger text-black-50 minus\"><i class=\"fas fa-minus\"></i></button>"
+                                + "<button onclick=\"this.parentNode.querySelector('input[type=number]').stepDown()\"  minus=\"" + data[i].id + "\" productID=\"" + data[i].productID + "\" orderID=\"" + data[i].orderID + "\"  class=\"btn btn-outline-danger text-black-50 minus\"><i class=\"fas fa-minus\"></i></button>"
                                 + "<input class=\"quantity\" id=\"" + data[i].id + "\" min=\"0\" max=\"" + data[i].product.quantity + "\" name=\"quantity\" value=\"" + parseInt(data[i].quantity) + "\" type=\"number\" style=\"width: 70px; font-size: 18px;\" readonly>"
-                                + "<button onclick=\"this.parentNode.querySelector('input[type=number]').stepUp()\"  plus=\"" + data[i].id + "\"  class=\"btn btn-outline-success text-black-50 plus\"><i class=\"fas fa-plus\"></i></button>"
+                                + "<button onclick=\"this.parentNode.querySelector('input[type=number]').stepUp()\"  plus=\"" + data[i].id + "\" productID=\"" + data[i].productID + "\" orderID=\"" + data[i].orderID + "\"  class=\"btn btn-outline-success text-black-50 plus\"><i class=\"fas fa-plus\"></i></button>"
                                 + "</div>"
                                 + "<small id=\"availableNumber\" class=\"form-text text-muted text-center\">"
                                 + "Max: " + data[i].product.quantity + " pcs"
@@ -92,9 +92,9 @@ $(document).ready(function () {
                                 + "</div>"
                                 + "<div>"
                                 + "<div class=\"def-number-input number-input safari_only mb-0 w-100\">"
-                                + "<button onclick=\"this.parentNode.querySelector('input[type=number]').stepDown()\" minus=\"" + data[i].id + "\" class=\"btn btn-outline-danger text-black-50 minus\"><i class=\"fas fa-minus\"></i></button>"
+                                + "<button onclick=\"this.parentNode.querySelector('input[type=number]').stepDown()\" minus=\"" + data[i].id + "\" productID=\"" + data[i].productID + "\" orderID=\"" + data[i].orderID + "\" class=\"btn btn-outline-danger text-black-50 minus\"><i class=\"fas fa-minus\"></i></button>"
                                 + "<input class=\"quantity\" id=\"" + data[i].id + "\" min=\"0\" max=\"" + data[i].product.quantity + "\" name=\"quantity\" value=\"" + parseInt(data[i].quantity) + "\" type=\"number\" style=\"width: 70px; font-size: 18px;\" readonly>"
-                                + "<button onclick=\"this.parentNode.querySelector('input[type=number]').stepUp()\"  plus=\"" + data[i].id + "\" class=\"btn btn-outline-success text-black-50 plus\"><i class=\"fas fa-plus\"></i></button>"
+                                + "<button onclick=\"this.parentNode.querySelector('input[type=number]').stepUp()\"  plus=\"" + data[i].id + "\" productID=\"" + data[i].productID + "\" orderID=\"" + data[i].orderID + "\" class=\"btn btn-outline-success text-black-50 plus\"><i class=\"fas fa-plus\"></i></button>"
                                 + "</div>"
                                 + "<small id=\"availableNumber\" class=\"form-text text-muted text-center\">"
                                 + "Max: " + data[i].product.quantity + " pcs"
@@ -125,8 +125,13 @@ $(document).ready(function () {
 
 
                     $(".plus").click(function () {
-                        console.log($("#" + $(this).attr("plus")).val());
+                        console.log("Quantity: " + $("#" + $(this).attr("plus")).val());
+                        console.log("CartID: " + $(this).attr("plus"));
+                        console.log("OrderID: " + $(this).attr("orderId"));
+                        console.log("ProductID: " + $(this).attr("productID"));
+                        console.log("");
                     });
+
 
                     $(".minus").click(function () {
 
@@ -141,7 +146,11 @@ $(document).ready(function () {
                             }
                         }
                         else {
-                            console.log($("#" + $(this).attr("minus")).val());
+                            console.log("Quantity: " + $("#" + $(this).attr("minus")).val());
+                            console.log("CartID: " + $(this).attr("minus"));
+                            console.log("OrderID: " + $(this).attr("orderId"));
+                            console.log("ProductID: " + $(this).attr("productID"));
+                            console.log("");
                         }
                     });
 
