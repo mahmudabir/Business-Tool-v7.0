@@ -4,14 +4,15 @@ $(document).ready(function () {
     }
 
 
-
-
+    //if ($("#cartTotal").val() <= 0) {
+    //    $("#btnCeckout").attr("disabled", "disabled");
+    //}
 
 
     var updateOrder = function () {
         $("#msg").removeAttr("hidden");
         $.ajax({
-            url: "https://localhost:44308/api/orders/" + sessionStorage.oid,
+            url: "https://localhost:44308/api/orders/update_amount/" + sessionStorage.oid,
             method: "PUT",
             data: {
                 id: sessionStorage.oid,
@@ -60,9 +61,11 @@ $(document).ready(function () {
             },
             complete: function (xhr, status) {
                 if (xhr.status == 200) {
-                    loadCart();
+                    //$("#cartMemo").html("");
+
+                    //loadCart();
                     updateOrder();
-                    loadOrder();
+                    //loadOrder();
                 } else {
                     $("#msg").html("<div class=\"alert alert-primary\" role=\"alert\">Error : Could not update the Item.</div>");
                 }
@@ -87,9 +90,10 @@ $(document).ready(function () {
             },
             complete: function (xhr, status) {
                 if (xhr.status == 204) {
-                    loadCart();
+                    $("#cartMemo").html("");
+                    //loadCart();
                     updateOrder();
-                    loadOrder();
+                    //loadOrder();
                     $("#msg").html("<div class=\"alert alert-primary\" role=\"alert\">Item removed from your cart.</div>");
                     alert("Item Removed.");
 
@@ -395,16 +399,33 @@ $(document).ready(function () {
                     console.log("Order OrderStatusID: " + sessionStorage.oorderStatusID);
                     console.log("Order SellBy: " + sessionStorage.osellBy);
 
-                    var cartTotal = "<li class=\"list-group-item d-flex justify-content-between\">"
-                        + "<span>Total (BDT)</span>"
-                        + "<strong>" + data.totalAmount + "</strong>"
-                        + "</li>";
+                    //var cartTotal = "<li class=\"list-group-item d-flex justify-content-between\">"
+                    //    + "<span>Total (BDT)</span>"
+                    //    + "<strong>" + data.totalAmount + "</strong>"
+                    //    + "</li>";
 
 
 
 
                     loadCart();
-                    $("#cartTotal").html(cartTotal);
+                    $("#cartTotal").text(data.totalAmount);
+
+                    $("#btnCeckout").click(function () {
+                        if ($("#cartTotal").text() <= 0) {
+                            console.log("Value is \"" + $("#cartTotal").text() + "\", which is less than or equal to zero.");
+                            alert("You don't have anything to checkout.");
+                        } else {
+                            console.log("Value is " + $("#cartTotal").text() + ", which is greater than zero.");
+
+                            $.ajax({
+                                url: "https://localhost:44308/api/customers/" + localStorage.cid + "/orders/saletype/1/orderstatus/6/notissold",
+                                method: "PUT",
+
+                            });
+
+                        }
+                    });
+
 
 
                 } else if (xhr.status == 204) {

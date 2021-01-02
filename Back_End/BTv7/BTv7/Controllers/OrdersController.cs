@@ -69,7 +69,7 @@ namespace BTv7.Controllers
 
 
 
-        [Route("{id}", Name = "PutOrderByID")]
+        [Route("update_amount/{id}", Name = "PutOrderByID")]
         [BasicAuthentication]
         public IHttpActionResult Put(int id, Order order)
         {
