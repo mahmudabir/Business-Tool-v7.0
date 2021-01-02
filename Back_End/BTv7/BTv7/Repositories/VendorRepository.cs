@@ -18,6 +18,11 @@ namespace BTv7.Repositories
             return this.context.Set<Vendor>().Where(x => x.ID == id).ToList();
         }
 
+        public Vendor GetVendorByLoginID(int loginID)
+        {
+            List<Vendor> userFromDB = this.GetAll();
+            return userFromDB.FirstOrDefault(x => x.LoginID.Equals(loginID));
+        }
 
     }
 }

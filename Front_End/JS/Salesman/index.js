@@ -1,5 +1,27 @@
 $(document).ready(function(){
 
+	if (localStorage.authUser == null) {
+
+        window.location.href = "../Login/Index.html";
+    }
+
+    else if(localStorage.userRole  == 1){
+    	window.location.href = "../Admin/";
+    }
+
+    else if(localStorage.userRole  == 2){
+    	window.location.href = "../Manager/";
+    }
+    else if(localStorage.userRole  == 4){
+    	window.location.href = "../Deliveryman/";
+    }
+    else if(localStorage.userRole  == 5){
+    	window.location.href = "../Customer/";
+    }
+    else if(localStorage.userRole  == 6){
+    	window.location.href = "../Vendor/";
+    }
+
 	$("#div7").animate({right:"10px"},800,function(){
 	$("#div6").animate({right:"40px"},800,function(){
 	$("#div5").animate({right:"80px"},800,function(){

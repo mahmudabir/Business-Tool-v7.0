@@ -13,9 +13,28 @@ $(document).ready(function(){
 	var totalAmount=0;
 	var orderTotalAmount=0;
 	var cartamount=0;
-	if (localStorage.authUser == null || localStorage.userRole!=3) {
+	var tAmount=0;
+	var dataCartList;
+	if (localStorage.authUser == null) {
 
         window.location.href = "../Login/Index.html";
+    }
+
+    else if(localStorage.userRole  == 1){
+    	window.location.href = "../Admin/";
+    }
+
+    else if(localStorage.userRole  == 2){
+    	window.location.href = "../Manager/";
+    }
+    else if(localStorage.userRole  == 4){
+    	window.location.href = "../Deliveryman/";
+    }
+    else if(localStorage.userRole  == 5){
+    	window.location.href = "../Customer/";
+    }
+    else if(localStorage.userRole  == 6){
+    	window.location.href = "../Vendor/";
     }
 
 
@@ -70,8 +89,9 @@ $("#productList").on("click","#cell",function(){
 	
 	if(clickedRow!=""){
 	if(OrderclickedRow!=""){
+	if(buyQuantity!=""){
 	if(parseInt(buyQuantity)<=parseInt(quan)){
-	if(buyQuantity!="" && buyQuantity>0)
+	 if(buyQuantity>0)
 	{
 		var msg="This Product will be added as";
 		if(confirm(msg+"..................                                                  "+                                                        
@@ -80,21 +100,25 @@ $("#productList").on("click","#cell",function(){
 		}
 	}
 	else{
-		confirm("No quantity is Added!! Add some quantity First");
+		alert("Quantity Must be greater than 0");
 	}
 
 	}
 	else{
-		confirm("Quantity can't be greater than available");
+		alert("Quantity can't be greater than available");
+	}
+	}
+	else{
+		alert("No quantity is Added!! Add some quantity First");
 	}
 	}
 
 	else{
-		confirm("No Cart is Sellected!! Select a Cart First");
+		alert("No Cart is Sellected!! Select a Cart First");
 	}
    	}
    	else{
-		confirm("No Product is Sellected!! Select a A First");
+		alert("No Product is Sellected!! Select a A First");
 	}
    
 });
@@ -130,7 +154,7 @@ var listOrder=function(){
 				}
 				else
 				{	
-					$("#orderList tbody").html("No data");
+					$("#orderList tbody").html("No cart is available");
 				}
 
 			}
@@ -142,7 +166,9 @@ $("#orderList").on("click","#Ordercell",function(){
 	var btn=$(this);
 	OrderclickedRow=btn.attr("btn-id-order");
 	valueOfK=btn.attr("btn-k-val");
+	$("#cartList").fadeIn(1000);
 	orderCartShow();
+
    
 });
 
@@ -191,13 +217,15 @@ var orderCartShow=function(){
 						
 						break;
 				}
-				
+					
 					$("#cartList tbody").html(str);
 					$("#cartList thead").html(head);
 
 				}
 				else
 				{	
+					var head="<tr id='th'><th><span style='color:White;''>#OrderCART "+OrderclickedRow+"</span></th></tr>"
+					$("#cartList thead").html(head);
 					$("#cartList tbody").html("No data");
 				}
 
@@ -248,42 +276,103 @@ var updateDataInTables=function(){
 	console.log(OrderclickedRow);
 	console.log(clickedRow);
 
-   	$.ajax({
-
-		url:"https://localhost:44308/api/sellproducts",
-		method:"POST",
+	$.ajax({
+		url:"https://localhost:44308/api/sellproducts/orderCartproduct/"+OrderclickedRow+"/"+clickedRow,
+		method:"GET",
 		headers:{
 				//Authorization:"Basic "+ btoa("4:4444")
 				'Authorization': 'Basic ' + localStorage.authUser
 		},
-		header:"Content-Type:application/json",
-		data:{
-			"quantity": buyQuantity,
-	        "cartAmount": cartamount,
-	        "orderID": OrderclickedRow,
-	        "productID": clickedRow
-		},
-
 		complete:function(xmlhttp,status){
-			var data=xmlhttp.responseJSON;
-			
-			if(xmlhttp.status==201)
-			{
-				
-				
-				productid=data.productID;
 
-				getTheProduct();
-			}
-			else
-			{
-				if(confirm(data.modelState.ordercart[0]+" If you want to increase quantity then press OK")){
+			if(xmlhttp.status==200){
+				var checkCartdata=xmlhttp.responseJSON;
+				if(checkCartdata.length!=0){
+					console.log("OKKKK now Put");
+				if(confirm("Item is Already exist in this cart....Do you want to increase the cart quantity?")){
+					$.ajax({
 
+					url:"https://localhost:44308/api/sellproducts/orderCartUpdate/"+checkCartdata[0].id,
+					method:"PUT",
+					headers:{
+							//Authorization:"Basic "+ btoa("4:4444")
+							'Authorization': 'Basic ' + localStorage.authUser
+					},
+					header:"Content-Type:application/json",
+					data:{
+						"id": checkCartdata[0].id,
+						"quantity": parseInt(checkCartdata[0].quantity) + parseInt(buyQuantity),
+				        "cartAmount": checkCartdata[0].cartAmount + cartamount,
+				        "orderID": OrderclickedRow,
+				        "productID": clickedRow
+					},
+
+					complete:function(xmlhttp,status){
+						var data=xmlhttp.responseJSON;
+						
+						if(xmlhttp.status==200)
+						{
+							
+							
+							productid=data.productID;
+
+							getTheProduct();
+						}
+						else
+						{
+							
+						}
+					}
+				});
+				}
 
 				}
+				else{
+					
+				}
+				
+
+			}
+			else{
+				console.log("OKKKK now Insert");
+				  	$.ajax({
+
+					url:"https://localhost:44308/api/sellproducts",
+					method:"POST",
+					headers:{
+							//Authorization:"Basic "+ btoa("4:4444")
+							'Authorization': 'Basic ' + localStorage.authUser
+					},
+					header:"Content-Type:application/json",
+					data:{
+						"quantity": buyQuantity,
+				        "cartAmount": cartamount,
+				        "orderID": OrderclickedRow,
+				        "productID": clickedRow
+					},
+
+					complete:function(xmlhttp,status){
+						var data=xmlhttp.responseJSON;
+						
+						if(xmlhttp.status==201)
+						{
+							
+							
+							productid=data.productID;
+
+							getTheProduct();
+						}
+						else
+						{
+						}
+					}
+				});
 			}
 		}
+
 	});
+
+ 
 	
 	
 }
@@ -339,47 +428,6 @@ var getTheProduct=function(){
 						orderCartShow();
 						listProduct();
 						
-						$.ajax({
-
-							url:"https://localhost:44308/api/sellproducts/"+OrderclickedRow+"/order",
-							method:"PUT",
-							headers:{
-									//Authorization:"Basic "+ btoa("4:4444")
-									'Authorization': 'Basic ' + localStorage.authUser
-							},
-							header:"Content-Type:application/json",
-							data:{
-										"id": OrderclickedRow,
-										"totalAmount": totalAmount,
-										"address": null,
-										
-										"customerID": null,
-										"customerName": null,
-										"saleTypeID": 2,
-										"isSold": false,
-										"orderStatusID": 2,
-										"sellBy": localStorage.username
-							},
-
-							complete:function(xmlhttp,status){
-								
-								
-								if(xmlhttp.status==200)
-								{
-									var data=xmlhttp.responseJSON;
-									console.log("Okkk from update order Table");
-									
-								}
-								else
-								{
-									
-								}
-							}
-						});
-
-
-
-
 					}
 					else
 					{
@@ -458,7 +506,7 @@ $("#search").keyup(function(){
 			
 				if(xmlhttp.status==200){
 					dataProduct=xmlhttp.responseJSON;
-					str="<tr  btn-id-product="+dataProduct.id+" btn-i-val="+0+"><td>"+dataProduct.id+"</td><td>"+dataProduct.name+"</td><td>"+dataProduct.quantity+"</td><td>"+dataProduct.sellPrice+"</td><td colspan='2'><button style='float:right' id='cell' btn-price-product="+dataProduct.sellPrice+" btn-id-product="+dataProduct.id+" class='btn btn-success btn-sm'>Select</td></tr>"	
+					str+="<tr  btn-id-product="+dataProduct.id+" btn-i-val="+0+"><td>"+dataProduct.id+"</td><td>"+dataProduct.name+"</td><td>"+dataProduct.quantity+"</td><td>"+dataProduct.sellPrice+"</td><td colspan='2'><button style='float:right' id='cell' btn-price-quantity="+dataProduct.quantity+" btn-price-product="+dataProduct.sellPrice+" btn-id-product="+dataProduct.id+" class='btn btn-success btn-sm'>Select</td></tr>"	
 					$("#productList tbody").html(str);
 				}
 				else
@@ -483,7 +531,7 @@ $("#cartList").on("click","#checkout",function(){
 	$("#orderList").hide();
 	$("#cartList").hide();
 	$("#checkList").fadeIn(1000);
-	console.log(OrderclickedRow);
+	
 	$.ajax({
 			url:"https://localhost:44308/api/sellproducts/orderCart/"+ OrderclickedRow,
 			method:"Get",
@@ -494,12 +542,13 @@ $("#cartList").on("click","#checkout",function(){
 				var checkStr;
 				var tAmount=0;
 				if(xmlhttp.status==200){
-					var dataCartList=xmlhttp.responseJSON;
+					dataCartList=xmlhttp.responseJSON;
 					for (var i = 0; i < dataCartList.length; i++) {
 						tAmount+=dataCartList[i].cartAmount;
-						checkStr+="<tr><td>"+dataCartList[i].productID+"</td><td>"+dataCartList[i].product.name+"</td><td>"+dataCartList[i].quantity+"</td><td>"+dataCartList[i].cartAmount+"</td><td><button style='float:right;' class='btn btn-danger btn-sm'>Delete</button></td></tr>"	
+						checkStr+="<tr><td>"+dataCartList[i].productID+"</td><td>"+dataCartList[i].product.name+"</td><td>"+dataCartList[i].quantity+"</td><td>"+dataCartList[i].cartAmount+"</td><td><button id='deleteFromCart' btn-id-I="+i+" btn-id-acutualQuant="+dataCartList[i].product.quantity+" btn-id-quant="+dataCartList[i].quantity+" btn-id-prodid="+dataCartList[i].productID+" style='float:right;' class='btn btn-danger btn-sm'>Delete</button></td></tr>"	
 					}
-					checkStr+="<tr id='th3'><td colspan='3'><b>Total Amount</b></td><td colspan=''><b>"+tAmount+"</b></td><td><button style='float:right;' class='btn btn-success btn-sm'>CheckOut</button></td></tr>"
+					sessionStorage.am = tAmount;
+					checkStr+="<tr id='th3'><td colspan='3'><b>Total Amount</b></td><td colspan=''><b>"+tAmount+"TK</b></td><td><button id='checkout' style='float:right;' class='btn btn-success btn-sm'>CheckOut</button></td></tr>"
 					$("#checkList tbody").html(checkStr);
 				}
 				else
@@ -513,5 +562,184 @@ $("#cartList").on("click","#checkout",function(){
 
 
 });
+
+
+$("#checkList").on("click","#back",function(){
+	listProduct();
+	listOrder();
+	$("#productList").fadeIn(1000);
+	$("#orderList").fadeIn(1000);
+	
+	$("#checkList").hide();
+
+});
+
+
+$("#checkList").on("click","#deleteFromCart",function(){
+	var button=$(this);
+	var proID=button.attr("btn-id-prodid");
+	var quant=button.attr("btn-id-quant");
+	var Actualquant=button.attr("btn-id-acutualQuant");
+	var index=button.attr("btn-id-I");
+	var upQuant= parseInt(quant) + parseInt(Actualquant);
+	console.log(quant);
+	console.log(dataCartList[index].product.quantity);
+	console.log(upQuant);
+	if(confirm("Are you sure to delete this item?")){
+				$.ajax({
+
+				url:"https://localhost:44308/api/sellproducts/"+proID+"/product",
+				method:"PUT",
+				headers:{
+						//Authorization:"Basic "+ btoa("4:4444")
+						'Authorization': 'Basic ' + localStorage.authUser
+				},
+				header:"Content-Type:application/json",
+				data:{
+							"id": proID,
+							"name": dataCartList[index].product.name,
+							"quantity": upQuant,
+							
+							"buyPrice": dataCartList[index].product.buyPrice,
+							"sellPrice": dataCartList[index].product.sellPrice,
+							"image": dataCartList[index].product.image,
+							
+							//"productType": productdata.productType,
+							"productTypeID": dataCartList[index].product.productTypeID,
+							"productStatus": dataCartList[index].product.productStatus,
+							"productStatusID": dataCartList[index].product.productStatusID,
+							
+							"vendorID": dataCartList[index].product.vendorID,
+							
+							"modifiedBy": dataCartList[index].product.modifiedBy
+				},
+
+				complete:function(xmlhttp,status){
+					
+					
+					if(xmlhttp.status==200)
+					{	
+						$.ajax({
+
+							url:"https://localhost:44308/api/sellproducts/deleteProduct/"+dataCartList[index].id,
+							method:"DELETE",
+							headers:{
+									//Authorization:"Basic "+ btoa("4:4444")
+									'Authorization': 'Basic ' + localStorage.authUser
+							},
+
+							complete:function(xmlhttp,status){
+								var data=xmlhttp.responseJSON;
+								
+								if(xmlhttp.status==204)
+								{
+									console.log("okk");
+									$.ajax({
+									url:"https://localhost:44308/api/sellproducts/orderCart/"+ OrderclickedRow,
+									method:"Get",
+									headers:{
+										'Authorization': 'Basic ' + localStorage.authUser
+								},
+									complete:function(xmlhttp,status){
+										var checkStr;
+										var tAmount=0;
+										if(xmlhttp.status==200){
+											dataCartList=xmlhttp.responseJSON;
+											for (var i = 0; i < dataCartList.length; i++) {
+												tAmount+=dataCartList[i].cartAmount;
+												
+												checkStr+="<tr><td>"+dataCartList[i].productID+"</td><td>"+dataCartList[i].product.name+"</td><td>"+dataCartList[i].quantity+"</td><td>"+dataCartList[i].cartAmount+"</td><td><button id='deleteFromCart' btn-id-I="+i+" btn-id-acutualQuant="+dataCartList[i].product.quantity+" btn-id-quant="+dataCartList[i].quantity+" btn-id-prodid="+dataCartList[i].productID+" style='float:right;' class='btn btn-danger btn-sm'>Delete</button></td></tr>"	
+											}
+											sessionStorage.am = tAmount;
+											checkStr+="<tr id='th3'><td colspan='3'><b>Total Amount</b></td><td colspan=''><b>"+tAmount+"TK</b></td><td><button btn-id-tquant="+tAmount+" id='checkout' style='float:right;' class='btn btn-success btn-sm'>CheckOut</button></td></tr>"
+											$("#checkList tbody").html(checkStr);
+											
+										}
+										else
+										{
+											
+											$("#checkList tbody").html("");
+										}
+										
+									}
+											
+								});
+									
+								}
+								else
+								{
+									console.log("error");
+								}
+							}
+						});
+					}
+					else{
+						console.log("Error");
+					}
+
+				}
+
+			});
+		}
+
+});
+
+
+
+$("#checkList").on("click","#checkout",function(){
+	
+      console.log("Total Amount: " + sessionStorage.am);
+ if(confirm("The order Cart will be checkedout")){
+							$.ajax({
+
+							url:"https://localhost:44308/api/sellproducts/"+OrderclickedRow+"/order",
+							method:"PUT",
+							headers:{
+									//Authorization:"Basic "+ btoa("4:4444")
+									'Authorization': 'Basic ' + localStorage.authUser
+							},
+							header:"Content-Type:application/json",
+							data:{
+										"id": OrderclickedRow,
+										"totalAmount": sessionStorage.am,
+										"address": null,
+										
+										"customerID": null,
+										"customerName": null,
+										"saleTypeID": 2,
+										"isSold": true,
+										"orderStatusID": 5,
+										"sellBy": localStorage.username
+							},
+
+							complete:function(xmlhttp,status){
+								
+								
+								if(xmlhttp.status==200)
+								{
+									var data=xmlhttp.responseJSON;
+									$("#checkList tbody").html("");
+									listProduct();
+									listOrder();
+									$("#productList").fadeIn(1000);
+									$("#orderList").fadeIn(1000);
+									OrderclickedRow="";
+									$("#checkList").hide();
+									
+								}
+								else
+								{
+									
+								}
+							}
+						});
+	}
+
+});
+
+
+
+
+
 
 });
