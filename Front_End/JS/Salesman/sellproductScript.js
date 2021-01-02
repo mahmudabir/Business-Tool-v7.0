@@ -10,6 +10,9 @@ $(document).ready(function(){
 	var buyQuantity;
 	var updatedQuantity;
 	var dataCart;
+	var totalAmount=0;
+	var orderTotalAmount=0;
+	var cartamount=0;
 	if (localStorage.authUser == null || localStorage.userRole!=3) {
 
         window.location.href = "../Login/Index.html";
@@ -19,7 +22,7 @@ $(document).ready(function(){
 //Starts Get All users connected in chat
 console.log("ok");
 var listProduct=function(){
-	
+	$("#checkList").hide();
 
 	$.ajax({
 		url:"https://localhost:44308/api/sellproducts/availableproducts",
@@ -37,7 +40,7 @@ var listProduct=function(){
 				
 				for (var i = 0; i < dataProduct.length; i++) {
 					
-					str+="<tr  btn-id-product="+dataProduct[i].id+" btn-i-val="+i+"><td>"+dataProduct[i].id+"</td><td>"+dataProduct[i].name+"</td><td>"+dataProduct[i].quantity+"</td><td>"+dataProduct[i].sellPrice+"</td><td colspan='2'><button style='float:right' id='cell' btn-price-product="+dataProduct[i].sellPrice+" btn-id-product="+dataProduct[i].id+" class='btn btn-success btn-sm'>Select</td></tr>"	
+					str+="<tr  btn-id-product="+dataProduct[i].id+" btn-i-val="+i+"><td>"+dataProduct[i].id+"</td><td>"+dataProduct[i].name+"</td><td>"+dataProduct[i].quantity+"</td><td>"+dataProduct[i].sellPrice+"</td><td colspan='2'><button style='float:right' id='cell' btn-price-quantity="+dataProduct[i].quantity+" btn-price-product="+dataProduct[i].sellPrice+" btn-id-product="+dataProduct[i].id+" class='btn btn-success btn-sm'>Select</td></tr>"	
 				}
 					$("#productList tbody").html(str);
 				}
@@ -59,17 +62,16 @@ $("#productList").on("click","#cell",function(){
 	clickedRow=button.attr("btn-id-product");
 	price=button.attr("btn-price-product");
 	valueOfI=button.attr("btn-i-val");
-   
-});
-
-$("#productList").on("click","#addToCart",function(){
+   	var quan=button.attr("btn-price-quantity");
+    buyQuantity=$("#buyQuantity").val();
 	
 
-	buyQuantity=$("#buyQuantity").val();
+	
 	
 	if(clickedRow!=""){
 	if(OrderclickedRow!=""){
-	if(buyQuantity!="")
+	if(parseInt(buyQuantity)<=parseInt(quan)){
+	if(buyQuantity!="" && buyQuantity>0)
 	{
 		var msg="This Product will be added as";
 		if(confirm(msg+"..................                                                  "+                                                        
@@ -81,6 +83,10 @@ $("#productList").on("click","#addToCart",function(){
 		confirm("No quantity is Added!! Add some quantity First");
 	}
 
+	}
+	else{
+		confirm("Quantity can't be greater than available");
+	}
 	}
 
 	else{
@@ -158,12 +164,12 @@ var orderCartShow=function(){
 			if(xmlhttp.status==200){
 				dataCart=xmlhttp.responseJSON;
 				var str;
-				var totalAmount=0;
+				
 				var productNames="";
 				var head="<tr id='th'><th><span style='color:White;''>#OrderCART "+OrderclickedRow+"</span></th></tr>"
 				
 				for (var j = 0; j < dataCart.length; j++) {
-					
+					totalAmount=0;
 					
 
 					for (var k=0; k<dataCart.length; k++)
@@ -175,13 +181,14 @@ var orderCartShow=function(){
 								sepration="<br>"
 							}
 							totalAmount+=dataCart[k].cartAmount;
-							productNames+=dataCart[k].product.name+"= "+dataCart[k].cartAmount+" TK "+sepration;
+							productNames+=(k + 1)+")"+dataCart[k].product.name+": "+dataCart[k].quantity+"pieces "+dataCart[k].cartAmount+" TK "+sepration;
 						
 						}
 
-						str="<tr><td><b>Total Products: "+dataCart.length+"</b><br><b>Total Amount: "+totalAmount+"</b><br><b>ProductName:<br>"+productNames+"</b><br><br><button class='btn btn-danger btn-sm'>Go to Checkout</button></td></tr>"
+						str="<tr><td><b>Total Products: "+dataCart.length+"</b><br><b>ProductNames:<br>"+productNames+"</b><br><b style='color:red;'>Total Amount: "+totalAmount+"</b><br><br><button id='checkout' class='btn btn-warning btn-sm'>Go to Checkout</button></td></tr>"
 						productNames="";
-						totalAmount=0;
+						orderTotalAmount=totalAmount;
+						
 						break;
 				}
 				
@@ -201,10 +208,41 @@ var orderCartShow=function(){
 
 
 
+// $("#cartList").on("click","#deleteOrder",function(){
+	
+// 	if(confirm("Are you sure to delete this Order Cart?")){
+// 		$.ajax({
+
+// 		url:"https://localhost:44308/api/sellproducts/"+OrderclickedRow,
+// 		method:"DELETE",
+// 		headers:{
+// 				//Authorization:"Basic "+ btoa("4:4444")
+// 				'Authorization': 'Basic ' + localStorage.authUser
+// 		},
+
+// 		complete:function(xmlhttp,status){
+// 			var data=xmlhttp.responseJSON;
+			
+// 			if(xmlhttp.status==204)
+// 			{
+// 				console.log("okk");
+// 				$("#cartList tbody").html("No data");
+// 				listOrder();
+				
+// 			}
+// 			else
+// 			{
+// 				console.log("error");
+// 			}
+// 		}
+// 	});
+// 	}
+   
+// });
 
 
 var updateDataInTables=function(){
-	var cartamount=price*buyQuantity;
+	cartamount=price*buyQuantity;
 	console.log(buyQuantity);
 	console.log(cartamount);
 	console.log(OrderclickedRow);
@@ -227,11 +265,11 @@ var updateDataInTables=function(){
 		},
 
 		complete:function(xmlhttp,status){
-			
+			var data=xmlhttp.responseJSON;
 			
 			if(xmlhttp.status==201)
 			{
-				var data=xmlhttp.responseJSON;
+				
 				
 				productid=data.productID;
 
@@ -239,7 +277,10 @@ var updateDataInTables=function(){
 			}
 			else
 			{
-				
+				if(confirm(data.modelState.ordercart[0]+" If you want to increase quantity then press OK")){
+
+
+				}
 			}
 		}
 	});
@@ -295,8 +336,50 @@ var getTheProduct=function(){
 					if(xmlhttp.status==200)
 					{
 						var data=xmlhttp.responseJSON;
+						orderCartShow();
+						listProduct();
 						
-						console.log("OKK from productUpdate");
+						$.ajax({
+
+							url:"https://localhost:44308/api/sellproducts/"+OrderclickedRow+"/order",
+							method:"PUT",
+							headers:{
+									//Authorization:"Basic "+ btoa("4:4444")
+									'Authorization': 'Basic ' + localStorage.authUser
+							},
+							header:"Content-Type:application/json",
+							data:{
+										"id": OrderclickedRow,
+										"totalAmount": totalAmount,
+										"address": null,
+										
+										"customerID": null,
+										"customerName": null,
+										"saleTypeID": 2,
+										"isSold": false,
+										"orderStatusID": 2,
+										"sellBy": localStorage.username
+							},
+
+							complete:function(xmlhttp,status){
+								
+								
+								if(xmlhttp.status==200)
+								{
+									var data=xmlhttp.responseJSON;
+									console.log("Okkk from update order Table");
+									
+								}
+								else
+								{
+									
+								}
+							}
+						});
+
+
+
+
 					}
 					else
 					{
@@ -316,5 +399,119 @@ var getTheProduct=function(){
 }
 
 
+
+
+
+
+$("#orderList").on("click","#addnewOrder",function(){
+	
+	$.ajax({
+
+		url:"https://localhost:44308/api/sellproducts/"+localStorage.username+"/orderadd",
+		method:"POST",
+		headers:{
+				//Authorization:"Basic "+ btoa("4:4444")
+				'Authorization': 'Basic ' + localStorage.authUser
+		},
+		header:"Content-Type:application/json",
+		data:{
+			"totalAmount": 0,
+			"address": null,
+										
+			"customerID": null,
+			"customerName": null,
+			"saleTypeID": 2,
+			"isSold": false,
+			"orderStatusID": 2,
+			"sellBy": localStorage.username
+		},
+
+		complete:function(xmlhttp,status){
+			var data=xmlhttp.responseJSON;
+			
+			if(xmlhttp.status==201)
+			{
+				listOrder();
+				orderCartShow();
+			}
+			else
+			{
+				console.log("Error");
+			}
+		}
+	});
+   
+});
+
+
+$("#search").keyup(function(){
+	var dataOrder;
+			if($("#search").val() != ""){
+			$.ajax({
+			url:"https://localhost:44308/api/sellproducts/product/"+ $("#search").val(),
+			method:"Get",
+			headers:{
+				'Authorization': 'Basic ' + localStorage.authUser
+		},
+			complete:function(xmlhttp,status){
+				var str;
+			
+				if(xmlhttp.status==200){
+					dataProduct=xmlhttp.responseJSON;
+					str="<tr  btn-id-product="+dataProduct.id+" btn-i-val="+0+"><td>"+dataProduct.id+"</td><td>"+dataProduct.name+"</td><td>"+dataProduct.quantity+"</td><td>"+dataProduct.sellPrice+"</td><td colspan='2'><button style='float:right' id='cell' btn-price-product="+dataProduct.sellPrice+" btn-id-product="+dataProduct.id+" class='btn btn-success btn-sm'>Select</td></tr>"	
+					$("#productList tbody").html(str);
+				}
+				else
+				{
+					str="";
+					listProduct();
+				}
+				
+			}
+					
+		});
+		}
+		else{
+				str="";
+				listProduct();
+			}
+	});
+
+
+$("#cartList").on("click","#checkout",function(){
+	$("#productList").hide();
+	$("#orderList").hide();
+	$("#cartList").hide();
+	$("#checkList").fadeIn(1000);
+	console.log(OrderclickedRow);
+	$.ajax({
+			url:"https://localhost:44308/api/sellproducts/orderCart/"+ OrderclickedRow,
+			method:"Get",
+			headers:{
+				'Authorization': 'Basic ' + localStorage.authUser
+		},
+			complete:function(xmlhttp,status){
+				var checkStr;
+				var tAmount=0;
+				if(xmlhttp.status==200){
+					var dataCartList=xmlhttp.responseJSON;
+					for (var i = 0; i < dataCartList.length; i++) {
+						tAmount+=dataCartList[i].cartAmount;
+						checkStr+="<tr><td>"+dataCartList[i].productID+"</td><td>"+dataCartList[i].product.name+"</td><td>"+dataCartList[i].quantity+"</td><td>"+dataCartList[i].cartAmount+"</td><td><button style='float:right;' class='btn btn-danger btn-sm'>Delete</button></td></tr>"	
+					}
+					checkStr+="<tr id='th3'><td colspan='3'><b>Total Amount</b></td><td colspan=''><b>"+tAmount+"</b></td><td><button style='float:right;' class='btn btn-success btn-sm'>CheckOut</button></td></tr>"
+					$("#checkList tbody").html(checkStr);
+				}
+				else
+				{
+					console.log("error");
+				}
+				
+			}
+					
+		});
+
+
+});
 
 });
