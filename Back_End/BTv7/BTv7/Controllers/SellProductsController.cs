@@ -162,12 +162,12 @@ namespace BTv7.Controllers
 
         //[Route("{id}", Name = "DeleteOrderByID")]
         //[BasicAuthentication]
-        //public IHttpActionResult Delete( int id)
+        //public IHttpActionResult Delete(int id)
         //{
         //    OrderRepository orderrepo = new OrderRepository();
         //    OrderCartRepository cartrepo = new OrderCartRepository();
-        //    var cartFromDB=cartrepo.GetCartsByOrderID(id);
-        //    foreach(var item in cartFromDB)
+        //    var cartFromDB = cartrepo.GetCartsByOrderID(id);
+        //    foreach (var item in cartFromDB)
         //    {
         //        cartrepo.Delete(item.ID);
         //    }
@@ -177,6 +177,18 @@ namespace BTv7.Controllers
 
         //}
 
+
+        [Route("deleteProduct/{id}", Name = "DeleteProductByID")]
+        [BasicAuthentication]
+        public IHttpActionResult Delete(int id)
+        {
+            OrderCartRepository orderCartrepo = new OrderCartRepository();
+            orderCartrepo.Delete(id);
+            return StatusCode(HttpStatusCode.NoContent);
+            
+
+
+        }
 
 
         [Route("orderCart/{id}", Name = "GetOrderCartOrderById")]
