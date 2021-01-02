@@ -170,18 +170,19 @@ $(document).ready(function(){
 
     //ADD EMPLOYEE
         //1 ADD EMPLOYEE
-    var insertInEmployee = function () {
+    var insertInEmployee = function (id) {
         $.ajax({
-            url: "https://localhost:44308/api/employees/register",
+            url: "https://localhost:44308/api/employees/register/company_employee",
             method: "POST",
             data: {
                 name: $("#fullname").val(),
                 salary: $("#salary").val(),
                 addeddBy: localStorage.userId,
-                joinDate: "1-1-1"
+                joinDate: "1-1-1",
+                loginId: id
             },
             headers: {
-                'Authorization': 'Basic ' + btoa($("#username").val() + ":" + "12345"),
+                'Authorization': 'Basic ' + localStorage.authUser,
             },
             complete: function (xhr, status) {
                 if (xhr.status == 201) {
@@ -201,23 +202,23 @@ $(document).ready(function(){
         //2 ADD LOGIN
     var insertLogin = function () {
         $.ajax({
-            url: "https://localhost:44308/api/logins/register",
+            url: "https://localhost:44308/api/logins/register/employee",
             method: "POST",
             data: {
                 email: $("#email").val(),
                 mobile: $("#contact").val(),
                 username: $("#username").val(),
-                password: "12345",
+                password: "123456789",
                 accessStatusId: "1",
                 registrationStatusId: "2",
                 userDesignationId: $("#role").val()
             },
             headers: {
-                'Authorization': 'Basic ' + btoa($("#username").val() + ":" + "12345"),
+                'Authorization': 'Basic ' + localStorage.authUser,
             },
             complete: function (xhr, status) {
                 if (xhr.status == 201) {
-                    insertInEmployee();
+                    insertInEmployee(xhr.responseJSON.id);
                 }
                 else {
                     alert("Check Username/Email."); 

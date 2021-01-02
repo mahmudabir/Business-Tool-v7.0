@@ -104,6 +104,34 @@ namespace BTv7.Controllers
             }
         }
 
+        [Route("register/company_employee", Name = "EmployeeCompanyRegistration")]
+        [BasicAuthentication]
+        public IHttpActionResult PostCompanyRegister(Employee employee)
+        {
+            //LoginRepository loginDB = new LoginRepository();
+            //var loginFromDB = loginDB.GetUserByUsername(Thread.CurrentPrincipal.Identity.Name.ToString());
+
+            employee.Salary = (float)employee.Salary;
+
+            employee.JoinDate = DateTime.Now;
+
+            //employee.LoginID = loginFromDB.ID;
+
+            //employee.AddeddBy = 1;
+            if (ModelState.IsValid)
+            {
+                employeeDB.Insert(employee);
+
+                string uri = Url.Link("GetEmployeeByLoginID", new { loginID = employee.LoginID });
+
+                return Created(uri, employee);
+            }
+            else
+            {
+                return BadRequest(ModelState);
+            }
+        }
+
         [Route("register", Name = "EmployeeRegistration")]
         [BasicAuthentication, Authorize(Roles = "VENDOR")]
         public IHttpActionResult PostRegister(Employee employee)
@@ -129,8 +157,8 @@ namespace BTv7.Controllers
             else
             {
                 return BadRequest(ModelState);
-    }
-}
+            }
+        }
 
         [Route("{id}", Name = "GetEmployeeByID")]
         [BasicAuthentication]//, Authorize(Roles = "ADMIN,MANAGER,SALESMAN,DELIVERYMAN")]
