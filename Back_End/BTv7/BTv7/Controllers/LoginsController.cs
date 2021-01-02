@@ -284,6 +284,25 @@ namespace BTv7.Controllers
             }
         }
 
+        //Accept All
+        [Route("pending/acceptAll/vendors", Name = "AproveAllVendors")]
+        [BasicAuthentication]
+        public IHttpActionResult PutAproveAllVendors()
+        {
+            loginDB.AproveAllPendingVendors();
+
+            var loginsFromDB = loginDB.GetAll();
+
+            if (loginsFromDB.Count != 0)
+            {
+                return Ok(loginsFromDB);
+            }
+            else
+            {
+                return StatusCode(HttpStatusCode.NoContent);
+            }
+        }
+
         [Route("pending/accept/user/{id}", Name = "AproveUser")]
         [BasicAuthentication]
         public IHttpActionResult PutAproveUser([FromUri] int id)
