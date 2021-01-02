@@ -219,16 +219,30 @@ namespace BTv7.Controllers
             order.OrderStatusID = 6;
             order.SellBy = 1;
 
-            if (ModelState.IsValid)
+
+            var orderFromDB = orderDB.GetAll()
+                .Where(x => x.CustomerID == cid && x.SaleTypeID == 1 && x.IsSold == false && x.OrderStatusID == 6).ToList();
+
+
+            if (orderFromDB.Count != 0)
             {
-                orderDB.Insert(order);
-                var uri = Url.Link("GetOrderByID", new { id = order.ID });
-                return Created(uri, order);
+                return BadRequest($"Order Cannot be created because there is an active order.");
             }
             else
             {
-                return BadRequest(ModelState);
+                if (ModelState.IsValid)
+                {
+                    orderDB.Insert(order);
+                    var uri = Url.Link("GetOrderByID", new { id = order.ID });
+                    return Created(uri, order);
+                }
+                else
+                {
+                    return BadRequest(ModelState);
+                }
             }
+
+
         }
 
 

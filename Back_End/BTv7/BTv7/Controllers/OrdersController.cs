@@ -69,7 +69,48 @@ namespace BTv7.Controllers
 
 
 
+        [Route("{id}", Name = "PutOrderByID")]
+        [BasicAuthentication]
+        public IHttpActionResult Put(int id, Order order)
+        {
+            OrderCartRepository orderCartDB = new OrderCartRepository();
 
+
+            var cartFromDB = orderCartDB.GetAll().Where(x => x.OrderID == id).ToList();
+
+            //var orderFromDB = orderDB.GetAll().Where(x => x.ID == id).FirstOrDefault();
+
+            //order.CustomerName = orderFromDB.CustomerName;
+
+            var total = (float)0;
+            if (cartFromDB.Count != 0)
+            {
+                foreach (var item in cartFromDB)
+                {
+                    total += (float)item.CartAmount;
+                }
+                order.TotalAmount = (float)total;
+            }
+            else
+            {
+                order.TotalAmount = (float)0;
+            }
+
+
+
+
+            if (ModelState.IsValid)
+            {
+                OrderRepository orderDB2 = new OrderRepository();
+                orderDB2.Update(order);
+                return Ok(order);
+            }
+            else
+            {
+                return BadRequest(ModelState);
+            }
+
+        }
 
 
 

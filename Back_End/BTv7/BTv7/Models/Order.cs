@@ -66,14 +66,14 @@ namespace BTv7.Models
 
 
 
-            var orderFromDB = db.GetAll()
-                .Where(x => x.CustomerID == CustomerID && x.SaleTypeID == 1 && x.IsSold == false && x.OrderStatusID == 6).ToList();
+            //var orderFromDB = db.GetAll()
+            //    .Where(x => x.CustomerID == CustomerID && x.SaleTypeID == 1 && x.IsSold == false && x.OrderStatusID == 6).ToList();
 
 
-            if (orderFromDB.Count != 0)
-            {
-                errors.Add(new ValidationResult($"Order Cannot be created because there is an active order."));
-            }
+            //if (orderFromDB.Count != 0)
+            //{
+            //    errors.Add(new ValidationResult($"Order Cannot be created because there is an active order."));
+            //}
 
 
 

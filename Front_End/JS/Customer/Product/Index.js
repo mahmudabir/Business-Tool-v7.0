@@ -13,7 +13,37 @@ $(document).ready(function () {
         window.location.href = "../Index.html";
     }
 
+    var updateOrder = function () {
+        $("#msg").removeAttr("hidden");
+        $.ajax({
+            url: "https://localhost:44308/api/orders/" + sessionStorage.oid,
+            method: "PUT",
+            data: {
+                id: sessionStorage.oid,
+                date: sessionStorage.odate,
+                totalAmount: sessionStorage.ototalAmount,
+                address: sessionStorage.oaddress,
+                customerID: sessionStorage.ocustomerID,
+                customerName: sessionStorage.ocustomerName,
+                saleTypeID: sessionStorage.osaleTypeID,
+                isSold: sessionStorage.oisSold,
+                orderStatusID: sessionStorage.oorderStatusID,
+                sellBy: sessionStorage.osellBy
 
+            },
+            headers: {
+                'Authorization': 'Basic ' + localStorage.authUser,
+            },
+            complete: function (xhr, status) {
+                if (xhr.status == 200) {
+                    loadCart();
+                    loadOrder();
+                } else {
+                    $("#msg").html("<div class=\"alert alert-primary\" role=\"alert\">Error : Could not update the Item.</div>");
+                }
+            }
+        });
+    }
 
     var loadProduct = function () {
         $("#msg").removeAttr("hidden");
@@ -93,7 +123,26 @@ $(document).ready(function () {
                     var data = xhr.responseJSON;
 
                     sessionStorage.oid = data.id;
+                    sessionStorage.odate = data.date;
+                    sessionStorage.ototalAmount = data.totalAmount;
+                    sessionStorage.oaddress = data.address;
+                    sessionStorage.ocustomerID = data.customerID;
+                    sessionStorage.ocustomerName = data.customerName;
+                    sessionStorage.osaleTypeID = data.saleTypeID;
+                    sessionStorage.oisSold = data.isSold;
+                    sessionStorage.oorderStatusID = data.orderStatusID;
+                    sessionStorage.osellBy = data.sellBy;
+
                     console.log("OrderID: " + sessionStorage.oid);
+                    console.log("Order Date: " + sessionStorage.odate);
+                    console.log("Order Amount: " + sessionStorage.ototalAmount);
+                    console.log("Order Address: " + sessionStorage.oaddress);
+                    console.log("Order CustomerID: " + sessionStorage.ocustomerID);
+                    console.log("Order Customer Name: " + sessionStorage.ocustomerName);
+                    console.log("Order SaleTypeID: " + sessionStorage.osaleTypeID);
+                    console.log("Order IsSold: " + sessionStorage.oisSold);
+                    console.log("Order OrderStatusID: " + sessionStorage.oorderStatusID);
+                    console.log("Order SellBy: " + sessionStorage.osellBy);
 
 
                 } else if (xhr.status == 204) {
@@ -207,6 +256,7 @@ $(document).ready(function () {
             },
             complete: function (xhr, status) {
                 if (xhr.status == 201) {
+                    updateOrder();
                     $("#msg").html("<div class=\"alert alert-success\" role=\"alert\">Item Added to the Cart.</div>");
 
                 }
