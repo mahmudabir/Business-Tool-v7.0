@@ -2,13 +2,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Management | Vendors</title>
+    <title>Registrations | Vendor</title>
     <script type="text/javascript" src="../../../Content/jquery.js"></script>
     <script type="text/javascript" src="../../../Content/bootstrap.min.js"></script>
     <link rel="stylesheet" href="../../../CSS/bootstrap.css">
     <script src="../../../Content/popper.js"></script>
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
-    <script type="text/javascript" src="../../../JS/Admin/VendorManagement/venManage.js"></script>
+    <script type="text/javascript" src="../../../JS/Admin/pendingVendorRegistration/penven.js"></script>
 </head>
 <body class="bg-secondary">
     <form method="POST">
@@ -20,14 +20,14 @@
                 <div class="col-sm sol-md col-lg">
                     <div class="card my-3">
                         <div class="card-body">
-                            <input class="form-control mb-2" style="text-align: center;" type="search" id="search" placeholder="Search By Name" autocomplete="off">
+                            <button type="button" id="btnacceptall" class="btn btn-primary btn-lg btn-block mb-2">ACCEPT ALL VENDOR REGISTRATIONS</button>
 
-                            <!-- Start Details Customer Modal -->
-                            <div class="modal fade" style="margin-top: 5%;" id="detailVendor" tabindex="-1" role="dialog" aria-labelledby="detailVendorLabel" aria-hidden="true">
+                            <!-- Start Details Pending Modal -->
+                            <div class="modal fade" style="margin-top: 5%;" id="detail" tabindex="-1" role="dialog" aria-labelledby="detailLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                        <h5 class="modal-title" id="detailVendorLabel">VENDOR DETAILS</h5>
+                                        <h5 class="modal-title" id="detailLabel">DETAILS</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
@@ -81,24 +81,24 @@
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                            <button type="button" class="btn btn-danger" id="btndeactive">Deactivate</button>
-                                            <button type="button" class="btn btn-primary" id="btnactive">Activate</button>
+                                            <button type="button" class="btn btn-danger" id="btndeactive">Reject</button>
+                                            <button type="button" class="btn btn-primary" id="btnactive">Accept</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <!-- End Details Customer Modal -->
+                            <!-- End Details Pending Products Modal -->
 
                             <!-- CONTENT -->
                             <table class="table table-bordered table-hover" id="emptable">
                                 <thead class="thead-dark">
                                     <tr align="center">
-                                      <th scope="col" align="center">#</th>
-                                      <th scope="col" align="center">Username</th>
-                                      <th scope="col" align="center">Company Name</th>
-                                      <th scope="col" align="center">Join Date</th>
-                                      <th scope="col" align="center">Accessibility</th>
-                                      <th scope="col" align="center"></th>
+                                        <th scope="col" align="center">#</th>
+                                        <th scope="col" align="center">Username</th>
+                                        <th scope="col" align="center">Company Name</th>
+                                        <th scope="col" align="center">Join Date</th>    
+                                        <th scope="col" align="center">Registration Status</th>
+                                        <th scope="col" align="center"></th>
                                     </tr>
                                   </thead>
                                   <tbody>

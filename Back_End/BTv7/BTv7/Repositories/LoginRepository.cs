@@ -74,6 +74,14 @@ namespace BTv7.Repositories
             }
         }
 
+        public void AproveAllPendingVendors()
+        {
+            using (var p2 = new BTv7DbContext())
+            {
+                int e = p2.Database.ExecuteSqlCommand("UPDATE Logins SET AccessStatusID = '1', RegistrationStatusID = '2' WHERE RegistrationStatusID = '1' AND UserDesignationID = '6';");
+            }
+        }
+
         public void AproveUser(int id)
         {
             using (var p2 = new BTv7DbContext())
