@@ -342,7 +342,7 @@ namespace BTv7.Controllers
 
 
 
-        [Route("{cid}/orders/{oid}/items", Name = "GetCartsByCustomerNOrderID"), BasicAuthentication]
+        [Route("{cid}/orders/{oid}/items", Name = "GetAllCartsByCustomerNOrderID"), BasicAuthentication]
         public IHttpActionResult GetCartsByCustomerNOrderID(int cid, int oid)
         {
             var identity = (ClaimsIdentity)User.Identity;
@@ -372,6 +372,20 @@ namespace BTv7.Controllers
 
 
 
+        [Route("{cid}/orders/{oid}/items/{ocid}", Name = "GetCartsByCustomerNOrderID")]
+        [BasicAuthentication]
+        public IHttpActionResult GetCartByCustomerNOrderID(int cid, int oid, int ocid)
+        {
+            OrderCartRepository orderCartDB = new OrderCartRepository();
+            ProductRepository productDB = new ProductRepository();
+
+
+
+            return Ok(orderCartDB.Get(ocid));
+
+
+        }
+
 
 
         [Route("{cid}/orders/{oid}/items", Name = "PostCartsByCustomerNOrderID"), BasicAuthentication]
@@ -387,18 +401,68 @@ namespace BTv7.Controllers
             orderCart.CartAmount = orderCart.Quantity * productFromDB.SellPrice;
 
 
+
+
+
+            var cartFromDB = orderCartDB.GetAll().Where(x => x.OrderID == orderCart.OrderID && x.ProductID == orderCart.ProductID).ToList();
+
+            if (cartFromDB.Count != 0)
+            {
+                return BadRequest($"Item Already Exists in the Cart.");
+            }
+            else
+            {
+
+                if (ModelState.IsValid)
+                {
+                    orderCartDB.Insert(orderCart);
+
+
+
+                    var uri = Url.Link("GetAllCartsByCustomerNOrderID", null);
+
+                    return Created(uri, orderCart);
+                }
+                else
+                {
+                    return BadRequest(ModelState);
+                }
+            }
+        }
+
+
+
+
+
+
+        [Route("{cid}/orders/{oid}/items/{ocid}", Name = "PutCartsByCustomerNOrderID"), BasicAuthentication]
+        public IHttpActionResult PutCartByCustomerNOrderID(int cid, int oid, int ocid, OrderCart orderCart)
+        {
+            OrderCartRepository orderCartDB = new OrderCartRepository();
+            ProductRepository productDB = new ProductRepository();
+
+
+            var productPrice = productDB.Get((int)orderCart.ProductID).SellPrice;
+
+
+            orderCart.CartAmount = orderCart.Quantity * productPrice;
+
+
             if (ModelState.IsValid)
             {
-                orderCartDB.Insert(orderCart);
+                orderCartDB.Update(orderCart);
+                //orderCartDB.UpdateCart(orderCart);
 
-                var uri = Url.Link("GetCartsByCustomerNOrderID", null);
 
-                return Created(uri, orderCart);
+
+                return Ok(orderCart);
             }
             else
             {
                 return BadRequest(ModelState);
             }
+
+
 
         }
     }
