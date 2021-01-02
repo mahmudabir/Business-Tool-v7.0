@@ -132,7 +132,7 @@ var listOrder=function(){
 				}
 				else
 				{	
-					$("#orderList tbody").html("No data");
+					$("#orderList tbody").html("No cart is available");
 				}
 
 			}
@@ -254,42 +254,103 @@ var updateDataInTables=function(){
 	console.log(OrderclickedRow);
 	console.log(clickedRow);
 
-   	$.ajax({
-
-		url:"https://localhost:44308/api/sellproducts",
-		method:"POST",
+	$.ajax({
+		url:"https://localhost:44308/api/sellproducts/orderCartproduct/"+OrderclickedRow+"/"+clickedRow,
+		method:"GET",
 		headers:{
 				//Authorization:"Basic "+ btoa("4:4444")
 				'Authorization': 'Basic ' + localStorage.authUser
 		},
-		header:"Content-Type:application/json",
-		data:{
-			"quantity": buyQuantity,
-	        "cartAmount": cartamount,
-	        "orderID": OrderclickedRow,
-	        "productID": clickedRow
-		},
-
 		complete:function(xmlhttp,status){
-			var data=xmlhttp.responseJSON;
-			
-			if(xmlhttp.status==201)
-			{
-				
-				
-				productid=data.productID;
 
-				getTheProduct();
-			}
-			else
-			{
-				if(confirm(data.modelState.ordercart[0]+" If you want to increase quantity then press OK")){
+			if(xmlhttp.status==200){
+				var checkCartdata=xmlhttp.responseJSON;
+				if(checkCartdata.length!=0){
+					console.log("OKKKK now Put");
+				if(confirm("Item is Already exist in this cart....Do you want to increase the cart quantity?")){
+					$.ajax({
 
+					url:"https://localhost:44308/api/sellproducts/orderCartUpdate/"+checkCartdata[0].id,
+					method:"PUT",
+					headers:{
+							//Authorization:"Basic "+ btoa("4:4444")
+							'Authorization': 'Basic ' + localStorage.authUser
+					},
+					header:"Content-Type:application/json",
+					data:{
+						"id": checkCartdata[0].id,
+						"quantity": parseInt(checkCartdata[0].quantity) + parseInt(buyQuantity),
+				        "cartAmount": checkCartdata[0].cartAmount + cartamount,
+				        "orderID": OrderclickedRow,
+				        "productID": clickedRow
+					},
+
+					complete:function(xmlhttp,status){
+						var data=xmlhttp.responseJSON;
+						
+						if(xmlhttp.status==200)
+						{
+							
+							
+							productid=data.productID;
+
+							getTheProduct();
+						}
+						else
+						{
+							
+						}
+					}
+				});
+				}
 
 				}
+				else{
+					
+				}
+				
+
+			}
+			else{
+				console.log("OKKKK now Insert");
+				  	$.ajax({
+
+					url:"https://localhost:44308/api/sellproducts",
+					method:"POST",
+					headers:{
+							//Authorization:"Basic "+ btoa("4:4444")
+							'Authorization': 'Basic ' + localStorage.authUser
+					},
+					header:"Content-Type:application/json",
+					data:{
+						"quantity": buyQuantity,
+				        "cartAmount": cartamount,
+				        "orderID": OrderclickedRow,
+				        "productID": clickedRow
+					},
+
+					complete:function(xmlhttp,status){
+						var data=xmlhttp.responseJSON;
+						
+						if(xmlhttp.status==201)
+						{
+							
+							
+							productid=data.productID;
+
+							getTheProduct();
+						}
+						else
+						{
+						}
+					}
+				});
 			}
 		}
+
 	});
+
+ 
 	
 	
 }

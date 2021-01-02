@@ -208,5 +208,34 @@ namespace BTv7.Controllers
 
         }
 
+        [Route("orderCartproduct/{oid}/{pid}", Name = "GetOrderCartByOrderIdNProductId")]
+        [BasicAuthentication]
+        public IHttpActionResult GetOrderCartByOrderIdNProductId(int oid,int pid)
+        {
+            OrderCartRepository cartrepo = new OrderCartRepository();
+            var cartFromDB = cartrepo.GetCartsByOrderIDNProductID(oid,pid);
+            if (cartFromDB.Count() != 0)
+            {
+                return Ok(cartFromDB);
+            }
+            else
+            {
+                return StatusCode(HttpStatusCode.NoContent);
+            }
+
+        }
+
+        [Route("orderCartUpdate/{id}", Name = "PutnewProductinOrderCartToUpdateQuantity")]
+        [BasicAuthentication]
+        public IHttpActionResult PutnewProduct([FromUri] int id, [FromBody] OrderCart ordercart)
+        {
+            OrderCartRepository cartrepo = new OrderCartRepository();
+            ordercart.ID = id;
+            
+            cartrepo.Update(ordercart);
+
+            return Ok(ordercart);
+        }
+
     }
 }
