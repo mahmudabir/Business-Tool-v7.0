@@ -172,14 +172,15 @@ $(document).ready(function(){
         //1 ADD EMPLOYEE
     var insertInEmployee = function (id) {
         $.ajax({
-            url: "https://localhost:44308/api/employees/register/company_employee",
+            url: "https://localhost:44308/api/employees/register",
             method: "POST",
             data: {
                 name: $("#fullname").val(),
                 salary: $("#salary").val(),
                 addeddBy: localStorage.userId,
                 joinDate: "1-1-1",
-                loginId: id
+                loginId: id,
+                image: ''
             },
             headers: {
                 'Authorization': 'Basic ' + localStorage.authUser,
@@ -187,9 +188,22 @@ $(document).ready(function(){
             complete: function (xhr, status) {
                 if (xhr.status == 201) {
                     console.log("Added"); 
+                    
                     loadAllEmployees();
+
                     $("#insertMesg").removeAttr("hidden", "hidden");
-                    alert("Username: `"+$("#username").val()+"`\nPassword: 12345");      
+                    alert("Username: `"+$("#username").val()+"`\nPassword: 123456789");      
+
+                    $("#editusername").val("");
+                    $("#editloginid").val("");//LOGIN
+                    $("#editid").val("");//EMPLOYEE
+                    $("#editfullname").val("");
+                    $("#editcontact").val("");
+                    $("#editemail").val("");
+                    $("#editsalary").val("");
+                    $("#editjoindate").val("");
+                    $("#editenrollby").val("");
+                    $('#editrole option[value=""').attr("selected", "selected");
                 }
                 else {
                     $("#insertMesg").attr("hidden", "hidden");

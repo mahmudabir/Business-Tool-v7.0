@@ -52,18 +52,18 @@ namespace BTv7.Controllers
         [BasicAuthentication]
         public IHttpActionResult PutEmployeesByID([FromUri] int id, [FromBody] Employee employee)
         {
-            
-/*            if(ModelState.IsValid)
-            {*/
-                var com = employeeDB.GetEmployeeByID(id);
-                employee.ID = id;
-                employee.Image = com[0].Image;
-                employee.AddeddBy = com[0].AddeddBy;
-                employee.LoginID = com[0].LoginID;
-                employee.JoinDate = com[0].JoinDate;
-                employeeDB.UpdateEmployeeDetails(employee);
 
-                return Ok(employee);
+            /*            if(ModelState.IsValid)
+                        {*/
+            var com = employeeDB.GetEmployeeByID(id);
+            employee.ID = id;
+            employee.Image = com[0].Image;
+            employee.AddeddBy = com[0].AddeddBy;
+            employee.LoginID = com[0].LoginID;
+            employee.JoinDate = com[0].JoinDate;
+            employeeDB.UpdateEmployeeDetails(employee);
+
+            return Ok(employee);
             /*}
             else
             {
@@ -104,39 +104,12 @@ namespace BTv7.Controllers
             }
         }
 
-        [Route("register/company_employee", Name = "EmployeeCompanyRegistration")]
-        [BasicAuthentication]
-        public IHttpActionResult PostCompanyRegister(Employee employee)
-        {
-            //LoginRepository loginDB = new LoginRepository();
-            //var loginFromDB = loginDB.GetUserByUsername(Thread.CurrentPrincipal.Identity.Name.ToString());
-
-            employee.Salary = (float)employee.Salary;
-
-            employee.JoinDate = DateTime.Now;
-
-            //employee.LoginID = loginFromDB.ID;
-
-            //employee.AddeddBy = 1;
-            if (ModelState.IsValid)
-            {
-                employeeDB.Insert(employee);
-
-                string uri = Url.Link("GetEmployeeByLoginID", new { loginID = employee.LoginID });
-
-                return Created(uri, employee);
-            }
-            else
-            {
-                return BadRequest(ModelState);
-            }
-        }
 
         [Route("register", Name = "EmployeeRegistration")]
-        [BasicAuthentication, Authorize(Roles = "VENDOR")]
+        [BasicAuthentication]
         public IHttpActionResult PostRegister(Employee employee)
         {
-            LoginRepository loginDB = new LoginRepository();
+            /*LoginRepository loginDB = new LoginRepository();
             var loginFromDB = loginDB.GetUserByUsername(Thread.CurrentPrincipal.Identity.Name.ToString());
 
             employee.Salary = (float)employee.Salary;
@@ -145,12 +118,15 @@ namespace BTv7.Controllers
 
             employee.LoginID = loginFromDB.ID;
 
+            employee.Image = "";*/
+
             //employee.AddeddBy = 1;
+            employee.JoinDate = DateTime.Now;
             if (ModelState.IsValid)
             {
                 employeeDB.Insert(employee);
 
-                string uri = Url.Link("GetEmployeeByLoginID", new { loginID = loginFromDB.ID });
+                string uri = Url.Link("GetEmployeeByLoginID", new { loginID = employee.LoginID });
 
                 return Created(uri, employee);
             }
