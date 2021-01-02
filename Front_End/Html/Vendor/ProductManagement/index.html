@@ -2,7 +2,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Employees Management</title>
+    <title>Product Management</title>
     <script type="text/javascript" src="../../../Content/jquery.js"></script>
     <script type="text/javascript" src="../../../Content/bootstrap.min.js"></script>
     <link rel="stylesheet" href="../../../CSS/bootstrap.css">
@@ -38,31 +38,31 @@
                                             </div> 
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
-                                                    <span class="input-group-text">Name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                                    <span style="font-weight: bolder;" class="input-group-text">Name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                                                 </div>
                                                 <input type="text" class="form-control" id="name" placeholder="Product Name" aria-label="name" aria-describedby="basic-addon1" autocomplete="off">
                                             </div> 
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
-                                                    <span class="input-group-text">Quantity&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                                    <span style="font-weight: bolder;" class="input-group-text">Quantity&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                                                 </div>
                                                 <input type="number" min="1" class="form-control" id="quantity" placeholder="Product Quantity" aria-label="quantity" aria-describedby="basic-addon1" autocomplete="off">
                                             </div> 
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
-                                                    <span class="input-group-text">Buy Price&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                                    <span style="font-weight: bolder;" class="input-group-text">Buy Price&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                                                 </div>
                                                 <input type="text" class="form-control" id="buyprice" placeholder="Product Price" aria-label="buyprice" aria-describedby="basic-addon1" autocomplete="off">
                                             </div> 
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
-                                                    <span class="input-group-text">Sell Price&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                                    <span style="font-weight: bolder;" class="input-group-text">Sell Price&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                                                 </div>
                                                 <input type="text" class="form-control" id="sellprice" placeholder="Product Sell Price" aria-label="sellprice" aria-describedby="basic-addon1" autocomplete="off">
                                             </div> 
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
-                                                    <span class="input-group-text">Product Type</span>
+                                                    <span style="font-weight: bolder;" class="input-group-text">Product Type</span>
                                                 </div>
                                                 <select class="custom-select" id="type">
                                                     <option value="" selected>Open this select menu</option>
@@ -97,39 +97,42 @@
                                             </div> 
                                             <div id="disableMesg" class="alert alert-danger" role="alert" align="center" hidden>
                                                 Product status set Unapproved.
-                                            </div> 
+                                            </div>
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
-                                                    <span class="input-group-text">Name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                                    <span style="font-weight: bolder;" class="input-group-text">ID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                                                 </div>
-                                                <input type="text" class="form-control" id="editname"  aria-label="name" aria-describedby="basic-addon1" autocomplete="off" readonly>
-                                                <!-- <input type="hidden" class="form-control" id="editproductid"  aria-label="Username" aria-describedby="basic-addon1" autocomplete="off" readonly>
-                                                <input type="hidden" class="form-control" id="editid"  aria-label="Username" aria-describedby="basic-addon1" autocomplete="off" readonly>
-                                                <input type="hidden" class="form-control" id="editenrollby" placeholder="" aria-label="Username" aria-describedby="basic-addon1" autocomplete="off" readonly> -->
+                                                <input type="text" class="form-control" id="editid"  aria-label="id" aria-describedby="basic-addon1" autocomplete="off">
                                             </div> 
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
-                                                    <span class="input-group-text">Quantity&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                                    <span style="font-weight: bolder;" class="input-group-text">Name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                                </div>
+                                                <input type="text" class="form-control" id="editname"  aria-label="name" aria-describedby="basic-addon1" autocomplete="off">
+                                            </div> 
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <span style="font-weight: bolder;" class="input-group-text">Quantity&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                                                 </div>
                                                 <input type="number" min="1" class="form-control" id="editquantity" aria-label="quantity" aria-describedby="basic-addon1" autocomplete="off">
                                             </div> 
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
-                                                    <span class="input-group-text">Buy Price&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                                    <span style="font-weight: bolder;" class="input-group-text">Buy Price&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                                                 </div>
                                                 <input type="text" class="form-control" id="editbuyprice" aria-label="buyprice" aria-describedby="basic-addon1" autocomplete="off">
                                             </div> 
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
-                                                    <span class="input-group-text">Sell Price&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                                    <span style="font-weight: bolder;" class="input-group-text">Sell Price&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                                                 </div>
                                                 <input type="text" class="form-control" id="editsellprice" aria-label="sellprice" aria-describedby="basic-addon1" autocomplete="off">
                                             </div> 
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
-                                                    <span class="input-group-text">Product Type</span>
+                                                    <span style="font-weight: bolder;" class="input-group-text">Product Type</span>
                                                 </div>
-                                                <select class="custom-select" id="type">
+                                                <select class="custom-select" id="edittype">
                                     
                                                 </select>
                                             </div>
@@ -137,8 +140,8 @@
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                             <button type="button" class="btn btn-success" id="btnupdate">Update</button>
-                                            <button type="button" class="btn btn-danger" id="btndeactive">Deactivate</button>
-                                            <button type="button" class="btn btn-primary" id="btnactive">Activate</button>
+                                            <button type="button" class="btn btn-danger" id="btndeactive">Unavailable</button>
+                                            <button type="button" class="btn btn-warning" id="btnactive">Unapproved</button>
                                         </div>
                                     </div>
                                 </div>
@@ -146,7 +149,7 @@
                             <!-- End Details Employee Modal -->
 
                             <!-- CONTENT -->
-                            <table class="table table-bordered table-hover" id="emptable">
+                            <table class="table table-bordered table-hover" id="table">
                                 <thead class="thead-dark">
                                     <tr align="center">
                                       <th scope="col" align="center">ID</th>
@@ -155,6 +158,8 @@
                                       <th scope="col" align="center">Buy Price</th>
                                       <th scope="col" align="center">Sell Price</th>
                                       <th scope="col" align="center">Product Type</th>
+                                      <th scope="col" align="center">Product Status</th>
+                                      <th></th>
                                     </tr>
                                   </thead>
                                   <tbody>
