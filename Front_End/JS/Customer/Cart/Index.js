@@ -47,9 +47,10 @@ $(document).ready(function () {
             },
             complete: function (xhr, status) {
                 if (xhr.status == 204) {
+                    loadCart();
                     $("#msg").html("<div class=\"alert alert-primary\" role=\"alert\">Item removed from your cart.</div>");
                     alert("Item Removed.");
-                    loadCart();
+
                 } else {
                     console.log(xhr.responseJSON);
                     $("#msg").html("<div class=\"alert alert-primary\" role=\"alert\">Error : Could not update the Item.</div>");
@@ -116,9 +117,9 @@ $(document).ready(function () {
                                 + "</div>"
                                 + "<div class=\"d-flex justify-content-between align-items-center\">"
                                 + "<div>"
-                                + "<a href=\"#!\" type=\"button\" class=\"card-link-secondary small text-uppercase mr-3\">"
+                                + "<button type=\"button\" class=\"btn btn-danger small text-uppercase mr-3 remove\" remove=\"" + data[i].id + "\" productID=\"" + data[i].productID + "\" orderID=\"" + data[i].orderID + "\">"
                                 + "<i class=\"fas fa-trash-alt mr-1\"></i> Remove item"
-                                + "</a>"
+                                + "</button>"
                                 + "</div>"
                                 + "</div>"
                                 + "</div>"
@@ -155,9 +156,9 @@ $(document).ready(function () {
                                 + "</div>"
                                 + "<div class=\"d-flex justify-content-between align-items-center\">"
                                 + "<div>"
-                                + "<a href=\"#!\" type=\"button\" class=\"card-link-secondary small text-uppercase mr-3\">"
+                                + "<button type=\"button\" class=\"btn btn-danger small text-uppercase mr-3 remove\" remove=\"" + data[i].id + "\" productID=\"" + data[i].productID + "\" orderID=\"" + data[i].orderID + "\">"
                                 + "<i class=\"fas fa-trash-alt mr-1\"></i> Remove item"
-                                + "</a>"
+                                + "</button>"
                                 + "</div>"
                                 + "</div>"
                                 + "</div>"
@@ -224,9 +225,26 @@ $(document).ready(function () {
                         }
                     });
 
+
+                    $(".remove").click(function () {
+
+                        var q = $("#" + $(this).attr("remove")).val();
+                        var ocID = $(this).attr("remove");
+                        var oID = $(this).attr("orderId");
+                        var pID = $(this).attr("productID");
+
+                        if (confirm("Do you want to remove the item?")) {
+                            deleteCartItem(q, ocID, oID, pID);
+
+                        } else {
+                            alert("Item not removed.");
+                        }
+                    });
+
                 }
                 else {
                     console.log(xhr);
+                    $("#itemDetails").html("");
                     $("#msg").html("<div class=\"alert alert-danger\" role=\"alert\">Error : No Item in the Cart</div>");
                 }
             }
