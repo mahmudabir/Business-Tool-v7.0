@@ -191,6 +191,17 @@ $(document).ready(function(){
                     loadAllEmployees();
                     $("#insertMesg").removeAttr("hidden", "hidden");
                     alert("Username: `"+$("#username").val()+"`\nPassword: 123456789");      
+
+                    $("#editusername").val("");
+                    $("#editloginid").val("");//LOGIN
+                    $("#editid").val("");//EMPLOYEE
+                    $("#editfullname").val("");
+                    $("#editcontact").val("");
+                    $("#editemail").val("");
+                    $("#editsalary").val("");
+                    $("#editjoindate").val("");
+                    $("#editenrollby").val("");
+                    $('#editrole option[value=""').attr("selected", "selected");
                 }
                 else {
                     $("#insertMesg").attr("hidden", "hidden");
