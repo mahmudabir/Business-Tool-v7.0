@@ -72,7 +72,7 @@ $(document).ready(function () {
                 }
                 else {
                     console.log(xhr);
-                    $("#msg").html("<div class=\"alert alert-danger\" role=\"alert\">Could not get user data.</div>");
+                    $("#msg").html("<div class=\"alert alert-danger\" role=\"alert\">No Feedback.</div>");
                 }
             }
         });

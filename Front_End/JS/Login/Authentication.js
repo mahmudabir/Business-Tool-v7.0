@@ -29,12 +29,15 @@ $(document).ready(function () {
         $("#divregister").hide();
         $("#divregistervendor").show();
         $("#divlogin").hide();
+        $("#msg").hide();
+
     })
 
     $("#btncus").click(function () {
         $("#divregister").show();
         $("#divregistervendor").hide();
         $("#divlogin").hide();
+        $("#msg").hide();
     })
 
     var loadLogin = function () {
@@ -189,22 +192,22 @@ $(document).ready(function () {
 
     // vendor register
 
-    var insertInEmployee = function () {
+    var insertInVendor = function (id) {
         $.ajax({
-            url: "https://localhost:44308/api/employees/register",
+            url: "https://localhost:44308/api/vendors/register",
             method: "POST",
             data: {
+
                 name: $("#venregname").val(),
-                //joinDate: "1-1-1",
-                joinDate: "1-1-1"
+                joinDate: "1-1-1",
+                loginId: id
             },
             headers: {
                 'Authorization': 'Basic ' + btoa($("#venregusername").val() + ":" + $("#venregpassword").val()),
             },
             complete: function (xhr2, status) {
                 if (xhr2.status == 201) {
-                    console.log("Employees Table Data insert Success");
-
+                    console.log("Vendor Table Data insert Success");
                     $("#msg").html("<div class=\"alert alert-primary\" role=\"alert\">Successfully Registered</div>");
                 }
                 else {
@@ -234,8 +237,8 @@ $(document).ready(function () {
             complete: function (xhr, status) {
                 if ($("#venregname").val() != "" && $("#venregemail").val() != "" && $("#venregmobile").val() != "" && $("#venregusername").val() != "" && $("#venregpassword").val() != "") {
                     if (xhr.status == 201) {
-                        console.log("Login For Employees Table Data insert Success");
-                        insertInEmployee();
+                        console.log("Login For Vendor Table Data insert Success");
+                        insertInVendor(xhr.responseJSON.id);
                     }
                     else {
                         console.log(xhr);
