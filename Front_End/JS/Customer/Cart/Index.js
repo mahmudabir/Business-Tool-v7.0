@@ -4,6 +4,44 @@ $(document).ready(function () {
     }
 
 
+
+
+
+
+    var updateOrder = function () {
+        $("#msg").removeAttr("hidden");
+        $.ajax({
+            url: "https://localhost:44308/api/orders/" + sessionStorage.oid,
+            method: "PUT",
+            data: {
+                id: sessionStorage.oid,
+                date: sessionStorage.odate,
+                totalAmount: sessionStorage.ototalAmount,
+                address: sessionStorage.oaddress,
+                customerID: sessionStorage.ocustomerID,
+                customerName: sessionStorage.ocustomerName,
+                saleTypeID: sessionStorage.osaleTypeID,
+                isSold: sessionStorage.oisSold,
+                orderStatusID: sessionStorage.oorderStatusID,
+                sellBy: sessionStorage.osellBy
+
+            },
+            headers: {
+                'Authorization': 'Basic ' + localStorage.authUser,
+            },
+            complete: function (xhr, status) {
+                if (xhr.status == 200) {
+                    loadCart();
+                    loadOrder();
+                } else {
+                    $("#msg").html("<div class=\"alert alert-primary\" role=\"alert\">Error : Could not update the Item.</div>");
+                }
+            }
+        });
+    }
+
+
+
     var updateCartItem = function (q, ocID, oID, pID) {
         $("#msg").removeAttr("hidden");
         $.ajax({
@@ -23,6 +61,8 @@ $(document).ready(function () {
             complete: function (xhr, status) {
                 if (xhr.status == 200) {
                     loadCart();
+                    updateOrder();
+                    loadOrder();
                 } else {
                     $("#msg").html("<div class=\"alert alert-primary\" role=\"alert\">Error : Could not update the Item.</div>");
                 }
@@ -48,6 +88,8 @@ $(document).ready(function () {
             complete: function (xhr, status) {
                 if (xhr.status == 204) {
                     loadCart();
+                    updateOrder();
+                    loadOrder();
                     $("#msg").html("<div class=\"alert alert-primary\" role=\"alert\">Item removed from your cart.</div>");
                     alert("Item Removed.");
 
@@ -84,6 +126,7 @@ $(document).ready(function () {
 
 
                     var str = "";
+                    var memo = "";
 
                     str += "<h5 class=\"mb-4\">Cart (<span id=\"itemQuantity1\">" + data.length + "</span> items)</h5>";
 
@@ -126,6 +169,15 @@ $(document).ready(function () {
                                 + "</div>"
                                 + "</div>"
                                 + "<hr class=\"mb-4\">";
+
+
+                            memo += "<li class=\"list-group-item d-flex justify-content-between lh-condensed\">"
+                                + "<div>"
+                                + "<h6 class=\"my-0\">" + data[i].product.name + "</h6>"
+                                + "<small class=\"text-muted\">Unit Price:" + data[i].product.sellPrice + "</small>"
+                                + "</div>"
+                                + "<span class=\"text-muted\">" + data[i].quantity * data[i].product.sellPrice + "</span>"
+                                + "</li>";
                         }
                         else {
                             str += "<div class=\"row mb-4\">"
@@ -165,6 +217,16 @@ $(document).ready(function () {
                                 + "</div>"
                                 + "</div>"
                                 + "<hr class=\"mb-4\">";
+
+
+
+                            memo += "<li class=\"list-group-item d-flex justify-content-between lh-condensed\">"
+                                + "<div>"
+                                + "<h6 class=\"my-0\">" + data[i].product.name + "</h6>"
+                                + "<small class=\"text-muted\">Unit Price:" + data[i].product.sellPrice + "</small>"
+                                + "</div>"
+                                + "<span class=\"text-muted\">" + data[i].quantity * data[i].product.sellPrice + "</span>"
+                                + "</li>";
                         }
                     }
 
@@ -174,6 +236,7 @@ $(document).ready(function () {
 
 
                     $("#itemDetails").html(str);
+                    $("#cartMemo").html(memo);
 
 
 
@@ -311,12 +374,43 @@ $(document).ready(function () {
                     var data = xhr.responseJSON;
 
                     sessionStorage.oid = data.id;
+                    sessionStorage.odate = data.date;
+                    sessionStorage.ototalAmount = data.totalAmount;
+                    sessionStorage.oaddress = data.address;
+                    sessionStorage.ocustomerID = data.customerID;
+                    sessionStorage.ocustomerName = data.customerName;
+                    sessionStorage.osaleTypeID = data.saleTypeID;
+                    sessionStorage.oisSold = data.isSold;
+                    sessionStorage.oorderStatusID = data.orderStatusID;
+                    sessionStorage.osellBy = data.sellBy;
+
                     console.log("OrderID: " + sessionStorage.oid);
+                    console.log("Order Date: " + sessionStorage.odate);
+                    console.log("Order Amount: " + sessionStorage.ototalAmount);
+                    console.log("Order Address: " + sessionStorage.oaddress);
+                    console.log("Order CustomerID: " + sessionStorage.ocustomerID);
+                    console.log("Order Customer Name: " + sessionStorage.ocustomerName);
+                    console.log("Order SaleTypeID: " + sessionStorage.osaleTypeID);
+                    console.log("Order IsSold: " + sessionStorage.oisSold);
+                    console.log("Order OrderStatusID: " + sessionStorage.oorderStatusID);
+                    console.log("Order SellBy: " + sessionStorage.osellBy);
+
+                    var cartTotal = "<li class=\"list-group-item d-flex justify-content-between\">"
+                        + "<span>Total (BDT)</span>"
+                        + "<strong>" + data.totalAmount + "</strong>"
+                        + "</li>";
+
+
+
+
                     loadCart();
+                    $("#cartTotal").html(cartTotal);
 
 
                 } else if (xhr.status == 204) {
                     console.log("No Order in the database.");
+
+
 
                 }
                 else {
@@ -362,24 +456,6 @@ $(document).ready(function () {
 
     loadUser();
     console.log("CustomerID: " + localStorage.cid);
-
-
-
-
-    //$(".quantity").change(function () {
-    //    console.log("Tag ID: ");
-    //    console.log($(this).attr("id"));
-    //});
-
-
-    //var inputQuantity = document.getElementsByClassName("quantity");
-
-    //for (var i = 0; i < inputQuantity.length; i++) {
-    //    inputQuantity[i].addEventListener('keyup', function () {
-    //        console.log(this.id.toString());
-    //    });
-    //}
-
 
 
 

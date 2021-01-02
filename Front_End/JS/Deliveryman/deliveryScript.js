@@ -13,9 +13,26 @@ $(document).ready(function(){
 	var sepration;
 	var orderAmount=0;
 	var individualAmount=0;
-	if (localStorage.authUser == null || localStorage.userRole!=4) {
+	if (localStorage.authUser == null) {
 
         window.location.href = "../Login/Index.html";
+    }
+
+    else if(localStorage.userRole  == 1){
+    	window.location.href = "../Admin/";
+    }
+
+    else if(localStorage.userRole  == 2){
+    	window.location.href = "../Manager/";
+    }
+    else if(localStorage.userRole  == 3){
+    	window.location.href = "../Salesman/";
+    }
+    else if(localStorage.userRole  == 5){
+    	window.location.href = "../Customer/";
+    }
+    else if(localStorage.userRole  == 6){
+    	window.location.href = "../Vendor/";
     }
 
 

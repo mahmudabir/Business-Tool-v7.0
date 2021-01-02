@@ -381,7 +381,14 @@ $(document).ready(function () {
     });
 
 
+    $("#showFilter").click(function () {
+        $("#divFilter").removeAttr("hidden", "hidden");
+    });
 
+
+    $("#hideFilter").click(function () {
+        $("#divFilter").attr("hidden", "hidden");
+    });
 
 
 });

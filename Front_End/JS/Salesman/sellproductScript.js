@@ -15,9 +15,26 @@ $(document).ready(function(){
 	var cartamount=0;
 	var tAmount=0;
 	var dataCartList;
-	if (localStorage.authUser == null || localStorage.userRole!=3) {
+	if (localStorage.authUser == null) {
 
         window.location.href = "../Login/Index.html";
+    }
+
+    else if(localStorage.userRole  == 1){
+    	window.location.href = "../Admin/";
+    }
+
+    else if(localStorage.userRole  == 2){
+    	window.location.href = "../Manager/";
+    }
+    else if(localStorage.userRole  == 4){
+    	window.location.href = "../Deliveryman/";
+    }
+    else if(localStorage.userRole  == 5){
+    	window.location.href = "../Customer/";
+    }
+    else if(localStorage.userRole  == 6){
+    	window.location.href = "../Vendor/";
     }
 
 
@@ -72,8 +89,9 @@ $("#productList").on("click","#cell",function(){
 	
 	if(clickedRow!=""){
 	if(OrderclickedRow!=""){
+	if(buyQuantity!=""){
 	if(parseInt(buyQuantity)<=parseInt(quan)){
-	if(buyQuantity!="" && buyQuantity>0)
+	 if(buyQuantity>0)
 	{
 		var msg="This Product will be added as";
 		if(confirm(msg+"..................                                                  "+                                                        
@@ -82,21 +100,25 @@ $("#productList").on("click","#cell",function(){
 		}
 	}
 	else{
-		confirm("No quantity is Added!! Add some quantity First");
+		alert("Quantity Must be greater than 0");
 	}
 
 	}
 	else{
-		confirm("Quantity can't be greater than available");
+		alert("Quantity can't be greater than available");
+	}
+	}
+	else{
+		alert("No quantity is Added!! Add some quantity First");
 	}
 	}
 
 	else{
-		confirm("No Cart is Sellected!! Select a Cart First");
+		alert("No Cart is Sellected!! Select a Cart First");
 	}
    	}
    	else{
-		confirm("No Product is Sellected!! Select a A First");
+		alert("No Product is Sellected!! Select a A First");
 	}
    
 });
@@ -526,7 +548,7 @@ $("#cartList").on("click","#checkout",function(){
 						checkStr+="<tr><td>"+dataCartList[i].productID+"</td><td>"+dataCartList[i].product.name+"</td><td>"+dataCartList[i].quantity+"</td><td>"+dataCartList[i].cartAmount+"</td><td><button id='deleteFromCart' btn-id-I="+i+" btn-id-acutualQuant="+dataCartList[i].product.quantity+" btn-id-quant="+dataCartList[i].quantity+" btn-id-prodid="+dataCartList[i].productID+" style='float:right;' class='btn btn-danger btn-sm'>Delete</button></td></tr>"	
 					}
 					sessionStorage.am = tAmount;
-					checkStr+="<tr id='th3'><td colspan='3'><b>Total Amount</b></td><td colspan=''><b>"+tAmount+"</b></td><td><button id='checkout' style='float:right;' class='btn btn-success btn-sm'>CheckOut</button></td></tr>"
+					checkStr+="<tr id='th3'><td colspan='3'><b>Total Amount</b></td><td colspan=''><b>"+tAmount+"TK</b></td><td><button id='checkout' style='float:right;' class='btn btn-success btn-sm'>CheckOut</button></td></tr>"
 					$("#checkList tbody").html(checkStr);
 				}
 				else
@@ -629,7 +651,7 @@ $("#checkList").on("click","#deleteFromCart",function(){
 												checkStr+="<tr><td>"+dataCartList[i].productID+"</td><td>"+dataCartList[i].product.name+"</td><td>"+dataCartList[i].quantity+"</td><td>"+dataCartList[i].cartAmount+"</td><td><button id='deleteFromCart' btn-id-I="+i+" btn-id-acutualQuant="+dataCartList[i].product.quantity+" btn-id-quant="+dataCartList[i].quantity+" btn-id-prodid="+dataCartList[i].productID+" style='float:right;' class='btn btn-danger btn-sm'>Delete</button></td></tr>"	
 											}
 											sessionStorage.am = tAmount;
-											checkStr+="<tr id='th3'><td colspan='3'><b>Total Amount</b></td><td colspan=''><b>"+tAmount+"</b></td><td><button btn-id-tquant="+tAmount+" id='checkout' style='float:right;' class='btn btn-success btn-sm'>CheckOut</button></td></tr>"
+											checkStr+="<tr id='th3'><td colspan='3'><b>Total Amount</b></td><td colspan=''><b>"+tAmount+"TK</b></td><td><button btn-id-tquant="+tAmount+" id='checkout' style='float:right;' class='btn btn-success btn-sm'>CheckOut</button></td></tr>"
 											$("#checkList tbody").html(checkStr);
 											
 										}
