@@ -34,36 +34,45 @@
                                         </div>
                                         <div class="modal-body">   
                                             <div id="insertMesg" class="alert alert-success" role="alert" align="center" hidden>
-                                                Product Has Been Successfully Assigned. 
+                                                Product Successfully Added. 
                                             </div> 
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
+                                                    <span style="color: red;font-weight: bold;" id="msg1"></span>
                                                     <span style="font-weight: bolder;" class="input-group-text">Name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                                                 </div>
                                                 <input type="text" class="form-control" id="name" placeholder="Product Name" aria-label="name" aria-describedby="basic-addon1" autocomplete="off">
                                             </div> 
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
+                                                    <span style="color: red;font-weight: bold;" id="msg2"></span>
                                                     <span style="font-weight: bolder;" class="input-group-text">Quantity&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                                                 </div>
+                                                
                                                 <input type="number" min="1" class="form-control" id="quantity" placeholder="Product Quantity" aria-label="quantity" aria-describedby="basic-addon1" autocomplete="off">
                                             </div> 
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
+                                                    <span style="color: red;font-weight: bold;" id="msg3"></span>
                                                     <span style="font-weight: bolder;" class="input-group-text">Buy Price&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                                                 </div>
+                                                
                                                 <input type="text" class="form-control" id="buyprice" placeholder="Product Price" aria-label="buyprice" aria-describedby="basic-addon1" autocomplete="off">
                                             </div> 
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
+                                                    <span style="color: red;font-weight: bold;" id="msg4"></span>
                                                     <span style="font-weight: bolder;" class="input-group-text">Sell Price&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                                                 </div>
+                                                
                                                 <input type="text" class="form-control" id="sellprice" placeholder="Product Sell Price" aria-label="sellprice" aria-describedby="basic-addon1" autocomplete="off">
                                             </div> 
                                             <div class="input-group mb-2">
                                                 <div class="input-group-prepend">
+                                                    <span style="color: red;font-weight: bold;" id="msg5"></span>
                                                     <span style="font-weight: bolder;" class="input-group-text">Product Type</span>
                                                 </div>
+                                                
                                                 <select class="custom-select" id="type">
                                                     <option value="" selected>Open this select menu</option>
                                                 </select>
@@ -78,7 +87,7 @@
                             </div>
                             <!-- End Add Product Modal -->
 
-                            <!-- Start Details Employee Modal -->
+                            <!-- Start Details Product Modal -->
                             <div class="modal fade" style="margin-top: 5%;" id="detailProduct" tabindex="-1" role="dialog" aria-labelledby="detailProductLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">

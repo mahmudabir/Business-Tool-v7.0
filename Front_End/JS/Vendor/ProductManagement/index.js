@@ -7,10 +7,40 @@ $(document).ready(function(){
 
     $('#content').load("../vendornav.html");
 
+
+    //Load Login
+    var loadUser = function () {
+        //$("#msg").removeAttr("hidden");
+        $.ajax({
+            url: "https://localhost:44308/api/logins/" + localStorage.userId,
+            method: "GET",
+            headers: {
+                'Authorization': 'Basic ' + localStorage.authUser,
+            },
+            complete: function (xhr, status) {
+                if (xhr.status == 200) {
+                    console.log(xhr.responseJSON);
+
+                    var data = xhr.responseJSON;
+
+                    localStorage.vendorID = data.vendors[0].id;
+                }
+                else {
+                    console.log(xhr);
+                    $("#msg").html("<div class=\"alert alert-danger\" role=\"alert\">Error : " + xhr.responseJSON.message + "</div>");
+                }
+            }
+        });
+    }
+
+    loadUser();
+
+    //load Login
+
     //LOAD EMPLOYEES LIST
     var loadAllProducts = function () {
         $.ajax({
-            url: "https://localhost:44308/api/products/all",
+            url: "https://localhost:44308/api/products/vendorId/"+localStorage.vendorID,
             method: "GET",
             headers: {
                 'Authorization': 'Basic ' + localStorage.authUser,
@@ -38,7 +68,13 @@ $(document).ready(function(){
                                         
                                         "<td align='center'> <button type='button' data-toggle='modal' data-target='#detailProduct' data-id="+data[i].id+" class='btn btn-dark'>Details</button>" +
                                 "</tr>";
+                                // sessionStorage.name = data[i].name;
+                                // console.log(sessionStorage.name);
+                                
+                                // console.log("vendor id",sessionStorage.vendorLoginId);
                         }
+                        //sessionStorage.vendorLoginId = data[0].vendor.ID;
+
                     }
                     else
                     {
@@ -72,7 +108,7 @@ $(document).ready(function(){
                         console.log(xhr.responseJSON);
     
                         var data = xhr.responseJSON;
-    
+                        
                         var str = '';
                         if(data.length>0)
                         {
@@ -161,38 +197,135 @@ $(document).ready(function(){
 
     //insert Product
         var insertProduct = function () {
-            $.ajax({
-                url: "https://localhost:44308/api/products/add",
-                method: "POST",
-                data: {
-                    name: $("#name").val(),
-                    quantity: $("#quantity").val(),
-                    buyPrice: $("#buyprice").val(),
-                    sellPrice: $("#sellprice").val(),
-                    productTypeID: $("#type").val(),
-                    productStatusID:"3",
-                    vendorID: localStorage.userId,
-                    modifiedBy:"1"
-                },
-                headers: {
-                    'Authorization': 'Basic ' + localStorage.authUser,
-                },
-                complete: function (xhr, status) {
-                    if (xhr.status == 201) {
-                        $("#insertMesg").removeAttr("hidden", "hidden");
-                    }
-                    else {
-                        $("#insertMesg").attr("hidden", "hidden");
-                        alert("Something Wrong"); 
-                        console.log(xhr);
-                    }
+            if($("#name").val()!="" && $("#quantity").val()!="" && $("#buyprice").val()!="" && $("#sellprice").val()!="" && $("#type").val()!="")
+            {
+                // if(sessionStorage.vendorLoginId==localStorage.userId && $("#name").val()!=sessionStorage.name)
+                // {
+                    $.ajax({
+                        url: "https://localhost:44308/api/products/add",
+                        method: "POST",
+                        data: {
+                            name: $("#name").val(),
+                            quantity: $("#quantity").val(),
+                            buyPrice: $("#buyprice").val(),
+                            sellPrice: $("#sellprice").val(),
+                            productTypeID: $("#type").val(),
+                            productStatusID:"3",
+                            vendorID: "1",
+                            modifiedBy:"1"
+                        },
+                        headers: {
+                            'Authorization': 'Basic ' + localStorage.authUser,
+                        },
+                        complete: function (xhr, status) {
+                            if (xhr.status == 201) {
+                                loadAllProducts();
+                                $("#insertMesg").removeAttr("hidden", "hidden");
+                                $("#name").val("");
+                                $("#quantity").val("");
+                                $("#buyprice").val("");
+                                $("#sellprice").val("");
+                                $("#type").val("");
+                            }
+                            else {
+                                $("#insertMesg").attr("hidden", "hidden");
+                                console.log(xhr);
+
+
+                                if(xhr.responseJSON.message=="The request is invalid.")
+                                {
+                                    if(xhr.responseJSON.modelState["product.Quantity"] !=undefined)
+                                    {
+                                        alert(xhr.responseJSON.modelState["product.Quantity"]);
+                                    }
+                                    if(xhr.responseJSON.modelState["product.BuyPrice"] !=undefined)
+                                    {
+                                        alert(xhr.responseJSON.modelState["product.BuyPrice"]);
+                                    }
+                                    if(xhr.responseJSON.modelState["product.SellPrice"] !=undefined)
+                                    {
+                                        alert(xhr.responseJSON.modelState["product.SellPrice"]);
+                                    }
+                                    
+                                }
+                                else
+                                {
+                                    if(xhr.responseJSON.message!=null || xhr.responseJSON.message!="" || xhr.responseJSON.message!=undefined)
+                                    {
+                                        alert(xhr.responseJSON.message);
+                                    }
+                                }
+
+
+
+
+
+                                // if(xhr.responseJSON.modelState!=null || xhr.responseJSON.modelState!="" || xhr.responseJSON.modelState!=undefined)
+                                // {
+                                //     alert(xhr.responseJSON.modelState["product.Quantity"]); 
+                                //     alert(xhr.responseJSON.modelState["product.BuyPrice"]); 
+                                //     alert(xhr.responseJSON.modelState["product.SellPrice"]);
+                                // }
+                                // else if(xhr.responseJSON.message!=null || xhr.responseJSON.message!="" || xhr.responseJSON.message!=undefined)
+                                // {
+                                //     alert(xhr.responseJSON.message);
+                                // }
+                                // else
+                                // {
+                                //     alert("Unknown Error");
+                                // }
+                            }
+                        }
+                    });
+                // }
+                // else
+                // {
+                //     alert("Product Exist");
+                // }
+                
+            }
+            else
+            {
+                if ($("#name").val() == "") {
+                    $("#msg1").html("*");
                 }
-            });
+                if ($("#quantity").val() == "") {
+                    $("#msg2").html("*");
+                }
+                if ($("#buyprice").val() == "") {
+                    $("#msg3").html("*");
+                } if ($("#sellprice").val() == "") {
+                    $("#msg4").html("*");
+                } if ($("#type").val() == "") {
+                    $("#msg5").html("*");
+                }
+            }
+
         }
         $("#btnadd").on("click",function(){
             insertProduct();
-            $()
         });
+
+        $("#name").keyup(function () {
+            $("#msg1").hide();
+        })
+        $("#quantity").keyup(function () {
+            $("#msg2").hide();
+        })
+        $("#buyprice").keyup(function () {
+            $("#msg3").hide();
+        })
+        $("#buyprice").keyup(function () {
+            $("#msg4").hide();
+        })
+        $("#sellprice").keyup(function () {
+            $("#msg5").hide();
+        })
     //insert product
+
+    //update product
+
+
+    //update product
 
 })

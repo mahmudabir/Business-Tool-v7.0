@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading;
 using System.Web.Http;
 
 namespace BTv7.Controllers
@@ -318,26 +319,44 @@ namespace BTv7.Controllers
 
             if (ModelState.IsValid)
             {
-                productDB.Insert(product);
+                LoginRepository loginRepository = new LoginRepository();
+                VendorRepository vendorRepository = new VendorRepository();
 
-                var productFromDB = productDB.Get(product.ID);
+                var loginFromDB = loginRepository.GetUserByUsername(Thread.CurrentPrincipal.Identity.Name.ToString());
 
+                var vendorFromDB = vendorRepository.GetAll().Where(x=>x.LoginID==loginFromDB.ID).FirstOrDefault();
 
-
-                var result = productFromDB.AddLinks(
-                new HyperMedia
+                var checkProductFromDB = productDB.GetAll().Where(x => x.Name == product.Name && x.VendorID==vendorFromDB.ID).ToList();
+                if (checkProductFromDB.Count==0)
                 {
-                    Rel = "Get one product by ID",
-                    Href = Url.Link("GetProductByID", new { id = productFromDB.ID }),
-                    Method = "GET"
+                    product.VendorID = vendorFromDB.ID;
+                    
+                    productDB.Insert(product);
+
+                    var productFromDB = productDB.Get(product.ID);
+
+
+
+                    var result = productFromDB.AddLinks(
+                    new HyperMedia
+                    {
+                        Rel = "Get one product by ID",
+                        Href = Url.Link("GetProductByID", new { id = productFromDB.ID }),
+                        Method = "GET"
+                    }
+                    );
+
+
+
+                    string uri = Url.Link("GetProductByID", new { id = productFromDB.ID });
+
+                    return Created(uri, result);
                 }
-                );
+                else
+                {
+                    return BadRequest("Product Exist");
+                }
 
-
-
-                string uri = Url.Link("GetProductByID", new { id = productFromDB.ID });
-
-                return Created(uri, result);
             }
             else
             {
@@ -347,5 +366,27 @@ namespace BTv7.Controllers
 
 
         //insert product
+
+
+        //get product by Vendor Id
+        [Route("vendorId/{id}", Name = "GetProductsByVendorID")]
+        [BasicAuthentication]
+        public IHttpActionResult GetProductByVendorID(int id)
+        {
+            var productFromDB = productDB.GetProductByVendorID(id);
+
+            if (productFromDB != null || productFromDB.Count() != 0)
+            {
+                return Ok(productFromDB);
+            }
+            else
+            {
+                return StatusCode(HttpStatusCode.NotFound);
+            }
+        }
+
+
+        //get product by vendor id
+
     }
 }
