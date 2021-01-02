@@ -264,5 +264,51 @@ namespace BTv7.Controllers
                 return BadRequest(ModelState);
             }
         }
+
+        //Accept All
+        [Route("pending/acceptAll/customers", Name = "AproveAllCustomer")]
+        [BasicAuthentication]
+        public IHttpActionResult PutAproveAllCustomer()
+        {
+            loginDB.AproveAllPendingCustomers();
+
+            var loginsFromDB = loginDB.GetAll();
+
+            if (loginsFromDB.Count != 0)
+            {
+                return Ok(loginsFromDB);
+            }
+            else
+            {
+                return StatusCode(HttpStatusCode.NoContent);
+            }
+        }
+
+        [Route("pending/accept/user/{id}", Name = "AproveUser")]
+        [BasicAuthentication]
+        public IHttpActionResult PutAproveUser([FromUri] int id)
+        {
+            loginDB.AproveUser(id);
+
+            var loginsFromDB = loginDB.GetLoginByID(id);
+
+            if (loginsFromDB != null)
+            {
+                return Ok(loginsFromDB);
+            }
+            else
+            {
+                return StatusCode(HttpStatusCode.NoContent);
+            }
+        }
+
+        [Route("pending/reject/user/{id}", Name = "RejectUser")]
+        [BasicAuthentication]
+        public IHttpActionResult DeleteRejectUser([FromUri] int id)
+        {
+            loginDB.Delete(id);
+
+            return StatusCode(HttpStatusCode.NoContent);
+        }
     }
 }
