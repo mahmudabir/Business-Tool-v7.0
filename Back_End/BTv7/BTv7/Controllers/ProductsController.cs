@@ -306,5 +306,46 @@ namespace BTv7.Controllers
 
             return Ok(product);
         }
+
+
+
+        //insert product
+
+        [Route("add", Name = "AddProduct")]
+        [BasicAuthentication]
+        public IHttpActionResult PostProduct(Product product)
+        {
+
+            if (ModelState.IsValid)
+            {
+                productDB.Insert(product);
+
+                var productFromDB = productDB.Get(product.ID);
+
+
+
+                var result = productFromDB.AddLinks(
+                new HyperMedia
+                {
+                    Rel = "Get one customer by ID",
+                    Href = Url.Link("GetProductByID", new { id = productFromDB.ID }),
+                    Method = "GET"
+                }
+                );
+
+
+
+                string uri = Url.Link("GetProductByID", new { id = productFromDB.ID });
+
+                return Created(uri, result);
+            }
+            else
+            {
+                return BadRequest(ModelState);
+            }
+        }
+
+
+        //insert product
     }
 }

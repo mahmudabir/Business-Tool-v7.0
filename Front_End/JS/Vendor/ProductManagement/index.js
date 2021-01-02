@@ -120,4 +120,71 @@ $(document).ready(function(){
 
     //search by name
 
+
+    //get product type
+
+        //LOAD EMPLOYEES DESIGNATIONS LIST
+        var loadAllProductType = function () {
+            $.ajax({
+                url: "https://localhost:44308/api/productType",
+                method: "GET",
+                headers: {
+                    'Authorization': 'Basic ' + localStorage.authUser,
+                },
+                complete: function (xhr, status) {
+                    if (xhr.status == 200) {
+                        console.log(xhr.responseJSON);
+    
+                        var data = xhr.responseJSON;
+    
+                        if(data.length>0)
+                        {
+                            for (var i = 0; i < data.length-2; i++) 
+                            {
+                                
+                                $('#type').append(`<option value="${data[i].id}">  ${data[i].type} </option>`);
+                                $('#edittype').append(`<option value="${data[i].id}">  ${data[i].type} </option>`); 
+                            }
+                        }
+                        
+                    }
+                    else 
+                    {
+                        alert("Something Went Wrong.");
+                    }
+                }
+            });
+        }
+        loadAllProductType();
+
+    //get product type
+
+    //insert Product
+        var insertProduct = function () {
+            $.ajax({
+                url: "https://localhost:44308/api/products/add",
+                method: "POST",
+                data: {
+                    
+                },
+                headers: {
+                    'Authorization': 'Basic ' + localStorage.authUser,
+                },
+                complete: function (xhr, status) {
+                    if (xhr.status == 201) {
+                        $("#insertMesg").removeAttr("hidden", "hidden");
+                    }
+                    else {
+                        $("#insertMesg").attr("hidden", "hidden");
+                        alert("Something Wrong"); 
+                        console.log(xhr);
+                    }
+                }
+            });
+        }
+        $("#btnadd").on("click",function(){
+            insertProduct();
+        });
+    //insert product
+
 })

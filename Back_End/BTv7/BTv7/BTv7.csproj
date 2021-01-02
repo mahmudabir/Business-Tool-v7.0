@@ -109,6 +109,7 @@
     <Compile Include="Controllers\OrderCartsController.cs" />
     <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
+    <Compile Include="Controllers\ProductTypeController.cs" />
     <Compile Include="Controllers\SaleRecordController.cs" />
     <Compile Include="Controllers\SellProductsController.cs" />
     <Compile Include="Controllers\UserDesignationController.cs" />
