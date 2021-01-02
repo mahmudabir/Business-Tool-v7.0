@@ -174,6 +174,10 @@ namespace BTv7.Controllers
 
                     productToDB.Quantity = productToDB.Quantity - item.Quantity;
 
+                    if (productToDB.Quantity <= 0)
+                    {
+                        productToDB.ProductStatusID = 2;
+                    }
 
                     productDB.Update(productToDB);
                 }
