@@ -447,7 +447,6 @@ namespace BTv7.Controllers
 
             orderCart.CartAmount = orderCart.Quantity * productPrice;
 
-
             if (ModelState.IsValid)
             {
                 orderCartDB.Update(orderCart);
@@ -460,6 +459,26 @@ namespace BTv7.Controllers
             else
             {
                 return BadRequest(ModelState);
+            }
+        }
+
+
+        [Route("{cid}/orders/{oid}/items/{ocid}", Name = "DeleteCartsByCustomerNOrderID")]
+        [BasicAuthentication, Authorize(Roles = "CUSTOMER,SALESMAN")]
+        public IHttpActionResult DeleteCartByCustomerNOrderID(int cid, int oid, int ocid)
+        {
+            OrderCartRepository orderCartDB = new OrderCartRepository();
+            var orderCartFromDB = orderCartDB.GetAll().Where(x => x.ID == ocid).ToList();
+
+            if (orderCartFromDB.Count != 0)
+            {
+                orderCartDB.Delete(ocid);
+
+                return StatusCode(HttpStatusCode.NoContent);
+            }
+            else
+            {
+                return BadRequest("Cart Not Found");
             }
 
 
