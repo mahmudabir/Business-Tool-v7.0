@@ -289,6 +289,17 @@ $(document).ready(function(){
                             $("#btndeactive").attr("hidden", "hidden");
                             $("#btnactive").attr("hidden", "hidden");
                         }
+
+                        if(data[0].loginID == localStorage.userId)
+                        {
+                            $("#btndeactive").attr("disabled", "disabled");
+                            $("#editrole").attr("disabled", "disabled");
+                        }
+                        else
+                        {
+                            $("#btndeactive").removeAttr("disabled", "disabled");
+                            $("#editrole").removeAttr("disabled", "disabled");
+                        }
                     }
                     else
                     {
@@ -350,12 +361,6 @@ $(document).ready(function(){
                         $("#updateMesg").removeAttr("hidden", "hidden");
                         $("#enableMesg").attr("hidden", "hidden");
                         $("#disableMesg").attr("hidden", "hidden");
-
-                        if($("#editid").val() == localStorage.userId)
-                        {
-                            alert("System Logged Out.");
-                            loadLogout();
-                        }
                     } 
                     else {
                         alert("Fill Correctly.");
@@ -418,11 +423,7 @@ $(document).ready(function(){
                     $("#btndeactive").removeAttr("hidden", "hidden");
                     $("#btnactive").attr("hidden", "hidden");
 
-                    if($("#editid").val() == localStorage.userId)
-                    {
-                        alert("System Logged Out.");
-                        loadLogout();
-                    }
+                    
                 } 
                 else {
                     alert("Error Proccessing.");
@@ -459,7 +460,7 @@ $(document).ready(function(){
                     $("#btndeactive").attr("hidden", "hidden");
                     $("#btnactive").removeAttr("hidden", "hidden");
 
-                    if($("#editid").val() == localStorage.userId)
+                    if($("#editloginid").val() == localStorage.userId)
                     {
                         alert("System Logged Out.");
                         loadLogout();
