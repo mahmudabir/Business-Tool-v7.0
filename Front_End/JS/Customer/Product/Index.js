@@ -53,7 +53,9 @@ $(document).ready(function () {
                         $("#addToCart").attr("disabled", "disabled");
                     }
 
-
+                    if (data.quantity <= 0) {
+                        $("#addToCart").attr("disabled", "disabled");
+                    }
 
                 }
                 else {
