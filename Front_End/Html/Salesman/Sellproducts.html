@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Deliveryman</title>
+	<title>Salesman</title>
 	<meta charset="utf-8">
 	<script type="text/javascript" src="../../Content/jquery.js"></script>
 	<script type="text/javascript" src="../../JS/Salesman/sellproductScript.js"></script>
@@ -22,6 +22,7 @@
     table  { border-collapse: collapse; width: 100%; }*/
 	#th th{ background:#37447d;}
 	#th2 th{ background:#AEC3D9;}
+	#th3 td{ background:#AEC3D9;}
 
 	</style>
 	
@@ -84,12 +85,11 @@
 							<th>
 								Price
 							</th>
-							<th colspan="">
+							<th colspan="2">
+								<span style="">Quantity</span>
 								 <input type="text" id="buyQuantity" class="form-control" placeholder="Amount.." style="width: 90px;" value="1">
 							</th>
-							<th>
-								<button id="addToCart" class="btn btn-success btn-sm">Add To Cart</button>
-							</th>
+							
 						</tr>
 					</thead>
 					<tbody>
@@ -112,6 +112,58 @@
 			</div>
 	</div>
 </div>
+
+
+<div class="container" style="margin-top:10px;">
+	<div class="row">
+		<div class="col-xs-12 col-sm-12 col-md-1 col-lg-1">
+			
+		</div> 
+			<div class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
+				<div id="checkTable" style="background-color: white;">
+				<table class="table table-bordered table-hover" id="checkList">
+					
+					<thead>
+						<tr id="th">
+							<th colspan="6">
+								<span style="color:White;">Orders Details</span>
+								
+
+							</th>
+						</tr>
+						<tr id="th2">
+							<th>
+								#ProductID
+							</th>
+							<th>
+								Products Name
+							</th>
+							<th>
+								TotalQuantity
+							</th>
+							<th>
+								Price
+							</th>
+							<th colspan="2">
+								Modify
+							</th>
+							
+						</tr>
+					</thead>
+					<tbody>
+						
+					</tbody>
+				</table>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-1 col-lg-1">
+				
+			</div>
+	</div>
+</div>
+
+
+
 
 </body>
 </html>
