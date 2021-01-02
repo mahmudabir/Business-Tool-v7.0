@@ -585,7 +585,7 @@ $(document).ready(function(){
 
         win.print();    // PRINT THE CONTENTS.
 
-            //$("#hide").attr("hidden", "hidden"); 
+        //$("#hide").attr("hidden", "hidden"); 
     }
     $("#btnprint").on("click",function(){
         //$("#hide").removeAttr("hidden", "hidden");
