@@ -47,6 +47,13 @@ $(document).ready(function () {
                     $("#productQuantity").html("<strong>Available Quantity: </strong>" + data.quantity + " pcs");
 
 
+                    if (data.productStatus.status == "AVAILABLE") {
+
+                    } else {
+                        $("#addToCart").attr("disabled", "disabled");
+                    }
+
+
 
                 }
                 else {
