@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Homepage</title>
+    <script type="text/javascript" src="../../../Content/jquery.js"></script>
+    <script type="text/javascript" src="../../../JS/Customer/Order/Pending.js"></script>
+    <link rel="stylesheet" href="../../../CSS/bootstrap.css">
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+
+</head>
+<body class="bg-secondary">
+    <div id="content"></div>
+
+    <div class="p-4">
+        <!-- load Nav -->
+        <script>
+            $(document).ready(function () {
+
+                $('#content').load("../customernav.html");
+
+            });
+        </script>
+        <!-- load Nav -->
+    </div>
+
+
+    <!-- Error Message -->
+    <div id="msg" class="mt-3">
+
+    </div>
+    <!-- Error Message -->
+
+
+
+
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm sol-md col-lg">
+                <div class="card my-3">
+                    <div class="card-body">
+                        <!-- CONTENT -->
+                        <table class="table table-bordered table-hover" id="emptable">
+                            <thead class="thead-dark">
+                                <tr align="center">
+                                    <th scope="col" align="center">#</th>
+                                    <th scope="col" align="center">Username</th>
+                                    <th scope="col" align="center">Company Name</th>
+                                    <th scope="col" align="center">Join Date</th>
+                                    <th scope="col" align="center">Accessibility</th>
+                                    <th scope="col" align="center"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!--DATA FROM API-->
+                                <tr>
+                                    <th scope="row">1</th>
+                                    <td>Mark</td>
+                                    <td>Otto</td>
+                                    <td>@mdo</td>
+                                    <td>Otto</td>
+                                    <td align="center"><button class="btn btn-dark">Details</button></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">2</th>
+                                    <td>Jacob</td>
+                                    <td>Thornton</td>
+                                    <td>@fat</td>
+                                    <td>Thornton</td>
+                                    <td align="center"><button class="btn btn-dark">Details</button></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">3</th>
+                                    <td>Larry</td>
+                                    <td>the Bird</td>
+                                    <td>@twitter</td>
+                                    <td>the Bird</td>
+                                    <td align="center"><button class="btn btn-dark">Details</button></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">2</th>
+                                    <td>Jacob</td>
+                                    <td>Thornton</td>
+                                    <td>@fat</td>
+                                    <td>Thornton</td>
+                                    <td align="center"><button class="btn btn-dark">Details</button></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">3</th>
+                                    <td>Larry</td>
+                                    <td>the Bird</td>
+                                    <td>@twitter</td>
+                                    <td>the Bird</td>
+                                    <td align="center"><button class="btn btn-dark">Details</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <!-- END CONTENT -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+</body>
+<script type="text/javascript" src="../../../Content/jquery.js"></script>
+<script type="text/javascript" src="../../../Content/popper.js"></script>
+<script type="text/javascript" src="../../../Content/bootstrap.js"></script>
+</html>
