@@ -115,14 +115,14 @@ $(document).ready(function () {
         });
     }
 
-    var insertInCustomer = function () {
+    var insertInCustomer = function (id) {
         $.ajax({
             url: "https://localhost:44308/api/customers/register",
             method: "POST",
             data: {
                 name: $("#regname").val(),
-                //joinDate: "1-1-1",
-                joinDate: "1-1-1"
+                joinDate: "1-1-1",
+                loginId: id
             },
             headers: {
                 'Authorization': 'Basic ' + btoa($("#regusername").val() + ":" + $("#regpassword").val()),
@@ -144,7 +144,7 @@ $(document).ready(function () {
 
     var loadRegister = function () {
         $.ajax({
-            url: "https://localhost:44308/api/logins/register",
+            url: "https://localhost:44308/api/logins/register/customer",
             method: "POST",
             data: {
                 email: $("#regemail").val(),
@@ -162,7 +162,7 @@ $(document).ready(function () {
                 if ($("#regname").val() != "" && $("#regemail").val() != "" && $("#regmobile").val() != "" && $("#regusername").val() != "" && $("#regpassword").val() != "") {
                     if (xhr.status == 201) {
                         console.log("Login For Customer Table Data insert Success");
-                        insertInCustomer();
+                        insertInCustomer(xhr.responseJSON.id);
                     }
                     else {
                         console.log(xhr);
@@ -310,7 +310,7 @@ $(document).ready(function () {
         // $("#divregister").hide();
         // $("#divregistervendor").hide();
         // $("#divlogin").show();
-    });    
+    });
     $("#btnvenregister").click(function () {
         loadVendorRegister();
         // $("#divregister").hide();

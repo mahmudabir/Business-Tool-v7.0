@@ -73,7 +73,7 @@ namespace BTv7.Controllers
         [BasicAuthentication]
         public IHttpActionResult PutCustomerByID([FromUri] int id, [FromBody] Customer customer)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 var com = customerDB.GetCustomerByID(id);
                 customer.ID = id;
@@ -90,7 +90,7 @@ namespace BTv7.Controllers
             {
                 return BadRequest(ModelState);
             }
-            
+
 
         }
 
@@ -99,18 +99,18 @@ namespace BTv7.Controllers
 
 
         [Route("register", Name = "CustomerRegistration")]
-        [BasicAuthentication, Authorize(Roles = "CUSTOMER")]
+        //[BasicAuthentication, Authorize(Roles = "CUSTOMER")]
         public IHttpActionResult PostRegister(Customer customer)
         {
-            LoginRepository loginDB = new LoginRepository();
-            var loginFromDB = loginDB.GetUserByUsername(Thread.CurrentPrincipal.Identity.Name.ToString());
+            //LoginRepository loginDB = new LoginRepository();
+            //var loginFromDB = loginDB.GetUserByUsername(Thread.CurrentPrincipal.Identity.Name.ToString());
 
             //Customer customerToDB = new Customer();
 
             //customerToDB.Name = customer.Name;
             customer.JoinDate = DateTime.Now;
 
-            customer.LoginID = loginFromDB.ID;
+            //customer.LoginID = loginFromDB.ID;
             //var identity = (ClaimsIdentity)User.Identity;
             //customerToDB.AddeddBy = Convert.ToInt32(identity.Claims.FirstOrDefault(x => x.Type == "ID").Value);
 
