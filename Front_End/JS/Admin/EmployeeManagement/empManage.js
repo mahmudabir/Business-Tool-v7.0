@@ -7,7 +7,67 @@ $(document).ready(function(){
 
     $('#content').load("../adminnav.html");
 
-    
+ 
+    //LOAD EMPLOYEES LIST
+    var loadPrintEmployees = function () {
+        $.ajax({
+            url: "https://localhost:44308/api/employees",
+            method: "GET",
+            headers: {
+                'Authorization': 'Basic ' + localStorage.authUser,
+            },
+            complete: function (xhr, status) {
+                if (xhr.status == 200) {
+                    console.log(xhr.responseJSON);
+
+                    var data = xhr.responseJSON;
+
+                    var str = '';
+                    var sl = 1;
+                    var icon = "";
+                    if(data.length>0)
+                    {
+                        for (var i = 0; i < data.length; i++) 
+                        {
+                            $("#btnprint").removeAttr("hidden", "hidden");
+                            if(data[i].login.accessStatusID == 1)
+                            {
+                                icon = '<i style="color: green;" class="fas fa-user-check"></i>';
+                            } 
+                            else
+                            {
+                                icon = '<i style="color: red;" class="fas fa-user-slash"></i>';
+                            }
+                            str += "<tr>"+
+                                        "<td align='center'>"+ sl + "</td>"+
+                                        "<td>"+ data[i].login.username/*data[i].login.username.substr(0,180)*/ +"</td>"+
+                                        "<td>"+ data[i].name+ "</td>"+
+                                        "<td>" + data[i].login.userDesignation.designation + "</td>"+
+                                        "<td align='center'>" + data[i].login.accessStatus.status+ "</td>"+
+                                        "<td>" + data[i].login.email + "</td>"+
+                                        "<td>" + data[i].login.mobile + "</td>"+
+                                        "<td>" + data[i].joinDate + "</td>"+
+                                "</tr>";
+                            sl++;
+                        }
+                    }
+                    else
+                    {
+                        $("#btnprint").attr("hidden", "hidden");
+                        str += "<tr><td colspan='6' align='middle'>NO DATA FOUND</td></tr>";
+                    }
+
+                    $("#printtable tbody").html(str);
+                }
+                else 
+                {
+                    alert("Something Went Wrong.");
+                }
+            }
+        });
+    }
+    loadPrintEmployees();
+
     //LOAD EMPLOYEES LIST
     var loadAllEmployees = function () {
         $.ajax({
@@ -474,6 +534,64 @@ $(document).ready(function(){
     }
     $("#btndeactive").on("click",function(){
         DisbaleEmployeeLogin();
+    });
+
+
+    // var Print = function (id) {
+    //     html2canvas($('#hide')[0], {
+    //         //windowWidth: 1200,
+    //         windowHeight: 1200,
+    //         onrendered: function (canvas) {
+    //             var data = canvas.toDataURL();
+    //             var docDefinition = {
+    //                 content: [{
+    //                     image: data,
+    //                     width: 500,
+    //                     windowHeight: 500
+    //                 }]
+    //             };
+    //             pdfMake.createPdf(docDefinition).print(id+".pdf");
+    //             $("#hide").attr("hidden", "hidden");
+    //         }
+    //     });
+    // }
+    
+
+    function savePDF()
+    {
+        var sTable = document.getElementById('hide').innerHTML;
+        var style = "<style>";
+        style = style + "table{width: 100%;font-family: 'Trebuchet MS', Arial, Helvetica, sans-serif;border-collapse: collapse;font-style: bold;}";
+        style = style + "table th {border: 2px solid #000000;}";
+        style = style + "table td{border: 2px solid #000000;padding: 8px;}";
+        //style = style + "table tr:nth-child(even) {background-color: #f2f2f2;}";
+        //style = style + "table tr:nth-child(odd) {background-color: #E6E6FA;}";
+        style = style + "table th {padding-top: 8px;padding-bottom: 8px;text-align: center;background-color: #000000;color: white;}";
+        style = style + "</style>";
+
+
+        // CREATE A WINDOW OBJECT.
+        var win = window.open('', '', 'height=700,width=700');
+
+        win.document.write('<html><head>');
+        win.document.write('<title>PDF</title>');   // <title> FOR PDF HEADER.
+        win.document.write(style);          // ADD STYLE INSIDE THE HEAD TAG.
+        win.document.write('</head>');
+        win.document.write('<body>');
+        win.document.write(sTable);         // THE TABLE CONTENTS INSIDE THE BODY TAG.
+        win.document.write('</body></html>');
+
+        win.document.close(); 	// CLOSE THE CURRENT WINDOW.
+
+        win.print();    // PRINT THE CONTENTS.
+
+        //$("#hide").attr("hidden", "hidden"); 
+    }
+    $("#btnprint").on("click",function(){
+        //$("#hide").removeAttr("hidden", "hidden");
+        savePDF();
+        //$("#hide").attr("hidden", "hidden"); 
+        
     });
 
 });
