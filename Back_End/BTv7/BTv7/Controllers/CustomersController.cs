@@ -198,6 +198,92 @@ namespace BTv7.Controllers
 
 
 
+
+        [Route("{cid}/orders/pending", Name = "GetAllPendingOrderByCustomerID"), BasicAuthentication]
+        public IHttpActionResult GetAllPendingOrderByCustomerID(int cid)
+        {
+            OrderRepository orderDB = new OrderRepository();
+
+            var orderFromDB = orderDB.GetAllPendingOrderByCustomerID(cid);
+            if (orderFromDB.Count != 0)
+            {
+                return Ok(orderFromDB);
+            }
+            else
+            {
+                return StatusCode(HttpStatusCode.NoContent);
+            }
+
+        }
+
+
+
+
+        [Route("{cid}/orders/confirmed", Name = "GetAllConfirmedOrderByCustomerID"), BasicAuthentication]
+        public IHttpActionResult GetAllConfirmedOrderByCustomerID(int cid)
+        {
+            OrderRepository orderDB = new OrderRepository();
+
+            var orderFromDB = orderDB.GetAllConfirmedOrderByCustomerID(cid);
+            if (orderFromDB.Count != 0)
+            {
+                return Ok(orderFromDB);
+            }
+            else
+            {
+                return StatusCode(HttpStatusCode.NoContent);
+            }
+
+        }
+
+
+        [Route("{cid}/orders/canceled", Name = "GetAllCanceledOrderByCustomerID"), BasicAuthentication]
+        public IHttpActionResult GetAllCanceledOrderByCustomerID(int cid)
+        {
+            OrderRepository orderDB = new OrderRepository();
+
+            var orderFromDB = orderDB.GetAllCanceledOrderByCustomerID(cid);
+            if (orderFromDB.Count != 0)
+            {
+                return Ok(orderFromDB);
+            }
+            else
+            {
+                return StatusCode(HttpStatusCode.NoContent);
+            }
+
+        }
+
+
+
+
+
+
+
+
+
+        [Route("{cid}/orders/recieved", Name = "GetAllRecievedOrderByCustomerID"), BasicAuthentication]
+        public IHttpActionResult GetAllRecievedOrderByCustomerID(int cid)
+        {
+            OrderRepository orderDB = new OrderRepository();
+
+            var orderFromDB = orderDB.GetAllRecievedOrderByCustomerID(cid);
+            if (orderFromDB.Count != 0)
+            {
+                return Ok(orderFromDB);
+            }
+            else
+            {
+                return StatusCode(HttpStatusCode.NoContent);
+            }
+
+        }
+
+
+
+
+
+
         [Route("{cid}/orders/", Name = "PostOrderByCustomer")]
         public IHttpActionResult PostOrderByCustomer(int cid, Order order)
         {
