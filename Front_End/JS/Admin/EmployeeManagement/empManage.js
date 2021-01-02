@@ -188,7 +188,9 @@ $(document).ready(function(){
             complete: function (xhr, status) {
                 if (xhr.status == 201) {
                     console.log("Added"); 
+                    
                     loadAllEmployees();
+
                     $("#insertMesg").removeAttr("hidden", "hidden");
                     alert("Username: `"+$("#username").val()+"`\nPassword: 123456789");      
 
