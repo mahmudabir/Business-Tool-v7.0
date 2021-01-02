@@ -435,7 +435,8 @@ namespace BTv7.Controllers
 
 
 
-        [Route("{cid}/orders/{oid}/items/{ocid}", Name = "PutCartsByCustomerNOrderID"), BasicAuthentication]
+        [Route("{cid}/orders/{oid}/items/{ocid}", Name = "PutCartsByCustomerNOrderID")]
+        [BasicAuthentication]
         public IHttpActionResult PutCartByCustomerNOrderID(int cid, int oid, int ocid, OrderCart orderCart)
         {
             OrderCartRepository orderCartDB = new OrderCartRepository();
@@ -464,22 +465,22 @@ namespace BTv7.Controllers
 
 
         [Route("{cid}/orders/{oid}/items/{ocid}", Name = "DeleteCartsByCustomerNOrderID")]
-        [BasicAuthentication, Authorize(Roles = "CUSTOMER,SALESMAN")]
-        public IHttpActionResult DeleteCartByCustomerNOrderID(int cid, int oid, int ocid)
+        [BasicAuthentication]
+        public IHttpActionResult DeleteCartByCustomerNOrderID(int ocid)
         {
             OrderCartRepository orderCartDB = new OrderCartRepository();
-            var orderCartFromDB = orderCartDB.GetAll().Where(x => x.ID == ocid).ToList();
+            //var orderCartFromDB = orderCartDB.GetAll().Where(x => x.ID == ocid).ToList();
 
-            if (orderCartFromDB.Count != 0)
-            {
-                orderCartDB.Delete(ocid);
+            //if (orderCartFromDB.Count != 0)
+            //{
+            orderCartDB.Delete(ocid);
 
-                return StatusCode(HttpStatusCode.NoContent);
-            }
-            else
-            {
-                return BadRequest("Cart Not Found");
-            }
+            return StatusCode(HttpStatusCode.NoContent);
+            //}
+            //    else
+            //    {
+            //return BadRequest("Cart Not Found");
+            //}
 
 
 
