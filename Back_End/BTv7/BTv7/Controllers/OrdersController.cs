@@ -2,10 +2,12 @@
 using BTv7.Repositories;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.ModelBinding;
 
 namespace BTv7.Controllers
 {
@@ -69,9 +71,9 @@ namespace BTv7.Controllers
 
 
 
-        [Route("update_amount/{id}", Name = "PutOrderByID")]
+        [Route("update_amount/{id}", Name = "PutUpdateAmountOrder")]
         [BasicAuthentication]
-        public IHttpActionResult Put(int id, Order order)
+        public IHttpActionResult PutUpdateAmountOrder(int id, Order order)
         {
             OrderCartRepository orderCartDB = new OrderCartRepository();
 
@@ -109,6 +111,86 @@ namespace BTv7.Controllers
             {
                 return BadRequest(ModelState);
             }
+
+        }
+
+
+
+
+
+
+
+
+
+        [Route("checkout/{id}", Name = "PutCheckoutOrder")]
+        [BasicAuthentication]
+        public IHttpActionResult PutCheckoutOrder(int id, Order order)
+        {
+            OrderCartRepository orderCartDB = new OrderCartRepository();
+            ProductRepository productDB = new ProductRepository();
+
+
+            var cartFromDB = orderCartDB.GetAll().Where(x => x.OrderID == id).ToList();
+            var productFromDB = orderCartDB.GetAll();
+
+            //var orderFromDB = orderDB.GetAll().Where(x => x.ID == id).FirstOrDefault();
+
+            //order.CustomerName = orderFromDB.CustomerName;
+
+            var total = (float)0;
+            if (cartFromDB.Count != 0)
+            {
+                foreach (var item in cartFromDB)
+                {
+                    total += (float)item.CartAmount;
+                }
+                order.TotalAmount = (float)total;
+            }
+            else
+            {
+                order.TotalAmount = (float)0;
+            }
+
+
+            foreach (var item in cartFromDB)
+            {
+                if (item.Quantity > productDB.Get((int)item.ProductID).Quantity)
+                {
+                    return BadRequest("Some products you ordered which is not available as you desired.");
+                }
+            }
+
+
+
+
+
+
+            if (ModelState.IsValid)
+            {
+
+                foreach (var item in cartFromDB)
+                {
+                    var productToDB = productDB.Get((int)item.ProductID);
+
+                    productToDB.Quantity = productToDB.Quantity - item.Quantity;
+
+
+                    productDB.Update(productToDB);
+                }
+
+                OrderRepository orderDB2 = new OrderRepository();
+                orderDB2.Update(order);
+                return Ok(order);
+            }
+            else
+            {
+                return BadRequest(ModelState);
+            }
+
+
+
+
+
 
         }
 

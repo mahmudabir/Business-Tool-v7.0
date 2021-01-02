@@ -13,10 +13,14 @@ $(document).ready(function () {
         window.location.href = "../Index.html";
     }
 
+
+
+
+
     var updateOrder = function () {
         $("#msg").removeAttr("hidden");
         $.ajax({
-            url: "https://localhost:44308/api/orders/" + sessionStorage.oid,
+            url: "https://localhost:44308/api/orders/update_amount/" + sessionStorage.oid,
             method: "PUT",
             data: {
                 id: sessionStorage.oid,
@@ -36,7 +40,6 @@ $(document).ready(function () {
             },
             complete: function (xhr, status) {
                 if (xhr.status == 200) {
-                    loadCart();
                     loadOrder();
                 } else {
                     $("#msg").html("<div class=\"alert alert-primary\" role=\"alert\">Error : Could not update the Item.</div>");
@@ -188,6 +191,7 @@ $(document).ready(function () {
                     localStorage.cid = data.customers[0].id;
 
                     loadOrder();
+
                 }
                 else {
                     console.log(xhr);
@@ -275,6 +279,7 @@ $(document).ready(function () {
 
     $("#addToCart").click(function () {
         insertItem();
+
     });
 
 

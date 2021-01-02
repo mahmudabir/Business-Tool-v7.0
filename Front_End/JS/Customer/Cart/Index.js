@@ -4,11 +4,6 @@ $(document).ready(function () {
     }
 
 
-    //if ($("#cartTotal").val() <= 0) {
-    //    $("#btnCeckout").attr("disabled", "disabled");
-    //}
-
-
     var updateOrder = function () {
         $("#msg").removeAttr("hidden");
         $.ajax({
@@ -177,7 +172,7 @@ $(document).ready(function () {
 
                             memo += "<li class=\"list-group-item d-flex justify-content-between lh-condensed\">"
                                 + "<div>"
-                                + "<h6 class=\"my-0\">" + data[i].product.name + "</h6>"
+                                + "<h6 class=\"my-0\">" + data[i].product.name + " (x" + data[i].quantity + ")" + "</h6>"
                                 + "<small class=\"text-muted\">Unit Price:" + data[i].product.sellPrice + "</small>"
                                 + "</div>"
                                 + "<span class=\"text-muted\">" + data[i].quantity * data[i].product.sellPrice + "</span>"
@@ -226,7 +221,7 @@ $(document).ready(function () {
 
                             memo += "<li class=\"list-group-item d-flex justify-content-between lh-condensed\">"
                                 + "<div>"
-                                + "<h6 class=\"my-0\">" + data[i].product.name + "</h6>"
+                                + "<h6 class=\"my-0\">" + data[i].product.name + " (x" + data[i].quantity + ")" + "</h6>"
                                 + "<small class=\"text-muted\">Unit Price:" + data[i].product.sellPrice + "</small>"
                                 + "</div>"
                                 + "<span class=\"text-muted\">" + data[i].quantity * data[i].product.sellPrice + "</span>"
@@ -410,18 +405,70 @@ $(document).ready(function () {
                     loadCart();
                     $("#cartTotal").text(data.totalAmount);
 
+
+                    $("#chkName").val(sessionStorage.ocustomerName);
+                    if (sessionStorage.oaddress == null || sessionStorage.oaddress == "" || sessionStorage.oaddress == undefined || sessionStorage.oaddress == "null") {
+                        //$("#chkAddress").val("");
+                    } else {
+
+                        $("#chkAddress").val(sessionStorage.oaddress);
+                    }
+
+
+
+
+
+
                     $("#btnCeckout").click(function () {
                         if ($("#cartTotal").text() <= 0) {
                             console.log("Value is \"" + $("#cartTotal").text() + "\", which is less than or equal to zero.");
-                            alert("You don't have anything to checkout.");
+                            $("#msg2").html("<div class=\"alert alert-danger\" role=\"alert\">Error : You don't have anything to checkout.</div>");
                         } else {
                             console.log("Value is " + $("#cartTotal").text() + ", which is greater than zero.");
 
-                            $.ajax({
-                                url: "https://localhost:44308/api/customers/" + localStorage.cid + "/orders/saletype/1/orderstatus/6/notissold",
-                                method: "PUT",
+                            if ($("#chkName").val() == "" || $("#chkAddress").val() == "") {
+                                $("#msg2").html("<div class=\"alert alert-danger\" role=\"alert\">Please fill up the form.</div>");
+                            } else {
+                                $.ajax({
+                                    url: "https://localhost:44308/api/orders/checkout/" + sessionStorage.oid,
+                                    method: "PUT",
+                                    data: {
+                                        id: sessionStorage.oid,
+                                        date: sessionStorage.odate,
+                                        totalAmount: sessionStorage.ototalAmount,
+                                        address: sessionStorage.oaddress,
+                                        customerID: sessionStorage.ocustomerID,
+                                        customerName: sessionStorage.ocustomerName,
+                                        saleTypeID: 1,
+                                        isSold: true,
+                                        orderStatusID: 1,
+                                        sellBy: sessionStorage.osellBy
 
-                            });
+                                    },
+                                    headers: {
+                                        'Authorization': 'Basic ' + localStorage.authUser,
+                                    },
+                                    complete: function (xhr, status) {
+                                        if (xhr.status == 200) {
+                                            sessionStorage.clear();
+                                            loadCart();
+                                            loadOrder();
+                                            $("#msg2").html("<div class=\"alert alert-success text-center\" role=\"alert\">Checked out your order.</div>");
+                                            //window.location.href = "..";
+                                        } else if (xhr.status == 400) {
+                                            console.log(xhr.responseJSON);
+                                            $("#msg2").html("<div class=\"alert alert-danger\" role=\"alert\">" + xhr.responseJSON.message + "</div>");
+                                        }
+                                    }
+
+
+                                });
+                            }
+
+
+
+
+
 
                         }
                     });
@@ -475,6 +522,8 @@ $(document).ready(function () {
         });
     }
 
+
+    updateOrder();
     loadUser();
     console.log("CustomerID: " + localStorage.cid);
 
