@@ -165,7 +165,14 @@ $(document).ready(function(){
                 url: "https://localhost:44308/api/products/add",
                 method: "POST",
                 data: {
-                    
+                    name: $("#name").val(),
+                    quantity: $("#quantity").val(),
+                    buyPrice: $("#buyprice").val(),
+                    sellPrice: $("#sellprice").val(),
+                    productTypeID: $("#type").val(),
+                    productStatusID:"3",
+                    vendorID: localStorage.userId,
+                    modifiedBy:"1"
                 },
                 headers: {
                     'Authorization': 'Basic ' + localStorage.authUser,
@@ -184,6 +191,7 @@ $(document).ready(function(){
         }
         $("#btnadd").on("click",function(){
             insertProduct();
+            $()
         });
     //insert product
 

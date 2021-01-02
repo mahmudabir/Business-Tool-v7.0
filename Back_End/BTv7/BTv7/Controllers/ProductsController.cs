@@ -327,7 +327,7 @@ namespace BTv7.Controllers
                 var result = productFromDB.AddLinks(
                 new HyperMedia
                 {
-                    Rel = "Get one customer by ID",
+                    Rel = "Get one product by ID",
                     Href = Url.Link("GetProductByID", new { id = productFromDB.ID }),
                     Method = "GET"
                 }
