@@ -423,7 +423,7 @@ $("#search").keyup(function(){
 			
 				if(xmlhttp.status==200){
 					dataProduct=xmlhttp.responseJSON;
-					str="<tr  btn-id-product="+dataProduct.id+" btn-i-val="+0+"><td>"+dataProduct.id+"</td><td>"+dataProduct.name+"</td><td>"+dataProduct.quantity+"</td><td>"+dataProduct.sellPrice+"</td><td colspan='2'><button style='float:right' id='cell' btn-price-product="+dataProduct.sellPrice+" btn-id-product="+dataProduct.id+" class='btn btn-success btn-sm'>Select</td></tr>"	
+					str+="<tr  btn-id-product="+dataProduct.id+" btn-i-val="+0+"><td>"+dataProduct.id+"</td><td>"+dataProduct.name+"</td><td>"+dataProduct.quantity+"</td><td>"+dataProduct.sellPrice+"</td><td colspan='2'><button style='float:right' id='cell' btn-price-quantity="+dataProduct.quantity+" btn-price-product="+dataProduct.sellPrice+" btn-id-product="+dataProduct.id+" class='btn btn-success btn-sm'>Select</td></tr>"	
 					$("#productList tbody").html(str);
 				}
 				else
