@@ -15,6 +15,7 @@ namespace BTv7.Models
         public string Subject { get; set; }
         [Required]
         public string Description { get; set; }
+        public DateTime? PostDate { get; set; }
 
         [ForeignKey("Employee")]
         public int EmployeeID { get; set; }
