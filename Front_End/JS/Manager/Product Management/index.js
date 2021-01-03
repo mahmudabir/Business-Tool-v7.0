@@ -280,41 +280,41 @@ $(document).ready(function(){
         available();
     });
 
-    //avaolable
+    //available
 
-    // //notforsale
-    // var notForSale = function () {
-    //     $.ajax({
-    //         url: "https://localhost:44308/api/products/unapproved/"+$("#editid").val(),
-    //         method: "PUT",
-    //         header: "Content-Type:application/json",
-    //         data: {
-    //             id: $("#editid").val(),
-    //             name: $("#editname").val(),
-    //             quantity: $("#editquantity").val(),
-    //             buyPrice: $("#editbuyprice").val(),
-    //             sellPrice: $("#editsellprice").val(),
-    //             productTypeID: $("#edittype").val(),
-    //             productStatusID:"3"
+    //notforsale
+    var notForSale = function () {
+        $.ajax({
+            url: "https://localhost:44308/api/products/unapproved/"+$("#editid").val(),
+            method: "PUT",
+            header: "Content-Type:application/json",
+            data: {
+                id: $("#editid").val(),
+                name: $("#editname").val(),
+                quantity: $("#editquantity").val(),
+                buyPrice: $("#editbuyprice").val(),
+                sellPrice: $("#editsellprice").val(),
+                productTypeID: $("#edittype").val(),
+                productStatusID:"4"
                 
-    //         },
-    //         headers: {
-    //             'Authorization': 'Basic ' + localStorage.authUser,
-    //         },
-    //         complete: function (xhr, status) {
-    //             if (xhr.status == 200) {
-    //                 loadAllProducts();
-    //                 alert("Product Unapproved.")
-    //             } 
-    //             else {
-    //                 alert("Something Wrong.");
-    //             }
-    //         }
-    //     });
-    // }
-    // $("#btnunapproved").on("click",function(){
-    //     unapproved();
-    // });
-    // //notforsale
+            },
+            headers: {
+                'Authorization': 'Basic ' + localStorage.authUser,
+            },
+            complete: function (xhr, status) {
+                if (xhr.status == 200) {
+                    loadAllProducts();
+                    alert("Product Not For Sale.")
+                } 
+                else {
+                    alert("Something Wrong.");
+                }
+            }
+        });
+    }
+    $("#btnnotforsale").on("click",function(){
+        notForSale();
+    });
+    //notforsale
     
 });
