@@ -432,7 +432,7 @@ $(document).ready(function(){
 
     var unavailable = function () {
         $.ajax({
-            url: "https://localhost:44308/api/products/unavailable"+$("#editid").val(),
+            url: "https://localhost:44308/api/products/unavailable/"+$("#editid").val(),
             method: "PUT",
             header: "Content-Type:application/json",
             data: {
@@ -450,7 +450,7 @@ $(document).ready(function(){
             },
             complete: function (xhr, status) {
                 if (xhr.status == 200) {
-                    updateEmployeeDetails();
+                    loadAllProducts();
                     alert("Product Unavailabled.")
                 } 
                 else {
@@ -459,7 +459,7 @@ $(document).ready(function(){
             }
         });
     }
-    $("#btnupdate").on("click",function(){
+    $("#btnunavailable").on("click",function(){
         unavailable();
     });
 
