@@ -22,7 +22,7 @@ namespace BTv7.Repositories
 
         public List<Order> GetAllConfirmedOrderByCustomerID(int cid)
         {
-            return this.GetAll().Where(x => x.CustomerID == cid && x.OrderStatusID == 1).ToList();
+            return this.GetAll().Where(x => x.CustomerID == cid && x.OrderStatusID == 2).ToList();
         }
 
 
