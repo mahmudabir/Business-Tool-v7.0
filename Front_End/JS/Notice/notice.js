@@ -54,11 +54,11 @@ $(document).ready(function(){
 							{
 								str += "<div class='card'>"+
 										"<div class='card-header' id='heading"+data[i].id+"One"+"'>"+
-											"<h5 class='mb-0'>"+
+											"<h2 class='mb-0'>"+
 												"<button class='btn btn-link' data-toggle='collapse' data-target='#collapse"+data[i].id+"One"+"' aria-expanded='true' aria-controls='collapse"+data[i].id+"'>"+
-													data[i].subject+
+													data[i].subject+" ("+data[i].postDate+")"+
 												"</button>"+
-											"</h5>"+
+											"</h2>"+
 										"</div>"+
 									
 										"<div id='collapse"+data[i].id+"One"+"' class='collapse show' aria-labelledby='heading"+data[i].id+"One"+"' data-parent='#accordion'>"+
