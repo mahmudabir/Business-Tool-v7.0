@@ -34,7 +34,7 @@ $(document).ready(function () {
 
                 } else if (xhr.status == 204) {
                     console.log("No Canceled Order in the database.");
-                    $("#msg").html("<div class=\"alert alert-danger\" role=\"alert\">No Canceled Order in the database.</div>");
+                    $("#msg").html("<div class=\"alert alert-danger\" role=\"alert\">No Confirmed Order in the database.</div>");
                 }
                 else {
                     console.log(xhr);
