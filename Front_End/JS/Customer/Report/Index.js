@@ -10,7 +10,7 @@ $(document).ready(function () {
     var loadGraph = function () {
         $("#msg").removeAttr("hidden");
         $.ajax({
-            url: "https://localhost:44308/api/customers/" + cid + "/feedbacks",
+            url: "https://localhost:44308/api/customers/" + localStorage.cid + "/reports",
             method: "GET",
             headers: {
                 'Authorization': 'Basic ' + localStorage.authUser,
@@ -19,25 +19,46 @@ $(document).ready(function () {
                 if (xhr.status == 200) {
 
                     var data = xhr.responseJSON;
-                    console.log(data);
-                    console.log(cid);
-                    var str = "";
-                    for (var i = 0; i < data.length; i++) {
 
-                        str += "<div class=\"media text-muted pt-3\">"
-                            + "<p class=\"d-flex justify-content-between align-items-center w-100\">"
-                            + "<strong class=\"d-block text-gray-dark\">"
-                            + "<span>" + data[i].subject + "</span>"
-                            + "</strong>"
-                            //+ "<div><p >" + data[i].email + "</p></div>"
-                            + "|<div class=\"col-md-8\"><p>" + data[i].description + "</p></div>"
-                            + "</div>"
-                            + "<hr />";
-                    }
-
-
-                    $("#divFeedbacks").html(str);
-
+                    var ctx = document.getElementById('myChart').getContext('2d');
+                    var myChart = new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: data[0], //['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                            datasets: [{
+                                label: '# of Orders',
+                                data: data[1], //[12, 19, 3, 5, 2, 3],
+                                backgroundColor: [
+                                    'rgba(255, 99, 132, 0.2)',
+                                    'rgba(54, 162, 235, 0.2)',
+                                    'rgba(255, 206, 86, 0.2)',
+                                    'rgba(75, 192, 192, 0.2)',
+                                    'rgba(153, 102, 255, 0.2)',
+                                    'rgba(255, 159, 64, 0.2)'
+                                ],
+                                borderColor: [
+                                    'rgba(255, 99, 132, 1)',
+                                    'rgba(54, 162, 235, 1)',
+                                    'rgba(255, 206, 86, 1)',
+                                    'rgba(75, 192, 192, 1)',
+                                    'rgba(153, 102, 255, 1)',
+                                    'rgba(255, 159, 64, 1)'
+                                ],
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            title: { display: true, text: 'Different Orders number by their status' },
+                            scales: {
+                                yAxes: [{
+                                    ticks: {
+                                        beginAtZero: true
+                                    }
+                                }]
+                            }
+                        }
+                    });
                 }
                 else {
                     console.log(xhr);
@@ -49,7 +70,7 @@ $(document).ready(function () {
 
 
 
-    //loadGraph();
+    loadGraph();
 
 
 });

@@ -2,6 +2,7 @@
 using BTv7.Repositories;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -585,5 +586,60 @@ namespace BTv7.Controllers
 
 
         }
+
+
+
+
+
+        [Route("{cid}/reports", Name = "GetReportByCustomerID")]
+        [BasicAuthentication]
+        public IHttpActionResult GetReportByCustomerID(int cid)
+        {
+            OrderRepository orderDB = new OrderRepository();
+            List<object> iData = new List<object>();
+
+            //Creating sample data  
+            DataTable dt = new DataTable();
+            dt.Columns.Add("Type", System.Type.GetType("System.String"));
+            dt.Columns.Add("Count", System.Type.GetType("System.Int32"));
+
+            DataRow dr = dt.NewRow();
+            dr["Type"] = "Pending";
+            dr["Count"] = orderDB.GetAllPendingOrderByCustomerID(cid).Count;
+            dt.Rows.Add(dr);
+
+            dr = dt.NewRow();
+            dr["Type"] = "Confirmed";
+            dr["Count"] = orderDB.GetAllConfirmedOrderByCustomerID(cid).Count;
+            dt.Rows.Add(dr);
+
+            dr = dt.NewRow();
+            dr["Type"] = "Recieved";
+            dr["Count"] = orderDB.GetAllRecievedOrderByCustomerID(cid).Count;
+            dt.Rows.Add(dr);
+
+            dr = dt.NewRow();
+            dr["Type"] = "Canceled";
+            dr["Count"] = orderDB.GetAllCanceledOrderByCustomerID(cid).Count;
+            dt.Rows.Add(dr);
+
+            //Looping and extracting each DataColumn to List<Object>  
+            foreach (DataColumn dc in dt.Columns)
+            {
+                List<object> x = new List<object>();
+                x = (from DataRow drr in dt.Rows select drr[dc.ColumnName]).ToList();
+                iData.Add(x);
+            }
+            //Source data returned as JSON  
+            return Ok(iData);
+
+
+
+            //return Ok();
+        }
+
+
+
+
     }
 }
