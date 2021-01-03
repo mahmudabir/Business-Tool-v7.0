@@ -97,5 +97,11 @@ namespace BTv7.Repositories
                 pro.Database.ExecuteSqlCommand("UPDATE Products SET ProductStatusID = '" + product.ProductStatusID + "' WHERE ID = " + product.ID + ";");
             }
         }
+
+
+        public List<Product> GetProductsByProductStatusID()
+        {
+            return this.context.Set<Product>().Where(x => x.ProductStatusID == 2 || x.ProductStatusID==1).ToList();
+        }
     }
 }

@@ -457,5 +457,25 @@ namespace BTv7.Controllers
 
         //Unapproved
 
+        //Get Product For manager
+
+        [Route("getAllProductByStatusID", Name = "GetAllProductsByProductStatusID")]
+        public IHttpActionResult GetAllProductsByProductStatusID()
+        {
+            var productsFromDB = productDB.GetProductsByProductStatusID();
+            if (productsFromDB.Count != 0)
+            {
+                return Ok(productsFromDB);
+            }
+            else
+            {
+                return StatusCode(HttpStatusCode.NoContent);
+            }
+        }
+
+        //Get Product For manager
+
+
+
     }
 }

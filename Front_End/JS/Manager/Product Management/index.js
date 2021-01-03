@@ -38,7 +38,7 @@ $(document).ready(function(){
         //LOAD EMPLOYEES LIST
         var loadAllProducts = function () {
             $.ajax({
-                url: "https://localhost:44308/api/products/vendorId/"+localStorage.vendorID,
+                url: "https://localhost:44308/api/products/getAllProductByStatusID",
                 method: "GET",
                 headers: {
                     'Authorization': 'Basic ' + localStorage.authUser,
@@ -66,12 +66,7 @@ $(document).ready(function(){
                                             
                                             "<td align='center'> <button type='button' data-toggle='modal' data-target='#detailProduct' data-id="+data[i].id+" class='btn btn-dark'>Details</button>" +
                                     "</tr>";
-                                    // sessionStorage.name = data[i].name;
-                                    // console.log(sessionStorage.name);
-                                    
-                                    // console.log("vendor id",sessionStorage.vendorLoginId);
                             }
-                            //sessionStorage.vendorLoginId = data[0].vendor.ID;
     
                         }
                         else
