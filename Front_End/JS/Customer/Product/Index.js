@@ -260,8 +260,11 @@ $(document).ready(function () {
             },
             complete: function (xhr, status) {
                 if (xhr.status == 201) {
+
                     updateOrder();
+
                     $("#msg").html("<div class=\"alert alert-success\" role=\"alert\">Item Added to the Cart.</div>");
+                    loadCartCount();
 
                 }
                 else {
@@ -273,7 +276,30 @@ $(document).ready(function () {
     }
 
 
+    var loadCartCount = function () {
+        $("#msg").removeAttr("hidden");
+        $.ajax({
+            url: "https://localhost:44308/api/customers/" + localStorage.cid + "/orders/" + sessionStorage.oid + "/items",
+            method: "GET",
+            headers: {
+                'Authorization': 'Basic ' + localStorage.authUser,
+            },
+            complete: function (xhr, status) {
+                if (xhr.status == 200) {
 
+                    var data = xhr.responseJSON;
+
+                    var cartCount = data.length;
+                    console.log(cartCount);
+                    $("#cartCount").text(cartCount);
+
+                }
+                else {
+                    console.log(xhr);
+                }
+            }
+        });
+    }
 
 
 

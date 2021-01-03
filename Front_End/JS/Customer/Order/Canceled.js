@@ -29,7 +29,7 @@ $(document).ready(function () {
                     }
 
 
-                    $("#count").html("(x" + count + ")");
+                    $("#count").html(count);
                     $("tbody").html(str);
 
 

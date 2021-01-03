@@ -4,6 +4,32 @@ $(document).ready(function () {
     }
 
 
+    var loadCartCount = function () {
+        $("#msg").removeAttr("hidden");
+        $.ajax({
+            url: "https://localhost:44308/api/customers/" + localStorage.cid + "/orders/" + sessionStorage.oid + "/items",
+            method: "GET",
+            headers: {
+                'Authorization': 'Basic ' + localStorage.authUser,
+            },
+            complete: function (xhr, status) {
+                if (xhr.status == 200) {
+
+                    var data = xhr.responseJSON;
+
+                    var cartCount = data.length;
+                    console.log(cartCount);
+                    $("#cartCount").text(cartCount);
+
+                }
+                else {
+                    console.log(xhr);
+                }
+            }
+        });
+    }
+
+
     var updateOrder = function () {
         $("#msg").removeAttr("hidden");
         $.ajax({
@@ -101,8 +127,6 @@ $(document).ready(function () {
     }
 
 
-
-
     var loadCart = function () {
         $("#msg").removeAttr("hidden");
         $.ajax({
@@ -119,9 +143,10 @@ $(document).ready(function () {
 
                     sessionStorage.items = JSON.stringify(data);
                     console.log(JSON.parse(sessionStorage.items));
-
+                    loadCartCount();
                     $("#itemQuantity1").text(data.length);
                     $("#itemQuantity2").text(data.length);
+
 
 
                     var str = "";
@@ -281,7 +306,6 @@ $(document).ready(function () {
                             console.log("OrderID: " + $(this).attr("orderId"));
                             console.log("ProductID: " + $(this).attr("productID"));
                             console.log("");
-
 
                             updateCartItem(q, ocID, oID, pID);
                         }
@@ -452,9 +476,11 @@ $(document).ready(function () {
                                         if (xhr.status == 200) {
                                             sessionStorage.clear();
                                             loadCart();
-                                            loadOrder();
+                                            //loadOrder();
+                                            setTimeout(loadCartCount, 3000);
+
                                             $("#msg2").html("<div class=\"alert alert-success text-center\" role=\"alert\">Checked out your order.</div>");
-                                            //window.location.href = "..";
+                                            window.location.href = "..";
                                         } else if (xhr.status == 400) {
                                             console.log(xhr.responseJSON);
                                             $("#msg2").html("<div class=\"alert alert-danger\" role=\"alert\">" + xhr.responseJSON.message + "</div>");
