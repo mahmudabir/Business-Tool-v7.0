@@ -5,6 +5,7 @@ $(document).ready(function () {
 
     if (sessionStorage.signup == "true") {
         $("#divlogin").hide();
+        $("#divregistervendor").hide();
         $("#divregister").show();
         sessionStorage.clear();
     }
