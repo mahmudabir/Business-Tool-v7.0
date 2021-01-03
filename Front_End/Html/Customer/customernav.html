@@ -1,7 +1,7 @@
 <script>
     var loadLogout = function () {
         $.ajax({
-            url: "http://localhost:44308/api/logins/logout",
+            url: "https://localhost:44308/api/logins/logout",
             method: "GET",
             headers: {
                 'Authorization': 'Basic ' + localStorage.authUser,
@@ -13,6 +13,7 @@
                     console.log(localStorage.user);
                     window.location.href = "http://localhost/Business-Tool-v7.0-api/Front_End/Html/Login/index.html";
                 } else {
+                    console.log(xmlhttp.responseJSON);
                     $("#msg").html("<div class=\"alert alert-danger\" role=\"alert\">Error : " + xmlhttp.status + ":" + xmlhttp.statusText + "</div>");
                 }
             }
@@ -27,7 +28,7 @@
     var loadUser = function () {
         $("#msg").removeAttr("hidden");
         $.ajax({
-            url: "http://localhost:44308/api/logins/" + localStorage.userId,
+            url: "https://localhost:44308/api/logins/" + localStorage.userId,
             method: "GET",
             headers: {
                 'Authorization': 'Basic ' + localStorage.authUser,
@@ -44,7 +45,7 @@
                 }
                 else {
                     console.log(xhr);
-                    $("#msg").html("<div class=\"alert alert-danger\" role=\"alert\">Error : " + xhr.responseJSON.message + "</div>");
+                    //$("#msg").html("<div class=\"alert alert-danger\" role=\"alert\">Error : " + xhr.responseJSON + "</div>");
                 }
             }
         });
@@ -101,9 +102,9 @@
                         <a class="dropdown-item" href="http://localhost/Business-Tool-v7.0-api/Front_End/Html/Customer/Feedback/History.html"><i class="fas fa-history"></i> Feedback History</a>
                     </div>
                 </li>
-                <li class="nav-item active">
+                <!--<li class="nav-item active">
                     <a class="nav-link" href="http://localhost/Business-Tool-v7.0-api/Front_End/Html/Customer/Report/Index.html"><i class="fas fa-chart-bar"></i> Reports</a>
-                </li>
+                </li>-->
             </ul>
             <ul class="navbar-nav mr-3">
                 <li class="nav-item active dropdown">

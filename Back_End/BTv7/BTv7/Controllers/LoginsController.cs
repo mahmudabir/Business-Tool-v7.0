@@ -159,12 +159,12 @@ namespace BTv7.Controllers
         public IHttpActionResult GetLogout()
         {
 
-            Thread.CurrentPrincipal = new GenericPrincipal(new GenericIdentity(""), null);
-            var authOrNot = Thread.CurrentPrincipal.Identity.IsAuthenticated;
-            var authUsername = Thread.CurrentPrincipal.Identity.Name.ToString();
-            var authUserRole = Thread.CurrentPrincipal.IsInRole(null);
-            var authInstanceType = Thread.CurrentPrincipal.GetType();
-            var authType = Thread.CurrentPrincipal.Identity.AuthenticationType;
+            //Thread.CurrentPrincipal = new GenericPrincipal(new GenericIdentity(""), null);
+            //var authOrNot = Thread.CurrentPrincipal.Identity.IsAuthenticated;
+            //var authUsername = Thread.CurrentPrincipal.Identity.Name.ToString();
+            //var authUserRole = Thread.CurrentPrincipal.IsInRole(null);
+            //var authInstanceType = Thread.CurrentPrincipal.GetType();
+            //var authType = Thread.CurrentPrincipal.Identity.AuthenticationType;
             return StatusCode(HttpStatusCode.OK);
         }
 
