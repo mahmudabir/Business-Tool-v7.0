@@ -34,7 +34,7 @@ $(document).ready(function () {
 
 
                     for (var i = 0; i < data.length; i++) {
-                        if (localStorage.cid != data[0].order.customerID) {
+                        if (localStorage.cid != data[i].order.customerID) {
                             window.location.href = "../";
                         } else {
                             str += "<tr>"
