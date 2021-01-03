@@ -173,7 +173,7 @@ $(document).ready(function(){
         
                             if(data.length>0)
                             {
-                                for (var i = 0; i < data.length-2; i++) 
+                                for (var i = 0; i < data.length; i++) 
                                 {
                                     
                                     $('#type').append(`<option value="${data[i].id}">  ${data[i].type} </option>`);
@@ -317,37 +317,32 @@ $(document).ready(function(){
                             $("#editid").val(data[0].id);
                             $("#editname").val(data[0].name);
                             $("#editquantity").val(data[0].quantity);
-                            $("#editbuyprice").val(data[0].buyPrice);//EMPLOYEE
-                            $("#editsellprice").val(data[0].sellPrice);
+                            $("#editbuyprice").val(data[0].buyPrice);
+                            $("#editsellprice").val(data[0].sellPrice);  
+                            $("#edittype option[value='"+data[0].productTypeID+"']").attr("selected", "selected");
                             
-                            
-                            $('#edittype option[value="'+data[0].productType.type+'"]').attr("selected", "selected");
-                            if(data[0].productStatus.id == '2')
+                            console.log(data[0].productType.type);
+                            console.log(data[0].productStatus.id);
+                            if(data[0].productStatus.id == '3')
                             {                    
                                 $("#updateMesg").attr("hidden", "hidden");
-                                $("#enableMesg").attr("hidden", "hidden");
-                                $("#disableMesg").attr("hidden", "hidden");
-                                $("#btnactive").attr("hidden", "hidden");
-                                $("#btndeactive").removeAttr("hidden", "hidden");
+                                $("#btnunapproved").attr("hidden", "hidden");
+                                $("#btnunavailable").removeAttr("hidden", "hidden");
                                 $("#btnupdate").removeAttr("hidden", "hidden");
                             }
-                            else if(data[0].productStatus.id == '3')
+                            else if(data[0].productStatus.id == '2')
                             {
                                 $("#updateMesg").attr("hidden", "hidden");
-                                $("#enableMesg").attr("hidden", "hidden");
-                                $("#disableMesg").attr("hidden", "hidden");
-                                $("#btndeactive").attr("hidden", "hidden");
-                                $("#btnactive").removeAttr("hidden", "hidden");
+                                $("#btnunavailable").attr("hidden", "hidden");
+                                $("#btnunapproved").removeAttr("hidden", "hidden");
                                 $("#btnupdate").removeAttr("hidden", "hidden");
                             }
                             else
                             {
                                 $("#updateMesg").attr("hidden", "hidden");
-                                $("#enableMesg").attr("hidden", "hidden");
-                                $("#disableMesg").attr("hidden", "hidden");
                                 $("#btnupdate").attr("hidden", "hidden");
-                                $("#btndeactive").attr("hidden", "hidden");
-                                $("#btnactive").attr("hidden", "hidden");
+                                $("#btnunavailable").attr("hidden", "hidden");
+                                $("#btnunapproved").attr("hidden", "hidden");
                             }
                         }
                         else
@@ -361,12 +356,112 @@ $(document).ready(function(){
                 }
             });
         }
-        //loadProductDetails(1);
         $('#detailProduct').on('show.bs.modal', function(e) {
             var id = $(e.relatedTarget).data('id');
             loadProductDetails(id);
         });
-    
-    
-        //update product
+
+    var updateProductDetails = function () {
+        if($("#editname").val()!="" && $("#editquantity").val()!="" && $("#editbuyprice").val()!="" && $("#editsellprice").val()!="" && $("#edittype").val()!="")
+        {
+            $.ajax({
+                url: "https://localhost:44308/api/products/update/"+$("#editid").val(),
+                method: "PUT",
+                header: "Content-Type:application/json",
+                data: {
+                    id: $("#editid").val(),
+                    name: $("#editname").val(),
+                    quantity: $("#editquantity").val(),
+                    buyPrice: $("#editbuyprice").val(),
+                    sellPrice: $("#editsellprice").val(),
+                    productTypeID: $("#edittype").val()
+                },
+                headers: {
+                    'Authorization': 'Basic ' + localStorage.authUser,
+                },
+                complete: function (xhr, status) {
+                    if (xhr.status == 200) {
+                        console.log(xhr.responseJSON);
+                        loadAllProducts();
+                        $("#updateMesg").removeAttr("hidden", "hidden");
+                        $("#enableMesg").attr("hidden", "hidden");
+                        $("#disableMesg").attr("hidden", "hidden");
+                    } 
+                    else {
+                        $("#updateMesg").attr("hidden", "hidden");
+                        if(xhr.responseJSON.message=="The request is invalid.")
+                        {
+                            if(xhr.responseJSON.modelState["product.Quantity"] !=undefined)
+                            {
+                                alert(xhr.responseJSON.modelState["product.Quantity"]);
+                            }
+                            if(xhr.responseJSON.modelState["product.BuyPrice"] !=undefined)
+                            {
+                                alert(xhr.responseJSON.modelState["product.BuyPrice"]);
+                            }
+                            if(xhr.responseJSON.modelState["product.SellPrice"] !=undefined)
+                            {
+                                alert(xhr.responseJSON.modelState["product.SellPrice"]);
+                            }
+                            
+                        }
+                        else
+                        {
+                            if(xhr.responseJSON.message!=null || xhr.responseJSON.message!="" || xhr.responseJSON.message!=undefined)
+                            {
+                                alert(xhr.responseJSON.message);
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        else
+        {
+            alert("Fill Correctly.");
+        }
+        
+    }
+    $("#btnupdate").on("click",function(){
+        updateProductDetails();
+    });
+
+    //update product
+
+    // Unavailable
+
+    var unavailable = function () {
+        $.ajax({
+            url: "https://localhost:44308/api/products/unavailable"+$("#editid").val(),
+            method: "PUT",
+            header: "Content-Type:application/json",
+            data: {
+                id: $("#editid").val(),
+                name: $("#editname").val(),
+                quantity: $("#editquantity").val(),
+                buyPrice: $("#editbuyprice").val(),
+                sellPrice: $("#editsellprice").val(),
+                productTypeID: $("#edittype").val(),
+                productStatusID:"2"
+                
+            },
+            headers: {
+                'Authorization': 'Basic ' + localStorage.authUser,
+            },
+            complete: function (xhr, status) {
+                if (xhr.status == 200) {
+                    updateEmployeeDetails();
+                    alert("Product Unavailabled.")
+                } 
+                else {
+                    alert("Something Wrong.");
+                }
+            }
+        });
+    }
+    $("#btnupdate").on("click",function(){
+        unavailable();
+    });
+
+    //Unavaolable
 });

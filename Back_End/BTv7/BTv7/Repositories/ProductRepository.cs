@@ -81,5 +81,21 @@ namespace BTv7.Repositories
         {
             return this.context.Set<Product>().Where(x => x.ID == id).ToList();
         }
+
+
+        public void UpdateProductDetails(Product product)
+        {
+            using (var pro = new BTv7DbContext())
+            {
+                pro.Database.ExecuteSqlCommand("UPDATE Products SET Name = '" + product.Name + "' , Quantity= '" + product.Quantity + "' , BuyPrice= '" + product.BuyPrice + "' , SellPrice= '" + product.SellPrice + "' , ProductTypeID= '" + product.ProductTypeID + "' WHERE ID = " + product.ID + ";");
+            }
+        }
+        public void Unavilable(Product product)
+        {
+            using (var pro = new BTv7DbContext())
+            {
+                pro.Database.ExecuteSqlCommand("UPDATE Products SET ProductStatusID = '" + product.ProductStatusID + "' WHERE ID = " + product.ID + ";");
+            }
+        }
     }
 }

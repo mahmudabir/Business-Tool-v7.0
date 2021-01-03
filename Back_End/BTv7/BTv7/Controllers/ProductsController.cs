@@ -388,5 +388,52 @@ namespace BTv7.Controllers
 
         //get product by vendor id
 
+
+        //update product 
+
+        [Route("update/{id}", Name = "PutProductByID")]
+        [BasicAuthentication]
+        public IHttpActionResult PutProductByID([FromUri] int id, [FromBody] Product product)
+        {
+
+            if(ModelState.IsValid)
+            {
+                var pro = productDB.GetProductsByID(id);
+                product.ID = id;
+
+                productDB.UpdateProductDetails(product);
+
+                return Ok(product);
+            }
+            else
+            {
+                return BadRequest(ModelState);
+            }
+
+        }
+
+        //update product 
+
+
+        //Unavailable
+        [Route("unavailable/{id}", Name = "PutUnavailable")]
+        [BasicAuthentication]
+        public IHttpActionResult PutUnavailable([FromUri] int id, [FromBody] Product product)
+        {
+
+
+            var pro = productDB.GetProductsByID(id);
+            product.ID = id;
+            
+
+            productDB.Unavilable(product);
+
+            return Ok(product);
+
+
+        }
+
+        //Unavailable
+
     }
 }
