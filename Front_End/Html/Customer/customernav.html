@@ -22,6 +22,36 @@
     $("#logout").click(function () {
         loadLogout();
     });
+
+
+    var loadUser = function () {
+        $("#msg").removeAttr("hidden");
+        $.ajax({
+            url: "https://localhost:44308/api/logins/" + localStorage.userId,
+            method: "GET",
+            headers: {
+                'Authorization': 'Basic ' + localStorage.authUser,
+            },
+            complete: function (xhr, status) {
+                if (xhr.status == 200) {
+                    //console.log(xhr.responseJSON);
+
+                    var data = xhr.responseJSON;
+
+                    localStorage.cid = data.customers[0].id;
+
+
+                }
+                else {
+                    console.log(xhr);
+                    $("#msg").html("<div class=\"alert alert-danger\" role=\"alert\">Error : " + xhr.responseJSON.message + "</div>");
+                }
+            }
+        });
+    }
+
+    loadUser();
+    console.log("CustomerID: " + localStorage.cid);
 </script>
 
 
@@ -70,6 +100,9 @@
                         <a class="dropdown-item" href="http://localhost/Business-Tool-v7.0-api/Front_End/Html/Customer/Feedback/Index.html"><i class="fas fa-comment"></i> Send Feedback</a><div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="http://localhost/Business-Tool-v7.0-api/Front_End/Html/Customer/Feedback/History.html"><i class="fas fa-history"></i> Feedback History</a>
                     </div>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="#"><i class="fas fa-chart-bar"></i> Reports</a>
                 </li>
             </ul>
             <ul class="navbar-nav mr-3">

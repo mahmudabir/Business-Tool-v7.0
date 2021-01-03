@@ -5,7 +5,7 @@ $(document).ready(function () {
 
 
     var loadConfirmedOrdered = function () {
-
+        $("#msg").removeAttr("hidden");
         $.ajax({
             url: "https://localhost:44308/api/customers/" + localStorage.cid + "/orders/confirmed",
             method: "GET",
@@ -17,6 +17,7 @@ $(document).ready(function () {
 
                     var data = xhr.responseJSON;
                     var str = "";
+                    var count = data.length;
 
                     for (var i = 0; i < data.length; i++) {
                         str += "<tr>"
@@ -27,7 +28,7 @@ $(document).ready(function () {
                             + "</tr>";
                     }
 
-
+                    $("#count").html("(x" + count + ")");
                     $("tbody").html(str);
 
 

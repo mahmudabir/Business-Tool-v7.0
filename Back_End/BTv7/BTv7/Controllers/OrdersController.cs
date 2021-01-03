@@ -117,11 +117,6 @@ namespace BTv7.Controllers
 
 
 
-
-
-
-
-
         [Route("checkout/{id}", Name = "PutCheckoutOrder")]
         [BasicAuthentication]
         public IHttpActionResult PutCheckoutOrder(int id, Order order)
