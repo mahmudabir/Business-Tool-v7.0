@@ -59,6 +59,7 @@ $(document).ready(function(){
                     }
 
                     $("#emptable tbody").html(str);
+                    $('#count').html(count+"");
                 }
                 else 
                 {
