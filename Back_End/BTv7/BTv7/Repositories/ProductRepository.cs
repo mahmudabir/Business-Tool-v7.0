@@ -101,7 +101,7 @@ namespace BTv7.Repositories
 
         public List<Product> GetProductsByProductStatusID()
         {
-            return this.context.Set<Product>().Where(x => x.ProductStatusID == 2 || x.ProductStatusID==1).ToList();
+            return this.context.Set<Product>().Where(x => x.ProductStatusID == 2 || x.ProductStatusID==4 || x.ProductStatusID==1).ToList();
         }
     }
 }
