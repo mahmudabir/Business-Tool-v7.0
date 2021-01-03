@@ -415,7 +415,7 @@ namespace BTv7.Controllers
         //update product 
 
 
-        //Unavailable
+        //Product Status Unavailable
         [Route("unavailable/{id}", Name = "PutUnavailable")]
         [BasicAuthentication]
         public IHttpActionResult PutUnavailable([FromUri] int id, [FromBody] Product product)
@@ -433,11 +433,11 @@ namespace BTv7.Controllers
 
         }
 
-        //Unavailable
+        //Product Status Unavailable
 
 
 
-        //Unapproved
+        //Product Status Unapproved
         [Route("unapproved/{id}", Name = "PutUnapproved")]
         [BasicAuthentication]
         public IHttpActionResult PutUnapproved([FromUri] int id, [FromBody] Product product)
@@ -455,7 +455,7 @@ namespace BTv7.Controllers
 
         }
 
-        //Unapproved
+        //Product Status Unapproved
 
         //Get Product For manager
 
@@ -474,6 +474,44 @@ namespace BTv7.Controllers
         }
 
         //Get Product For manager
+
+
+        // Product Status Available
+        [Route("available/{id}", Name = "PutAvailable")]
+        [BasicAuthentication]
+        public IHttpActionResult PutAvailable([FromUri] int id, [FromBody] Product product)
+        {
+
+
+            var pro = productDB.GetProductsByID(id);
+            product.ID = id;
+
+
+            productDB.ProductStatusUpdate(product);
+
+            return Ok(product);
+
+
+        }
+        //Product Status Notforsale
+
+        [Route("notforsale/{id}", Name = "PutNotForSale")]
+        [BasicAuthentication]
+        public IHttpActionResult PutNotForSale([FromUri] int id, [FromBody] Product product)
+        {
+
+
+            var pro = productDB.GetProductsByID(id);
+            product.ID = id;
+
+
+            productDB.ProductStatusUpdate(product);
+
+            return Ok(product);
+
+
+        }
+        //Product Status Notforsale
 
 
 
