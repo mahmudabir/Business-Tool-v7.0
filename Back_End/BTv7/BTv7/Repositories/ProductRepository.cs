@@ -10,7 +10,7 @@ namespace BTv7.Repositories
     {
         public List<Product> GetAvailableProducts()
         {
-            return this.GetAll().Where(x => x.Quantity > 0 || x.ProductTypeID == 1).ToList();
+            return this.GetAll().Where(x => x.Quantity > 0 && (x.ProductStatusID == 1 || x.ProductStatusID == 2)).ToList();
         }
 
 
@@ -19,7 +19,7 @@ namespace BTv7.Repositories
             return this.GetAll().Where(x => x.ProductType.Type.ToLower().Contains(search.ToLower()) || x.Name.ToLower().Contains(search.ToLower())).ToList();
         }
 
-        
+
         public List<Product> GetAllAvailableProducts()
         {
             return this.GetAll().Where(x => x.Quantity > 0 && x.ProductStatusID == 1).ToList();
@@ -58,7 +58,7 @@ namespace BTv7.Repositories
         {
             using (var p2 = new BTv7DbContext())
             {
-                int e = p2.Database.ExecuteSqlCommand("UPDATE Products SET ProductStatusID = '1' WHERE ProductStatusID = '3' AND ID = '"+id+"';");
+                int e = p2.Database.ExecuteSqlCommand("UPDATE Products SET ProductStatusID = '1' WHERE ProductStatusID = '3' AND ID = '" + id + "';");
             }
         }
 
