@@ -3,8 +3,7 @@
 `Developed using ASP.NET MVC 5 Restful API`<br>
 `Designed using front-end technologies like: Bootstrap, Jquery etc.`<br>
 `For Database Sql Server 19 was used.`<br>
-`Database Backup is in DBSchema directory.`<br>
-<br><a href="https://github.com/mahmudabir/Business-Tool-v7.0-Client">Client App Repository</a><br>
+`Database Backup is in "App_Data" directory.`<br>
 
 # Login Information<br />
 
