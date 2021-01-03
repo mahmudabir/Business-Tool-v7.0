@@ -5,7 +5,7 @@ $(document).ready(function () {
 
 
     var loadCanceledOrdered = function () {
-
+        $("#msg").removeAttr("hidden");
         $.ajax({
             url: "https://localhost:44308/api/customers/" + localStorage.cid + "/orders/canceled",
             method: "GET",
@@ -17,6 +17,7 @@ $(document).ready(function () {
 
                     var data = xhr.responseJSON;
                     var str = "";
+                    var count = data.length;
 
                     for (var i = 0; i < data.length; i++) {
                         str += "<tr>"
@@ -28,6 +29,7 @@ $(document).ready(function () {
                     }
 
 
+                    $("#count").html("(x" + count + ")");
                     $("tbody").html(str);
 
 

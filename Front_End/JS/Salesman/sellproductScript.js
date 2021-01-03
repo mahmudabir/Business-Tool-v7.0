@@ -708,7 +708,7 @@ $("#checkList").on("click","#checkout",function(){
 										"customerName": null,
 										"saleTypeID": 2,
 										"isSold": true,
-										"orderStatusID": 5,
+										"orderStatusID": 4,
 										"sellBy": localStorage.username
 							},
 
