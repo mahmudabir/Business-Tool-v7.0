@@ -10,6 +10,7 @@
                 if (xmlhttp.status == 200) {
                     console.log("Logout Success");
                     localStorage.clear();
+                    //sessionStorage.clear();
                     console.log(localStorage.user);
                     window.location.href = "http://localhost/Business-Tool-v7.0-api/Front_End/Html/Login/";
                 } else {
