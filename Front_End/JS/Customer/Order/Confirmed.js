@@ -17,7 +17,6 @@ $(document).ready(function () {
 
                     var data = xhr.responseJSON;
                     var str = "";
-                    var count = data.length;
 
                     for (var i = 0; i < data.length; i++) {
                         str += "<tr>"
@@ -28,7 +27,8 @@ $(document).ready(function () {
                             + "</tr>";
                     }
 
-                    $("#count").html("(x" + count + ")");
+                    var count = data.length;
+                    $("#count").html(count);
                     $("tbody").html(str);
 
 
