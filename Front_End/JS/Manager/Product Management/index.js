@@ -1,10 +1,10 @@
 $(document).ready(function(){
-    if (localStorage.authUser == null || localStorage.userRole!=6)
+    if (localStorage.authUser == null || localStorage.userRole!=2)
     {
         //localStorage.clear();
         window.location.href = "../../Login/index.html";
     }
-    $('#content').load("../vendornav.html");
+    $('#content').load("../managernav.html");
 
         //Load Login
         var loadUser = function () {
