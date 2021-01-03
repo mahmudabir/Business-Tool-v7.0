@@ -7,7 +7,14 @@ $(document).ready(function(){
 
     $('#content').load("../adminnav.html");
 
- 
+    // function IsEmail(email) {
+    //     var regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    //     if(!regex.test(email)) {
+    //       return false;
+    //     }else{
+    //       return true;
+    //     }
+    //   }
     //LOAD EMPLOYEES LIST
     var loadPrintEmployees = function () {
         $.ajax({
@@ -292,7 +299,51 @@ $(document).ready(function(){
         });
     }
     $("#btnadd").on("click",function(){
-        insertLogin();
+        ///Validation
+        var error = false;
+        var msg = "";
+        //Input Check
+        if($.trim($("#username").val()).length <1)
+        {
+            error = true;
+            msg += "# Valid Username Required.\n";
+        }
+        if($.trim($("#fullname").val()) == "")
+        {
+            error = true;
+            msg += "# Name Required.\n";
+        }
+        if($.trim($("#contact").val()).length < 11)
+        {
+            error = true;
+            msg += "# Valid Contact Required.\n";
+        }
+        if($.trim($("#email").val()).length < 5)
+        {
+            error = true;
+            msg += "# Valid Email Required.\n";
+        }
+        if($.trim($("#role").val()).length < 1)
+        {
+            error = true;
+            msg += "# Designation Required.\n";
+        }
+        if($("#salary").val() < 1)
+        {
+            error = true;
+            msg += "# Valid Salary Required.\n";
+        }
+        //Error Check
+        if(!error)
+        {
+            insertLogin();
+        }
+        else
+        {
+            alert(msg);
+            loadAllEmployees();
+        }
+        
     }); 
 
 
@@ -454,7 +505,50 @@ $(document).ready(function(){
         });
     }
     $("#btnupdate").on("click",function(){
-        updateLoginDetails();
+        ///Validation
+        var error = false;
+        var msg = "";
+        //Input Check
+        if($.trim($("#editusername").val()).length <1)
+        {
+            error = true;
+            msg += "# Valid Username Required.\n";
+        }
+        if($.trim($("#editfullname").val()) == "")
+        {
+            error = true;
+            msg += "# Name Required.\n";
+        }
+        if($.trim($("#editcontact").val()).length < 11)
+        {
+            error = true;
+            msg += "# Valid Contact Required.\n";
+        }
+        if($.trim($("#editemail").val()).length < 5)
+        {
+            error = true;
+            msg += "# Valid Email Required.\n";
+        }
+        if($.trim($("#editrole").val()).length < 1)
+        {
+            error = true;
+            msg += "# Designation Required.\n";
+        }
+        if($("#editsalary").val() < 1)
+        {
+            error = true;
+            msg += "# Valid Salary Required.\n";
+        }
+        //Error Check
+        if(!error)
+        {
+            updateLoginDetails();
+        }
+        else
+        {
+            alert(msg);
+            loadAllEmployees();
+        }
     });
 
     //Login Access Controlling
