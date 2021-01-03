@@ -90,7 +90,7 @@ var listOrder=function(){
 					
 					
 					str+="<tr id='cell' btn-i-val="+i+" btn-id-orderId="+dataOrder[i].id+"><td><b>"+dataOrder[i].id+"<b></td><td style='font-style:italic;'>"+dataOrder[i].date+"</td><td>"+dataOrder[i].totalAmount+"</td><td><span style='color:green; font-style:italic;'><b>ACCEPTED</b></td></tr><tr class='hiddenTr' id='orderDetails"+[i]+"'>"+
-					"<td style='text-align:left;color:white;' colspan='4'><h2 style='text-align:center;'>Customer Details</h3><br><b>ID: </b>"+dataOrder[i].customerID+"<br><b>Name: </b>"+dataOrder[i].customerName+"<br><b>Address: </b>"+dataOrder[i].address+"<br><b>Total Order Completed: </b>"+totalOrderedByAcustomer+"</td></tr>"
+					"<td style='text-align:left;color:white;' colspan='4'><h2 style='text-align:center;'>Customer Details</h3><br><b>ID: </b>"+dataOrder[i].customerID+"<br><b>Name: </b>"+dataOrder[i].customerName+"<br><b>Address: </b>"+dataOrder[i].address+"</td></tr>"
 					}
 
 					$("#acceptedList tbody").html(str);
@@ -215,7 +215,45 @@ $("#acceptedList").on("click","#cell",function(){
 
 
 
+function savePDF()
+    {
+        var sTable = document.getElementById('acceptedTable').innerHTML;
 
+        var style = "<style>";
+        style = style + "table{width: 100%;font-family: 'Trebuchet MS', Arial, Helvetica, sans-serif;border-collapse: collapse;font-style: bold;}";
+        style = style + "table th {border: 2px solid #000000;}";
+        style = style + "table td{border: 2px solid #000000;padding: 8px;}";
+        //style = style + "table tr:nth-child(even) {background-color: #f2f2f2;}";
+        //style = style + "table tr:nth-child(odd) {background-color: #E6E6FA;}";
+        style = style + "table th {padding-top: 8px;padding-bottom: 8px;text-align: center;background-color: #000000;color: white;}";
+        style = style + "</style>";
+
+
+        // CREATE A WINDOW OBJECT.
+        var win = window.open('', '', 'height=700,width=700');
+
+        win.document.write('<html><head>');
+        win.document.write('<title>PDF</title>');   // <title> FOR PDF HEADER.
+        win.document.write(style);          // ADD STYLE INSIDE THE HEAD TAG.
+        win.document.write('</head>');
+        win.document.write('<body>');
+        win.document.write(sTable);         // THE TABLE CONTENTS INSIDE THE BODY TAG.
+        win.document.write('</body></html>');
+
+        win.document.close(); 	// CLOSE THE CURRENT WINDOW.
+
+        win.print();    // PRINT THE CONTENTS.
+
+        //$("#hide").attr("hidden", "hidden"); 
+    }
+    $("#btnprint").on("click",function(){
+        //$("#hide").removeAttr("hidden", "hidden");
+      	
+       $("#btnprint").hide();
+        savePDF();
+        //$("#hide").attr("hidden", "hidden"); 
+        
+    });
 
 
 
