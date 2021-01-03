@@ -156,8 +156,6 @@ $(document).ready(function(){
     
     
         //get product type
-    
-            //LOAD EMPLOYEES DESIGNATIONS LIST
             var loadAllProductType = function () {
                 $.ajax({
                     url: "https://localhost:44308/api/productType",
@@ -384,8 +382,6 @@ $(document).ready(function(){
                         console.log(xhr.responseJSON);
                         loadAllProducts();
                         $("#updateMesg").removeAttr("hidden", "hidden");
-                        $("#enableMesg").attr("hidden", "hidden");
-                        $("#disableMesg").attr("hidden", "hidden");
                     } 
                     else {
                         $("#updateMesg").attr("hidden", "hidden");
@@ -464,4 +460,57 @@ $(document).ready(function(){
     });
 
     //Unavaolable
+
+    //Unapproved
+    var unapproved = function () {
+        $.ajax({
+            url: "https://localhost:44308/api/products/unapproved/"+$("#editid").val(),
+            method: "PUT",
+            header: "Content-Type:application/json",
+            data: {
+                id: $("#editid").val(),
+                name: $("#editname").val(),
+                quantity: $("#editquantity").val(),
+                buyPrice: $("#editbuyprice").val(),
+                sellPrice: $("#editsellprice").val(),
+                productTypeID: $("#edittype").val(),
+                productStatusID:"3"
+                
+            },
+            headers: {
+                'Authorization': 'Basic ' + localStorage.authUser,
+            },
+            complete: function (xhr, status) {
+                if (xhr.status == 200) {
+                    loadAllProducts();
+                    alert("Product Unapproved.")
+                } 
+                else {
+                    alert("Something Wrong.");
+                }
+            }
+        });
+    }
+    $("#btnunapproved").on("click",function(){
+        unapproved();
+    });
+    //Unapproved
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
 });

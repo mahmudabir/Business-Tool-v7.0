@@ -90,7 +90,7 @@ namespace BTv7.Repositories
                 pro.Database.ExecuteSqlCommand("UPDATE Products SET Name = '" + product.Name + "' , Quantity= '" + product.Quantity + "' , BuyPrice= '" + product.BuyPrice + "' , SellPrice= '" + product.SellPrice + "' , ProductTypeID= '" + product.ProductTypeID + "' WHERE ID = " + product.ID + ";");
             }
         }
-        public void Unavilable(Product product)
+        public void ProductStatusUpdate(Product product)
         {
             using (var pro = new BTv7DbContext())
             {

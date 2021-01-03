@@ -426,7 +426,7 @@ namespace BTv7.Controllers
             product.ID = id;
             
 
-            productDB.Unavilable(product);
+            productDB.ProductStatusUpdate(product);
 
             return Ok(product);
 
@@ -434,6 +434,28 @@ namespace BTv7.Controllers
         }
 
         //Unavailable
+
+
+
+        //Unapproved
+        [Route("unapproved/{id}", Name = "PutUnapproved")]
+        [BasicAuthentication]
+        public IHttpActionResult PutUnapproved([FromUri] int id, [FromBody] Product product)
+        {
+
+
+            var pro = productDB.GetProductsByID(id);
+            product.ID = id;
+
+
+            productDB.ProductStatusUpdate(product);
+
+            return Ok(product);
+
+
+        }
+
+        //Unapproved
 
     }
 }
