@@ -1,0 +1,129 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Management | Notices</title>
+    <script type="text/javascript" src="../../../Content/jquery.js"></script>
+    <script type="text/javascript" src="../../../Content/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../../../CSS/bootstrap.css">
+    <script src="../../../Content/popper.js"></script>
+    <script type="text/javascript" src="../../../Content/html2canvas.min.js"></script>
+    <script type="text/javascript" src="../../../Content/pdfmake.min.js"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <script type="text/javascript" src="../../../JS/Admin/NoticeManagement/noticeManage.js"></script>
+</head>
+<body class="bg-secondary">
+    <form method="POST">
+    <div id="content"></div>
+
+    <div class="p-4" style="margin-top:55px; height:90%; overflow-y: scroll;">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm sol-md col-lg">
+                    <div class="card my-3">
+                        <div class="card-body">
+                            <button type="button" class="btn btn-outline-dark btn-lg btn-block mb-2" data-toggle="modal" data-target="#addEmployee">PUBLISH NEW NOTICE</button>
+                            <input class="form-control mb-2" style="text-align: center;" type="search" id="search" placeholder="Search By Subject" autocomplete="off">
+                            <!-- Start Add Employee Modal -->
+                            <div class="modal fade" id="addEmployee" tabindex="-1" role="dialog" aria-labelledby="addEmployeeLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                        <h5 class="modal-title" id="addEmployeeLabel">POST NOTICE</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                        </div>
+                                        <div class="modal-body">   
+                                            <div id="insertMesg" class="alert alert-success" role="alert" align="center" hidden>
+                                                New Notice Has Been Posted. 
+                                            </div> 
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">Subject</span>
+                                                </div>
+                                                <input type="text" class="form-control" id="subject" placeholder="Write Here" aria-label="Username" aria-describedby="basic-addon1" autocomplete="off">
+                                            </div> 
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">Content</span>
+                                                </div>
+                                                <textarea class="form-control" style="resize: none;" id="content" rows="15" cols="20"></textarea>
+                                            </div> 
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-danger" data-dismiss="modal">Discard</button>
+                                            <button type="button" class="btn btn-info" id="btnadd">Post Notice</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Add Employee Modal -->
+
+                            <!-- Start Details Employee Modal -->
+                            <div class="modal fade" id="detailEmployee" tabindex="-1" role="dialog" aria-labelledby="detailEmployeeLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                        <h5 class="modal-title" id="detailEmployeeLabel">EMPLOYEE DETAILS</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                        </div>
+                                        <div class="modal-body">  
+                                            <div id="updateMesg" class="alert alert-success" role="alert" align="center" hidden>
+                                                Information Has Been Successfully Updated. 
+                                            </div>
+                                            
+                                            <div id="disableMesg" class="alert alert-danger" role="alert" align="center" hidden>
+                                                Notice Has Been Successfully Deleted.
+                                            </div> 
+                                            
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">Subject</span>
+                                                </div>
+                                                <input type="text" class="form-control" id="editsubject" placeholder="Write Here" aria-label="Username" aria-describedby="basic-addon1" autocomplete="off">
+                                                <input type="hidden" class="form-control" id="editid" placeholder="xyz@3" aria-label="Username" aria-describedby="basic-addon1" autocomplete="off" readonly>
+                                            </div> 
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">Content</span>
+                                                </div>
+                                                <textarea class="form-control" style="resize: none;" id="editcontent" rows="15" cols="20"></textarea>
+                                            </div>  
+
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            <button type="button" class="btn btn-success" id="btnupdate">Update</button>
+                                            <button type="button" class="btn btn-danger" id="btndeactive">Delete</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Details Employee Modal -->
+                            
+                            <!-- CONTENT --> 
+                            <table class="table table-bordered table-hover" id="emptable">
+                                <thead class="thead-dark">
+                                    <tr align="center">
+                                        <th scope="col" align="center">#</th>
+                                        <th scope="col" align="center">Subject</th>
+                                        <th scope="col" align="center">Post Date</th>
+                                        <th></th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    <!--DATA FROM API-->
+                                  </tbody>
+                            </table>
+                            <!-- END CONTENT -->                              
+                        </div>
+                    </div>
+                </div>
+            </div>  
+        </div>
+    </form>
+</body>
+</html>
