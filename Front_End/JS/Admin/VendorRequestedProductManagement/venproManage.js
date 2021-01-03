@@ -57,6 +57,7 @@ $(document).ready(function(){
                         {
                             $('#btnacceptall').prop("disabled",true);
                             str += "<tr><td colspan='7' align='middle'>NO DATA FOUND</td></tr>";
+                            //$('#btnacceptall').prop("disabled",true);
                         }
                         else
                         {
@@ -71,6 +72,7 @@ $(document).ready(function(){
                     }
 
                     $("#emptable tbody").html(str);
+                    $('#count').html(count+"");
                 }
                 else 
                 {
