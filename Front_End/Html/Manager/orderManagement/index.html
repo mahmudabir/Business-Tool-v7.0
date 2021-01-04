@@ -20,7 +20,70 @@
                 <div class="col-sm sol-md col-lg">
                     <div class="card my-3">
                         <div class="card-body">
+
                             <input class="form-control mb-2" style="text-align: center;" type="search" id="search" placeholder="Search By Name" autocomplete="off">
+                            <!-- Start Details Order Modal -->
+                            <div class="modal fade" style="margin-top: 5%;" id="detailOrder" tabindex="-1" role="dialog" aria-labelledby="detailOrderLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                        <h5 class="modal-title" id="detailOrderLabel">Order Approve</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <span style="font-weight: bolder;" class="input-group-text">ID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                                </div>
+                                                <input type="text" class="form-control" id="editid"  aria-label="id" aria-describedby="basic-addon1" readonly autocomplete="off">
+                                            </div> 
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    
+                                                    <span style="font-weight: bolder;" class="input-group-text">Date&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                                </div>
+                                                <input type="text" class="form-control" id="editdate"  aria-label="date" aria-describedby="basic-addon1" readonly autocomplete="off">
+                                            </div> 
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    
+                                                    <span style="font-weight: bolder;" class="input-group-text">TotalAmount&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                                </div>
+                                                <input type="text" class="form-control" id="edittotalamount" aria-label="totalamount" aria-describedby="basic-addon1" readonly autocomplete="off">
+                                            </div> 
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    
+                                                    <span style="font-weight: bolder;" class="input-group-text">CustomerID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                                </div>
+                                                <input type="text" class="form-control" id="editcustomerid" aria-label="buyprice" aria-describedby="basic-addon1" readonly autocomplete="off">
+                                            </div> 
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    
+                                                    <span style="font-weight: bolder;" class="input-group-text">CustomerName</span>
+                                                </div>
+                                                <input type="text" class="form-control" id="editcustomername" aria-label="customername" aria-describedby="basic-addon1" readonly autocomplete="off">
+                                            </div> 
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    
+                                                    <span style="font-weight: bolder;" class="input-group-text">Delivery By&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                                </div>
+                                                <select class="custom-select" id="editdeliveryby">
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            <button type="button" class="btn btn-warning" id="btnapproved">Approved</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Details Order Modal -->
                             <!-- CONTENT -->
                             <table class="table table-bordered table-hover" id="table">
                                 <thead class="thead-dark">

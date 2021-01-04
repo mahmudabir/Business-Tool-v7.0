@@ -33,8 +33,8 @@ $(document).ready(function(){
                                         "<td>" + data[i].customerID + "</td>"+
                                         "<td>" + data[i].customerName + "</td>"+
                                         "<td>" + data[i].orderStatus.status + "</td>"+
-                                        "<td align='center'> <button type='button' data-toggle='modal' data-target='#detailProduct' data-id="+data[i].id+" class='btn btn-warning'>Approve</button>" +
-                                        "<td align='center'> <button type='button' data-toggle='modal' data-target='#detailProduct' data-id="+data[i].id+" class='btn btn-danger'>Reject</button>" +
+                                        "<td align='center'> <button type='button' data-toggle='modal' data-target='#detailOrder' data-id="+data[i].id+" class='btn btn-warning'>Approve</button>" +
+                                        "<td align='center'> <button type='button' data-target='#cancel' data-id="+data[i].id+" class='btn btn-danger'>Reject</button>" +
                                 "</tr>";
                                 
                         }
@@ -60,7 +60,7 @@ $(document).ready(function(){
 
     //SearchByCustomerName Order
 
-    var productSearch = function () {
+    var orderSearch = function () {
         if($.trim($("#search").val()) != "")
         {
             $.ajax({
@@ -89,8 +89,8 @@ $(document).ready(function(){
                                     "<td>" + data[i].customerID + "</td>"+
                                     "<td>" + data[i].customerName + "</td>"+
                                     "<td>" + data[i].orderStatus.status + "</td>"+
-                                    "<td align='center'> <button type='button' data-toggle='modal' data-target='#detailProduct' data-id="+data[i].id+" class='btn btn-warning'>Approve</button>" +
-                                    "<td align='center'> <button type='button' data-toggle='modal' data-target='#detailProduct' data-id="+data[i].id+" class='btn btn-danger'>Reject</button>" +
+                                    "<td align='center'> <button type='button' data-toggle='modal' data-target='#detailOrder' data-id="+data[i].id+" class='btn btn-warning'>Approve</button>" +
+                                    "<td align='center'> <button type='button' data-target='#cancel' data-id="+data[i].id+" class='btn btn-danger'>Reject</button>" +
                                 "</tr>";
                                 
                             }
@@ -115,7 +115,7 @@ $(document).ready(function(){
         }
     }
     $("#search").on("keyup change",function(){
-        productSearch();
+        orderSearch();
     });
     //SearchByCustomerName Order
 
