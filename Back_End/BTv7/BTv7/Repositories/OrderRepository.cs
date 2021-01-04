@@ -118,5 +118,16 @@ namespace BTv7.Repositories
         }
 
         //SearchByCustomerName
+
+        //Approve Order
+
+        public void UpdateOrderStatus(Order order)
+        {
+            using (var pro = new BTv7DbContext())
+            {
+                pro.Database.ExecuteSqlCommand("UPDATE Orders SET OrderStatusID='"+order.OrderStatusID+"', SellBy='"+order.SellBy+"' WHERE ID = " + order.ID + ";");
+            }
+        }
+        //Approve Order
     }
 }
