@@ -325,13 +325,13 @@ namespace BTv7.Controllers
 
                 var loginFromDB = loginRepository.GetUserByUsername(Thread.CurrentPrincipal.Identity.Name.ToString());
 
-                var vendorFromDB = vendorRepository.GetAll().Where(x=>x.LoginID==loginFromDB.ID).FirstOrDefault();
+                var vendorFromDB = vendorRepository.GetAll().Where(x => x.LoginID == loginFromDB.ID).FirstOrDefault();
 
-                var checkProductFromDB = productDB.GetAll().Where(x => x.Name == product.Name && x.VendorID==vendorFromDB.ID).ToList();
-                if (checkProductFromDB.Count==0)
+                var checkProductFromDB = productDB.GetAll().Where(x => x.Name == product.Name && x.VendorID == vendorFromDB.ID).ToList();
+                if (checkProductFromDB.Count == 0)
                 {
                     product.VendorID = vendorFromDB.ID;
-                    
+
                     productDB.Insert(product);
 
                     var productFromDB = productDB.Get(product.ID);
@@ -397,7 +397,7 @@ namespace BTv7.Controllers
         public IHttpActionResult PutProductByID([FromUri] int id, [FromBody] Product product)
         {
 
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 var pro = productDB.GetProductsByID(id);
                 product.ID = id;
@@ -425,7 +425,7 @@ namespace BTv7.Controllers
 
             var pro = productDB.GetProductsByID(id);
             product.ID = id;
-            
+
 
             productDB.ProductStatusUpdate(product);
 
@@ -515,7 +515,7 @@ namespace BTv7.Controllers
         //Product Status Notforsale
 
 
-        [Route("/typecount", Name = "GetTypeCount")]
+        [Route("typecount", Name = "GetTypeCount")]
         [BasicAuthentication]
         public IHttpActionResult GetTypeCount()
         {
