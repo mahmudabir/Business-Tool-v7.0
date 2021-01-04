@@ -24,6 +24,11 @@ namespace BTv7.Repositories
         {
             return this.GetAll().Where(x => x.Quantity > 0 && x.ProductStatusID == 1).ToList();
         }
+        public Product GetAllAvailableProductsByID(int id)
+        {
+            List<Product> productFromDB = this.GetAll();
+            return productFromDB.FirstOrDefault(x => x.ID == id && x.Quantity > 0 && x.ProductStatusID == 1);
+        }   
 
         public List<Product> GetProductByVendorID(int id)
         {
