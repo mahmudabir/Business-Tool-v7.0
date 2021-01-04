@@ -45,7 +45,7 @@ $(document).ready(function () {
                 saleTypeID: sessionStorage.osaleTypeID,
                 isSold: sessionStorage.oisSold,
                 orderStatusID: sessionStorage.oorderStatusID,
-                sellBy: sessionStorage.osellBy
+                //sellBy: sessionStorage.osellBy
 
             },
             headers: {
@@ -405,7 +405,7 @@ $(document).ready(function () {
                     sessionStorage.osaleTypeID = data.saleTypeID;
                     sessionStorage.oisSold = data.isSold;
                     sessionStorage.oorderStatusID = data.orderStatusID;
-                    sessionStorage.osellBy = data.sellBy;
+                    //sessionStorage.osellBy = data.sellBy;
 
                     console.log("OrderID: " + sessionStorage.oid);
                     console.log("Order Date: " + sessionStorage.odate);
@@ -416,7 +416,7 @@ $(document).ready(function () {
                     console.log("Order SaleTypeID: " + sessionStorage.osaleTypeID);
                     console.log("Order IsSold: " + sessionStorage.oisSold);
                     console.log("Order OrderStatusID: " + sessionStorage.oorderStatusID);
-                    console.log("Order SellBy: " + sessionStorage.osellBy);
+                    //console.log("Order SellBy: " + sessionStorage.osellBy);
 
                     //var cartTotal = "<li class=\"list-group-item d-flex justify-content-between\">"
                     //    + "<span>Total (BDT)</span>"
@@ -466,7 +466,7 @@ $(document).ready(function () {
                                         saleTypeID: 1,
                                         isSold: true,
                                         orderStatusID: 1,
-                                        sellBy: sessionStorage.osellBy
+                                        //sellBy: sessionStorage.osellBy
 
                                     },
                                     headers: {

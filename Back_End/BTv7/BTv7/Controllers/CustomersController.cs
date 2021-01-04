@@ -285,7 +285,7 @@ namespace BTv7.Controllers
 
 
 
-        [Route("{cid}/orders/", Name = "PostOrderByCustomer")]
+        [Route("{cid}/orders", Name = "PostOrderByCustomer")]
         public IHttpActionResult PostOrderByCustomer(int cid, Order order)
         {
             OrderRepository orderDB = new OrderRepository();
@@ -304,7 +304,7 @@ namespace BTv7.Controllers
             order.SaleTypeID = 1;
             order.IsSold = false;
             order.OrderStatusID = 6;
-            order.SellBy = 1;
+            //order.SellBy = 1;
 
 
             var orderFromDB = orderDB.GetAll()

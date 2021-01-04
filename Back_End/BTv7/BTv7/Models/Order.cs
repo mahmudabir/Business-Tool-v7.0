@@ -37,7 +37,7 @@ namespace BTv7.Models
         public virtual OrderStatus OrderStatus { get; set; }
 
         [ForeignKey("Employee")]
-        public int SellBy { get; set; }
+        public int? SellBy { get; set; }
         public virtual Employee Employee { get; set; }
 
 

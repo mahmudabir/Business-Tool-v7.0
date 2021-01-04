@@ -199,6 +199,10 @@
     <Compile Include="Migrations\202101030826586_NoticeModelPostDateAdd.designer.cs">
       <DependentUpon>202101030826586_NoticeModelPostDateAdd.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202101041323471_OrderModelSellByNullable.cs" />
+    <Compile Include="Migrations\202101041323471_OrderModelSellByNullable.designer.cs">
+      <DependentUpon>202101041323471_OrderModelSellByNullable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccessStatus.cs" />
     <Compile Include="Models\BTv7DbContext.cs" />
@@ -320,6 +324,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202101030826586_NoticeModelPostDateAdd.resx">
       <DependentUpon>202101030826586_NoticeModelPostDateAdd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101041323471_OrderModelSellByNullable.resx">
+      <DependentUpon>202101041323471_OrderModelSellByNullable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
