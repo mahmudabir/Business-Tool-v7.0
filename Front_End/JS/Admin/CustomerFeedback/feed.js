@@ -96,14 +96,14 @@ $(document).ready(function(){
 								"<div class='card-header' id='headingOne'>"+
 									"<h5 class='mb-0'>"+
 										"<button class='btn btn-link' data-toggle='collapse' data-target='#collapseOne' aria-expanded='false' aria-controls='collapse"+data[i].id+"'>"+
-											"NO NOTICE"+
+											"NO FEEDBACKS"+
 										"</button>"+
 									"</h5>"+
 								"</div>"+
 							
 								"<div id='collapseOne' class='collapse show' aria-labelledby='headingOne' data-parent='#accordion'>"+
 									"<div class='card-body'>"+
-										"NO NOTICE"+
+										"NO FEEDBACKS"+
 									"</div>"+
 								"</div>"+
 							"</div><br>";

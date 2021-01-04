@@ -69,7 +69,8 @@ $(document).ready(function(){
                 }
                 else 
                 {
-                    alert("Something Went Wrong.");
+                    alert("No Data Found.");
+                    $("#emptable tbody").html("<tr><td colspan='6' align='middle'>NO DATA FOUND</td></tr>");
                 }
             }
         });
@@ -139,7 +140,8 @@ $(document).ready(function(){
                         $("#emptable tbody").html(str);
                     }
                     else {
-                        alert("Something Went Wrong.");
+                        alert("No Data Found.");
+                        $("#emptable tbody").html("<tr><td colspan='6' align='middle'>NO DATA FOUND</td></tr>");
                     }
                 }
             });
@@ -208,7 +210,7 @@ $(document).ready(function(){
                     }
                 }
                 else {
-                    alert("Something Went Wrong.");
+                    alert("No Data Found.");
                 }
             }
         });
@@ -278,6 +280,9 @@ $(document).ready(function(){
                     $("#btndeactive").attr("hidden", "hidden");
                     $("#btnactive").removeAttr("hidden", "hidden");
 
+                }
+                else {
+                    alert("Error Proccessing.");
                 } 
             }
         });

@@ -64,6 +64,7 @@ $(document).ready(function(){
                 else 
                 {
                     alert("Something Went Wrong.");
+                    $("#emptable tbody").html("<tr><td colspan='6' align='middle'>NO DATA FOUND</td></tr>");
                 }
             }
         });
