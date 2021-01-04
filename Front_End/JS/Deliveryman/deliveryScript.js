@@ -104,8 +104,8 @@ var listPending=function(){
 								sepration="<br>"
 							}
 							orderAmount+=data[k].cartAmount;
-							pieces+=data[j].quantity;
-							productNames+="<b>"+data[j].quantity+" * "+data[k].product.name+"</b>= "+data[k].cartAmount+" TK "+sepration;
+							pieces+=data[k].quantity;
+							productNames+="<b>"+data[k].quantity+" * "+data[k].product.name+"</b>= "+data[k].cartAmount+" TK "+sepration;
 						}
 						str+="<tr><td><b>"+data[j].order.id+"</b></td><td>"+pieces+" Products</td><td>"+productNames+"</td><td>"+orderAmount+" TK</td><td><b>ID:"+data[j].order.customerID+"<br>Name:"+data[j].order.customerName+"<br>#Address:"+data[j].order.address+"</b></td><td><button id='Accepted' btn-id-accept="+data[j].order.id+" class='btn btn-success btn-sm'>Accepted</button></td><td><button id='Rejected' btn-id-reject="+data[j].order.id+" class='btn btn-danger btn-sm'>Rejected</button></td></tr>"	
 						productNames="";
