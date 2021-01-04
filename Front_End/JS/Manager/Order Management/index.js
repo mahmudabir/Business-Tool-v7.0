@@ -33,7 +33,8 @@ $(document).ready(function(){
                                         "<td>" + data[i].customerID + "</td>"+
                                         "<td>" + data[i].customerName + "</td>"+
                                         "<td>" + data[i].orderStatus.status + "</td>"+
-                                        "<td align='center'> <button type='button' data-toggle='modal' data-target='#detailOrder' data-id="+data[i].id+" class='btn btn-warning'>Approve</button>&nbsp;&nbsp;&nbsp;<button type='button' data-id="+data[i].id+" class='btn btn-danger'>Reject</button>"+
+                                        "<td align='center'> <button type='button' data-toggle='modal' data-target='#detailOrder' data-id="+data[i].id+" class='btn btn-warning'>Approve</button>"+
+                                        "<td align='center'> <button type='button' data-id="+data[i].id+" class='btn btn-danger edit'>Reject</button>"+
                                 "</tr>";
                                 
                         }
@@ -88,7 +89,8 @@ $(document).ready(function(){
                                     "<td>" + data[i].customerID + "</td>"+
                                     "<td>" + data[i].customerName + "</td>"+
                                     "<td>" + data[i].orderStatus.status + "</td>"+
-                                    "<td align='center'> <button type='button' data-toggle='modal' data-target='#detailOrder' data-id="+data[i].id+" class='btn btn-warning'>Approve</button>&nbsp;&nbsp;&nbsp;<button type='button' id='cancel' btn-id="+data[i].id+" class='btn btn-danger'>Reject</button>" 
+                                    "<td align='center'> <button type='button' data-toggle='modal' data-target='#detailOrder' data-id="+data[i].id+" class='btn btn-warning'>Approve</button>"+
+                                    "<td align='center'> <button type='button' data-id="+data[i].id+" class='btn btn-danger edit'>Reject</button>"+
                                 "</tr>";
                                 
                             }
@@ -98,7 +100,6 @@ $(document).ready(function(){
                         {
                             str += "<tr><td colspan='6' align='middle'>NO DATA FOUND</td></tr>";
                         }
-
                         $("#table tbody").html(str);
                     }
                     else {
@@ -257,8 +258,5 @@ $(document).ready(function(){
     });
     //Cancel Order
 
-    $("cancel").click(function(){
-        console.log("btn-id",button.attr("btn-id"));
-    })
 
 });
