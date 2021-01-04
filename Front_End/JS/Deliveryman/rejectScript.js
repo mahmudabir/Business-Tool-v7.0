@@ -84,7 +84,7 @@ var listOrder=function(){
 					
 					
 					str+="<tr id='cell' btn-i-val="+i+" btn-id-orderId="+dataOrder[i].id+"><td><b>"+dataOrder[i].id+"<b></td><td style='font-style:italic;'>"+dataOrder[i].date+"</td><td>"+dataOrder[i].totalAmount+"</td><td><span style='color:red; font-style:italic;'><b>REJECTED</b></td></tr><tr class='hiddenTr' id='orderDetails"+[i]+"'>"+
-					"<td style='text-align:left;color:white;' colspan='4'><h2 style='text-align:center;'>Customer Details</h3><br><b>ID: </b>"+dataOrder[i].customerID+"<br><b>Name: </b>"+dataOrder[i].customerName+"<br><b>Address: </b>"+dataOrder[i].address+"<br><b>Total Order Completed: </b>"+totalOrderedByAcustomer+"</td></tr>"
+					"<td style='text-align:left;color:white;' colspan='4'><h2 style='text-align:center;'>Customer Details</h3><br><b>ID: </b>"+dataOrder[i].customerID+"<br><b>Name: </b>"+dataOrder[i].customerName+"<br><b>Address: </b>"+dataOrder[i].address+"</td></tr>"
 					}
 
 					$("#rejectedList tbody").html(str);
