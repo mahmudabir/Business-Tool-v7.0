@@ -585,30 +585,39 @@ namespace BTv7.Controllers
 
         //for vendor report
 
-        /*[Route("productstatus", Name = "GetProductStatus")]
+        [Route("productstatus/{id}", Name = "GetProductStatus")]
         [BasicAuthentication]
         public IHttpActionResult GetProductStatus(int id)
         {
-            
+
             List<object> iData = new List<object>();
 
             //Creating sample data  
             DataTable dt = new DataTable();
-            dt.Columns.Add("OrderID", System.Type.GetType("System.String"));
-            dt.Columns.Add("Amount", System.Type.GetType("System.Int32"));
+            dt.Columns.Add("Status", System.Type.GetType("System.String"));
+            dt.Columns.Add("Count", System.Type.GetType("System.Int32"));
 
+            DataRow dr = dt.NewRow();
+            dr["Status"] = "Available";
+            dr["Count"] = productDB.GetAll().Where(x=>x.VendorID==id && x.ProductStatusID == 1).Count();
+            dt.Rows.Add(dr);
 
-            var dataFromDB = productDB.GetAll().Where(x => x.VendorID == id).ToList();
+            dr = dt.NewRow();
+            dr["Status"] = "Unavailable";
+            dr["Count"] = productDB.GetAll().Where(x => x.VendorID == id && x.ProductStatusID == 2).Count(); 
+            dt.Rows.Add(dr);
 
-            foreach (var item in dataFromDB)
-            {
-                DataRow dr = dt.NewRow();
-                dr["ID"] = "OrderID: " + item.ID;// "Pending";
-                dr["Amount"] = item.TotalAmount;// orderDB.GetAllPendingOrderByCustomerID(cid).Count;
-                dt.Rows.Add(dr);
-            }
+            dr = dt.NewRow();
+            dr["Status"] = "Unapproved";
+            dr["Count"] = productDB.GetAll().Where(x => x.VendorID == id && x.ProductStatusID == 3).Count(); 
+            dt.Rows.Add(dr);
+            
+            dr = dt.NewRow();
+            dr["Status"] = "Not For Sale";
+            dr["Count"] = productDB.GetAll().Where(x => x.VendorID == id && x.ProductStatusID == 4).Count();
+            dt.Rows.Add(dr);
 
-
+            //Looping and extracting each DataColumn to List<Object>  
             foreach (DataColumn dc in dt.Columns)
             {
                 List<object> x = new List<object>();
@@ -618,7 +627,7 @@ namespace BTv7.Controllers
             //Source data returned as JSON  
             return Ok(iData);
         }
-*/
+
 
 
 
