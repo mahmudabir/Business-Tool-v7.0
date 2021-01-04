@@ -106,7 +106,7 @@ namespace BTv7.Repositories
         //Manager Approve order
         public List<Order> GetOrderByOrderStatusSaleTypeAndIsSold()
         {
-            return this.context.Set<Order>().Where(x => x.OrderStatusID == 1 && x.IsSold==false && x.SaleTypeID==2).ToList();
+            return this.context.Set<Order>().Where(x => x.OrderStatusID == 1 && x.IsSold==false && x.SaleTypeID==1).ToList();
         }
         //Manager Approve order
 
@@ -114,7 +114,7 @@ namespace BTv7.Repositories
 
         public List<Order> GetByCustomerName(string id)
         {
-            return this.context.Set<Order>().Where(x => x.CustomerName.ToLower().Contains(id.ToLower()) && x.OrderStatusID == 1 && x.IsSold == false && x.SaleTypeID == 2).ToList();
+            return this.context.Set<Order>().Where(x => x.CustomerName.ToLower().Contains(id.ToLower()) && x.OrderStatusID == 1 && x.IsSold == false && x.SaleTypeID == 1).ToList();
         }
 
         //SearchByCustomerName
