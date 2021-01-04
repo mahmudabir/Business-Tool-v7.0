@@ -109,5 +109,14 @@ namespace BTv7.Repositories
             return this.context.Set<Order>().Where(x => x.OrderStatusID == 1 && x.IsSold==false && x.SaleTypeID==2).ToList();
         }
         //Manager Approve order
+
+        //SearchByCustomerName
+
+        public List<Order> GetByCustomerName(string id)
+        {
+            return this.context.Set<Order>().Where(x => x.CustomerName.ToLower().Contains(id.ToLower())).ToList();
+        }
+
+        //SearchByCustomerName
     }
 }
