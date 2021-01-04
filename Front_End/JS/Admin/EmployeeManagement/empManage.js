@@ -295,7 +295,7 @@ $(document).ready(function(){
                     insertInEmployee(xhr.responseJSON.id);
                 }
                 else {
-                    alert("Check Username/Email."); 
+                    alert("Unique Username/Email/Mobile No. Required."); 
                     console.log(xhr);
                 }
             }
@@ -483,6 +483,7 @@ $(document).ready(function(){
                     } 
                     else {
                         alert("Fill Correctly.");
+                        alert("Unique Username/Email/Mobile No. Required."); 
                     }
                 }
             });
@@ -508,6 +509,7 @@ $(document).ready(function(){
                 } 
                 else {
                     alert("Fill Correctly.");
+                    alert("Unique Username/Email/Mobile No. Required."); 
                 }
             }
         });
