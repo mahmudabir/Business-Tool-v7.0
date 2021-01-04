@@ -67,7 +67,7 @@ namespace BTv7.Models
             }
             if (Username.Length < 4)
             {
-                errors.Add(new ValidationResult($"{nameof(Username)} must contain atleast 8 characters.", new List<string> { nameof(Username) }));
+                errors.Add(new ValidationResult($"{nameof(Username)} must contain atleast 4 characters.", new List<string> { nameof(Username) }));
             }
 
 
@@ -91,7 +91,7 @@ namespace BTv7.Models
             //Password property
             if (Password.Length < 4)
             {
-                errors.Add(new ValidationResult($"{nameof(Password)}  must contain atleast 8 characters.", new List<string> { nameof(Password) }));
+                errors.Add(new ValidationResult($"{nameof(Password)}  must contain atleast 4 characters.", new List<string> { nameof(Password) }));
             }
 
             return errors;

@@ -149,9 +149,14 @@ namespace BTv7.Controllers
 
             foreach (var item in cartFromDB)
             {
-                if (item.Quantity > productDB.Get((int)item.ProductID).Quantity)
+                if (item.Quantity > productDB.Get((int)item.ProductID).Quantity || productDB.Get((int)item.ProductID).ProductStatusID == 2)
                 {
-                    return BadRequest("Some products you ordered which is not available as you desired.");
+                    return BadRequest($"Some products you ordered which is not available as you desired e.g. \"{item.Product.Name}\"." + "<br>" + " Remove all UNAVAILABLE/NOT FOR SALE products to out.");
+                }
+
+                if (productDB.Get((int)item.ProductID).ProductStatusID == 4 || productDB.Get((int)item.ProductID).ProductStatusID == 3)
+                {
+                    return BadRequest($"Some products you ordered which is not for sale e.g. \"{item.Product.Name}\"." + "<br>" + " Remove all UNAVAILABLE/NOT FOR SALE products to out.");
                 }
             }
 
