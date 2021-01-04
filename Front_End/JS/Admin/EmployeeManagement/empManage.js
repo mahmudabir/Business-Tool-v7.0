@@ -7,14 +7,14 @@ $(document).ready(function(){
 
     $('#content').load("../adminnav.html");
 
-    // function IsEmail(email) {
-    //     var regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-    //     if(!regex.test(email)) {
-    //       return false;
-    //     }else{
-    //       return true;
-    //     }
-    //   }
+    function IsEmail(email) {
+        var regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+        if(!regex.test(email)) {
+          return false;
+        }else{
+          return true;
+        }
+      }
     //LOAD EMPLOYEES LIST
     var loadPrintEmployees = function () {
         $.ajax({
@@ -323,6 +323,11 @@ $(document).ready(function(){
             error = true;
             msg += "# Valid Email Required.\n";
         }
+        if(!IsEmail($("#email").val()))
+        {
+            error = true;
+            msg += "# Invalid Mail Formate.\n";
+        }
         if($.trim($("#role").val()).length < 1)
         {
             error = true;
@@ -528,6 +533,11 @@ $(document).ready(function(){
         {
             error = true;
             msg += "# Valid Email Required.\n";
+        }
+        if(!IsEmail($("#editemail").val()))
+        {
+            error = true;
+            msg += "# Invalid Mail Formate.\n";
         }
         if($.trim($("#editrole").val()).length < 1)
         {
