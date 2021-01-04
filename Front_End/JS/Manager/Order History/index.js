@@ -27,13 +27,13 @@ $(document).ready(function(){
                         {
                             
                             str += "<tr>"+
-                                         "<td align='center'>"+ data[i].id + "</td>"+
-                                         "<td>"+ data[i].date +"</td>"+
-                                        "<td>"+ data[i].totalAmount+ "</td>"+
-                                        "<td>" + data[i].customerID + "</td>"+
-                                        "<td>" + data[i].customerName + "</td>"+
-                                        "<td>" + data[i].orderStatus.status + "</td>"+
-                                "</tr>";
+                                "<td align='center'>"+ data[i].id + "</td>"+
+                                "<td>"+ data[i].totalAmount+ "</td>"+
+                                "<td>" + data[i].customer.login.username + "</td>"+
+                                "<td>" + data[i].customerName + "</td>"+
+                                "<td>" + data[i].customer.login.mobile + "</td>"+
+                                "<td>"+ data[i].date +"</td>"+
+                            "</tr>";
                                 
                         }
 
@@ -90,11 +90,11 @@ $(document).ready(function(){
                                 
                                 str += "<tr>"+
                                     "<td align='center'>"+ data[i].id + "</td>"+
-                                    "<td>"+ data[i].date +"</td>"+
                                     "<td>"+ data[i].totalAmount+ "</td>"+
-                                    "<td>" + data[i].customerID + "</td>"+
+                                    "<td>" + data[i].customer.login.username + "</td>"+
                                     "<td>" + data[i].customerName + "</td>"+
-                                    "<td>" + data[i].orderStatus.status + "</td>"+
+                                    "<td>" + data[i].customer.login.mobile + "</td>"+
+                                    "<td>"+ data[i].date +"</td>"+
                                 "</tr>";
                                 
                             }

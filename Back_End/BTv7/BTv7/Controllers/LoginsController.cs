@@ -178,28 +178,28 @@ namespace BTv7.Controllers
             //login.RegistrationStatusID = 1;
             //login.UserDesignationID = 5;
 
-            /*if (ModelState.IsValid)
-            {*/
-            loginDB.Insert(login);
-            var loginFromDB = loginDB.GetUserDetails(login.Username, login.Password);
+            if (ModelState.IsValid)
+            {
+                loginDB.Insert(login);
+                var loginFromDB = loginDB.GetUserDetails(login.Username, login.Password);
 
 
-            var result = loginFromDB.AddLinks(
-            new HyperMedia { Href = Url.Link("GetUserByID", new { id = loginFromDB.ID }), Method = "GET", Rel = "Get one user by ID.", },
-            new HyperMedia { Href = Url.Link("GetUsers", null), Method = "GET", Rel = "Get all users.", },
-            new HyperMedia { Href = Url.Link("UserRegistration", null), Method = "POST", Rel = "Create new user.", }//,
-                                                                                                                    //new HyperMedia { Href = Url.Link("PutUser", null), Method = "PUT", Rel = "Update User" },
-                                                                                                                    //new HyperMedia { Href = Url.Link("DeleteUSer", null), Method = "DELETE", Rel = "Delete USer." }
-            );
+                var result = loginFromDB.AddLinks(
+                new HyperMedia { Href = Url.Link("GetUserByID", new { id = loginFromDB.ID }), Method = "GET", Rel = "Get one user by ID.", },
+                new HyperMedia { Href = Url.Link("GetUsers", null), Method = "GET", Rel = "Get all users.", },
+                new HyperMedia { Href = Url.Link("UserRegistration", null), Method = "POST", Rel = "Create new user.", }//,
+                                                                                                                        //new HyperMedia { Href = Url.Link("PutUser", null), Method = "PUT", Rel = "Update User" },
+                                                                                                                        //new HyperMedia { Href = Url.Link("DeleteUSer", null), Method = "DELETE", Rel = "Delete USer." }
+                );
 
-            string uri = Url.Link("GetUserByID", new { id = loginFromDB.ID });
+                string uri = Url.Link("GetUserByID", new { id = loginFromDB.ID });
 
-            return Created(uri, result);
-            /*}
+                return Created(uri, result);
+            }
             else
             {
                 return BadRequest(ModelState);
-            }*/
+            }
         }
 
         [Route("register/employee", Name = "EmployeeRegistrationInLogin")]

@@ -91,6 +91,7 @@ namespace BTv7.Controllers
 
 
         [Route("register", Name = "VendorRegistration")]
+        [BasicAuthentication]
         public IHttpActionResult PostRegister(Vendor vendor)
         {
             vendor.JoinDate = DateTime.Now;

@@ -147,48 +147,55 @@ $(document).ready(function () {
 
 
     var loadRegister = function () {
-        $.ajax({
-            url: "https://localhost:44308/api/logins/register/customer",
-            method: "POST",
-            data: {
-                email: $("#regemail").val(),
-                mobile: $("#regmobile").val(),
-                username: $("#regusername").val(),
-                password: $("#regpassword").val(),
-                accessStatusId: "2",
-                registrationStatusId: "1",
-                userDesignationId: "5"
-            },
-            headers: {
-                'Authorization': 'Basic ' + btoa($("#regusername").val() + ":" + $("#regpassword").val()),
-            },
-            complete: function (xhr, status) {
-                if ($("#regname").val() != "" && $("#regemail").val() != "" && $("#regmobile").val() != "" && $("#regusername").val() != "" && $("#regpassword").val() != "") {
-                    if (xhr.status == 201) {
-                        console.log("Login For Customer Table Data insert Success");
-                        insertInCustomer(xhr.responseJSON.id);
-                    }
-                    else {
-                        console.log(xhr);
-                    }
+        if ($("#regname").val() != "" && $("#regemail").val() != "" && $("#regmobile").val() != "" && $("#regusername").val() != "" && $("#regpassword").val() != "") 
+        {
+            $.ajax({
+                url: "https://localhost:44308/api/logins/register/customer",
+                method: "POST",
+                data: {
+                    email: $("#regemail").val(),
+                    mobile: $("#regmobile").val(),
+                    username: $("#regusername").val(),
+                    password: $("#regpassword").val(),
+                    accessStatusId: "2",
+                    registrationStatusId: "1",
+                    userDesignationId: "5"
+                },
+                headers: {
+                    'Authorization': 'Basic ' + btoa($("#regusername").val() + ":" + $("#regpassword").val()),
+                },
+                complete: function (xhr, status) {
+                    
+                        if (xhr.status == 201) {
+                            console.log("Login For Customer Table Data insert Success");
+                            insertInCustomer(xhr.responseJSON.id);
+                            $("#msg").html("<div class=\"alert alert-primary\" role=\"alert\">Successfully Registered</div>");
+                        }
+                        else {
+                            console.log(xhr);
+                            alert(xhr.responseJSON.modelState["login.Username"][0]);
+                            alert(xhr.responseJSON.modelState["login.Username"][1]);
+                            alert(xhr.responseJSON.modelState["login.Email"][0]);
+                            alert(xhr.responseJSON.modelState["login.Mobile"][0]);
+                        }
                 }
-                else {
-                    if ($("#regname").val() == "") {
-                        $("#msg11").html("*Full Name Can't be Empty");
-                    }
-                    if ($("#regemail").val() == "") {
-                        $("#msg21").html("*Email Can't be Empty");
-                    }
-                    if ($("#regmobile").val() == "") {
-                        $("#msg3").html("*Mobile No. Can't be Empty");
-                    } if ($("#regusername").val() == "") {
-                        $("#msg4").html("*Username Can't be Empty");
-                    } if ($("#regpassword").val() == "") {
-                        $("#msg5").html("*password Can't be Empty");
-                    }
-                }
+            });
+        }
+        else {
+            if ($("#regname").val() == "") {
+                $("#msg11").html("*Full Name Can't be Empty");
             }
-        });
+            if ($("#regemail").val() == "") {
+                $("#msg21").html("*Email Can't be Empty");
+            }
+            if ($("#regmobile").val() == "") {
+                $("#msg3").html("*Mobile No. Can't be Empty");
+            } if ($("#regusername").val() == "") {
+                $("#msg4").html("*Username Can't be Empty");
+            } if ($("#regpassword").val() == "") {
+                $("#msg5").html("*password Can't be Empty");
+            }
+        }
     }
 
     // vendor register
@@ -213,55 +220,62 @@ $(document).ready(function () {
                 }
                 else {
                     console.log(xhr2);
-                    //$("#msg").html("<div class=\"alert alert-danger\" role=\"alert\">Error : " + xhr.responseJSON.message + "</div>");
+                    $("#msg").html("<div class=\"alert alert-danger\" role=\"alert\">Error : " + xhr.responseJSON.message + "</div>");
                 }
             }
         });
     }
 
     var loadVendorRegister = function () {
-        $.ajax({
-            url: "https://localhost:44308/api/logins/register",
-            method: "POST",
-            data: {
-                email: $("#venregemail").val(),
-                mobile: $("#venregmobile").val(),
-                username: $("#venregusername").val(),
-                password: $("#venregpassword").val(),
-                accessStatusId: "2",
-                registrationStatusId: "1",
-                userDesignationId: "6"
-            },
-            headers: {
-                'Authorization': 'Basic ' + btoa($("#venregusername").val() + ":" + $("#venregpassword").val()),
-            },
-            complete: function (xhr, status) {
-                if ($("#venregname").val() != "" && $("#venregemail").val() != "" && $("#venregmobile").val() != "" && $("#venregusername").val() != "" && $("#venregpassword").val() != "") {
+        if ($("#venregname").val() != "" && $("#venregemail").val() != "" && $("#venregmobile").val() != "" && $("#venregusername").val() != "" && $("#venregpassword").val() != "") 
+        {
+            $.ajax({
+                url: "https://localhost:44308/api/logins/register",
+                method: "POST",
+                data: {
+                    email: $("#venregemail").val(),
+                    mobile: $("#venregmobile").val(),
+                    username: $("#venregusername").val(),
+                    password: $("#venregpassword").val(),
+                    accessStatusId: "2",
+                    registrationStatusId: "1",
+                    userDesignationId: "6"
+                },
+                headers: {
+                    'Authorization': 'Basic ' + btoa($("#venregusername").val() + ":" + $("#venregpassword").val()),
+                },
+                complete: function (xhr, status) {
                     if (xhr.status == 201) {
                         console.log("Login For Vendor Table Data insert Success");
                         insertInVendor(xhr.responseJSON.id);
+                        alert("Successfully Registered");
                     }
                     else {
                         console.log(xhr);
+                        //alert("Fill All Field Correctly");
+                        alert(xhr.responseJSON.modelState["login.Username"][0]);
+                        alert(xhr.responseJSON.modelState["login.Username"][1]);
+                        alert(xhr.responseJSON.modelState["login.Email"][0]);
+                        alert(xhr.responseJSON.modelState["login.Mobile"][0]);
                     }
                 }
-                else {
-                    if ($("#venregname").val() == "") {
-                        $("#msg6").html("*Full Name Can't be Empty");
-                    }
-                    if ($("#venregemail").val() == "") {
-                        $("#msg7").html("*Email Can't be Empty");
-                    }
-                    if ($("#venregmobile").val() == "") {
-                        $("#msg8").html("*Mobile No. Can't be Empty");
-                    } if ($("#venregusername").val() == "") {
-                        $("#msg9").html("*Username Can't be Empty");
-                    } if ($("#venregpassword").val() == "") {
-                        $("#msg10").html("*password Can't be Empty");
-                    }
-                }
+            });
+        }
+        else {
+            if ($("#venregname").val() == "") {
+                $("#msg6").html("*Full Name Can't be Empty");
             }
-        });
+            if ($("#venregemail").val() == "") {
+                $("#msg7").html("*Email Can't be Empty");
+            }
+            if ($("#venregmobile").val() == "") {
+                $("#msg8").html("*Mobile No. Can't be Empty");
+            } if ($("#venregusername").val() == "") {
+                $("#msg9").html("*Username Can't be Empty");
+            } if ($("#venregpassword").val() == "") {
+                $("#msg10").html("*password Can't be Empty");
+            }
+        }
     }
 
 

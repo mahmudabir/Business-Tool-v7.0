@@ -27,15 +27,15 @@ $(document).ready(function(){
                         {
                             
                             str += "<tr>"+
-                                         "<td align='center'>"+ data[i].id + "</td>"+
-                                         "<td>"+ data[i].date +"</td>"+
-                                        "<td>"+ data[i].totalAmount+ "</td>"+
-                                        "<td>" + data[i].customerID + "</td>"+
-                                        "<td>" + data[i].customerName + "</td>"+
-                                        "<td>" + data[i].orderStatus.status + "</td>"+
-                                        "<td align='center'> <button type='button' data-toggle='modal' data-target='#detailOrder' data-id="+data[i].id+" class='btn btn-warning'>Approve</button>"+
-                                        "<td align='center'> <button type='button' data-id="+data[i].id+" class='btn btn-danger edit'>Reject</button>"+
-                                "</tr>";
+                                "<td align='center'>"+ data[i].id + "</td>"+
+                                "<td>"+ data[i].totalAmount+ "</td>"+
+                                "<td>" + data[i].customer.login.username + "</td>"+
+                                "<td>" + data[i].customerName + "</td>"+
+                                "<td>" + data[i].customer.login.mobile + "</td>"+
+                                "<td>"+ data[i].date +"</td>"+
+                                "<td align='center'> <button type='button' data-toggle='modal' data-target='#detailOrder' data-id="+data[i].id+" class='btn btn-warning'>Approve</button>"+
+                                "<td align='center'> <button type='button' data-id="+data[i].id+" class='btn btn-danger edit'>Reject</button>"+
+                            "</tr>";
                                 
                         }
 
@@ -92,11 +92,11 @@ $(document).ready(function(){
                                 
                                 str += "<tr>"+
                                     "<td align='center'>"+ data[i].id + "</td>"+
-                                    "<td>"+ data[i].date +"</td>"+
                                     "<td>"+ data[i].totalAmount+ "</td>"+
-                                    "<td>" + data[i].customerID + "</td>"+
+                                    "<td>" + data[i].customer.login.username + "</td>"+
                                     "<td>" + data[i].customerName + "</td>"+
-                                    "<td>" + data[i].orderStatus.status + "</td>"+
+                                    "<td>" + data[i].customer.login.mobile + "</td>"+
+                                    "<td>"+ data[i].date +"</td>"+
                                     "<td align='center'> <button type='button' data-toggle='modal' data-target='#detailOrder' data-id="+data[i].id+" class='btn btn-warning'>Approve</button>"+
                                     "<td align='center'> <button type='button' data-id="+data[i].id+" class='btn btn-danger edit'>Reject</button>"+
                                 "</tr>";
@@ -174,10 +174,11 @@ $(document).ready(function(){
 
                     var data = xhr.responseJSON;
                     $("#editid").val(data.id);
-                    $("#editdate").val(data.date);
                     $("#edittotalamount").val(data.totalAmount);
-                    $("#editcustomerid").val(data.customerID);
+                    $("#editcustomerusername").val(data.customer.login.username);
                     $("#editcustomername").val(data.customerName);  
+                    $("#editcustomerphone").val(data.customer.login.mobile);  
+                    $("#editdate").val(data.date);
                     
                 }
                 else {
@@ -201,10 +202,6 @@ $(document).ready(function(){
             header: "Content-Type:application/json",
             data: {
                 id: $("#editid").val(),
-                date: $("#editdate").val(),
-                totalAmount: $("#edittotalAmount").val(),
-                customerID: $("#editcustomerid").val(),
-                customerName: $("#editcustomername").val(),
                 SaleTypeID: "2",
                 isSold: true,
                 orderStatusID: "2",
@@ -238,10 +235,6 @@ $(document).ready(function(){
             header: "Content-Type:application/json",
             data: {
                 id: $("#editid").val(),
-                date: $("#editdate").val(),
-                totalAmount: $("#edittotalAmount").val(),
-                customerID: $("#editcustomerid").val(),
-                customerName: $("#editcustomername").val(),
                 SaleTypeID: "2",
                 isSold: true,
                 orderStatusID: "3"
