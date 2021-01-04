@@ -12,8 +12,8 @@ $(document).ready(function () {
     else if(localStorage.userRole  == 2){
         window.location.href = "../Manager/";
     }
-    else if(localStorage.userRole  == 3){
-        window.location.href = "../Salesman/";
+    else if(localStorage.userRole  == 4){
+        window.location.href = "../Deliveryman/";
     }
     else if(localStorage.userRole  == 5){
         window.location.href = "../Customer/";
@@ -29,7 +29,7 @@ $(document).ready(function () {
     var loadGraph = function () {
         $("#msg").removeAttr("hidden");
         $.ajax({
-            url: "https://localhost:44308/api/deliveryorders/" + localStorage.username + "/order_status/reports",
+            url: "https://localhost:44308/api/sellproducts/" + localStorage.username + "/total_sell/reports",
             method: "GET",
             headers: {
                 'Authorization': 'Basic ' + localStorage.authUser,
@@ -76,7 +76,7 @@ $(document).ready(function () {
                     var options = {
                         title: {
                             display: true,
-                            text: 'Orders Managed by You',
+                            text: 'Total sell by You',
                             position: 'top'
                         },
                         rotation: -0.7 * Math.PI

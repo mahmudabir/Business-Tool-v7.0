@@ -2,6 +2,7 @@
 using BTv7.Repositories;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -235,6 +236,46 @@ namespace BTv7.Controllers
             cartrepo.Update(ordercart);
 
             return Ok(ordercart);
+        }
+
+
+
+        [Route("{id}/total_sell/reports", Name = "GetReportOfSellBySalesmanID")]
+        [BasicAuthentication]
+        public IHttpActionResult GetReportOfSellBySalesmanID(int id)
+        {
+            OrderRepository orderDB = new OrderRepository();
+            List<object> iData = new List<object>();
+
+            //Creating sample data  
+            DataTable dt = new DataTable();
+            dt.Columns.Add("Type", System.Type.GetType("System.String"));
+            dt.Columns.Add("Count", System.Type.GetType("System.Int32"));
+
+            DataRow dr = dt.NewRow();
+            dr["Type"] = "Total Sold";
+            dr["Count"] = orderDB.GetSellBySalesmanID(id).Count;
+            dt.Rows.Add(dr);
+
+            dr = dt.NewRow();
+            dr["Type"] = "Top Sold";
+            dr["Count"] = orderDB.GetTopSellBySalesmanID(id).Count;
+            dt.Rows.Add(dr);
+
+            dr = dt.NewRow();
+            dr["Type"] = "Poor Sold";
+            dr["Count"] = orderDB.GetPoorSellBySalesmanID(id).Count;
+            dt.Rows.Add(dr);
+
+            //Looping and extracting each DataColumn to List<Object>  
+            foreach (DataColumn dc in dt.Columns)
+            {
+                List<object> x = new List<object>();
+                x = (from DataRow drr in dt.Rows select drr[dc.ColumnName]).ToList();
+                iData.Add(x);
+            }
+            //Source data returned as JSON  
+            return Ok(iData);
         }
 
     }

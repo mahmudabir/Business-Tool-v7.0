@@ -85,10 +85,22 @@ namespace BTv7.Repositories
             return this.GetAll().Where(x => x.SellBy == eid && x.SaleTypeID == 2 && x.IsSold == false).ToList();
         }
 
-        //public Order GetOrderByDeliverymanIDNOrderAccept(int eid, int oid)
-        //{
-        //    List<Order> orderFromDB = this.GetAll();
-        //    return orderFromDB.FirstOrDefault(x => x.SellBy == eid && x.ID == oid && x.OrderStatusID == 4);
-        //}
+        public List<Order> GetPendingOrderBydeliverymanID(int id)
+        {
+            return this.context.Set<Order>().OrderBy(y => y.ID).Where(x => x.SellBy == id && x.OrderStatusID == 2).ToList();
+        }
+        public List<Order> GetSellBySalesmanID(int id)
+        {
+            return this.context.Set<Order>().OrderBy(y => y.ID).Where(x => x.SellBy == id && x.OrderStatusID == 4).ToList();
+        }
+        
+        public List<Order> GetTopSellBySalesmanID(int id)
+        {
+            return this.context.Set<Order>().OrderBy(y => y.ID).Where(x => x.SellBy == id && x.TotalAmount >= 100000).ToList();
+        }
+        public List<Order> GetPoorSellBySalesmanID(int id)
+        {
+            return this.context.Set<Order>().OrderBy(y => y.ID).Where(x => x.SellBy == id && x.TotalAmount <= 50000).ToList();
+        }
     }
 }

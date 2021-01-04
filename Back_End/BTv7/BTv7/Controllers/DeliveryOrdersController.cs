@@ -232,9 +232,9 @@ namespace BTv7.Controllers
         }
 
 
-        [Route("{id}/reports/order_types", Name = "GetReportOfOrderTypesByCustomerID")]
+        [Route("{id}/order_status/reports", Name = "GetReportOfOrderTypesByDeliverymanID")]
         [BasicAuthentication]
-        public IHttpActionResult GetReportOfOrderTypesByCustomerID(int id)
+        public IHttpActionResult GetReportOfOrderTypesByDeliverymanID(int id)
         {
             OrderRepository orderDB = new OrderRepository();
             List<object> iData = new List<object>();
@@ -245,15 +245,19 @@ namespace BTv7.Controllers
             dt.Columns.Add("Count", System.Type.GetType("System.Int32"));
 
             DataRow dr = dt.NewRow();
-            dr["Type"] = "Accepted";
-            dr["Count"] = orderDB.GetAllAcceptedOrderByDeliverymanID(id).Count;
+            dr["Type"] = "Deliveried";
+            dr["Count"] = orderDB.GetAcceptOrderBydeliverymanID(id).Count;
             dt.Rows.Add(dr);
 
             dr = dt.NewRow();
-            dr["Type"] = "Returned";
-            dr["Count"] = orderDB.GetAllConfirmedOrderByCustomerID(cid).Count;
+            dr["Type"] = "Rejected";
+            dr["Count"] = orderDB.GetRejectOrderBydeliverymanID(id).Count;
             dt.Rows.Add(dr);
 
+            dr = dt.NewRow();
+            dr["Type"] = "Pending";
+            dr["Count"] = orderDB.GetPendingOrderBydeliverymanID(id).Count;
+            dt.Rows.Add(dr);
 
             //Looping and extracting each DataColumn to List<Object>  
             foreach (DataColumn dc in dt.Columns)
