@@ -5,37 +5,8 @@ $(document).ready(function(){
         window.location.href = "../../Login/index.html";
     }
     $('#content').load("../managernav.html");
-
-        //Load Login
-        var loadUser = function () {
-            //$("#msg").removeAttr("hidden");
-            $.ajax({
-                url: "https://localhost:44308/api/logins/" + localStorage.userId,
-                method: "GET",
-                headers: {
-                    'Authorization': 'Basic ' + localStorage.authUser,
-                },
-                complete: function (xhr, status) {
-                    if (xhr.status == 200) {
-                        console.log(xhr.responseJSON);
     
-                        var data = xhr.responseJSON;
-    
-                        localStorage.vendorID = data.vendors[0].id;
-                    }
-                    else {
-                        console.log(xhr);
-                        $("#msg").html("<div class=\"alert alert-danger\" role=\"alert\">Error : " + xhr.responseJSON.message + "</div>");
-                    }
-                }
-            });
-        }
-    
-        loadUser();
-    
-        //load Login
-    
-        //LOAD EMPLOYEES LIST
+        //LOAD Product LIST
         var loadAllProducts = function () {
             $.ajax({
                 url: "https://localhost:44308/api/products/getAllProductByStatusID",

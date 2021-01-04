@@ -35,7 +35,7 @@ $(document).ready(function(){
     
         //load Login
     
-        //LOAD EMPLOYEES LIST
+        //LOAD Product LIST
         var loadAllProducts = function () {
             $.ajax({
                 url: "https://localhost:44308/api/products/vendorId/"+localStorage.vendorID,

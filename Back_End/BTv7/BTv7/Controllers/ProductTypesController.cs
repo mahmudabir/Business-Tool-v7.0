@@ -10,7 +10,7 @@ using System.Web.Http;
 namespace BTv7.Controllers
 {
     [RoutePrefix("api/productType")]
-    public class ProductTypeController : ApiController
+    public class ProductTypesController : ApiController
     {
         ProductTypeRepository productDB = new ProductTypeRepository();
 

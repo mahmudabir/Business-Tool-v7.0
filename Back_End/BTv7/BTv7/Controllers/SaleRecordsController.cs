@@ -10,7 +10,7 @@ using System.Web.Http;
 namespace BTv7.Controllers
 {
     [RoutePrefix("api/SaleRecords")]
-    public class SaleRecordController : ApiController
+    public class SaleRecordsController : ApiController
     {
         SaleRecordRepository saleRecordRepository = new SaleRecordRepository();
 

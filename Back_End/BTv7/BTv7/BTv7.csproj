@@ -105,13 +105,14 @@
     <Compile Include="Controllers\EmployeesController.cs" />
     <Compile Include="Controllers\FeedbacksController.cs" />
     <Compile Include="Controllers\LoginsController.cs" />
+    <Compile Include="Controllers\ManagersController.cs" />
     <Compile Include="Controllers\NotesController.cs" />
     <Compile Include="Controllers\NoticeController.cs" />
     <Compile Include="Controllers\OrderCartsController.cs" />
     <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
-    <Compile Include="Controllers\ProductTypeController.cs" />
-    <Compile Include="Controllers\SaleRecordController.cs" />
+    <Compile Include="Controllers\ProductTypesController.cs" />
+    <Compile Include="Controllers\SaleRecordsController.cs" />
     <Compile Include="Controllers\SellProductsController.cs" />
     <Compile Include="Controllers\UserDesignationController.cs" />
     <Compile Include="Controllers\VendorsController.cs" />
