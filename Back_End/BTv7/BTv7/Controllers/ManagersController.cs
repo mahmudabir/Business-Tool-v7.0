@@ -70,5 +70,25 @@ namespace BTv7.Controllers
         }
 
         //Get DeliveryMan
+
+        //Approve Order
+        [Route("approve/{id}", Name = "PutApprove")]
+        [BasicAuthentication]
+        public IHttpActionResult PutApprove([FromUri] int id, [FromBody] Order order)
+        {
+
+
+            var pro = orderDB.Get(id);
+            order.ID = id;
+            //order.SellBy = pro.SellBy;
+
+
+            orderDB.UpdateOrderStatus(order);
+
+            return Ok(order);
+
+
+        }
+        //Approve Order
     }
 }

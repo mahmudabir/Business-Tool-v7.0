@@ -155,67 +155,72 @@ $(document).ready(function(){
     //Load Order Details
     var loadOrderDetails = function(id){
         $.ajax({
-            url: "https://localhost:44308/api/products/id/"+id,
+            url: "https://localhost:44308/api/orders/"+id,
             method: "GET",
             headers: {
                 'Authorization': 'Basic ' + localStorage.authUser,
             },
             complete: function (xhr, status) {
                 if (xhr.status == 200) {
-                    console.log("Data For product",xhr.responseJSON);
+                    console.log("Data For Order details",xhr.responseJSON);
 
                     var data = xhr.responseJSON;
-                    console.log("Product info",data)
-                    if(data.length>0)
-                    {
-                        $("#editid").val(data[0].id);
-                        $("#editname").val(data[0].name);
-                        $("#editquantity").val(data[0].quantity);
-                        $("#editbuyprice").val(data[0].buyPrice);
-                        $("#editsellprice").val(data[0].sellPrice);  
-                        $("#edittype option[value='"+data[0].productTypeID+"']").attr("selected", "selected");
-                        
-                        console.log(data[0].productType.type);
-                        console.log(data[0].productStatus.id);
-                        if(data[0].productStatus.id == '3')
-                        {                    
-                            $("#updateMesg").attr("hidden", "hidden");
-                            $("#btnunapproved").attr("hidden", "hidden");
-                            $("#btnunavailable").removeAttr("hidden", "hidden");
-                            $("#btnupdate").removeAttr("hidden", "hidden");
-                        }
-                        else if(data[0].productStatus.id == '2')
-                        {
-                            $("#updateMesg").attr("hidden", "hidden");
-                            $("#btnunavailable").attr("hidden", "hidden");
-                            $("#btnunapproved").removeAttr("hidden", "hidden");
-                            $("#btnupdate").removeAttr("hidden", "hidden");
-                        }
-                        else
-                        {
-                            $("#updateMesg").attr("hidden", "hidden");
-                            $("#btnupdate").attr("hidden", "hidden");
-                            $("#btnunavailable").attr("hidden", "hidden");
-                            $("#btnunapproved").attr("hidden", "hidden");
-                        }
-                    }
-                    else
-                    {
-                        alert("Product Not Found");
-                    }
+                    $("#editid").val(data.id);
+                    $("#editdate").val(data.date);
+                    $("#edittotalamount").val(data.totalAmount);
+                    $("#editcustomerid").val(data.customerID);
+                    $("#editcustomername").val(data.customerName);  
+                    
                 }
                 else {
-                    alert("Something Went Wrong.");
+                    alert("Data not found.");
                 }
             }
         });
     }
-    $('#detailProduct').on('show.bs.modal', function(e) {
+    $('#detailOrder').on('show.bs.modal', function(e) {
         var id = $(e.relatedTarget).data('id');
         loadOrderDetails(id);
     });
-
     //Load Order Details
+
+    //Approve Order
+
+    var approve = function () {
+        $.ajax({
+            url: "https://localhost:44308/api/managers/approve/"+$("#editid").val(),
+            method: "PUT",
+            header: "Content-Type:application/json",
+            data: {
+                id: $("#editid").val(),
+                date: $("#editdate").val(),
+                totalAmount: $("#edittotalAmount").val(),
+                customerID: $("#editcustomerid").val(),
+                customerName: $("#editcustomername").val(),
+                SaleTypeID: "2",
+                isSold: "false",
+                orderStatusID: "2",
+                sellBy:$("#editdeliveryby").val()
+                
+            },
+            headers: {
+                'Authorization': 'Basic ' + localStorage.authUser,
+            },
+            complete: function (xhr, status) {
+                if (xhr.status == 200) {
+                    loadAllOrders();
+                    alert("Product Approved.")
+                } 
+                else {
+                    alert("Something Wrong.");
+                }
+            }
+        });
+    }
+    $("#btnapproved").on("click",function(){
+        approve();
+    });
+    //Approve Order
 
 
 
