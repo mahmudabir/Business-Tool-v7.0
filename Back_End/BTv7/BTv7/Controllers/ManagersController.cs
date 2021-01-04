@@ -50,5 +50,25 @@ namespace BTv7.Controllers
         }
 
         //SearchByCustomerName
+
+        //Get DeliveryMan
+        [Route("deliveryby", Name = "GetDeliveryMan")]
+        [BasicAuthentication]
+        public IHttpActionResult GetDeliveryMan()
+        {
+            EmployeeRepository employeeDB = new EmployeeRepository();
+            var employeeFromDB = employeeDB.GetEmployeeByUserDesignation();
+
+            if (employeeFromDB != null || employeeFromDB.Count() != 0)
+            {
+                return Ok(employeeFromDB);
+            }
+            else
+            {
+                return StatusCode(HttpStatusCode.NotFound);
+            }
+        }
+
+        //Get DeliveryMan
     }
 }
