@@ -304,7 +304,7 @@ namespace BTv7.Controllers
             order.SaleTypeID = 1;
             order.IsSold = false;
             order.OrderStatusID = 6;
-            //order.SellBy = 1;
+            order.SellBy = 1;
 
 
             var orderFromDB = orderDB.GetAll()
@@ -389,6 +389,7 @@ namespace BTv7.Controllers
 
 
         [Route("{cid}/orders/saletype/{stid}/orderstatus/{osid}/notissold", Name = "GetOrderByCustomerNSaleTypeNOrderStatusIDNNotIsSold"), BasicAuthentication]
+        [Authorize(Roles = "CUSTOMER")]
         public IHttpActionResult GetOrderByCustomerNSaleTypeNOrderStatusIDNNotIsSold(int cid, int stid)
         {
             OrderRepository orderDB = new OrderRepository();
