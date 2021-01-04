@@ -3,6 +3,7 @@ using BTv7.Repositories;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Data;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -196,6 +197,39 @@ namespace BTv7.Controllers
 
 
 
+        }
+
+        [Route("typecount", Name = "GetSalesTypeCount")]
+        [BasicAuthentication]
+        public IHttpActionResult GetSalesTypeCount()
+        {
+            OrderRepository pr = new OrderRepository();
+            List<object> iData = new List<object>();
+
+            //Creating sample data  
+            DataTable dt = new DataTable();
+            dt.Columns.Add("Type", System.Type.GetType("System.String"));
+            dt.Columns.Add("Count", System.Type.GetType("System.Int32"));
+
+            DataRow dr = dt.NewRow();
+            dr["Type"] = "ONLINE";
+            dr["Count"] = pr.GetAll().Where(x => x.SaleTypeID == 1).Count();
+            dt.Rows.Add(dr);
+
+            dr = dt.NewRow();
+            dr["Type"] = "OFFLINE";
+            dr["Count"] = pr.GetAll().Where(x => x.SaleTypeID == 2).Count();
+            dt.Rows.Add(dr);
+
+            //Looping and extracting each DataColumn to List<Object>  
+            foreach (DataColumn dc in dt.Columns)
+            {
+                List<object> x = new List<object>();
+                x = (from DataRow drr in dt.Rows select drr[dc.ColumnName]).ToList();
+                iData.Add(x);
+            }
+            //Source data returned as JSON  
+            return Ok(iData);
         }
 
     }

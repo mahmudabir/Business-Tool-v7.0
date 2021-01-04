@@ -2,6 +2,7 @@
 using BTv7.Repositories;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -328,6 +329,59 @@ namespace BTv7.Controllers
             loginDB.Delete(id);
 
             return StatusCode(HttpStatusCode.NoContent);
+        }
+
+        [Route("typecount", Name = "GetLoginTypeCount")]
+        [BasicAuthentication]
+        public IHttpActionResult GetLoginTypeCount()
+        {
+            LoginRepository pr = new LoginRepository();
+            List<object> iData = new List<object>();
+
+            //Creating sample data  
+            DataTable dt = new DataTable();
+            dt.Columns.Add("Type", System.Type.GetType("System.String"));
+            dt.Columns.Add("Count", System.Type.GetType("System.Int32"));
+
+            DataRow dr = dt.NewRow();
+            dr["Type"] = "ADMIN";
+            dr["Count"] = pr.GetAll().Where(x => x.UserDesignationID == 1).Count();
+            dt.Rows.Add(dr);
+
+            dr = dt.NewRow();
+            dr["Type"] = "MANAGER";
+            dr["Count"] = pr.GetAll().Where(x => x.UserDesignationID == 2).Count();
+            dt.Rows.Add(dr);
+
+            dr = dt.NewRow();
+            dr["Type"] = "SALESMAN";
+            dr["Count"] = pr.GetAll().Where(x => x.UserDesignationID == 3).Count();
+            dt.Rows.Add(dr);
+
+            dr = dt.NewRow();
+            dr["Type"] = "DELIVERYMAN";
+            dr["Count"] = pr.GetAll().Where(x => x.UserDesignationID == 4).Count();
+            dt.Rows.Add(dr);
+
+            dr = dt.NewRow();
+            dr["Type"] = "CUSTOMER";
+            dr["Count"] = pr.GetAll().Where(x => x.UserDesignationID == 5).Count();
+            dt.Rows.Add(dr);
+
+            dr = dt.NewRow();
+            dr["Type"] = "VENDOR";
+            dr["Count"] = pr.GetAll().Where(x => x.UserDesignationID == 6).Count();
+            dt.Rows.Add(dr);
+
+            //Looping and extracting each DataColumn to List<Object>  
+            foreach (DataColumn dc in dt.Columns)
+            {
+                List<object> x = new List<object>();
+                x = (from DataRow drr in dt.Rows select drr[dc.ColumnName]).ToList();
+                iData.Add(x);
+            }
+            //Source data returned as JSON  
+            return Ok(iData);
         }
     }
 }
