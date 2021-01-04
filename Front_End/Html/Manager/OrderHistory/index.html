@@ -1,0 +1,48 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Management</title>
+    <script type="text/javascript" src="../../../Content/jquery.js"></script>
+    <script type="text/javascript" src="../../../Content/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../../../CSS/bootstrap.css">
+    <script src="../../../Content/popper.js"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <script type="text/javascript" src="../../../JS/Manager/Order History/index.js"></script>
+</head>
+<body class="bg-secondary">
+    <form method="POST">
+    <div id="content"></div>
+        
+    <div class="p-4" style="margin-top:55px; height:90%; overflow-y: scroll;">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm sol-md col-lg">
+                    <div class="card my-3">
+                        <div class="card-body">
+                            <input class="form-control mb-2" style="text-align: center;" type="search" id="search" placeholder="Search By Name" autocomplete="off">
+                            <!-- CONTENT -->
+                            <table class="table table-bordered table-hover" id="table">
+                                <thead class="thead-dark">
+                                    <tr align="center">
+                                      <th scope="col" align="center">ID</th>
+                                      <th scope="col" align="center">Date</th>
+                                      <th scope="col" align="center">TotalAmount</th>
+                                      <th scope="col" align="center">CustomerID</th>
+                                      <th scope="col" align="center">CustomerName</th>
+                                      <th scope="col" align="center">OrderStatus</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    <!--DATA FROM API-->
+                                  </tbody>
+                            </table>
+                            <!-- END CONTENT -->     
+                        </div>
+                    </div>
+                </div>
+            </div>  
+        </div>
+    </form>
+</body>
+</html>

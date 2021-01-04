@@ -514,7 +514,7 @@ namespace BTv7.Controllers
         }
         //Product Status Notforsale
 
-
+        //for admin report
         [Route("typecount", Name = "GetTypeCount")]
         [BasicAuthentication]
         public IHttpActionResult GetTypeCount()
@@ -582,6 +582,57 @@ namespace BTv7.Controllers
             //Source data returned as JSON  
             return Ok(iData);
         }
+
+        //for vendor report
+
+        /*[Route("productstatus", Name = "GetProductStatus")]
+        [BasicAuthentication]
+        public IHttpActionResult GetProductStatus(int id)
+        {
+            
+            List<object> iData = new List<object>();
+
+            //Creating sample data  
+            DataTable dt = new DataTable();
+            dt.Columns.Add("OrderID", System.Type.GetType("System.String"));
+            dt.Columns.Add("Amount", System.Type.GetType("System.Int32"));
+
+
+            var dataFromDB = productDB.GetAll().Where(x => x.VendorID == id).ToList();
+
+            foreach (var item in dataFromDB)
+            {
+                DataRow dr = dt.NewRow();
+                dr["ID"] = "OrderID: " + item.ID;// "Pending";
+                dr["Amount"] = item.TotalAmount;// orderDB.GetAllPendingOrderByCustomerID(cid).Count;
+                dt.Rows.Add(dr);
+            }
+
+
+            foreach (DataColumn dc in dt.Columns)
+            {
+                List<object> x = new List<object>();
+                x = (from DataRow drr in dt.Rows select drr[dc.ColumnName]).ToList();
+                iData.Add(x);
+            }
+            //Source data returned as JSON  
+            return Ok(iData);
+        }
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

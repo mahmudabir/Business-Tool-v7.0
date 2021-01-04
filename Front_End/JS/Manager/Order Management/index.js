@@ -46,6 +46,14 @@ $(document).ready(function(){
                     }
 
                     $("#table tbody").html(str);
+
+
+
+                    $(".edit").click(function(){
+                        cancel($(this).attr("data-id"));
+                    });
+
+
                 }
                 else 
                 {
@@ -208,8 +216,9 @@ $(document).ready(function(){
             },
             complete: function (xhr, status) {
                 if (xhr.status == 200) {
+                    
+                    alert("Product Approved.");
                     loadAllOrders();
-                    alert("Product Approved.")
                 } 
                 else {
                     alert("Something Wrong.");
@@ -222,9 +231,9 @@ $(document).ready(function(){
     });
     //Approve Order
     //Cancel Order
-    var cancel = function () {
+    var cancel = function (oid) {
         $.ajax({
-            url: "https://localhost:44308/api/managers/cancel/"+$("#editid").val(),
+            url: "https://localhost:44308/api/managers/cancel/"+oid,
             method: "PUT",
             header: "Content-Type:application/json",
             data: {
@@ -235,8 +244,8 @@ $(document).ready(function(){
                 customerName: $("#editcustomername").val(),
                 SaleTypeID: "2",
                 isSold: "false",
-                orderStatusID: "3",
-                sellBy:$("#editdeliveryby").val()
+                orderStatusID: "3"
+                // sellBy:$("#editdeliveryby").val()
                 
             },
             headers: {
@@ -244,19 +253,17 @@ $(document).ready(function(){
             },
             complete: function (xhr, status) {
                 if (xhr.status == 200) {
+                    
+                    alert("Product Rejected.");
                     loadAllOrders();
-                    alert("Product Approved.")
                 } 
                 else {
                     alert("Something Wrong.");
+
                 }
             }
         });
     }
-    $("#btncancel").on("click",function(){
-        cancel();
-    });
     //Cancel Order
-
 
 });

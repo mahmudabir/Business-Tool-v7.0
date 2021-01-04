@@ -31,6 +31,25 @@ namespace BTv7.Controllers
 
         //Manager Product
 
+        //order History
+
+        [Route("getorders", Name = "GetordersByStatusSaleTypeAndIsSold")]
+        [BasicAuthentication]
+        public IHttpActionResult GetordersByStatusSaleTypeAndIsSold()
+        {
+            var orderFromDB = orderDB.GetOrdersByOrderStatusSaleTypeAndIsSold();
+            if (orderFromDB.Count != 0)
+            {
+                return Ok(orderFromDB);
+            }
+            else
+            {
+                return StatusCode(HttpStatusCode.NoContent);
+            }
+        }
+
+        //Order History
+
         //SearchByCustomerName
 
         [Route("customername/{name}", Name = "GetCustomerByName")]
@@ -50,6 +69,26 @@ namespace BTv7.Controllers
         }
 
         //SearchByCustomerName
+
+        //SearchByCustomerName on Order History
+
+        [Route("customernameOnHistory/{name}", Name = "GetCustomersByNameOnHistory")]
+        [BasicAuthentication]
+        public IHttpActionResult GetCustomersByNameOnHistory(string name)
+        {
+            var orderFromDB = orderDB.GetByCustomersName(name);
+
+            if (orderFromDB != null || orderFromDB.Count != 0)
+            {
+                return Ok(orderFromDB);
+            }
+            else
+            {
+                return StatusCode(HttpStatusCode.NotFound);
+            }
+        }
+
+        //SearchByCustomerName on Order History
 
         //Get DeliveryMan
         [Route("deliveryby", Name = "GetDeliveryMan")]
@@ -90,5 +129,52 @@ namespace BTv7.Controllers
 
         }
         //Approve Order
+
+        //Cancel Order
+        [Route("cancel/{id}", Name = "PutCancel")]
+        [BasicAuthentication]
+        public IHttpActionResult PutCancel([FromUri] int id, [FromBody] Order order)
+        {
+
+
+           // var pro = orderDB.Get(id);
+            order.ID = id;
+            //order.SellBy = pro.SellBy;
+
+
+            OrderCartRepository orderCartDB = new OrderCartRepository();
+            ProductRepository productDB = new ProductRepository();
+
+
+            var cartFromDB = orderCartDB.GetAll().Where(x => x.OrderID == id).ToList();
+            //var productFromDB = orderCartDB.GetAll();
+
+            foreach (var item in cartFromDB)
+            {
+                var productToDB = productDB.Get((int)item.ProductID);
+
+                productToDB.Quantity = productToDB.Quantity + item.Quantity;
+
+                if (productToDB.Quantity <= 0)
+                {
+                    productToDB.ProductStatusID = 2;
+                }
+
+                if (productToDB.Quantity > 0)
+                {
+                    productToDB.ProductStatusID = 1;
+                }
+
+                productDB.Update(productToDB);
+            }
+
+            orderDB.UpdateOrderStatusCancel(order);
+
+            return Ok(order);
+
+
+
+            //Cancel Order
+        }
     }
 }

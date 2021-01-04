@@ -106,18 +106,32 @@ namespace BTv7.Repositories
         //Manager Approve order
         public List<Order> GetOrderByOrderStatusSaleTypeAndIsSold()
         {
-            return this.context.Set<Order>().Where(x => x.OrderStatusID == 1 && x.IsSold==false && x.SaleTypeID==1).ToList();
+            return this.context.Set<Order>().Where(x => x.OrderStatusID == 1 && x.SaleTypeID==1).ToList();
         }
         //Manager Approve order
+
+        //Order History
+        public List<Order> GetOrdersByOrderStatusSaleTypeAndIsSold()
+        {
+            return this.context.Set<Order>().Where(x => x.OrderStatusID == 2 || x.OrderStatusID == 3 && x.SaleTypeID == 1).ToList();
+        }
+
+        //Order History
 
         //SearchByCustomerName
 
         public List<Order> GetByCustomerName(string id)
         {
-            return this.context.Set<Order>().Where(x => x.CustomerName.ToLower().Contains(id.ToLower()) && x.OrderStatusID == 1 && x.IsSold == false && x.SaleTypeID == 1).ToList();
+            return this.context.Set<Order>().Where(x => x.CustomerName.ToLower().Contains(id.ToLower()) && x.OrderStatusID == 1 && x.SaleTypeID == 1).ToList();
         }
 
-        //SearchByCustomerName
+        //SearchByCustomerName on Order History        
+        public List<Order> GetByCustomersName(string id)
+        {
+            return this.context.Set<Order>().Where(x => x.CustomerName.ToLower().Contains(id.ToLower()) && x.SaleTypeID == 1).Where(x=> x.OrderStatusID == 2 || x.OrderStatusID == 3).ToList();
+        }
+
+        //SearchByCustomerName on Order History
 
         //Approve Order
 
@@ -129,5 +143,16 @@ namespace BTv7.Repositories
             }
         }
         //Approve Order
+
+        //Cancel Order
+        public void UpdateOrderStatusCancel(Order order)
+        {
+            using (var pro = new BTv7DbContext())
+            {
+                pro.Database.ExecuteSqlCommand("UPDATE Orders SET OrderStatusID='" + order.OrderStatusID + "' WHERE ID = " + order.ID + ";");
+            }
+        }
+
+        //Cancel Order
     }
 }
