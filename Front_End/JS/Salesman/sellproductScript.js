@@ -9,6 +9,7 @@ $(document).ready(function(){
 	var productid;
 	var buyQuantity;
 	var updatedQuantity;
+	var stat;
 	var dataCart;
 	var totalAmount=0;
 	var orderTotalAmount=0;
@@ -391,6 +392,13 @@ var getTheProduct=function(){
 				var data=xmlhttp.responseJSON;
 				var productQuantity=data.quantity;
 				updatedQuantity=productQuantity - buyQuantity;
+				
+				if(updatedQuantity<1){
+					stat=2;
+				}
+				else{
+					stat=1;
+				}
 				$.ajax({
 
 				url:"https://localhost:44308/api/sellproducts/"+productid+"/product",
@@ -411,8 +419,8 @@ var getTheProduct=function(){
 							
 							//"productType": productdata.productType,
 							"productTypeID": data.productTypeID,
-							"productStatus": data.productStatus,
-							"productStatusID": data.productStatusID,
+							//"productStatus": data.productStatus,
+							"productStatusID": stat,
 							
 							"vendorID": data.vendorID,
 							
@@ -585,6 +593,9 @@ $("#checkList").on("click","#deleteFromCart",function(){
 	console.log(quant);
 	console.log(dataCartList[index].product.quantity);
 	console.log(upQuant);
+	if(dataCartList[index].product.productStatusID==2){
+		dataCartList[index].product.productStatusID=1;
+	}
 	if(confirm("Are you sure to delete this item?")){
 				$.ajax({
 
@@ -606,7 +617,7 @@ $("#checkList").on("click","#deleteFromCart",function(){
 							
 							//"productType": productdata.productType,
 							"productTypeID": dataCartList[index].product.productTypeID,
-							"productStatus": dataCartList[index].product.productStatus,
+							//"productStatus": dataCartList[index].product.productStatus,
 							"productStatusID": dataCartList[index].product.productStatusID,
 							
 							"vendorID": dataCartList[index].product.vendorID,
