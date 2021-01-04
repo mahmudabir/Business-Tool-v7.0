@@ -6,10 +6,10 @@ $(document).ready(function(){
     }
     $('#content').load("../managernav.html");
 
-
+    //Load All Order
     var loadAllProducts = function () {
         $.ajax({
-            url: "https://localhost:44308/api/managers/getOrder/",
+            url: "https://localhost:44308/api/managers/getorder/",
             method: "GET",
             headers: {
                 'Authorization': 'Basic ' + localStorage.authUser,
@@ -27,15 +27,14 @@ $(document).ready(function(){
                         {
                             
                             str += "<tr>"+
-                                        "<td align='center'>"+ data[i].id + "</td>"+
-                                        "<td>"+ data[i].name +"</td>"+
-                                        "<td>"+ data[i].quantity+ "</td>"+
-                                        "<td>" + data[i].buyPrice + "</td>"+
-                                        "<td>" + data[i].sellPrice + "</td>"+
-                                        "<td>" + data[i].productType.type + "</td>"+
-                                        "<td>" + data[i].productStatus.status + "</td>"+
-                                        
-                                        "<td align='center'> <button type='button' data-toggle='modal' data-target='#detailProduct' data-id="+data[i].id+" class='btn btn-dark'>Details</button>" +
+                                         "<td align='center'>"+ data[i].id + "</td>"+
+                                         "<td>"+ data[i].date +"</td>"+
+                                        "<td>"+ data[i].totalAmount+ "</td>"+
+                                        "<td>" + data[i].customerID + "</td>"+
+                                        "<td>" + data[i].customerName + "</td>"+
+                                        "<td>" + data[i].orderStatus.status + "</td>"+
+                                        "<td align='center'> <button type='button' data-toggle='modal' data-target='#detailProduct' data-id="+data[i].id+" class='btn btn-warning'>Approve</button>" +
+                                        "<td align='center'> <button type='button' data-toggle='modal' data-target='#detailProduct' data-id="+data[i].id+" class='btn btn-danger'>Reject</button>" +
                                 "</tr>";
                                 
                         }
@@ -56,5 +55,11 @@ $(document).ready(function(){
         });
     }
     loadAllProducts();
+    //Load All Order
+
+
+    //Search Order
+
+    //Search Order
 
 });
