@@ -114,7 +114,7 @@ namespace BTv7.Repositories
 
         public List<Order> GetByCustomerName(string id)
         {
-            return this.context.Set<Order>().Where(x => x.CustomerName.ToLower().Contains(id.ToLower())).ToList();
+            return this.context.Set<Order>().Where(x => x.CustomerName.ToLower().Contains(id.ToLower()) && x.OrderStatusID == 1 && x.IsSold == false && x.SaleTypeID == 2).ToList();
         }
 
         //SearchByCustomerName

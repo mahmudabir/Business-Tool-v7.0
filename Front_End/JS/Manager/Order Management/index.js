@@ -33,8 +33,7 @@ $(document).ready(function(){
                                         "<td>" + data[i].customerID + "</td>"+
                                         "<td>" + data[i].customerName + "</td>"+
                                         "<td>" + data[i].orderStatus.status + "</td>"+
-                                        "<td align='center'> <button type='button' data-toggle='modal' data-target='#detailOrder' data-id="+data[i].id+" class='btn btn-warning'>Approve</button>" +
-                                        "<td align='center'> <button type='button' data-target='#cancel' data-id="+data[i].id+" class='btn btn-danger'>Reject</button>" +
+                                        "<td align='center'> <button type='button' data-toggle='modal' data-target='#detailOrder' data-id="+data[i].id+" class='btn btn-warning'>Approve</button>&nbsp;&nbsp;&nbsp;<button type='button' data-id="+data[i].id+" class='btn btn-danger'>Reject</button>"+
                                 "</tr>";
                                 
                         }
@@ -49,7 +48,7 @@ $(document).ready(function(){
                 }
                 else 
                 {
-                    alert("Something Went Wrong.");
+                    alert("No Data Found");
                 }
             }
         });
@@ -89,11 +88,11 @@ $(document).ready(function(){
                                     "<td>" + data[i].customerID + "</td>"+
                                     "<td>" + data[i].customerName + "</td>"+
                                     "<td>" + data[i].orderStatus.status + "</td>"+
-                                    "<td align='center'> <button type='button' data-toggle='modal' data-target='#detailOrder' data-id="+data[i].id+" class='btn btn-warning'>Approve</button>" +
-                                    "<td align='center'> <button type='button' data-target='#cancel' data-id="+data[i].id+" class='btn btn-danger'>Reject</button>" +
+                                    "<td align='center'> <button type='button' data-toggle='modal' data-target='#detailOrder' data-id="+data[i].id+" class='btn btn-warning'>Approve</button>&nbsp;&nbsp;&nbsp;<button type='button' id='cancel' btn-id="+data[i].id+" class='btn btn-danger'>Reject</button>" 
                                 "</tr>";
                                 
                             }
+                            
                         }
                         else
                         {
@@ -221,7 +220,45 @@ $(document).ready(function(){
         approve();
     });
     //Approve Order
+    //Cancel Order
+    var cancel = function () {
+        $.ajax({
+            url: "https://localhost:44308/api/managers/cancel/"+$("#editid").val(),
+            method: "PUT",
+            header: "Content-Type:application/json",
+            data: {
+                id: $("#editid").val(),
+                date: $("#editdate").val(),
+                totalAmount: $("#edittotalAmount").val(),
+                customerID: $("#editcustomerid").val(),
+                customerName: $("#editcustomername").val(),
+                SaleTypeID: "2",
+                isSold: "false",
+                orderStatusID: "3",
+                sellBy:$("#editdeliveryby").val()
+                
+            },
+            headers: {
+                'Authorization': 'Basic ' + localStorage.authUser,
+            },
+            complete: function (xhr, status) {
+                if (xhr.status == 200) {
+                    loadAllOrders();
+                    alert("Product Approved.")
+                } 
+                else {
+                    alert("Something Wrong.");
+                }
+            }
+        });
+    }
+    $("#btncancel").on("click",function(){
+        cancel();
+    });
+    //Cancel Order
 
-
+    $("cancel").click(function(){
+        console.log("btn-id",button.attr("btn-id"));
+    })
 
 });
