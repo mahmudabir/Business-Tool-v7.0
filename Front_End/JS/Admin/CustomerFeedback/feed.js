@@ -1,39 +1,16 @@
 $(document).ready(function(){
-    if (localStorage.authUser == null || localStorage.userRole==5)
+    if (localStorage.authUser == null || localStorage.userRole!=1)
     {
         //localStorage.clear();
         window.location.href = "http://localhost/Business-Tool-v7.0-api/Front_End/Html/Login/";
     }
 
-	if(localStorage.userRole==1)
-	{
-		$('#content').load("../Admin/adminnav.html");
-	}
-	else if(localStorage.userRole==2)
-	{
-		$('#content').load("../Manager/managernav.html");
-	}
-	else if(localStorage.userRole==3)
-	{
-		$('#content').load("../Salesman/SalesmanNavbar.html");
-	}
-	else if(localStorage.userRole==4)
-	{
-		$('#content').load("../Deliveryman/deliverymannav.html");
-	}
-	else if(localStorage.userRole==6)
-	{
-		$('#content').load("../Vendor/vendornav.html");
-	}
-	else
-	{
-		window.location.href = "http://localhost/Business-Tool-v7.0-api/Front_End/Html/Login/";
-	}
+	$('#content').load("../adminnav.html");
 
     //LOAD LIST
     var loadAllNotice = function () {
         $.ajax({
-            url: "https://localhost:44308/api/notices",
+            url: "https://localhost:44308/api/feedbacks",
             method: "GET",
             headers: {
                 'Authorization': 'Basic ' + localStorage.authUser,
@@ -57,7 +34,7 @@ $(document).ready(function(){
 										"<div class='card-header' id='heading"+data[i].id+"One"+"'>"+
 											"<h2 class='mb-0'>"+
 												"<button class='btn btn-link' data-toggle='collapse' data-target='#collapse"+data[i].id+"One"+"' aria-expanded='false' aria-controls='collapse"+data[i].id+"'>"+
-													data[i].subject+" &nbsp;&nbsp;&nbsp; <span style='font-style: italic; color:#b3b3b3'>(<b>@"+data[i].postDate+"</b>)</span>"+
+													data[i].subject+" &nbsp;&nbsp;&nbsp; <span style='font-style: italic; color:#b3b3b3'>(<b> By "+data[i].customer.name+" - "+data[i].customer.login.email+", "+data[i].customer.login.mobile+"</b>)</span>"+
 												"</button>"+
 											"</h2>"+
 										"</div>"+
@@ -76,7 +53,7 @@ $(document).ready(function(){
 										"<div class='card-header' id='heading"+data[i].id+"One"+"'>"+
 											"<h5 class='mb-0'>"+
 												"<button class='btn btn-link' data-toggle='collapse' data-target='#collapse"+data[i].id+"One"+"' aria-expanded='false' aria-controls='collapse"+data[i].id+"'>"+
-													data[i].subject+" &nbsp;&nbsp;&nbsp; <span style='font-style: italic; color:#b3b3b3'>(<b>@"+data[i].postDate+"</b>)</span>"+
+												data[i].subject+" &nbsp;&nbsp;&nbsp; <span style='font-style: italic; color:#b3b3b3'>(<b> By "+data[i].customer.name+" - "+data[i].customer.login.email+", "+data[i].customer.login.mobile+"</b>)</span>"+
 												"</button>"+
 											"</h5>"+
 										"</div>"+
