@@ -56,12 +56,12 @@ $(document).ready(function(){
 
 
     
-    //Load Employees By Name
-    var loadAllEmployeesByName = function () {
+    //Load By Subject
+    var loadAllNoticeBySubject = function () {
         if($.trim($("#search").val()) != "")
         {
             $.ajax({
-                url: "https://localhost:44308/api/employees/name/"+$("#search").val(),
+                url: "https://localhost:44308/api/notices/subject/"+$("#search").val(),
                 method: "GET",
                 headers: {
                     'Authorization': 'Basic ' + localStorage.authUser,
@@ -74,27 +74,14 @@ $(document).ready(function(){
     
                         var str = '';
                         var sl = 1;
-                        var icon = "";
-                        
                         if(data.length>0)
                         {
                             for (var i = 0; i < data.length; i++) 
                             {
-                                
-                                if(data[i].login.accessStatusID == 1)
-                                {
-                                    icon = '<i style="color: green;" class="fas fa-user-check"></i>';
-                                } 
-                                else
-                                {
-                                    icon = '<i style="color: red;" class="fas fa-user-slash"></i>';
-                                }
                                 str += "<tr>"+
                                             "<td align='center'>"+ sl + "</td>"+
-                                            "<td>"+ data[i].login.username/*data[i].login.username.substr(0,180)*/ +"</td>"+
-                                            "<td>"+ data[i].name+ "</td>"+
-                                            "<td>" + data[i].login.userDesignation.designation + "</td>"+
-                                            "<td align='center'>" + icon + "</td>"+
+                                            "<td>"+ data[i].subject/*data[i].login.username.substr(0,180)*/ +"</td>"+
+                                            "<td align='center'>"+ data[i].postDate +"</td>"+
                                             "<td align='center'> <button type='button' data-toggle='modal' data-target='#detailEmployee' data-id="+data[i].id+" class='btn btn-outline-dark'>Details</button>" +
                                     "</tr>";
                                 sl++;
@@ -102,12 +89,15 @@ $(document).ready(function(){
                         }
                         else
                         {
-                            str += "<tr><td colspan='6' align='middle'>NO DATA FOUND</td></tr>";
+                            str += "<tr><td colspan='4' align='middle'>NO DATA FOUND</td></tr>";
                         }
-
+    
                         $("#emptable tbody").html(str);
                     }
-                    else {
+                    else 
+                    {
+                        str += "<tr><td colspan='4' align='middle'>NO DATA FOUND</td></tr>";
+                        $("#emptable tbody").html(str);
                         alert("Something Went Wrong.");
                     }
                 }
@@ -116,41 +106,66 @@ $(document).ready(function(){
         
         else
         {
-            loadAllEmployees();
+            loadAllNotice();
         }
     }
     $("#search").on("keyup change",function(){
-        loadAllEmployeesByName();
+        loadAllNoticeBySubject();
     });
 
 
     //ADD Notice
     
-    var insertLogin = function () {
+    var insertNotice = function () {
         $.ajax({
-            url: "https://localhost:44308/api/logins/notices",
+            url: "https://localhost:44308/api/notices/create",
             method: "POST",
             data: {
                 subject: $("#subject").val(),
-                description: $("#content").val(),
-                employeeID: 1
+                description: $("#des").val(),
+                employeeID: localStorage.userId,
+                postDate: ""
             },
             headers: {
                 'Authorization': 'Basic ' + localStorage.authUser,
             },
             complete: function (xhr, status) {
-                if (xhr.status == 201) {
-                    insertInEmployee(xhr.responseJSON.id);
+                if (xhr.status == 200) {
+                    $("#insertMesg").removeAttr("hidden", "hidden"); 
+                    loadAllNotice();
                 }
                 else {
-                    alert("Check Username/Email."); 
-                    console.log(xhr);
+                    $("#insertMesg").attr("hidden", "hidden"); 
+                    alert("Something Went Wrong.");
                 }
             }
         });
     }
     $("#btnadd").on("click",function(){
-        insertLogin();
+        ///Validation
+        var error = false;
+        var msg = "";
+        //Input Check
+        if($.trim($("#subject").val()).length <1)
+        {
+            error = true;
+            msg += "# Subject Required.\n";
+        }
+        if($.trim($("#des").val()) == "")
+        {
+            error = true;
+            msg += "# Notice Content Required.\n";
+        }
+        //Error Check
+        if(!error)
+        {
+            insertNotice();
+        }
+        else
+        {
+            alert(msg);
+            loadAllNotice();
+        }
     }); 
 
 
@@ -197,74 +212,27 @@ $(document).ready(function(){
     });
 
 
-    //UPDATE EMPLOYEE DETAILS
-    var loadLogout = function () {
+    //UPDATE NOTICE DETAILS
+    var updateNoticeDetails = function () {
         $.ajax({
-            url: "https://localhost:44308/api/logins/logout",
-            method: "GET",
-            headers: {
-                'Authorization': 'Basic ' + localStorage.authUser,
-            },
-            complete: function (xmlhttp, status) {
-                if (xmlhttp.status == 200) {
-                    console.log("Logout Success");
-                    localStorage.clear();
-                    console.log(localStorage.user);
-                    window.location.href = "http://localhost/Business-Tool-v7.0-api/Front_End/Html/Login/";
-                } else {
-                    $("#msg").html("<div class=\"alert alert-danger\" role=\"alert\">Error : " + xmlhttp.status + ":" + xmlhttp.statusText + "</div>");
-                }
-            }
-        })
-    }
-    var updateEmployeeDetails = function () {
-            $.ajax({
-                url: "https://localhost:44308/api/employees/update/employeeID/"+$("#editid").val(),
-                method: "PUT",
-                header: "Content-Type:application/json",
-                data: {
-                    id: $("#editid").val(),
-                    name: $("#editfullname").val(),
-                    salary: $("#editsalary").val(),
-                    addeddBy: $("#editenrollby").val(),
-                    loginID: $("#editloginid").val(),
-                    image: "",
-                    joinDate: $("#editjoindate").val()
-                },
-                headers: {
-                    'Authorization': 'Basic ' + localStorage.authUser,
-                },
-                complete: function (xhr, status) {
-                    if (xhr.status == 200) {
-                        loadAllEmployees();
-                        $("#updateMesg").removeAttr("hidden", "hidden");
-                        $("#enableMesg").attr("hidden", "hidden");
-                        $("#disableMesg").attr("hidden", "hidden");
-                    } 
-                    else {
-                        alert("Fill Correctly.");
-                    }
-                }
-            });
-    }
-    var updateLoginDetails = function () {
-        $.ajax({
-            url: "https://localhost:44308/api/logins/update/employeeID/"+$("#editloginid").val(),
+            url: "https://localhost:44308/api/notices/id/"+$("#editid").val(),
             method: "PUT",
             header: "Content-Type:application/json",
             data: {
-                id: $("#editloginid").val(),
-                username: $("#editusername").val(),
-                email: $("#editemail").val(),
-                mobile: $("#editcontact").val(),
-                userDesignationID: $("#editrole").val()
+                id: $("#editid").val(),
+                subject: $("#editsubject").val(),
+                description: $("#editcontent").val(),
+                employeeID: localStorage.userId,
+                postDate: ""
             },
             headers: {
                 'Authorization': 'Basic ' + localStorage.authUser,
             },
             complete: function (xhr, status) {
                 if (xhr.status == 200) {
-                    updateEmployeeDetails();
+                    $("#updateMesg").removeAttr("hidden", "hidden");    
+                    $("#disableMesg").attr("hidden", "hidden");
+                    loadAllNotice();
                 } 
                 else {
                     alert("Fill Correctly.");
@@ -273,77 +241,47 @@ $(document).ready(function(){
         });
     }
     $("#btnupdate").on("click",function(){
-        updateLoginDetails();
+        ///Validation
+        var error = false;
+        var msg = "";
+        //Input Check
+        if($.trim($("#editsubject").val()).length <1)
+        {
+            error = true;
+            msg += "# Subject Required.\n";
+        }
+        if($.trim($("#editcontent").val()) == "")
+        {
+            error = true;
+            msg += "# Notice Content Required.\n";
+        }
+        //Error Check
+        if(!error)
+        {
+            updateNoticeDetails();
+        }
+        else
+        {
+            alert(msg);
+            loadAllNotice();
+        }
     });
 
-    //Login Access Controlling
-    var EnableEmployeeLogin = function () {
+    //DELETE
+    var DeleteNotice = function () {
         $.ajax({
-            url: "https://localhost:44308/api/logins/enable/user/"+$("#editloginid").val(),
-            method: "PUT",
+            url: "https://localhost:44308/api/notices/delete/id/"+$("#editid").val(),
+            method: "DELETE",
             header: "Content-Type:application/json",
-            data: {
-                id: $("#editloginid").val(),
-                username: $("#editusername").val(),
-                email: $("#editemail").val(),
-                mobile: $("#editcontact").val(),
-                userDesignationID: $("#editrole").val()
-            },
             headers: {
                 'Authorization': 'Basic ' + localStorage.authUser,
             },
             complete: function (xhr, status) {
-                if (xhr.status == 200) {
-                    loadAllEmployees();
-                    $("#enableMesg").removeAttr("hidden", "hidden");
-                    $("#updateMesg").attr("hidden", "hidden");
-                    $("#disableMesg").attr("hidden", "hidden");
-
-                    $("#btndeactive").removeAttr("hidden", "hidden");
-                    $("#btnactive").attr("hidden", "hidden");
-
-                    
-                } 
-                else {
-                    alert("Error Proccessing.");
-                }
-            }
-        });
-    }
-    $("#btnactive").on("click",function(){
-        EnableEmployeeLogin();
-    });
-
-    var DisbaleEmployeeLogin = function () {
-        $.ajax({
-            url: "https://localhost:44308/api/logins/disable/user/"+$("#editloginid").val(),
-            method: "PUT",
-            header: "Content-Type:application/json",
-            data: {
-                id: $("#editloginid").val(),
-                username: $("#editusername").val(),
-                email: $("#editemail").val(),
-                mobile: $("#editcontact").val(),
-                userDesignationID: $("#editrole").val()
-            },
-            headers: {
-                'Authorization': 'Basic ' + localStorage.authUser,
-            },
-            complete: function (xhr, status) {
-                if (xhr.status == 200) {
-                    loadAllEmployees();
+                if (xhr.status == 204) {
+                    $("#updateMesg").attr("hidden", "hidden");    
                     $("#disableMesg").removeAttr("hidden", "hidden");
-                    $("#updateMesg").attr("hidden", "hidden");
-                    $("#enableMesg").attr("hidden", "hidden");
-
-                    $("#btndeactive").attr("hidden", "hidden");
-                    $("#btnactive").removeAttr("hidden", "hidden");
-
-                    if($("#editloginid").val() == localStorage.userId)
-                    {
-                        alert("System Logged Out.");
-                        loadLogout();
-                    }
+                    loadAllNotice();
+                   
                 } 
                 else {
                     alert("Error Proccessing.");
@@ -352,65 +290,10 @@ $(document).ready(function(){
         });
     }
     $("#btndeactive").on("click",function(){
-        DisbaleEmployeeLogin();
-    });
-
-
-    // var Print = function (id) {
-    //     html2canvas($('#hide')[0], {
-    //         //windowWidth: 1200,
-    //         windowHeight: 1200,
-    //         onrendered: function (canvas) {
-    //             var data = canvas.toDataURL();
-    //             var docDefinition = {
-    //                 content: [{
-    //                     image: data,
-    //                     width: 500,
-    //                     windowHeight: 500
-    //                 }]
-    //             };
-    //             pdfMake.createPdf(docDefinition).print(id+".pdf");
-    //             $("#hide").attr("hidden", "hidden");
-    //         }
-    //     });
-    // }
-    
-
-    function savePDF()
-    {
-        var sTable = document.getElementById('hide').innerHTML;
-        var style = "<style>";
-        style = style + "table{width: 100%;font-family: 'Trebuchet MS', Arial, Helvetica, sans-serif;border-collapse: collapse;font-style: bold;}";
-        style = style + "table th {border: 2px solid #000000;}";
-        style = style + "table td{border: 2px solid #000000;padding: 8px;}";
-        //style = style + "table tr:nth-child(even) {background-color: #f2f2f2;}";
-        //style = style + "table tr:nth-child(odd) {background-color: #E6E6FA;}";
-        style = style + "table th {padding-top: 8px;padding-bottom: 8px;text-align: center;background-color: #000000;color: white;}";
-        style = style + "</style>";
-
-
-        // CREATE A WINDOW OBJECT.
-        var win = window.open('', '', 'height=700,width=700');
-
-        win.document.write('<html><head>');
-        win.document.write('<title>PDF</title>');   // <title> FOR PDF HEADER.
-        win.document.write(style);          // ADD STYLE INSIDE THE HEAD TAG.
-        win.document.write('</head>');
-        win.document.write('<body>');
-        win.document.write(sTable);         // THE TABLE CONTENTS INSIDE THE BODY TAG.
-        win.document.write('</body></html>');
-
-        win.document.close(); 	// CLOSE THE CURRENT WINDOW.
-
-        win.print();    // PRINT THE CONTENTS.
-
-        //$("#hide").attr("hidden", "hidden"); 
-    }
-    $("#btnprint").on("click",function(){
-        //$("#hide").removeAttr("hidden", "hidden");
-        savePDF();
-        //$("#hide").attr("hidden", "hidden"); 
-        
+        if (confirm("Are you sure, you want to delete?"))
+        {
+            DeleteNotice();
+        }  
     });
 
 });

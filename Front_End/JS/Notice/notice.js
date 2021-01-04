@@ -50,13 +50,14 @@ $(document).ready(function(){
                     {
                         for (var i = 0; i < data.length; i++) 
                         {
+							sl=i+1;
                             if(sl = 1)
 							{
 								str += "<div class='card'>"+
 										"<div class='card-header' id='heading"+data[i].id+"One"+"'>"+
 											"<h2 class='mb-0'>"+
-												"<button class='btn btn-link' data-toggle='collapse' data-target='#collapse"+data[i].id+"One"+"' aria-expanded='true' aria-controls='collapse"+data[i].id+"'>"+
-													data[i].subject+" ("+data[i].postDate+")"+
+												"<button class='btn btn-link' data-toggle='collapse' data-target='#collapse"+data[i].id+"One"+"' aria-expanded='false' aria-controls='collapse"+data[i].id+"'>"+
+													data[i].subject+" &nbsp;&nbsp;&nbsp; <span style='font-style: italic; color:#b3b3b3'>(<b>"+data[i].postDate+"</b>)</span>"+
 												"</button>"+
 											"</h2>"+
 										"</div>"+
@@ -67,7 +68,7 @@ $(document).ready(function(){
 											"</div>"+
 										"</div>"+
 									"</div><br>";
-									sl++;
+									//sl++;
 							}
 							else
 							{
@@ -75,7 +76,7 @@ $(document).ready(function(){
 										"<div class='card-header' id='heading"+data[i].id+"One"+"'>"+
 											"<h5 class='mb-0'>"+
 												"<button class='btn btn-link' data-toggle='collapse' data-target='#collapse"+data[i].id+"One"+"' aria-expanded='false' aria-controls='collapse"+data[i].id+"'>"+
-													data[i].subject+
+													data[i].subject+" &nbsp;&nbsp;&nbsp; <span style='font-style: italic; color:#b3b3b3'>(<b>"+data[i].postDate+"</b>)</span>"+
 												"</button>"+
 											"</h5>"+
 										"</div>"+
@@ -86,8 +87,9 @@ $(document).ready(function(){
 											"</div>"+
 										"</div>"+
 									"</div><br>";
-									sl++;
+									//sl++;
 							}
+							sl=i+1;
                         }
                     }
                     else
@@ -108,14 +110,27 @@ $(document).ready(function(){
 										"</div>"+
 									"</div><br>";
                     }
-
+					// alert(sl);
                     $("#accordion").append(str);
                 }
                 else 
                 {
-                    str += "<tr><td colspan='4' align='middle'>NO DATA FOUND</td></tr>";
-                    $("#emptable tbody").html(str);
-                    alert("Something Went Wrong.");
+                    str += "<div class='card'>"+
+								"<div class='card-header' id='headingOne'>"+
+									"<h5 class='mb-0'>"+
+										"<button class='btn btn-link' data-toggle='collapse' data-target='#collapseOne' aria-expanded='false' aria-controls='collapse"+data[i].id+"'>"+
+											"NO NOTICE"+
+										"</button>"+
+									"</h5>"+
+								"</div>"+
+							
+								"<div id='collapseOne' class='collapse show' aria-labelledby='headingOne' data-parent='#accordion'>"+
+									"<div class='card-body'>"+
+										"NO NOTICE"+
+									"</div>"+
+								"</div>"+
+							"</div><br>";
+					$("#accordion").append(str);
                 }
             }
         });
