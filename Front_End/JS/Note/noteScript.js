@@ -11,8 +11,11 @@ $(document).ready(function(){
 	var checked;
 
 	if (localStorage.authUser == null) {
-        window.location.href = "../Login/Authentication.html";
+
+        window.location.href = "../Login/Index.html";
     }
+
+    
 
 
 //Starts Get All users connected in chat

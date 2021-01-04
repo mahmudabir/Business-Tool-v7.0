@@ -211,7 +211,7 @@ var orderCartShow=function(){
 						
 						}
 
-						str="<tr><td><b>Total Products: "+dataCart.length+"</b><br><b>ProductNames:<br>"+productNames+"</b><br><b style='color:red;'>Total Amount: "+totalAmount+"</b><br><br><button id='checkout' class='btn btn-warning btn-sm'>Go to Checkout</button></td></tr>"
+						str="<tr><td><b>Total Products: "+dataCart.length+"</b><br><hr><b>ProductNames:<br>"+productNames+"</b><br><hr><b style='color:red;'>Total Amount: "+totalAmount+"</b><br><br><button id='checkout' class='btn btn-warning btn-sm'>Go to Checkout</button></td></tr>"
 						productNames="";
 						orderTotalAmount=totalAmount;
 						
@@ -724,6 +724,7 @@ $("#checkList").on("click","#checkout",function(){
 									$("#productList").fadeIn(1000);
 									$("#orderList").fadeIn(1000);
 									OrderclickedRow="";
+									
 									$("#checkList").hide();
 									
 								}

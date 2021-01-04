@@ -11,7 +11,7 @@
                     console.log("Logout Success");
                     localStorage.clear();
                     console.log(localStorage.user);
-                    window.location.href = "http://localhost/Business-Tool-v7.0-api/Front_End/Html/Deliveryman/Authentication.html";
+                    window.location.href = "http://localhost/Business-Tool-v7.0-api/Front_End/Html/index.html";
                 } else {
                     $("#msg").html("<div class=\"alert alert-danger\" role=\"alert\">Error : " + xmlhttp.status + ":" + xmlhttp.statusText + "</div>");
                 }
@@ -69,6 +69,9 @@
                 &nbsp;&nbsp;&nbsp;&nbsp;
                 <li class="nav-item active">
                     <a class="nav-link" href="http://localhost/Business-Tool-v7.0-api/Front_End/Html/Chat/Index.html"><i class="fas fa-envelope"></i> ChatBox</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="http://localhost/Business-Tool-v7.0-api/Front_End/Html/Deliveryman/Report.html"><i class="fas fa-chart-bar"></i> Reports</a>
                 </li>
                 &nbsp;&nbsp;&nbsp;&nbsp;
                 <li class="nav-item active dropdown">

@@ -6,9 +6,16 @@ $(document).ready(function(){
 	sendMessage();
 	});
 
-	if (localStorage.authUser == null || localStorage.userRole == 5) {
-        window.location.href = "../Login/Authentication.html";
+	if (localStorage.authUser == null) {
+
+        window.location.href = "../Login/Index.html";
     }
+
+    
+    else if(localStorage.userRole  == 5){
+    	window.location.href = "../Customer/";
+    }
+    
 
 
 
