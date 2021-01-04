@@ -102,5 +102,12 @@ namespace BTv7.Repositories
         {
             return this.context.Set<Order>().OrderBy(y => y.ID).Where(x => x.SellBy == id && x.TotalAmount <= 50000).ToList();
         }
+
+        //Manager Approve order
+        public List<Order> GetOrderByOrderStatusSaleTypeAndIsSold()
+        {
+            return this.context.Set<Order>().Where(x => x.OrderStatusID == 1 && x.IsSold==false && x.SaleTypeID==2).ToList();
+        }
+        //Manager Approve order
     }
 }
