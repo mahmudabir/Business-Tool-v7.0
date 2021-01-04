@@ -3,6 +3,7 @@ using BTv7.Models.ViewModel;
 using BTv7.Repositories;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -512,6 +513,75 @@ namespace BTv7.Controllers
 
         }
         //Product Status Notforsale
+
+
+        [Route("/typecount", Name = "GetTypeCount")]
+        [BasicAuthentication]
+        public IHttpActionResult GetTypeCount()
+        {
+            ProductRepository pr = new ProductRepository();
+            List<object> iData = new List<object>();
+
+            //Creating sample data  
+            DataTable dt = new DataTable();
+            dt.Columns.Add("Type", System.Type.GetType("System.String"));
+            dt.Columns.Add("Count", System.Type.GetType("System.Int32"));
+
+            DataRow dr = dt.NewRow();
+            dr["Type"] = "ELECTRONIC";
+            dr["Count"] = pr.GetAll().Where(x => x.ProductTypeID == 1).Count();
+            dt.Rows.Add(dr);
+
+            dr = dt.NewRow();
+            dr["Type"] = "LAPTOP";
+            dr["Count"] = pr.GetAll().Where(x => x.ProductTypeID == 2).Count();
+            dt.Rows.Add(dr);
+
+            dr = dt.NewRow();
+            dr["Type"] = "MOBILE";
+            dr["Count"] = pr.GetAll().Where(x => x.ProductTypeID == 3).Count();
+            dt.Rows.Add(dr);
+
+            dr = dt.NewRow();
+            dr["Type"] = "MEDICINE";
+            dr["Count"] = pr.GetAll().Where(x => x.ProductTypeID == 4).Count();
+            dt.Rows.Add(dr);
+
+            dr = dt.NewRow();
+            dr["Type"] = "FOOD";
+            dr["Count"] = pr.GetAll().Where(x => x.ProductTypeID == 5).Count();
+            dt.Rows.Add(dr);
+
+            dr = dt.NewRow();
+            dr["Type"] = "STATIONARY";
+            dr["Count"] = pr.GetAll().Where(x => x.ProductTypeID == 6).Count();
+            dt.Rows.Add(dr);
+
+            dr = dt.NewRow();
+            dr["Type"] = "GROCERY";
+            dr["Count"] = pr.GetAll().Where(x => x.ProductTypeID == 7).Count();
+            dt.Rows.Add(dr);
+
+            dr = dt.NewRow();
+            dr["Type"] = "VEHICLE";
+            dr["Count"] = pr.GetAll().Where(x => x.ProductTypeID == 8).Count();
+            dt.Rows.Add(dr);
+
+            dr = dt.NewRow();
+            dr["Type"] = "FURNITURE";
+            dr["Count"] = pr.GetAll().Where(x => x.ProductTypeID == 9).Count();
+            dt.Rows.Add(dr);
+
+            //Looping and extracting each DataColumn to List<Object>  
+            foreach (DataColumn dc in dt.Columns)
+            {
+                List<object> x = new List<object>();
+                x = (from DataRow drr in dt.Rows select drr[dc.ColumnName]).ToList();
+                iData.Add(x);
+            }
+            //Source data returned as JSON  
+            return Ok(iData);
+        }
 
 
 
