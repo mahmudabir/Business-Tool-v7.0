@@ -29,5 +29,10 @@ namespace BTv7.Repositories
                 int noOfEmployeeRowAffected = employee.Database.ExecuteSqlCommand("UPDATE Employees SET Name = '"+emp.Name+ "', Salary = '" + emp.Salary + "' WHERE ID = "+emp.ID+";");
             }
         }
+
+        public List<Employee> GetEmployeeByUserDesignation()
+        {
+            return this.context.Set<Employee>().Where(x => x.Login.UserDesignationID==4).ToList();
+        }
     }
 }
