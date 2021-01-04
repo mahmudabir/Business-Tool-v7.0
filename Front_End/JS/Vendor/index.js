@@ -22,7 +22,7 @@ $(document).ready(function(){
     
                         var data = xhr.responseJSON;
     
-                        localStorage.vendorID1 = data.vendors[0].id;
+                        sessionStorage.vendorID1 = data.vendors[0].id;
                     }
                     else {
                         console.log(xhr);
@@ -39,7 +39,7 @@ $(document).ready(function(){
     var loadGraph2 = function () {
         $("#msg").removeAttr("hidden");
         $.ajax({
-            url: "https://localhost:44308/api/products/productstatus/"+ localStorage.vendorID1,
+            url: "https://localhost:44308/api/products/productstatus/"+ sessionStorage.vendorID1,
             method: "GET",
             headers: {
                 'Authorization': 'Basic ' + localStorage.authUser,

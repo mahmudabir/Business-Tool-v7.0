@@ -68,7 +68,7 @@ $(document).ready(function(){
                         $("#editmobile").val(data.mobile);
                         $("#email").val(data.email);
                         $("#editemail").val(data.email);
-                        if(localStorage.userRole!=5)
+                        if(localStorage.userRole==1 || localStorage.userRole==2 || localStorage.userRole==3 || localStorage.userRole==4)
                         {
                             sessionStorage.id= data.employees[0].id;
                             sessionStorage.userDesignationID = data.employees[0].login.userDesignation.id;
@@ -77,6 +77,19 @@ $(document).ready(function(){
                             $("#editname").val(data.employees[0].name);
                             $("#joindate").val(data.employees[0].joinDate);
                             $("#editjoindate").val(data.employees[0].joinDate);
+                        }                        
+                        else if(localStorage.userRole==6)
+                        {
+                            
+                            sessionStorage.id= data.vendors[0].id;
+                            console.log(sessionStorage.id);
+                            sessionStorage.userDesignationID = data.vendors[0].login.userDesignation.id;
+                            console.log(data.vendors[0].login.userDesignation.id);
+                            $("#name").val(data.vendors[0].name);
+                            console.log(data.vendors[0].name);
+                            $("#editname").val(data.vendors[0].name);
+                            $("#joindate").val(data.vendors[0].joinDate);
+                            $("#editjoindate").val(data.vendors[0].joinDate);
                         }
                         else
                         {
@@ -146,6 +159,29 @@ $(document).ready(function(){
                     }
                 }
             });
+        }        
+        var updateVendorDetails = function () {
+            $.ajax({
+                url: "https://localhost:44308/api/vendors/update/vendordetailsID/"+sessionStorage.id,
+                method: "PUT",
+                header: "Content-Type:application/json",
+                data: {
+                    id: sessionStorage.id,
+                    name: $("#editname").val(),
+                    joinDate: $("#editjoindate").val()
+                },
+                headers: {
+                    'Authorization': 'Basic ' + localStorage.authUser,
+                },
+                complete: function (xhr, status) {
+                    if (xhr.status == 200) {
+                        loadUserInfo();
+                    } 
+                    else {
+                        alert("Something Went Wrong.");
+                    }
+                }
+            });
         }
 
     var updateLoginDetails = function () {
@@ -169,9 +205,15 @@ $(document).ready(function(){
                 complete: function (xhr, status) {
                     if (xhr.status == 200) {
                         
-                        if(localStorage.userRole!=5)
+                        if(localStorage.userRole==1 || localStorage.userRole==2 || localStorage.userRole==3 || localStorage.userRole==4)
                         {
                             updateEmployeeDetails();
+                            sessionStorage.clear();
+                            $("#msg").html("<div class=\"alert alert-success\" role=\"alert\">Succssfully Update User Info</div>");
+                        }
+                        else if(localStorage.userRole==6)
+                        {
+                            updateVendorDetails();
                             sessionStorage.clear();
                             $("#msg").html("<div class=\"alert alert-success\" role=\"alert\">Succssfully Update User Info</div>");
                         }

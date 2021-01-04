@@ -125,5 +125,29 @@ namespace BTv7.Controllers
                 return BadRequest(ModelState);
             }
         }
+
+        [Route("update/vendordetailsID/{id}", Name = "PutVendordetailsByID")]
+        [BasicAuthentication]
+        public IHttpActionResult PutVendordetailsByID([FromUri] int id, [FromBody] Vendor vendor)
+        {
+            if (ModelState.IsValid)
+            {
+                var com = vendorDB.GetVendorByID(id);
+                vendor.ID = id;
+                vendor.Image = com[0].Image;
+                vendor.AddedBy = com[0].AddedBy;
+                vendor.LoginID = com[0].LoginID;
+                vendor.JoinDate = com[0].JoinDate;
+                vendorDB.UpdateVendorDetails(vendor);
+
+                return Ok(vendor);
+            }
+            else
+            {
+                return BadRequest(ModelState);
+            }
+
+
+        }
     }
 }

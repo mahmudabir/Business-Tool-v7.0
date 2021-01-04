@@ -21,7 +21,7 @@ $(document).ready(function(){
     
                         var data = xhr.responseJSON;
     
-                        localStorage.vendorID = data.vendors[0].id;
+                        sessionStorage.vendorID = data.vendors[0].id;
                     }
                     else {
                         console.log(xhr);
@@ -38,7 +38,7 @@ $(document).ready(function(){
         //LOAD Product LIST
         var loadAllProducts = function () {
             $.ajax({
-                url: "https://localhost:44308/api/products/vendorId/"+localStorage.vendorID,
+                url: "https://localhost:44308/api/products/vendorId/"+sessionStorage.vendorID,
                 method: "GET",
                 headers: {
                     'Authorization': 'Basic ' + localStorage.authUser,

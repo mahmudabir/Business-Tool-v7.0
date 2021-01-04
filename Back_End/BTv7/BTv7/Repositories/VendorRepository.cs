@@ -24,5 +24,14 @@ namespace BTv7.Repositories
             return userFromDB.FirstOrDefault(x => x.LoginID.Equals(loginID));
         }
 
+        public void UpdateVendorDetails(Vendor vendor)
+        {
+            using (var vendorr = new BTv7DbContext())
+            {
+                vendorr.Database.ExecuteSqlCommand("UPDATE Vendors SET Name = '" + vendor.Name + "' WHERE ID = " + vendor.ID + ";");
+            }
+
+        }
+
     }
 }
