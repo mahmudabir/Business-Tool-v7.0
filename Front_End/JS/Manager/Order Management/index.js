@@ -206,7 +206,7 @@ $(document).ready(function(){
                 customerID: $("#editcustomerid").val(),
                 customerName: $("#editcustomername").val(),
                 SaleTypeID: "2",
-                isSold: "false",
+                isSold: true,
                 orderStatusID: "2",
                 sellBy:$("#editdeliveryby").val()
                 
@@ -243,7 +243,7 @@ $(document).ready(function(){
                 customerID: $("#editcustomerid").val(),
                 customerName: $("#editcustomername").val(),
                 SaleTypeID: "2",
-                isSold: "false",
+                isSold: true,
                 orderStatusID: "3"
                 // sellBy:$("#editdeliveryby").val()
                 
