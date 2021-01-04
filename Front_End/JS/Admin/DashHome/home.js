@@ -1,6 +1,5 @@
-$(document).ready(function(){
-    if (localStorage.authUser == null || localStorage.userRole!=1)
-    {
+$(document).ready(function () {
+    if (localStorage.authUser == null || localStorage.userRole != 1) {
         //localStorage.clear();
         window.location.href = "../Login/index.html";
     }
@@ -116,7 +115,7 @@ $(document).ready(function(){
                         data: {
                             labels: data[0], //['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
                             datasets: [{
-                                label: data[1],
+                                label: "Product Type",
                                 data: data[1], //[12, 19, 3, 5, 2, 3],
                                 backgroundColor: [
                                     'rgba(255, 99, 132, 0.2)',
