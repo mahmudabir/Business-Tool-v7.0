@@ -62,10 +62,10 @@ $(document).ready(function(){
                             //label: 'Product Status',
                             data: data[1], //[12, 19, 3, 5, 2, 3],
                             backgroundColor: [
-                                'rgba(54, 59, 153, 0.2)',
-                                'rgba(59, 135, 168, 0.2)',
-                                'rgba(156, 168, 45, 0.2)',
-                                'rgba(168, 86, 45, 0.2)'
+                                'rgba(255, 56, 103, 1)',
+                                'rgba(56, 179, 255, 1)',
+                                'rgba(138, 255, 247, 1)',
+                                'rgba(102, 255, 153, 1)'
                             ],
                             borderColor: [
                                 'rgba(54, 59, 153, 1)',

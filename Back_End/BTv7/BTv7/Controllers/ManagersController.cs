@@ -2,6 +2,7 @@
 using BTv7.Repositories;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -175,6 +176,48 @@ namespace BTv7.Controllers
 
 
             //Cancel Order
+        }
+
+
+        //report generate
+
+
+        [Route("orderstatus", Name = "GetOrderStatus")]
+        [BasicAuthentication]
+        public IHttpActionResult GetOrderStatus()
+        {
+
+            List<object> iData = new List<object>();
+
+            //Creating sample data  
+            DataTable dt = new DataTable();
+            dt.Columns.Add("Status", System.Type.GetType("System.String"));
+            dt.Columns.Add("Count", System.Type.GetType("System.Int32"));
+
+            DataRow dr = dt.NewRow();
+            dr["Status"] = "Unapproved";
+            dr["Count"] = orderDB.GetAll().Where(x => x.OrderStatusID==1).Count();
+            dt.Rows.Add(dr);
+
+            dr = dt.NewRow();
+            dr["Status"] = "Approved";
+            dr["Count"] = orderDB.GetAll().Where(x => x.OrderStatusID == 2).Count();
+            dt.Rows.Add(dr);
+
+            dr = dt.NewRow();
+            dr["Status"] = "Canceled";
+            dr["Count"] = orderDB.GetAll().Where(x => x.OrderStatusID == 3).Count();
+            dt.Rows.Add(dr);
+
+            //Looping and extracting each DataColumn to List<Object>  
+            foreach (DataColumn dc in dt.Columns)
+            {
+                List<object> x = new List<object>();
+                x = (from DataRow drr in dt.Rows select drr[dc.ColumnName]).ToList();
+                iData.Add(x);
+            }
+            //Source data returned as JSON  
+            return Ok(iData);
         }
     }
 }
