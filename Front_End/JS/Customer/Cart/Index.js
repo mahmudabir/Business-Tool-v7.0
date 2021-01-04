@@ -464,7 +464,7 @@ $(document).ready(function () {
                                         customerID: sessionStorage.ocustomerID,
                                         customerName: sessionStorage.ocustomerName,
                                         saleTypeID: 1,
-                                        isSold: true,
+                                        isSold: false,
                                         orderStatusID: 1,
                                         //sellBy: sessionStorage.osellBy
 
