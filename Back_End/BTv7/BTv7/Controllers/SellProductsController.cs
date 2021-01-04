@@ -84,7 +84,7 @@ namespace BTv7.Controllers
         public IHttpActionResult GetProduct(int pid)
         {
             ProductRepository prodrepo = new ProductRepository();
-            var productList = prodrepo.Get(pid);
+            var productList = prodrepo.GetAllAvailableProductsByID(pid);
 
             if (productList != null)
             {

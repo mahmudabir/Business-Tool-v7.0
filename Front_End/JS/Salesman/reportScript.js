@@ -130,7 +130,7 @@ $(document).ready(function () {
                         data: {
                             labels: data[0], //['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
                             datasets: [{
-                                label: 'Amount(BDT)',
+                                label: 'Orders(number)',
                                 data: data[1], //[12, 19, 3, 5, 2, 3],
                                 backgroundColor: [
                                     'rgba(54, 162, 235, 0.2)',
