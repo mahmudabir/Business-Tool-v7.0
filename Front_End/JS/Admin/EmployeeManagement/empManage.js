@@ -519,7 +519,7 @@ $(document).ready(function(){
         var error = false;
         var msg = "";
         //Input Check
-        if($.trim($("#editusername").val()).length <1)
+        if($.trim($("#editusername").val()).length < 4)
         {
             error = true;
             msg += "# Valid Username Required.\n";
