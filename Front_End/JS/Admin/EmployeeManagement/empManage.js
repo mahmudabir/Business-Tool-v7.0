@@ -524,12 +524,12 @@ $(document).ready(function(){
             error = true;
             msg += "# Valid Username Required.\n";
         }
-        if($.trim($("#editfullname").val()) == "")
+        if($.trim($("#editfullname").val()).length <1)
         {
             error = true;
             msg += "# Name Required.\n";
         }
-        if($.trim($("#editcontact").val()).length < 11)
+        if($.trim($("#editcontact").val()).length != 11)
         {
             error = true;
             msg += "# Valid Contact Required.\n";
