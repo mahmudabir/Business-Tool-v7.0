@@ -306,17 +306,17 @@ $(document).ready(function(){
         var error = false;
         var msg = "";
         //Input Check
-        if($.trim($("#username").val()).length <1)
+        if($.trim($("#username").val()).length <4)
         {
             error = true;
             msg += "# Valid Username Required.\n";
         }
-        if($.trim($("#fullname").val()) == "")
+        if($.trim($("#fullname").val()).length <1)
         {
             error = true;
             msg += "# Name Required.\n";
         }
-        if($.trim($("#contact").val()).length < 11)
+        if($.trim($("#contact").val()).length != 11)
         {
             error = true;
             msg += "# Valid Contact Required.\n";
