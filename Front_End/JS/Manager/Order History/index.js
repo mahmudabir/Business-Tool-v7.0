@@ -33,6 +33,7 @@ $(document).ready(function(){
                                 "<td>" + data[i].customerName + "</td>"+
                                 "<td>" + data[i].customer.login.mobile + "</td>"+
                                 "<td>"+ data[i].date +"</td>"+
+                                "<td>"+ data[i].orderStatus.status+"</td>"+
                             "</tr>";
                                 
                         }
@@ -95,6 +96,7 @@ $(document).ready(function(){
                                     "<td>" + data[i].customerName + "</td>"+
                                     "<td>" + data[i].customer.login.mobile + "</td>"+
                                     "<td>"+ data[i].date +"</td>"+
+                                    "<td>"+ data[i].orderStatus.status+"</td>"+
                                 "</tr>";
                                 
                             }
